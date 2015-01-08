@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Paylabas Merchant</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+
+    <!--English Names-->
+    <string name="nav_drawer_home_en">Home</string>
+    <string name="nav_drawer_invoice_en">Invoice Request</string>
+    <string name="nav_drawer_reports_en">Reports</string>
+    <string name="nav_drawer_notification_en">Notification</string>
+    <string name="nav_drawer_profile_en">Profile</string>
+    <string name="nav_drawer_settings_en">Settings</string>
+
+
+
+
+
+
+
+    <!--French Names-->
+    <string name="nav_drawer_home_fr">Home</string>
+    <string name="nav_drawer_invoice_fr">Invoice Request</string>
+    <string name="nav_drawer_reports_fr">Reports</string>
+    <string name="nav_drawer_notification_fr">Notification</string>
+    <string name="nav_drawer_profile_fr">Profile</string>
+    <string name="nav_drawer_settings_fr">Settings</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</resources>
