@@ -11,7 +11,12 @@
     <string name="nav_drawer_reports_en">Reports</string>
     <string name="nav_drawer_notification_en">Notification</string>
     <string name="nav_drawer_profile_en">Profile</string>
+    <string name="nav_drawer_abount_en">About Us</string>
+    <string name="nav_drawer_contact_en">Contact Us</string>
+    <string name="nav_drawer_howitworks_en">How It Works?</string>
+    <string name="nav_drawer_faq_en">FAQ</string>
     <string name="nav_drawer_settings_en">Settings</string>
+    <string name="nav_drawer_logout_en">Logout</string>
 
     <!-- French Names -->
     <string name="nav_drawer_home_fr">Home</string>
@@ -19,7 +24,11 @@
     <string name="nav_drawer_reports_fr">Reports</string>
     <string name="nav_drawer_notification_fr">Notification</string>
     <string name="nav_drawer_profile_fr">Profile</string>
+    <string name="nav_drawer_abount_fr">Profile</string>
+    <string name="nav_drawer_contact_fr">Profile</string>
+    <string name="nav_drawer_howitworks_fr">Profile</string>
+    <string name="nav_drawer_faq_fr">Profile</string>
     <string name="nav_drawer_settings_fr">Settings</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_drawer_logout_fr">Profile</string>
 
 </resources>

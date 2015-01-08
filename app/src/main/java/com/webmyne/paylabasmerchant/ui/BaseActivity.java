@@ -121,12 +121,34 @@ public abstract class BaseActivity extends ActionBarActivity implements
     // symbols for navdrawer items (indices must correspond to array below). This is
     // not a list of items that are necessarily *present* in the Nav Drawer; rather,
     // it's a list of all possible items.
+
+  /*  <string name="nav_drawer_home_en">Home</string>
+    <string name="nav_drawer_invoice_en">Invoice Request</string>
+    <string name="nav_drawer_reports_en">Reports</string>
+    <string name="nav_drawer_notification_en">Notification</string>
+    <string name="nav_drawer_profile_en">Profile</string>
+    <string name="nav_drawer_abount_en">Profile</string>
+    <string name="nav_drawer_contact_en">Profile</string>
+    <string name="nav_drawer_howitworks_en">Profile</string>
+    <string name="nav_drawer_faq_en">Profile</string>
+    <string name="nav_drawer_settings_en">Settings</string>
+    <string name="nav_drawer_logout_en">Profile</string>*/
+
+
     protected static final int NAVDRAWER_ITEM_HOME = 0;
     protected static final int NAVDRAWER_ITEM_INVOICE = 1;
     protected static final int NAVDRAWER_ITEM_REPORTS = 2;
     protected static final int NAVDRAWER_ITEM_NOTIFICATION = 3;
     protected static final int NAVDRAWER_ITEM_PROFILE = 4;
-    protected static final int NAVDRAWER_ITEM_SETTINGS = 5;
+    protected static final int NAVDRAWER_ITEM_ABOUTUS = 5;
+    protected static final int NAVDRAWER_ITEM_CONTACTUS = 6;
+    protected static final int NAVDRAWER_ITEM_HOWITWORKS = 7;
+    protected static final int NAVDRAWER_ITEM_FAQ = 8;
+    protected static final int NAVDRAWER_ITEM_SETTINGS = 9;
+    protected static final int NAVDRAWER_ITEM_LOGOUT= 10;
+
+
+
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
     protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
     protected static final int NAVDRAWER_ITEM_SEPARATOR_SPECIAL = -3;
@@ -138,7 +160,12 @@ public abstract class BaseActivity extends ActionBarActivity implements
             R.string.nav_drawer_reports_en,
             R.string.nav_drawer_notification_en,
             R.string.nav_drawer_profile_en,
+            R.string.nav_drawer_abount_en,
+            R.string.nav_drawer_contact_en,
+            R.string.nav_drawer_howitworks_en,
+            R.string.nav_drawer_faq_en,
             R.string.nav_drawer_settings_en,
+            R.string.nav_drawer_logout_en
 
     };
     // icons for navdrawer items (indices must correspond to above array)
@@ -147,6 +174,11 @@ public abstract class BaseActivity extends ActionBarActivity implements
             R.drawable.ic_drawer_explore,  // Explore
             R.drawable.ic_drawer_map, // Map
             R.drawable.ic_drawer_social, // Social
+            R.drawable.ic_drawer_video_library, // Video Library
+            R.drawable.ic_drawer_video_library, // Video Library
+            R.drawable.ic_drawer_video_library, // Video Library
+            R.drawable.ic_drawer_video_library, // Video Library
+            R.drawable.ic_drawer_video_library, // Video Library
             R.drawable.ic_drawer_video_library, // Video Library
             R.drawable.icon_setting,
 
@@ -419,7 +451,12 @@ public abstract class BaseActivity extends ActionBarActivity implements
         mNavDrawerItems.add(NAVDRAWER_ITEM_NOTIFICATION);
         mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR_SPECIAL);
         mNavDrawerItems.add(NAVDRAWER_ITEM_PROFILE);
+        mNavDrawerItems.add(NAVDRAWER_ITEM_ABOUTUS);
+        mNavDrawerItems.add(NAVDRAWER_ITEM_CONTACTUS);
+        mNavDrawerItems.add(NAVDRAWER_ITEM_HOWITWORKS);
+        mNavDrawerItems.add(NAVDRAWER_ITEM_FAQ);
         mNavDrawerItems.add(NAVDRAWER_ITEM_SETTINGS);
+        mNavDrawerItems.add(NAVDRAWER_ITEM_LOGOUT);
 
         createNavDrawerItems();
     }
