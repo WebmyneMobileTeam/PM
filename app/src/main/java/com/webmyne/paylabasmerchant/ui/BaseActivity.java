@@ -141,7 +141,6 @@ public abstract class BaseActivity extends ActionBarActivity implements
             R.string.nav_drawer_settings_en,
 
     };
-
     // icons for navdrawer items (indices must correspond to above array)
     private static final int[] NAVDRAWER_ICON_RES_ID = new int[] {
             R.drawable.ic_drawer_my_schedule,  // My Schedule
@@ -149,7 +148,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
             R.drawable.ic_drawer_map, // Map
             R.drawable.ic_drawer_social, // Social
             R.drawable.ic_drawer_video_library, // Video Library
-            R.drawable.ic_drawer_settings,
+            R.drawable.icon_setting,
 
     };
 
