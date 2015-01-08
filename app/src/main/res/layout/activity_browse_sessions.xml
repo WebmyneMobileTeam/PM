@@ -36,12 +36,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-           <!-- &lt;!&ndash; Sessions fragment showing the session grid &ndash;&gt;
-            <fragment android:name="com.google.samples.apps.iosched.ui.SessionsFragment"
+
+            <fragment android:name="com.webmyne.paylabasmerchant.ui.HomeFragment"
                 android:id="@+id/sessions_fragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:layout="@layout/fragment_sessions" />-->
+                android:layout_height="match_parent"/>
 
         </com.webmyne.paylabasmerchant.ui.widget.MultiSwipeRefreshLayout>
 

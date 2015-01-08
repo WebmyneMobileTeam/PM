@@ -164,7 +164,7 @@ public class BrowseSessionsActivity extends BaseActivity{
     @Override
     protected int getSelfNavDrawerItem() {
         // we only have a nav drawer if we are in top-level Explore mode.
-        return mMode == MODE_EXPLORE ? NAVDRAWER_ITEM_EXPLORE : NAVDRAWER_ITEM_INVALID;
+        return mMode == MODE_EXPLORE ? NAVDRAWER_ITEM_HOME : NAVDRAWER_ITEM_INVALID;
     }
 
     @Override
