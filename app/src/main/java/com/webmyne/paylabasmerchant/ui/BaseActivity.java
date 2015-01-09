@@ -226,7 +226,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PrefUtils.init(this);
+//        PrefUtils.init(this);
       /*  // Check if the EULA has been accepted; if not, show it.
         if (!PrefUtils.isTosAccepted(this)) {
             Intent intent = new Intent(this, WelcomeActivity.class);
