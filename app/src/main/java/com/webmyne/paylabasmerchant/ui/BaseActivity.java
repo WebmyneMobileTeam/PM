@@ -804,10 +804,6 @@ public abstract class BaseActivity extends ActionBarActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-
-
-
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         sp.unregisterOnSharedPreferenceChangeListener(this);
     }
