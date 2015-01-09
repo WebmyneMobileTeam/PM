@@ -66,6 +66,16 @@ public class PrefUtils  {
         sp.edit().remove("isUserVerify").commit();
     }
 
+    public static boolean isEnglishSelected(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getBoolean("isEnglishSelected", false);
+    }
+
+    public static void setEnglishSelected(final Context context, final boolean isEnglishSelected) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        sp.edit().putBoolean("isEnglishSelected", isEnglishSelected).commit();
+    }
+
     public static AffilateUser getMerchant(final Context context){
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
         return complexPreferences.getObject("current_user", AffilateUser.class);

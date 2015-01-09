@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -26,6 +25,9 @@ import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
+import com.webmyne.paylabasmerchant.util.PrefUtils;
+
+import static com.webmyne.paylabasmerchant.util.PrefUtils.isEnglishSelected;
 import static com.webmyne.paylabasmerchant.util.PrefUtils.isLoggedIn;
 import static com.webmyne.paylabasmerchant.util.PrefUtils.setLoggedIn;
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGE;
@@ -64,17 +66,13 @@ public class Login extends ActionBarActivity {
         imgFrance= (ImageView) findViewById(R.id.imgFrance);
     }
 
+
+
     @Override
     protected void onResume() {
-        super.onResume();
-        imgFrance.setColorFilter(Color.argb(128, 0, 0, 0));
-        isEnglisSelected=false;
-        if(isLoggedIn(Login.this)){
-            Intent intent =new Intent(Login.this,VerificationActivity.class);
-            startActivity(intent);
-            finish();
-        }
 
+        super.onResume();
+        setLanguage();
         etMerchantId.setText("4CF5B52A19");
         etSecretId.setText("123456");
         btnLoginNext.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +92,7 @@ public class Login extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-
+                isEnglisSelected= PrefUtils.isEnglishSelected(Login.this);
                 if(isEnglisSelected){
                     showLanguageAlert("en");
                 }
@@ -106,13 +104,43 @@ public class Login extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-
+                isEnglisSelected= PrefUtils.isEnglishSelected(Login.this);
                 if(!isEnglisSelected){
                     showLanguageAlert("fr");
                 }
 
             }
         });
+    }
+
+    private void setLanguage() {
+
+        isEnglisSelected= PrefUtils.isEnglishSelected(Login.this);
+        if(isEnglishSelected(Login.this)){
+            imgUS.setColorFilter(Color.argb(128, 0, 0, 0));
+            Configuration config = new Configuration();
+            config.locale = Locale.FRANCE;
+            getResources().updateConfiguration(config, null);
+            etMerchantId.setHint("Merchant ID France");
+            etSecretId.setHint("Password France");
+            btnLoginNext.setText("NEXT France");
+
+        } else {
+            imgFrance.setColorFilter(Color.argb(128, 0, 0, 0));
+            Configuration config = new Configuration();
+            config.locale = Locale.ENGLISH;
+            getResources().updateConfiguration(config, null);
+            etMerchantId.setHint("Merchant ID English");
+            etSecretId.setHint("Password English");
+            btnLoginNext.setText("NEXT ENGLISH");
+        }
+
+
+        if(isLoggedIn(Login.this)){
+            Intent intent =new Intent(Login.this,VerificationActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void showLanguageAlert(final String languageType){
@@ -130,11 +158,12 @@ public class Login extends ActionBarActivity {
             public void onClick(DialogInterface dialog, int which) {
                 // TODO Auto-generated method stub
                 if(languageType.equalsIgnoreCase("en")){
-                    isEnglisSelected=false;
+
+                    PrefUtils.setEnglishSelected(Login.this,false);
                     imgUS.clearColorFilter();
                     imgFrance.setColorFilter(Color.argb(128, 0, 0, 0));
                 } else {
-                    isEnglisSelected=true;
+                    PrefUtils.setEnglishSelected(Login.this,true);
                     imgFrance.clearColorFilter();
                     imgUS.setColorFilter(Color.argb(128, 0, 0, 0));
                 }
@@ -158,23 +187,30 @@ public class Login extends ActionBarActivity {
     }
 
     private void changeLanguage(String languageType){
+
         if(languageType.equalsIgnoreCase("en")){
             Log.e("eng","eng");
             Configuration config = new Configuration();
             config.locale = Locale.ENGLISH;
             getResources().updateConfiguration(config, null);
 
+            etMerchantId.setHint("Merchant ID English");
+            etSecretId.setHint("Password English");
+            btnLoginNext.setText("NEXT ENGLISH");
         } else {
             Log.e("french","french");
             Configuration config = new Configuration();
             config.locale = Locale.FRANCE;
             getResources().updateConfiguration(config, null);
-
+            etMerchantId.setHint("Merchant ID France");
+            etSecretId.setHint("Password France");
+            btnLoginNext.setText("NEXT France");
         }
 
 
 
     }
+
     public boolean isMerchantEmpty(){
 
         boolean isEmpty = false;

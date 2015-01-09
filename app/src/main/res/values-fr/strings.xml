@@ -3,14 +3,14 @@
 
 
     <!-- Login -->
-    <string name="login_hint_merchant_id">Merchant ID FRANCE</string>
-    <string name="login_hint_merchant_password">Password FRANCE</string>
-    <string name="login_next">NEXT FRANCE</string>
+    <string name="login_hint_merchant_id">Merchant ID </string>
+    <string name="login_hint_merchant_password">Password </string>
+    <string name="login_next">NEXT F</string>
 
     <!-- Verification -->
-    <string name="verify_finish_setup">FINISH SETUP FRANCE</string>
-    <string name="verify_hint_secret_id">Secret ID FRANCE</string>
-    <string name="verify_change_merchant">Change Merchant ? FRANCE</string>
-    <string name="verify_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n FRANCE</string>
+    <string name="verify_finish_setup">FINISH SETUP F</string>
+    <string name="verify_hint_secret_id">Secret ID </string>
+    <string name="verify_change_merchant">Change Merchant ? </string>
+    <string name="verify_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n </string>
 
 </resources>
