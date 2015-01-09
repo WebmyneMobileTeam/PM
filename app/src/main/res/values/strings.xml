@@ -47,7 +47,7 @@
 
     <!-- Tools -->
     <string name="tools_title">Tools</string>
-    <string name="tabstrip_item1">Currency Converter</string>
+    <string name="tabstrip_item1">Currency</string>
     <string name="tabstrip_item2">Combine GC</string>
 
 </resources>

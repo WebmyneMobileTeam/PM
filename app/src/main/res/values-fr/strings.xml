@@ -12,6 +12,6 @@
 
     <!-- Tools -->
     <string name="tools_title">Outils</string>
-    <string name="tabstrip_item1">Convertisseur de devises</string>
+    <string name="tabstrip_item1">Monnaie</string>
     <string name="tabstrip_item2">Combinez GC</string>
 </resources>
