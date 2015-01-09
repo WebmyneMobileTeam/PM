@@ -1,33 +1,33 @@
 package com.webmyne.paylabasmerchant.ui;
 
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+
 
 import com.webmyne.paylabasmerchant.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * A simple {@link android.support.v4.app.Fragment} subclass.
+ * Use the {@link CombineGCFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class CombineGCFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
     private String mParam2;
-    FrameLayout linearTools;
+
+    private LinearLayout linearCombineGiftCode;
 
 
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static CombineGCFragment newInstance(String param1, String param2) {
+        CombineGCFragment fragment = new CombineGCFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -35,14 +35,13 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
-    public HomeFragment() {
-        // Required empty public constructor
+    public CombineGCFragment() {
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -52,21 +51,25 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View convertview = inflater.inflate(R.layout.fragment_home, container, false);
-        linearTools = (FrameLayout)convertview.findViewById(R.id.linearTools);
 
-        linearTools.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in = new Intent(getActivity(), ToolsActivity.class);
-                startActivity(in);
-                getActivity().finish();
-            }
-        });
-
-        return convertview;
+        View convertView = inflater.inflate(R.layout.fragment_combine_gc, container, false);
+        init(convertView);
+        return convertView;
     }
 
-//end of main class
+    private void init(View convertView) {
+        linearCombineGiftCode = (LinearLayout)convertView.findViewById(R.id.linearCombineGiftCode);
+
+
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+
+
 }

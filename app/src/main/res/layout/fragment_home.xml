@@ -108,7 +108,7 @@
             </com.webmyne.paylabasmerchant.ui.widget.SquareLayout>
 
             <com.webmyne.paylabasmerchant.ui.widget.SquareLayout
-                android:id="@+id/linearTools"
+                android:id="@+id/linearTools1"
                 android:background="@color/color_moneytransfer_t"
                 android:layout_marginLeft="4dp"
                 android:layout_width="match_parent"
@@ -117,6 +117,7 @@
                 android:layout_weight="1">
 
                 <FrameLayout
+                    android:id="@+id/linearTools"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 

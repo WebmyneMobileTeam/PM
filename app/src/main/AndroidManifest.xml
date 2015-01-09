@@ -40,10 +40,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.widget.ToolsActivity"
+            android:name=".ui.ToolsActivity"
             android:label="@string/title_activity_tools" >
 
         </activity>
+
     </application>
 
 </manifest>

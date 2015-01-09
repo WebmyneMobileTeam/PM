@@ -1,9 +1,13 @@
-package com.webmyne.paylabasmerchant.ui.widget;
+package com.webmyne.paylabasmerchant.ui;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+
 import android.content.res.Resources;
-import android.support.v13.app.FragmentPagerAdapter;
+
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,9 +15,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.webmyne.paylabasmerchant.R;
+import com.webmyne.paylabasmerchant.ui.widget.SlidingTabLayout;
 import com.webmyne.paylabasmerchant.util.AppUtils;
 
 
@@ -36,10 +42,18 @@ public class ToolsActivity extends ActionBarActivity {
 
         /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
-            toolbar_actionbar.setTitle("Tools");
+            toolbar_actionbar.setTitle(getResources().getString(R.string.tools_title));
             toolbar_actionbar.setNavigationIcon(R.drawable.icon_back);
             setSupportActionBar(toolbar_actionbar);
+
         }
+
+        toolbar_actionbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             finish();
+            }
+        });
 
         Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -59,8 +73,10 @@ public class ToolsActivity extends ActionBarActivity {
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setCustomTabView(R.layout.tab_indicator, android.R.id.text1);
         setSlidingTabLayoutContentDescriptions();
-        mViewPagerAdapter = new ToolsPagerAdapter(getFragmentManager());
-        mViewPager.setAdapter(mViewPagerAdapter);
+
+        mViewPagerAdapter = new ToolsPagerAdapter(getSupportFragmentManager());
+
+       mViewPager.setAdapter(mViewPagerAdapter);
 
 
         Resources res = getResources();
@@ -76,23 +92,35 @@ public class ToolsActivity extends ActionBarActivity {
     }
 
     private String getTittle(int position) {
-        if (position == 0) return "Currency Converter";
-        else return "Combine GC";
+        if (position == 0) return getResources().getString(R.string.tabstrip_item1);
+        else return getResources().getString(R.string.tabstrip_item2);
     }
 
 
 private class ToolsPagerAdapter extends FragmentPagerAdapter {
+
         public ToolsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            ToolsFragment frag = new ToolsFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_CONFERENCE_DAY_INDEX, position);
-            frag.setArguments(args);
-            return frag;
+
+         if(position==0) {
+             CurrencyCoverterFragment frag = new CurrencyCoverterFragment();
+           /*  Bundle args = new Bundle();
+             args.putInt(ARG_CONFERENCE_DAY_INDEX, position);
+             frag.setArguments(args);*/
+
+             return frag;
+         }
+          else{
+               CombineGCFragment frag1 = new CombineGCFragment();
+              /* Bundle args1 = new Bundle();
+               args1.putInt(ARG_CONFERENCE_DAY_INDEX, position);
+               frag1.setArguments(args1);*/
+               return frag1;
+             }
         }
 
         @Override

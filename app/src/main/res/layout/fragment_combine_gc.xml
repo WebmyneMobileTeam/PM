@@ -1,0 +1,78 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.webmyne.paylabas.userapp.giftcode.CombineGCFragment">
+
+
+
+    <!--Bottom Linear Layout-->
+
+    <LinearLayout
+        android:id="@+id/bottomLinearCombineGC"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_weight="1"
+            android:text="COMBINE"
+            android:layout_height="48dp"
+            android:layout_width="match_parent"></Button>
+
+        <Button
+            android:layout_weight="1"
+            android:text="COMBINE"
+            android:layout_height="48dp"
+            android:layout_width="match_parent"></Button>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_above="@id/bottomLinearCombineGC"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="#000"
+                android:textSize="@dimen/normal_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GiftCode"
+                android:layout_weight="1" />
+
+
+            <TextView
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="#000"
+                android:layout_marginLeft="8dp"
+                android:textSize="@dimen/normal_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Amount"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearCombineGiftCode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

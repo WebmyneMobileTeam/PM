@@ -44,4 +44,10 @@
     <string name="verify_hint_secret_id">Secret ID </string>
     <string name="verify_change_merchant">Change Merchant ? </string>
     <string name="verify_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n</string>
+
+    <!-- Tools -->
+    <string name="tools_title">Tools</string>
+    <string name="tabstrip_item1">Currency Converter</string>
+    <string name="tabstrip_item2">Combine GC</string>
+
 </resources>
