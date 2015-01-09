@@ -1,11 +1,162 @@
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
+    android:padding="8dp">
 
-    tools:context="com.webmyne.paylabasmerchant.ui.HomeFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="Hi" />
+
+        <com.webmyne.paylabasmerchant.ui.widget.HalfHeightLayout
+            android:id="@+id/linearPayment"
+            android:background="@color/color_giftcode_t"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:contentDescription="@string/app_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/photo_banner_scrim"
+                    android:scaleType="centerInside" />
+
+
+                <com.webmyne.paylabasmerchant.ui.widget.EllipsizedTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/HomeText"
+                    android:textSize="20sp"
+                    android:clickable="false"
+                    android:layout_marginBottom="8dp"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:text="Payment" />
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_account_balance_wallet"
+                    android:scaleType="centerInside" />
+
+
+            </FrameLayout>
+
+
+
+        </com.webmyne.paylabasmerchant.ui.widget.HalfHeightLayout>
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.webmyne.paylabasmerchant.ui.widget.SquareLayout
+                android:id="@+id/linearCashInOut"
+                android:background="@color/color_mobiletopup_t"
+                android:layout_marginRight="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+
+                        android:contentDescription="@string/app_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/photo_banner_scrim"
+                        android:scaleType="centerInside" />
+
+
+                    <com.webmyne.paylabasmerchant.ui.widget.EllipsizedTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/HomeText"
+                        android:textSize="20sp"
+                        android:clickable="false"
+                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:text="Cash In/Out" />
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_action_account_balance_wallet"
+                        android:scaleType="centerInside" />
+
+                </FrameLayout>
+
+
+            </com.webmyne.paylabasmerchant.ui.widget.SquareLayout>
+
+            <com.webmyne.paylabasmerchant.ui.widget.SquareLayout
+                android:id="@+id/linearTools"
+                android:background="@color/color_moneytransfer_t"
+                android:layout_marginLeft="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+
+                        android:contentDescription="@string/app_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/photo_banner_scrim"
+                        android:scaleType="centerInside" />
+
+
+                    <com.webmyne.paylabasmerchant.ui.widget.EllipsizedTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/HomeText"
+                        android:textSize="20sp"
+                        android:clickable="false"
+                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:text="Tools" />
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_action_work"
+                        android:scaleType="centerInside" />
+
+                </FrameLayout>
+
+
+            </com.webmyne.paylabasmerchant.ui.widget.SquareLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
 </FrameLayout>
+

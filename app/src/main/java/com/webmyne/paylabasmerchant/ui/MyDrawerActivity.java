@@ -87,9 +87,13 @@ public class MyDrawerActivity extends BaseActivity{
     private long mLastDataStaleUserActionTime = 0L;
     private int mHeaderColor = 0; // 0 means not customized
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_browse_sessions);
 
