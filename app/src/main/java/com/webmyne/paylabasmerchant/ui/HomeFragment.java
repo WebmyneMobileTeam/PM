@@ -61,7 +61,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent in = new Intent(getActivity(), ToolsActivity.class);
                 startActivity(in);
-
             }
         });
 
