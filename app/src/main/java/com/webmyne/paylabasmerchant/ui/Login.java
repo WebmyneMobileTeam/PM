@@ -1,12 +1,17 @@
 package com.webmyne.paylabasmerchant.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +33,8 @@ import static com.webmyne.paylabasmerchant.util.PrefUtils.setMerchant;
 
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 
 public class Login extends ActionBarActivity {
 
@@ -36,6 +43,8 @@ public class Login extends ActionBarActivity {
     private CircleDialog circleDialog;
     private AffilateUser affilateUser;
     private boolean isLogin=false;
+    private ImageView imgUS,imgFrance;
+    private boolean isEnglisSelected=false;
 
 
     @Override
@@ -50,14 +59,16 @@ public class Login extends ActionBarActivity {
         etMerchantId= (EditText) findViewById(R.id.etMerchantId);
         etSecretId= (EditText) findViewById(R.id.etSecretId);
         btnLoginNext= (TextView) findViewById(R.id.btnLoginNext);
+        imgUS= (ImageView) findViewById(R.id.imgUS);
 
+        imgFrance= (ImageView) findViewById(R.id.imgFrance);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
+        imgFrance.setColorFilter(Color.argb(128, 0, 0, 0));
+        isEnglisSelected=false;
         if(isLoggedIn(Login.this)){
             Intent intent =new Intent(Login.this,VerificationActivity.class);
             startActivity(intent);
@@ -79,8 +90,91 @@ public class Login extends ActionBarActivity {
 
             }
         });
+        imgUS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if(isEnglisSelected){
+                    showLanguageAlert("en");
+                }
+
+            }
+        });
+
+        imgFrance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if(!isEnglisSelected){
+                    showLanguageAlert("fr");
+                }
+
+            }
+        });
     }
 
+    private void showLanguageAlert(final String languageType){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Change Language");
+        if(languageType.equalsIgnoreCase("en")){
+            alert.setMessage("Are you sure, you want to change language to english");
+        } else {
+            alert.setMessage("Are you sure, yo want to change language to french");
+        }
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                if(languageType.equalsIgnoreCase("en")){
+                    isEnglisSelected=false;
+                    imgUS.clearColorFilter();
+                    imgFrance.setColorFilter(Color.argb(128, 0, 0, 0));
+                } else {
+                    isEnglisSelected=true;
+                    imgFrance.clearColorFilter();
+                    imgUS.setColorFilter(Color.argb(128, 0, 0, 0));
+                }
+                changeLanguage(languageType);
+                dialog.dismiss();
+
+            }
+        });
+
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
+
+    }
+
+    private void changeLanguage(String languageType){
+        if(languageType.equalsIgnoreCase("en")){
+            Log.e("eng","eng");
+            Configuration config = new Configuration();
+            config.locale = Locale.ENGLISH;
+            getResources().updateConfiguration(config, null);
+
+        } else {
+            Log.e("french","french");
+            Configuration config = new Configuration();
+            config.locale = Locale.FRANCE;
+            getResources().updateConfiguration(config, null);
+
+        }
+
+
+
+    }
     public boolean isMerchantEmpty(){
 
         boolean isEmpty = false;
