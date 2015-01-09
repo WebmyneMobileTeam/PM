@@ -60,7 +60,7 @@
                 android:paddingBottom="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_hint_merchant_id"
+
                 android:background="#fff"
                 android:textSize="18sp"
                 android:gravity="left"
@@ -77,7 +77,7 @@
                 android:paddingBottom="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_hint_merchant_password"
+
                 android:background="#fff"
                 android:textSize="18sp"
                 android:gravity="left"
@@ -92,7 +92,7 @@
                 android:paddingBottom="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/login_next"
+
                 android:textColor="#fff"
                 android:background="#70ffffff"
                 android:textSize="18sp"

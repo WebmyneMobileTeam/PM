@@ -121,18 +121,18 @@ public class Login extends ActionBarActivity {
             Configuration config = new Configuration();
             config.locale = Locale.FRANCE;
             getResources().updateConfiguration(config, null);
-            etMerchantId.setHint("Merchant ID France");
-            etSecretId.setHint("Password France");
-            btnLoginNext.setText("NEXT France");
+            etMerchantId.setHint("Merchant ID");
+            etSecretId.setHint("Password");
+            btnLoginNext.setText("NEXT F");
 
         } else {
             imgFrance.setColorFilter(Color.argb(128, 0, 0, 0));
             Configuration config = new Configuration();
             config.locale = Locale.ENGLISH;
             getResources().updateConfiguration(config, null);
-            etMerchantId.setHint("Merchant ID English");
-            etSecretId.setHint("Password English");
-            btnLoginNext.setText("NEXT ENGLISH");
+            etMerchantId.setHint("Merchant ID");
+            etSecretId.setHint("Password");
+            btnLoginNext.setText("NEXT E");
         }
 
 
@@ -148,9 +148,9 @@ public class Login extends ActionBarActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Change Language");
         if(languageType.equalsIgnoreCase("en")){
-            alert.setMessage("Are you sure, you want to change language to english");
+            alert.setMessage("Are you sure, you want to change language to English");
         } else {
-            alert.setMessage("Are you sure, yo want to change language to french");
+            alert.setMessage("Are you sure, yo want to change language to French");
         }
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
@@ -194,17 +194,17 @@ public class Login extends ActionBarActivity {
             config.locale = Locale.ENGLISH;
             getResources().updateConfiguration(config, null);
 
-            etMerchantId.setHint("Merchant ID English");
-            etSecretId.setHint("Password English");
-            btnLoginNext.setText("NEXT ENGLISH");
+            etMerchantId.setHint("Merchant ID");
+            etSecretId.setHint("Password");
+            btnLoginNext.setText("NEXT E");
         } else {
             Log.e("french","french");
             Configuration config = new Configuration();
             config.locale = Locale.FRANCE;
             getResources().updateConfiguration(config, null);
-            etMerchantId.setHint("Merchant ID France");
-            etSecretId.setHint("Password France");
-            btnLoginNext.setText("NEXT France");
+            etMerchantId.setHint("Merchant ID");
+            etSecretId.setHint("Password");
+            btnLoginNext.setText("NEXT F");
         }
 
 

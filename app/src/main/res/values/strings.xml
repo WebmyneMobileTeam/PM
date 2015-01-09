@@ -36,10 +36,7 @@
 
     <string name="my_schedule_tab_desc_a11y">Tap to show your schedule .</string>
 
-    <!-- Login -->
-    <string name="login_hint_merchant_id">Merchant ID </string>
-    <string name="login_hint_merchant_password">Password </string>
-    <string name="login_next">NEXT E</string>
+
 
     <!-- Verification -->
 

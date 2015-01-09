@@ -2,10 +2,7 @@
 <resources>
 
 
-    <!-- Login -->
-    <string name="login_hint_merchant_id">Merchant ID </string>
-    <string name="login_hint_merchant_password">Password </string>
-    <string name="login_next">NEXT F</string>
+
 
     <!-- Verification -->
     <string name="verify_finish_setup">FINISH SETUP F</string>
