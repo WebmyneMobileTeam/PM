@@ -30,5 +30,9 @@
     <string name="nav_drawer_faq_fr">Profile</string>
     <string name="nav_drawer_settings_fr">Settings</string>
     <string name="nav_drawer_logout_fr">Profile</string>
+    <string name="title_activity_tools">ToolsActivity</string>
+
+
+    <string name="my_schedule_tab_desc_a11y">Tap to show your schedule .</string>
 
 </resources>

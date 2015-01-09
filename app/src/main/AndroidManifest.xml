@@ -14,37 +14,36 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.IOSched" >
-
         <activity
             android:name=".ui.Login"
             android:label="@string/app_name" >
+
+        </activity>
+        <activity
+            android:name=".ui.VerificationActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".ui.MyDrawerActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.IOSched.Sessions" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="vnd.android.cursor.dir/vnd.iosched2014.session" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.widget.ToolsActivity"
+            android:label="@string/title_activity_tools" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ui.VerificationActivity"
-            android:label="@string/app_name" >
-        </activity>
-
-        <activity
-            android:name=".ui.MyDrawerActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.IOSched.Sessions">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/vnd.iosched2014.session" />
-            </intent-filter>
-        </activity>
-
     </application>
-
-
-
-
 
 </manifest>

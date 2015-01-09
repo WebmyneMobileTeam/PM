@@ -13,14 +13,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:iosched="http://schemas.android.com/apk/res-auto"
-    iosched:theme="@style/ActionBarThemeOverlay"
-    iosched:popupTheme="@style/ActionBarPopupThemeOverlay"
-    android:id="@+id/toolbar_actionbar"
-    android:background="@color/theme_primary"
-    iosched:titleTextAppearance="@style/ActionBar.TitleText"
-    iosched:contentInsetStart="?actionBarInsetStart"
-    android:layout_width="match_parent"
-    android:layout_height="?actionBarSize" />
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/TabIndicator"
+    android:id="@android:id/text1"
+    android:background="?android:selectableItemBackground"
+    android:layout_width="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:layout_height="48dp"
+    android:gravity="center"
+    android:textColor="@color/tab_text_color"
+    android:textSize="@dimen/text_size_small"
+    android:textStyle="@integer/font_textStyle_medium"
+    android:fontFamily="@string/font_fontFamily_medium"
+    android:textAllCaps="true" />
