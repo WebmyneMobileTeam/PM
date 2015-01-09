@@ -397,11 +397,11 @@ public abstract class BaseActivity extends ActionBarActivity implements
 
         // When the user runs the app for the first time, we want to land them with the
         // navigation drawer open. But just the first time.
-        if (!PrefUtils.isWelcomeDone(this)) {
+       /* if (!PrefUtils.isWelcomeDone(this)) {
             // first run of the app starts with the nav drawer open
             PrefUtils.markWelcomeDone(this);
             mDrawerLayout.openDrawer(Gravity.START);
-        }
+        }*/
     }
 
     @Override
@@ -431,7 +431,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 
     /** Populates the navigation drawer with the appropriate items. */
     private void populateNavDrawer() {
-        boolean attendeeAtVenue = PrefUtils.isAttendeeAtVenue(this);
+      //  boolean attendeeAtVenue = PrefUtils.isAttendeeAtVenue(this);
         mNavDrawerItems.clear();
 
         mNavDrawerItems.add(NAVDRAWER_ITEM_HOME);
@@ -491,11 +491,11 @@ public abstract class BaseActivity extends ActionBarActivity implements
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(PrefUtils.PREF_ATTENDEE_AT_VENUE)) {
-            LOGD(TAG, "Attendee at venue preference changed, repopulating nav drawer and menu.");
-            populateNavDrawer();
-            invalidateOptionsMenu();
-        }
+//        if (key.equals(PrefUtils.PREF_ATTENDEE_AT_VENUE)) {
+//            LOGD(TAG, "Attendee at venue preference changed, repopulating nav drawer and menu.");
+//            populateNavDrawer();
+//            invalidateOptionsMenu();
+//        }
     }
 
     @Override

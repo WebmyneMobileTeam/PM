@@ -21,6 +21,8 @@ import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
+import static com.webmyne.paylabasmerchant.util.PrefUtils.isLoggedIn;
+import static com.webmyne.paylabasmerchant.util.PrefUtils.setLoggedIn;
 
 import org.json.JSONObject;
 
@@ -32,6 +34,8 @@ public class Login extends ActionBarActivity {
     private CircleDialog circleDialog;
     private AffilateUser affilateUser;
     private boolean isLogin=false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,14 +54,14 @@ public class Login extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        isLogin=false;
-        SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
-        isLogin=preferences.getBoolean("isUserLogin",false);
-        if(isLogin==true){
+
+
+        if(isLoggedIn(Login.this)){
             Intent intent =new Intent(Login.this,VerificationActivity.class);
             startActivity(intent);
             finish();
         }
+
         etMerchantId.setText("4CF5B52A19");
         etSecretId.setText("123456");
         btnLoginNext.setOnClickListener(new View.OnClickListener() {
@@ -131,11 +135,7 @@ public class Login extends ActionBarActivity {
                     complexPreferences.commit();
 
                     // set login true
-
-                    SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean("isUserLogin",true);
-                    editor.commit();
+                    setLoggedIn(Login.this,true);
 
                     Intent intent =new Intent(Login.this,VerificationActivity.class);
                     startActivity(intent);

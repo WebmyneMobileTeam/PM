@@ -83,6 +83,7 @@
             android:layout_marginTop="?actionBarSize">
             <include layout="@layout/include_butter_bar" />
         </FrameLayout>
+
 </com.webmyne.paylabasmerchant.ui.widget.DrawShadowFrameLayout>
 
     <!-- Nav drawer -->
