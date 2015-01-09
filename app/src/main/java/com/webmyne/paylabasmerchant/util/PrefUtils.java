@@ -22,6 +22,8 @@ import android.preference.PreferenceManager;
 
 
 import com.webmyne.paylabasmerchant.Config;
+import com.webmyne.paylabasmerchant.model.AffilateUser;
+import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
 
 import java.util.TimeZone;
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGD;
@@ -34,7 +36,6 @@ public class PrefUtils  {
 
     private static final String TAG = makeLogTag("PrefUtils");
 
-
     public static boolean isLoggedIn(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getBoolean("isLogin", false);
@@ -45,22 +46,35 @@ public class PrefUtils  {
         sp.edit().putBoolean("isLogin", isLoggedIn).commit();
     }
 
-
-    public static void init(final Context context) {
-
-    }
-
-
-
-
-    public static void registerOnSharedPreferenceChangeListener(final Context context,
-            SharedPreferences.OnSharedPreferenceChangeListener listener) {
+    public static void clearLogin(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.registerOnSharedPreferenceChangeListener(listener);
+        sp.edit().remove("isLogin").commit();
     }
 
-    public static void unregisterOnSharedPreferenceChangeListener(final Context context,SharedPreferences.OnSharedPreferenceChangeListener listener) {
+    public static boolean isVerified(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.unregisterOnSharedPreferenceChangeListener(listener);
+        return sp.getBoolean("isUserVerify", false);
     }
+
+    public static void setVerified(final Context context, final boolean isVerified) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        sp.edit().putBoolean("isUserVerify", isVerified).commit();
+    }
+
+    public static void clearVerify(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        sp.edit().remove("isUserVerify").commit();
+    }
+
+    public static AffilateUser getMerchant(final Context context){
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
+        return complexPreferences.getObject("current_user", AffilateUser.class);
+    }
+
+    public static void setMerchant(final Context context, final AffilateUser affilateUser) {
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
+        complexPreferences.putObject("current_user", affilateUser);
+        complexPreferences.commit();
+    }
+
 }

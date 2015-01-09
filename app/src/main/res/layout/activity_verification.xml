@@ -72,7 +72,6 @@
                 android:gravity="center"
                 android:padding="8dp" />
 
-
         </LinearLayout>
 
 
@@ -88,6 +87,6 @@
             android:textSize="@dimen/normal_text"
             android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:text="Change Merchant ID ?"
+            android:text="Change Merchant ?"
             />
 </RelativeLayout>

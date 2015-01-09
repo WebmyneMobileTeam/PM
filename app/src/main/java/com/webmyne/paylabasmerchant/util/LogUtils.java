@@ -87,11 +87,15 @@ public class LogUtils {
     }
 
     public static void LOGE(final String tag, String message) {
-        Log.e(tag, message);
+        if (BuildConfig.DEBUG && Log.isLoggable(tag, Log.VERBOSE)) {
+            Log.e(tag, message);
+        }
     }
 
     public static void LOGE(final String tag, String message, Throwable cause) {
-        Log.e(tag, message, cause);
+
+            Log.e(tag, message, cause);
+
     }
 
     private LogUtils() {

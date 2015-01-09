@@ -23,6 +23,8 @@ import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
 import static com.webmyne.paylabasmerchant.util.PrefUtils.isLoggedIn;
 import static com.webmyne.paylabasmerchant.util.PrefUtils.setLoggedIn;
+import static com.webmyne.paylabasmerchant.util.LogUtils.LOGE;
+import static com.webmyne.paylabasmerchant.util.PrefUtils.setMerchant;
 
 import org.json.JSONObject;
 
@@ -126,16 +128,14 @@ public class Login extends ActionBarActivity {
             @Override
             public void onResponse(JSONObject jobj) {
                 circleDialog.dismiss();
-                Log.e("response: ",jobj.toString()+"");
+                LOGE("response: ", jobj.toString() + "");
                 affilateUser = new GsonBuilder().create().fromJson(jobj.toString(), AffilateUser.class);
                 if(affilateUser.ResponseCode.equalsIgnoreCase("1")){
                     //store current user and domain in shared preferences
-                    ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(Login.this, "user_pref", 0);
-                    complexPreferences.putObject("current_user", affilateUser);
-                    complexPreferences.commit();
+                    setMerchant(Login.this,affilateUser);
 
                     // set login true
-                    setLoggedIn(Login.this,true);
+                    setLoggedIn(Login.this, true);
 
                     Intent intent =new Intent(Login.this,VerificationActivity.class);
                     startActivity(intent);
@@ -143,12 +143,7 @@ public class Login extends ActionBarActivity {
 
                     } else {
 
-
-//                    SnackBar bar = new SnackBar(Login.this, "Network Error\n" +
-//                            "Please try again");
-//                    bar.show();
-                    Toast.makeText(Login.this,"Network Error\n" +
-                            "Please try again",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this,"Network Error\n" +"Please try again",Toast.LENGTH_SHORT).show();
                     }
             }
         }, new Response.ErrorListener() {

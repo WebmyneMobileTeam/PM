@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
+import com.webmyne.paylabasmerchant.util.LogUtils;
+import com.webmyne.paylabasmerchant.util.PrefUtils;
 
 
 public class VerificationActivity extends ActionBarActivity {
@@ -33,26 +35,16 @@ public class VerificationActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if(isVerificationEmpty()){
-//                    SnackBar bar = new SnackBar(VerificationActivity.this,"Please enter verification code");
-//                    bar.show();
                     Toast.makeText(VerificationActivity.this, "Please enter verification code", Toast.LENGTH_SHORT).show();
                 } else {
-
-
-
                     if(affilateUser.VerificationCode.toString().equalsIgnoreCase(etVerificationCode.getText().toString().trim())) {
 
-                        SharedPreferences preferences = getSharedPreferences("verify", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putBoolean("isUserVerify",true);
-                        editor.commit();
+                        PrefUtils.setVerified(VerificationActivity.this, true);
 
                         Intent intent =new Intent(VerificationActivity.this,MyDrawerActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
-//                        SnackBar bar = new SnackBar(VerificationActivity.this,"Please enter valid verification code");
-//                        bar.show();
                         Toast.makeText(VerificationActivity.this, "Please enter valid verification code", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -63,10 +55,10 @@ public class VerificationActivity extends ActionBarActivity {
         btnNewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
-                preferences.edit().remove("isUserLogin").commit();
-                SharedPreferences preferences_verify = getSharedPreferences("verify", MODE_PRIVATE);
-                preferences_verify.edit().remove("isUserVerify").commit();
+
+                PrefUtils.clearLogin(VerificationActivity.this);
+                PrefUtils.clearVerify(VerificationActivity.this);
+
                 Intent in = new Intent(VerificationActivity.this, Login.class);
                 startActivity(in);
                 finish();
@@ -77,13 +69,9 @@ public class VerificationActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(VerificationActivity.this, "user_pref", 0);
-        affilateUser = complexPreferences.getObject("current_user",AffilateUser.class);
+        affilateUser = PrefUtils.getMerchant(VerificationActivity.this);
         etVerificationCode.setText(affilateUser.VerificationCode.toString().trim());
-
-        isVerify=false;
-        SharedPreferences preferences_value = getSharedPreferences("verify", MODE_PRIVATE);
-        isVerify=preferences_value.getBoolean("isUserVerify",false);
+        isVerify=PrefUtils.isVerified(VerificationActivity.this);
         if(isVerify){
             Intent intent =new Intent(VerificationActivity.this,MyDrawerActivity.class);
             startActivity(intent);

@@ -2,19 +2,16 @@ package com.webmyne.paylabasmerchant.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by Android on 07-01-2015.
  */
 public class AffilateUser {
 
-    @SerializedName("AllowCashIN")
-    public boolean AllowCashIN;
-    @SerializedName("AllowCashOut")
-    public boolean AllowCashOut;
-    @SerializedName("AllowGC")
-    public boolean AllowGC;
-    @SerializedName("AllowMobileTopUp")
-    public boolean AllowMobileTopUp;
+    @SerializedName("AffiliateServices")
+    public ArrayList<AffilateServices> affilateServicesArrayList =new ArrayList<AffilateServices>();
+
     @SerializedName("CashOutPointName")
     public String CashOutPointName;
     @SerializedName("CityID")
