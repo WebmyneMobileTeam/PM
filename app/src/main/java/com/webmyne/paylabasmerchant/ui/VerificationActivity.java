@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tuenti.smsradar.Sms;
+import com.tuenti.smsradar.SmsListener;
+import com.tuenti.smsradar.SmsRadar;
 import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
@@ -77,12 +81,44 @@ public class VerificationActivity extends ActionBarActivity {
             startActivity(intent);
             finish();
         }
+
+        SmsRadar.initializeSmsRadarService(VerificationActivity.this, new SmsListener() {
+            @Override
+            public void onSmsSent(Sms sms) {
+
+//                Toast.makeText(VerificationActivity.this,sms.getAddress()+"\n"+sms.getMsg()+"\n"+sms.getDate()+"\n"+sms.getType(), Toast.LENGTH_SHORT).show();
+//                Log.e("sms",sms.getAddress()+"\n"+sms.getMsg()+"\n"+sms.getDate()+"\n"+sms.getType()+"");
+                LogUtils.LOGE("sms",sms.getAddress()+"\n"+sms.getMsg()+"\n"+sms.getDate()+"\n"+sms.getType()+"");
+            }
+
+            @Override
+            public void onSmsReceived(Sms sms) {
+//                Toast.makeText(VerificationActivity.this, sms.getAddress()+"\n"+sms.getMsg()+"\n"+sms.getDate()+"\n"+sms.getType(), Toast.LENGTH_SHORT).show();
+//                Log.e("sms",sms.getAddress()+"\n"+sms.getMsg()+"\n"+sms.getDate()+"\n"+sms.getType()+"");
+                LogUtils.LOGE("sms",sms.getAddress()+"\n"+sms.getMsg()+"\n"+sms.getDate()+"\n"+sms.getType()+"");
+                if(sms.getMsg().toString().contains(affilateUser.VerificationCode.toString())){
+                    etVerificationCode.setText(affilateUser.VerificationCode.toString().trim());
+                    PrefUtils.setVerified(VerificationActivity.this, true);
+                    Intent intent =new Intent(VerificationActivity.this,MyDrawerActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+
         overridePendingTransition(R.anim.entry,R.anim.exit);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SmsRadar.stopSmsRadarService(VerificationActivity.this);
     }
 
     public boolean isVerificationEmpty(){

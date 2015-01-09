@@ -259,6 +259,7 @@ public class Login extends ActionBarActivity {
             public void onResponse(JSONObject jobj) {
                 circleDialog.dismiss();
                 LOGE("response: ", jobj.toString() + "");
+//                Log.e("response: ", jobj.toString() + "");
                 affilateUser = new GsonBuilder().create().fromJson(jobj.toString(), AffilateUser.class);
                 if(affilateUser.ResponseCode.equalsIgnoreCase("1")){
                     //store current user and domain in shared preferences
