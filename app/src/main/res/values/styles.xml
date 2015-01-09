@@ -253,7 +253,16 @@
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
-    <!-- Login stuff -->
+
+
+    <style name="HomeText">
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textStyle">bold</item>
+        <!--<item name="android:fontFamily">sans-serif-light</item>-->
+    </style>
+
 
     <style name="LoginHelpText">
         <item name="android:textSize">@dimen/text_size_medium</item>

@@ -168,7 +168,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
             R.drawable.ic_drawer_explore,  // Explore
             R.drawable.ic_reports, // Map
             R.drawable.ic_drawer_social, // Social
-            R.drawable.ic_drawer_video_library, // Video Library
+            R.drawable.icon_editprofile2, // Video Library
             R.drawable.icon_contactus, // Video Library
             R.drawable.icon_setting, // Video Library
             R.drawable.icon_logout,
