@@ -78,7 +78,6 @@ public class ToolsActivity extends ActionBarActivity {
 
        mViewPager.setAdapter(mViewPagerAdapter);
 
-
         Resources res = getResources();
         mSlidingTabLayout.setSelectedIndicatorColors(res.getColor(R.color.tab_selected_strip));
         mSlidingTabLayout.setDistributeEvenly(true);
