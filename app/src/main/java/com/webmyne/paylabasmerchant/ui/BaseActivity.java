@@ -140,12 +140,9 @@ public abstract class BaseActivity extends ActionBarActivity implements
     protected static final int NAVDRAWER_ITEM_REPORTS = 2;
     protected static final int NAVDRAWER_ITEM_NOTIFICATION = 3;
     protected static final int NAVDRAWER_ITEM_PROFILE = 4;
-    protected static final int NAVDRAWER_ITEM_ABOUTUS = 5;
-    protected static final int NAVDRAWER_ITEM_CONTACTUS = 6;
-    protected static final int NAVDRAWER_ITEM_HOWITWORKS = 7;
-    protected static final int NAVDRAWER_ITEM_FAQ = 8;
-    protected static final int NAVDRAWER_ITEM_SETTINGS = 9;
-    protected static final int NAVDRAWER_ITEM_LOGOUT= 10;
+    protected static final int NAVDRAWER_ITEM_CONTACTUS = 5;
+    protected static final int NAVDRAWER_ITEM_SETTINGS = 6;
+    protected static final int NAVDRAWER_ITEM_LOGOUT= 7;
 
 
 
@@ -160,28 +157,21 @@ public abstract class BaseActivity extends ActionBarActivity implements
             R.string.nav_drawer_reports_en,
             R.string.nav_drawer_notification_en,
             R.string.nav_drawer_profile_en,
-            R.string.nav_drawer_abount_en,
             R.string.nav_drawer_contact_en,
-            R.string.nav_drawer_howitworks_en,
-            R.string.nav_drawer_faq_en,
             R.string.nav_drawer_settings_en,
             R.string.nav_drawer_logout_en
 
     };
     // icons for navdrawer items (indices must correspond to above array)
     private static final int[] NAVDRAWER_ICON_RES_ID = new int[] {
-            R.drawable.ic_drawer_my_schedule,  // My Schedule
+            R.drawable.icon_home,  // My Schedule
             R.drawable.ic_drawer_explore,  // Explore
-            R.drawable.ic_drawer_map, // Map
+            R.drawable.ic_reports, // Map
             R.drawable.ic_drawer_social, // Social
             R.drawable.ic_drawer_video_library, // Video Library
-            R.drawable.ic_drawer_video_library, // Video Library
-            R.drawable.ic_drawer_video_library, // Video Library
-            R.drawable.ic_drawer_video_library, // Video Library
-            R.drawable.ic_drawer_video_library, // Video Library
-            R.drawable.ic_drawer_video_library, // Video Library
-            R.drawable.icon_setting,
-
+            R.drawable.icon_contactus, // Video Library
+            R.drawable.icon_setting, // Video Library
+            R.drawable.icon_logout,
     };
 
     // delay to launch nav drawer item, to allow close animation to play
@@ -445,17 +435,15 @@ public abstract class BaseActivity extends ActionBarActivity implements
         mNavDrawerItems.clear();
 
         mNavDrawerItems.add(NAVDRAWER_ITEM_HOME);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR_SPECIAL);
+        mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
         mNavDrawerItems.add(NAVDRAWER_ITEM_INVOICE);
         mNavDrawerItems.add(NAVDRAWER_ITEM_REPORTS);
         mNavDrawerItems.add(NAVDRAWER_ITEM_NOTIFICATION);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR_SPECIAL);
+        mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
         mNavDrawerItems.add(NAVDRAWER_ITEM_PROFILE);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_ABOUTUS);
         mNavDrawerItems.add(NAVDRAWER_ITEM_CONTACTUS);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_HOWITWORKS);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_FAQ);
         mNavDrawerItems.add(NAVDRAWER_ITEM_SETTINGS);
+        mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
         mNavDrawerItems.add(NAVDRAWER_ITEM_LOGOUT);
 
         createNavDrawerItems();
@@ -526,10 +514,6 @@ public abstract class BaseActivity extends ActionBarActivity implements
             LOGW(TAG, "No view with ID main_content to fade in.");
         }
     }
-
-
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
