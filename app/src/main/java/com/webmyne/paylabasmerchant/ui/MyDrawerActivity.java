@@ -51,8 +51,8 @@ import static com.webmyne.paylabasmerchant.util.LogUtils.LOGE;
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGW;
 import static com.webmyne.paylabasmerchant.util.LogUtils.makeLogTag;
 
-public class BrowseSessionsActivity extends BaseActivity{
-    private static final String TAG = makeLogTag(BrowseSessionsActivity.class);
+public class MyDrawerActivity extends BaseActivity{
+    private static final String TAG = makeLogTag(MyDrawerActivity.class);
 
     // How is this Activity being used?
     private static final int MODE_EXPLORE = 0; // as top-level "Explore" screen

@@ -11,9 +11,6 @@
         android:src="@drawable/demo"
         android:scaleType="centerCrop" />
 
-
-
-
     <RelativeLayout
         android:padding="16dp"
         android:background="#cc000000"
@@ -28,26 +25,23 @@
             android:orientation="vertical">
 
 
+            <TextView
 
-
-            <EditText
-                android:id="@+id/etMerchantId"
-                android:layout_marginTop="16dp"
-               android:paddingLeft="16dp"
+                android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Merchant ID"
-                android:background="#fff"
+                android:text="We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n"
                 android:textSize="18sp"
-                android:gravity="left"
-                android:textColor="#000"
+                android:gravity="center"
+                android:textColor="#fff"
                 android:padding="8dp" />
 
             <EditText
-                android:id="@+id/etSecretId"
+                android:id="@+id/etVerificationCode"
                 android:textColor="#000"
                 android:layout_marginTop="4dp"
                 android:paddingLeft="16dp"
@@ -63,7 +57,7 @@
                 android:padding="8dp" />
 
             <TextView
-                android:id="@+id/btnLoginNext"
+                android:id="@+id/btnFinishSetup"
                 android:layout_marginTop="16dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
@@ -71,12 +65,12 @@
                 android:paddingBottom="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NEXT"
+                android:text="FINISH SETUP"
                 android:textColor="#fff"
                 android:background="#70ffffff"
                 android:textSize="18sp"
                 android:gravity="center"
-                 />
+                android:padding="8dp" />
 
 
         </LinearLayout>
@@ -84,14 +78,16 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/footer_logo"
-        android:scaleType="centerInside" />
-
-
+        <TextView
+            android:id="@+id/btnNewLogin"
+            android:padding="@dimen/activity_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/normal_text"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:text="Change Merchant ID ?"
+            />
 </RelativeLayout>

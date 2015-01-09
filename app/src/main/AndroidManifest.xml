@@ -9,12 +9,14 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
+        android:name=".ui.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.IOSched" >
+
         <activity
-            android:name=".LauncherActivity"
+            android:name=".ui.Login"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +24,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".ui.BrowseSessionsActivity"
+            android:name=".ui.VerificationActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity
+            android:name=".ui.MyDrawerActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.IOSched.Sessions">
             <intent-filter>
