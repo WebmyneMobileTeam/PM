@@ -54,20 +54,6 @@
     <string name="verification_code_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n</string>
     <string name="hint_verification_code">Verification Code</string>
 
-    <string-array name="payment_types">
-        <item>Payment via</item>
-        <item>Paylabas Wallet</item>
-        <item>Gift Code</item>
-        <item>Cash</item>
-    </string-array>
-
-    <string-array name="service_type">
-        <item>Select Service</item>
-        <item>Mobile Topup</item>
-        <item>Money Transfer</item>
-        <item>Generate GC</item>
-        <item>Others</item>
-    </string-array>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="payment_service_type">Service Type</string>
@@ -77,5 +63,8 @@
 
     <string name="menu_cashinout">CashIn/Out</string>
     <string name="menu_tools">Tools</string>
+
+
+    <!-- validation -->
 
 </resources>

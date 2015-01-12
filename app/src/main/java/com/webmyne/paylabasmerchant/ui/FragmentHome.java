@@ -3,12 +3,8 @@ package com.webmyne.paylabasmerchant.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,8 +37,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGE;
-import static com.webmyne.paylabasmerchant.util.PrefUtils.setLoggedIn;
-import static com.webmyne.paylabasmerchant.util.PrefUtils.setMerchant;
 
 
 public class FragmentHome extends Fragment {
@@ -64,8 +58,9 @@ public class FragmentHome extends Fragment {
     private CircleDialog circleDialog;
     private PaymentStep1 paymentStep1;
     private AffilateUser affilateUser;
-    private EditText etMobileNumber,etAmount;
+    private EditText etMobileNumber,etAmount,etGiftCode;
     private String paymentType;
+    private int paymentTypePosition,serviceTypePosition;
 
     public static FragmentHome newInstance(String param1, String param2) {
         FragmentHome fragment = new FragmentHome();
@@ -125,22 +120,49 @@ public class FragmentHome extends Fragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isMobileNumberEmpty()){
+                    Toast.makeText(getActivity(), "Please Enter Mobile Number", Toast.LENGTH_SHORT).show();
+                } else if(paymentTypePosition==0){
+                    Toast.makeText(getActivity(), "Please Select Payment Type", Toast.LENGTH_SHORT).show();
+                } else if(paymentTypePosition==2 && isGiftCodeEmpty()){
+                    Toast.makeText(getActivity(), "Please Enter Gift Code", Toast.LENGTH_SHORT).show();
+                } else if(serviceTypePosition==0){
+                    Toast.makeText(getActivity(), "Please Select Service Type", Toast.LENGTH_SHORT).show();
+                }else if(isAmountEmpty()) {
+                    Toast.makeText(getActivity(), "Please Enter Amount", Toast.LENGTH_SHORT).show();
+                } else {
+                    postPaymentRequest();
+                }
+
                 //TODO validation
 
-                postPaymentRequest();
+
             }
         });
 
         spPaymentType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-             if(position==2){
+                if(position==2){
                     gcLayout.setVisibility(View.VISIBLE);
                 } else {
                     gcLayout.setVisibility(View.GONE);
                 }
                 paymentType=paymentTypeList.get(position);
+                paymentTypePosition=position;
             }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spServiceType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                serviceTypePosition=position;
+            }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -153,10 +175,12 @@ public class FragmentHome extends Fragment {
     private void initView(View convertview) {
         spPaymentType=(Spinner)convertview.findViewById(R.id.spPaymentType);
         gcLayout=(LinearLayout)convertview.findViewById(R.id.gcLayout);
+
         btnNext=(TextView)convertview.findViewById(R.id.btnNext);
         spServiceType=(Spinner)convertview.findViewById(R.id.spServiceType);
         etMobileNumber= (EditText)convertview.findViewById(R.id.etMobileNumber);
         etAmount= (EditText)convertview.findViewById(R.id.etAmount);
+        etGiftCode= (EditText)convertview.findViewById(R.id.etGiftCode);
     }
 
 
@@ -173,83 +197,83 @@ public class FragmentHome extends Fragment {
 
     private void postPaymentRequest() {
 
-            circleDialog = new CircleDialog(getActivity(), 0);
-            circleDialog.setCancelable(true);
-            circleDialog.show();
+        circleDialog = new CircleDialog(getActivity(), 0);
+        circleDialog.setCancelable(true);
+        circleDialog.show();
 
-            JSONObject requestObject = new JSONObject();
-            try {
-                requestObject.put("AffiliateID","");
-                requestObject.put("Amount", etAmount.getText().toString().trim()+"");
-                requestObject.put("GCAmount","");
-//                if(paymentType.equalsIgnoreCase(AppConstants.gc)){
-//                    requestObject.put("GiftCode", et); //add if gift code select
-//                } else {
-//                    requestObject.put("GiftCode", ""); //add if gift code select
-//                }
-
-                requestObject.put("IsGCUsed", "");
-                requestObject.put("IsLowBalance","");
-                requestObject.put("LemonwayBal", "");
-                if(paymentType.equalsIgnoreCase(AppConstants.gc)){
-                    requestObject.put("PaymentVia","GC"); //GC or Wallet
-                } else if(paymentType.equalsIgnoreCase(AppConstants.wallet)) {
-                    requestObject.put("PaymentVia","Wallet");
-                } else {
-                    requestObject.put("PaymentVia","");
-                }
-                requestObject.put("ResponseCode", "");
-                requestObject.put("ResponseMsg", "");
-
-                requestObject.put("ServiceUse","");
-                requestObject.put("UserCountryCode","");
-                requestObject.put("UserID","");
-                requestObject.put("UserMobileNo", etMobileNumber.getText().toString().trim()+"");
-                requestObject.put("VerificationCode", "");
-            } catch (Exception e){
-                e.printStackTrace();
+        JSONObject requestObject = new JSONObject();
+        try {
+            requestObject.put("AffiliateID","");
+            requestObject.put("Amount", etAmount.getText().toString().trim()+"");
+            requestObject.put("GCAmount","");
+            if(paymentType.equalsIgnoreCase(AppConstants.gc)){
+                requestObject.put("GiftCode", etGiftCode.getText().toString()); //add if gift code select
+            } else {
+                requestObject.put("GiftCode", ""); //add if gift code select
             }
-            Log.e("object request",requestObject.toString()+"");
-//            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.PAYMENT_STEP_1, requestObject, new Response.Listener<JSONObject>() {
-//
-//                @Override
-//                public void onResponse(JSONObject jobj) {
-//                    circleDialog.dismiss();
-//                    LOGE("response: ", jobj.toString() + "");
-//                    Log.e("response: ", jobj.toString() + "");
-//                    paymentStep1 = new GsonBuilder().create().fromJson(jobj.toString(), PaymentStep1.class);
-//                    if(paymentStep1.ResponseCode.equalsIgnoreCase("1")){
-//
-//                       showVerificationAlert();
-//
-//                    } else {
-//
-//                        Toast.makeText(getActivity(), "Network Error\n" + "Please try again", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//            }, new Response.ErrorListener() {
-//
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//
-//                    circleDialog.dismiss();
-//
-//
-//
-//                }
-//            });
-//
-//            req.setRetryPolicy(new DefaultRetryPolicy(0,0,0));
-//
-//            MyApplication.getInstance().addToRequestQueue(req);
+            requestObject.put("IsGCUsed", "");
+            requestObject.put("IsLowBalance","");
+            requestObject.put("LemonwayBal", "");
+            if(paymentType.equalsIgnoreCase(AppConstants.gc)){
+                requestObject.put("PaymentVia","GC"); //GC or Wallet
+            } else if(paymentType.equalsIgnoreCase(AppConstants.wallet)) {
+                requestObject.put("PaymentVia","Wallet");
+            } else {
+                requestObject.put("PaymentVia","");
+            }
+            requestObject.put("ResponseCode", "");
+            requestObject.put("ResponseMsg", "");
+            requestObject.put("ServiceUse","");
+            requestObject.put("UserCountryCode","91");
+            requestObject.put("UserID","");
+            requestObject.put("UserMobileNo", etMobileNumber.getText().toString().trim()+"");
+            requestObject.put("VerificationCode", "");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        Log.e("object request",requestObject.toString()+"");
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.PAYMENT_STEP_1, requestObject, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject jobj) {
+                    circleDialog.dismiss();
+                    LOGE("response: ", jobj.toString() + "");
+                    Log.e("response: ", jobj.toString() + "");
+                    paymentStep1 = new GsonBuilder().create().fromJson(jobj.toString(), PaymentStep1.class);
+                    if(paymentStep1.ResponseCode.equalsIgnoreCase("1")){
+
+                        if(!paymentType.equalsIgnoreCase(AppConstants.cash)) {
+                            showVerificationAlert();
+                        }else {
+                            //TODO Direct redirect to next screen
+                        }
+
+                    } else {
+
+                        Toast.makeText(getActivity(), "Network Error\n" + "Please try again", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    circleDialog.dismiss();
+
+
+
+                }
+            });
+
+            req.setRetryPolicy(new DefaultRetryPolicy(0,0,0));
+
+            MyApplication.getInstance().addToRequestQueue(req);
 
 
     }
 
     private void showVerificationAlert() {
-
-
 
         LayoutInflater li = LayoutInflater.from(getActivity());
         View promptsView = li.inflate(R.layout.custom_alert_dialog, null);
@@ -262,14 +286,9 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-            dialog.dismiss();
+                dialog.dismiss();
 
-//                FragmentManager manager = getActivity().getSupportFragmentManager();
-//                FragmentTransaction ft = manager.beginTransaction();
-//                ft.setCustomAnimations(R.anim.entry, R.anim.exit,R.anim.entry, R.anim.exit);
-//                ft.replace(R.id.payment_fragment, new FragmentPaymentServiceSelection(), "paymenent_services");
-//                ft.addToBackStack("");
-//                ft.commit();
+                // TODO goto next screen
             }
         });
 
@@ -278,12 +297,41 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-            dialog.dismiss();
+                dialog.dismiss();
             }
         });
 
         alert.show();
     }
 
+    public boolean isMobileNumberEmpty(){
+
+        boolean isEmpty = false;
+
+        if(etMobileNumber.getText() == null || etMobileNumber.getText().toString().equalsIgnoreCase("")){
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
+
+    public boolean isGiftCodeEmpty(){
+
+        boolean isEmpty = false;
+
+        if(etGiftCode.getText() == null || etGiftCode.getText().toString().equalsIgnoreCase("")){
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
+
+    public boolean isAmountEmpty(){
+
+        boolean isEmpty = false;
+
+        if(etAmount.getText() == null || etAmount.getText().toString().equalsIgnoreCase("")){
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
 //end of main class
 }
