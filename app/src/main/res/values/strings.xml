@@ -67,4 +67,13 @@
 
     <!-- validation -->
 
+
+    <!-- PaymentStep1 response messages-->
+    <string name="PaymentStep1_2">Error While Sending Verification Code</string>
+    <string name="PaymentStep1_m2">Invalid User</string>
+    <string name="PaymentStep1_m3">Error In While Getting Balance</string>
+    <string name="PaymentStep1_m4">Low Balance</string>
+    <string name="PaymentStep1_m5">GC is Used</string>
+    <string name="validation_empty_verification_code">Please Enter Valid Verification Code</string>
+
 </resources>

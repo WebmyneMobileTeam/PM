@@ -16,7 +16,7 @@
     <EditText
         android:hint="@string/hint_verification_code"
         android:textSize="@dimen/normal_text"
-        android:id="@+id/editTextDialogUserInput"
+        android:id="@+id/etVerificationCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 

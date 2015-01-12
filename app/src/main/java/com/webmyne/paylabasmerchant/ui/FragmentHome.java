@@ -133,10 +133,6 @@ public class FragmentHome extends Fragment {
                 } else {
                     postPaymentRequest();
                 }
-
-                //TODO validation
-
-
             }
         });
 
@@ -203,31 +199,20 @@ public class FragmentHome extends Fragment {
 
         JSONObject requestObject = new JSONObject();
         try {
-            requestObject.put("AffiliateID","");
+            requestObject.put("AffiliateID",affilateUser.MerchantID+"");
             requestObject.put("Amount", etAmount.getText().toString().trim()+"");
-            requestObject.put("GCAmount","");
             if(paymentType.equalsIgnoreCase(AppConstants.gc)){
                 requestObject.put("GiftCode", etGiftCode.getText().toString()); //add if gift code select
-            } else {
-                requestObject.put("GiftCode", ""); //add if gift code select
             }
-            requestObject.put("IsGCUsed", "");
-            requestObject.put("IsLowBalance","");
-            requestObject.put("LemonwayBal", "");
             if(paymentType.equalsIgnoreCase(AppConstants.gc)){
                 requestObject.put("PaymentVia","GC"); //GC or Wallet
             } else if(paymentType.equalsIgnoreCase(AppConstants.wallet)) {
                 requestObject.put("PaymentVia","Wallet");
             } else {
-                requestObject.put("PaymentVia","");
+                requestObject.put("PaymentVia","Cash");
             }
-            requestObject.put("ResponseCode", "");
-            requestObject.put("ResponseMsg", "");
-            requestObject.put("ServiceUse","");
             requestObject.put("UserCountryCode","91");
-            requestObject.put("UserID","");
             requestObject.put("UserMobileNo", etMobileNumber.getText().toString().trim()+"");
-            requestObject.put("VerificationCode", "");
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -245,13 +230,27 @@ public class FragmentHome extends Fragment {
                         if(!paymentType.equalsIgnoreCase(AppConstants.cash)) {
                             showVerificationAlert();
                         }else {
+
                             //TODO Direct redirect to next screen
+
                         }
 
-                    } else {
+                    } else if(paymentStep1.ResponseCode.equalsIgnoreCase("2")){
 
-                        Toast.makeText(getActivity(), "Network Error\n" + "Please try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_2), Toast.LENGTH_SHORT).show();
+                    }   else if(paymentStep1.ResponseCode.equalsIgnoreCase("-2")){
+
+                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m2), Toast.LENGTH_SHORT).show();
+                    } else if(paymentStep1.ResponseCode.equalsIgnoreCase("-3")){
+
+                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m3), Toast.LENGTH_SHORT).show();
+                    } else if(paymentStep1.ResponseCode.equalsIgnoreCase("-4")){
+
+                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m5), Toast.LENGTH_SHORT).show();
                     }
+
                 }
 
             }, new Response.ErrorListener() {
@@ -277,7 +276,8 @@ public class FragmentHome extends Fragment {
 
         LayoutInflater li = LayoutInflater.from(getActivity());
         View promptsView = li.inflate(R.layout.custom_alert_dialog, null);
-
+       final  EditText etVerificationCode=(EditText)promptsView.findViewById(R.id.etVerificationCode);
+        etVerificationCode.setText(paymentStep1.VerificationCode+"");
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setView(promptsView);
 
@@ -286,9 +286,15 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                dialog.dismiss();
+                if(paymentStep1.VerificationCode.equalsIgnoreCase(etVerificationCode.getText().toString().trim())){
+                    // TODO goto next screen
 
-                // TODO goto next screen
+                    dialog.dismiss();
+                } else{
+                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_verification_code), Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
