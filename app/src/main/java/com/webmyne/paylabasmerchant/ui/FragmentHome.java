@@ -116,7 +116,6 @@ public class FragmentHome extends Fragment {
         View convertview = inflater.inflate(R.layout.fragment_home, container, false);
 
         initView(convertview);
-
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
