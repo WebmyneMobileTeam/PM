@@ -69,6 +69,13 @@ public class AppConstants {
     //Password IY6kn$
 
     public static final String AFFILATE_LOGIN=BASE_URL+"Affiliate.svc/json/AffiliateLogin";
+
+
+    //MERCHANT SERVICES
+    public static final String creditOnWallet="Credit Own Wallet";
+    public static final String generateNewGiftCode="Generate New Gift Code";
+    public static final String mobileTopup="Mobile Top Up";
+
 }
 
 

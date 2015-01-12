@@ -54,7 +54,7 @@
     <string name="hint_verification_code">Verification Code</string>
 
     <string-array name="payment_types">
-        <item>Paylabas Account</item>
+        <item>Paylabas Wallet</item>
         <item>Gift Code</item>
         <item>Cash</item>
     </string-array>

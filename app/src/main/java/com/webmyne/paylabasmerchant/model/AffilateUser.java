@@ -47,10 +47,43 @@ public class AffilateUser {
     @SerializedName("VerificationCode")
     public String VerificationCode;
 
-    public boolean isGiftCodeServiceAvailable(){
+    //Mobile Topup Service
+    public boolean isMobiletopupServiceAvailable(){
+        boolean available=false;
+        for(AffilateServices affilateServices: affilateServicesArrayList){
 
+            if(affilateServices.ServiceName.equalsIgnoreCase(AppConstants.mobileTopup) && affilateServices.IsActive==true){
+                available=true;
+                return  available;
+            }
+        }
+        return  available;
+    }
 
-        return false;
+   // Generate new gift code service
+   public boolean isGenerateNewGcServiceAvailable(){
+       boolean available=false;
+       for(AffilateServices affilateServices: affilateServicesArrayList){
+
+           if(affilateServices.ServiceName.equalsIgnoreCase(AppConstants.generateNewGiftCode) && affilateServices.IsActive==true){
+               available=true;
+               return  available;
+           }
+       }
+       return  available;
+   }
+
+    //credit On Wallet service
+    public boolean isCreditOnWalletServiceAvailable(){
+        boolean available=false;
+        for(AffilateServices affilateServices: affilateServicesArrayList){
+
+            if(affilateServices.ServiceName.equalsIgnoreCase(AppConstants.creditOnWallet) && affilateServices.IsActive==true){
+                available=true;
+                return  available;
+            }
+        }
+        return  available;
     }
 
 
