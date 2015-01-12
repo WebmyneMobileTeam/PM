@@ -24,7 +24,6 @@ public class FragmentPaymentServiceSelection extends Fragment {
 
     public static FragmentPaymentServiceSelection newInstance(String param1, String param2) {
         FragmentPaymentServiceSelection fragment = new FragmentPaymentServiceSelection();
-
         return fragment;
     }
 
