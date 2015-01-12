@@ -111,7 +111,7 @@ public class FragmentHome extends Fragment {
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = manager.beginTransaction();
                 ft.setCustomAnimations(R.anim.entry, R.anim.exit,R.anim.entry, R.anim.exit);
-                ft.replace(R.id.payment_fragment, new PaymentServicesFragment(), "paymenent_services");
+                ft.replace(R.id.payment_fragment, new FragmentPaymentServiceSelection(), "paymenent_services");
                 ft.addToBackStack("");
                 ft.commit();
             }

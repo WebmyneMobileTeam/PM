@@ -1,7 +1,5 @@
 package com.webmyne.paylabasmerchant.ui;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -13,25 +11,24 @@ import android.widget.Spinner;
 
 import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateServices;
-import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 
 import java.util.ArrayList;
 
-public class PaymentServicesFragment extends Fragment {
+public class FragmentPaymentServiceSelection extends Fragment {
 
     private Spinner spServiceType;
     private ArrayAdapter<String> serviceTypeAdapter;
     private ArrayList<AffilateServices> affilateServicesArrayList;
     private ArrayList<String> affilateServiceNames;
 
-    public static PaymentServicesFragment newInstance(String param1, String param2) {
-        PaymentServicesFragment fragment = new PaymentServicesFragment();
+    public static FragmentPaymentServiceSelection newInstance(String param1, String param2) {
+        FragmentPaymentServiceSelection fragment = new FragmentPaymentServiceSelection();
 
         return fragment;
     }
 
-    public PaymentServicesFragment() {
+    public FragmentPaymentServiceSelection() {
         // Required empty public constructor
     }
 
@@ -49,17 +46,12 @@ public class PaymentServicesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View convertView= inflater.inflate(R.layout.fragment_payment_services, container, false);
         spServiceType=(Spinner)convertView.findViewById(R.id.spServiceType);
-
-
-        serviceTypeAdapter=new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, affilateServiceNames);
+        serviceTypeAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, affilateServiceNames);
         spServiceType.setAdapter(serviceTypeAdapter);
         return convertView;
     }
-
 }
