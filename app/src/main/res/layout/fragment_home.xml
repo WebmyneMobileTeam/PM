@@ -9,7 +9,7 @@
      >
 
     <LinearLayout
-        android:layout_above="@+id/btnNext"
+        android:layout_above="@+id/linearBottom"
         android:layout_alignParentTop="true"
         android:padding="@dimen/activity_margin"
         android:layout_width="match_parent"
@@ -18,6 +18,8 @@
 
 
         <LinearLayout
+            android:padding="16dp"
+            android:background="@drawable/ed_rounded"
             android:gravity="center"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
@@ -29,6 +31,7 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
+                android:background="@null"
                 android:layout_marginLeft="4dp"
                 android:fontFamily="sans-serif-condensed"
                 android:singleLine="true"
@@ -45,19 +48,14 @@
         </LinearLayout>
 
     <LinearLayout
+        android:padding="16dp"
+        android:background="@drawable/ed_rounded"
         android:gravity="center"
         android:orientation="vertical"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:textSize="@dimen/normal_text"
-            android:layout_width="match_parent"
-            android:textColor="@android:color/black"
-
-            android:text="@string/payment_type_header"
-            android:layout_height="wrap_content" />
         <Spinner
             android:spinnerMode="dropdown"
             android:id="@+id/spPaymentType"
@@ -65,7 +63,6 @@
             android:layout_height="wrap_content"
             android:entries="@array/payment_types"
             >
-
             </Spinner>
         </LinearLayout>
 
@@ -99,29 +96,25 @@
         </LinearLayout>
 
         <LinearLayout
+            android:background="@drawable/ed_rounded"
+            android:padding="16dp"
             android:gravity="center"
             android:orientation="vertical"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:textSize="@dimen/normal_text"
-                android:layout_width="match_parent"
-                android:textColor="@android:color/black"
-
-                android:text="@string/payment_service_type"
-                android:layout_height="wrap_content" />
             <Spinner
                 android:spinnerMode="dropdown"
                 android:id="@+id/spServiceType"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
             </Spinner>
         </LinearLayout>
 
         <LinearLayout
+            android:background="@drawable/ed_rounded"
+            android:padding="16dp"
             android:gravity="center"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
@@ -133,7 +126,9 @@
                 android:text="@string/euro_symbol"
                 android:layout_height="wrap_content"/>
 
+
             <EditText
+                android:background="@null"
                 android:layout_marginLeft="4dp"
                 android:fontFamily="sans-serif-condensed"
                 android:singleLine="true"
@@ -152,17 +147,48 @@
 
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/linearBottom"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
         android:layout_gravity="bottom"
-        android:text="@string/payment_next"
-        android:textColor="@android:color/white"
-        android:padding="10dp"
-        android:id="@+id/btnNext"
-        android:background="@drawable/button_selector"
-        android:textSize="@dimen/normal_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/payment_reset"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:id="@+id/btnReset"
+            android:background="@drawable/button_selector"
+            android:textSize="@dimen/normal_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/btnNext"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:text="@string/payment_next"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:textSize="@dimen/normal_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+    </LinearLayout>
+
+
+
+
+
 </RelativeLayout>
 

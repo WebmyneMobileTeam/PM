@@ -49,17 +49,20 @@
     <string name="payment_hint_mobile">Mobile</string>
     <string name="payment_hint_gc">Gift Code</string>
     <string name="payment_next">NEXT</string>
+    <string name="payment_reset">RESET</string>
     <string name="payment_type_header">Payment Type</string>
     <string name="verification_code_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n</string>
     <string name="hint_verification_code">Verification Code</string>
 
     <string-array name="payment_types">
+        <item>Payment via</item>
         <item>Paylabas Wallet</item>
         <item>Gift Code</item>
         <item>Cash</item>
     </string-array>
 
     <string-array name="service_type">
+        <item>Select Service</item>
         <item>Mobile Topup</item>
         <item>Money Transfer</item>
         <item>Generate GC</item>
