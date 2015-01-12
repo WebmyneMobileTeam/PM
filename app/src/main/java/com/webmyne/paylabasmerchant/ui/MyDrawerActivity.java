@@ -21,6 +21,8 @@ import android.graphics.Paint;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -101,6 +103,11 @@ public class MyDrawerActivity extends BaseActivity{
         toolbar.setTitle("Merchant");
 
         overridePendingTransition(0, 0);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.setCustomAnimations(R.anim.entry, R.anim.exit,R.anim.entry, R.anim.exit);
+        ft.replace(R.id.payment_fragment, new HomeFragment(), "payment_home");
+        ft.commit();
 
         if (savedInstanceState != null) {
             mFilterTagsToRestore[0] = mFilterTags[0] = savedInstanceState.getString(STATE_FILTER_0);

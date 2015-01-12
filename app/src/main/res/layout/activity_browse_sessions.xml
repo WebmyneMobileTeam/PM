@@ -54,12 +54,20 @@
 
             <include layout="@layout/toolbar_actionbar" /> <!-- placeholder, empty except on L -->
 
-         <fragment android:name="com.webmyne.paylabasmerchant.ui.HomeFragment"
-                android:id="@+id/sessions_fragment"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:background="@android:color/white"
+                android:id="@+id/payment_fragment"
+                android:layout_height="match_parent">
 
 
+         <!--<fragment android:name="com.webmyne.paylabasmerchant.ui.HomeFragment"-->
+
+                <!--android:id="@+id/sessions_fragment"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"/>-->
+
+            </FrameLayout>
         </LinearLayout>
 
         <!-- Butter bar -->

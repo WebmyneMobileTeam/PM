@@ -15,6 +15,9 @@
   -->
 <resources>
 
+    <color name="paylabas_btn_active">#ff00384a</color>
+    <color name="paylabas_btn_passive">#086381</color>
+
     <color name="color_giftcode_t">#ED7D31</color>
     <color name="color_sendmoney_t">#5B9BD5</color>
     <color name="color_moneytransfer_t">#67A93B</color>
@@ -90,4 +93,6 @@
     <color name="tab_selected_strip">@color/theme_accent_1</color>
 
     <color name="my_schedule_conflict">#db4437</color>
+
+
 </resources>
