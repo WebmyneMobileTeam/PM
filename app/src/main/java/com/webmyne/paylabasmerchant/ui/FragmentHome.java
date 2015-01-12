@@ -12,12 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.webmyne.paylabasmerchant.R;
+import com.webmyne.paylabasmerchant.model.AffilateServices;
+import com.webmyne.paylabasmerchant.util.PrefUtils;
+
+import java.util.ArrayList;
 
 
 public class FragmentHome extends Fragment {
@@ -30,7 +35,10 @@ public class FragmentHome extends Fragment {
     private String mParam1;
     private String mParam2;
     FrameLayout linearTools;
-
+    private Spinner spServiceType;
+    private ArrayAdapter<String> serviceTypeAdapter;
+    private ArrayList<AffilateServices> affilateServicesArrayList;
+    private ArrayList<String> affilateServiceNames;
 
     public static FragmentHome newInstance(String param1, String param2) {
         FragmentHome fragment = new FragmentHome();
@@ -53,6 +61,14 @@ public class FragmentHome extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        affilateServicesArrayList=new ArrayList<AffilateServices>();
+        affilateServicesArrayList= PrefUtils.getMerchant(getActivity()).affilateServicesArrayList;
+        affilateServiceNames=new ArrayList<String>();
+        for(AffilateServices affilateServices: affilateServicesArrayList){
+            if(affilateServices.IsActive==true){
+                affilateServiceNames.add(affilateServices.ServiceName.toString().trim());
+            }
+        }
     }
 
     @Override
@@ -66,11 +82,15 @@ public class FragmentHome extends Fragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 showVerificationAlert();
             }
 
 
         });
+        spServiceType=(Spinner)convertview.findViewById(R.id.spServiceType);
+        serviceTypeAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, affilateServiceNames);
+        spServiceType.setAdapter(serviceTypeAdapter);
         spPaymentType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -108,12 +128,12 @@ public class FragmentHome extends Fragment {
 
             dialog.dismiss();
 
-                FragmentManager manager = getActivity().getSupportFragmentManager();
-                FragmentTransaction ft = manager.beginTransaction();
-                ft.setCustomAnimations(R.anim.entry, R.anim.exit,R.anim.entry, R.anim.exit);
-                ft.replace(R.id.payment_fragment, new FragmentPaymentServiceSelection(), "paymenent_services");
-                ft.addToBackStack("");
-                ft.commit();
+//                FragmentManager manager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction ft = manager.beginTransaction();
+//                ft.setCustomAnimations(R.anim.entry, R.anim.exit,R.anim.entry, R.anim.exit);
+//                ft.replace(R.id.payment_fragment, new FragmentPaymentServiceSelection(), "paymenent_services");
+//                ft.addToBackStack("");
+//                ft.commit();
             }
         });
 
