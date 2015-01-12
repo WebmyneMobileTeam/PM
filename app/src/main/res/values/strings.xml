@@ -66,7 +66,12 @@
 
 
     <!-- validation -->
-
+    <string name="validation_empty_verification_code">Please Enter Valid Verification Code</string>
+    <string name="validation_empty_mobile_number">Please Enter Mobile Number</string>
+    <string name="validation_empty_payment_type_selection">Please Select Payment Type</string>
+    <string name="validation_empty_gift_code">Please Enter Gift Code</string>
+    <string name="validation_empty_service_type">Please Select Service Type</string>
+    <string name="validation_empty_amount">Please Enter Amount</string>
 
     <!-- PaymentStep1 response messages-->
     <string name="PaymentStep1_2">Error While Sending Verification Code</string>
@@ -74,6 +79,6 @@
     <string name="PaymentStep1_m3">Error In While Getting Balance</string>
     <string name="PaymentStep1_m4">Low Balance</string>
     <string name="PaymentStep1_m5">GC is Used</string>
-    <string name="validation_empty_verification_code">Please Enter Valid Verification Code</string>
+
 
 </resources>
