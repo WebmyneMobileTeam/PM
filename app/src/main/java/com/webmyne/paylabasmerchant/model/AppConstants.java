@@ -71,10 +71,15 @@ public class AppConstants {
     public static final String AFFILATE_LOGIN=BASE_URL+"Affiliate.svc/json/AffiliateLogin";
 
 
-    //MERCHANT SERVICES
+    //MERCHANT PAYMENT SERVICES
     public static final String creditOnWallet="Credit Own Wallet";
     public static final String generateNewGiftCode="Generate New Gift Code";
     public static final String mobileTopup="Mobile Top Up";
+
+    //MERCHANT PAYMENT TYPES
+    public static final String wallet="Paylabas Wallet";
+    public static final String gc="Gift Code";
+    public static final String cash="Cash";
 
 
     //Payment
