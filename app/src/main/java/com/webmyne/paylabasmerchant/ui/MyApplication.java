@@ -2,11 +2,13 @@ package com.webmyne.paylabasmerchant.ui;
 
 import android.app.Application;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
+import com.webmyne.paylabasmerchant.util.DatabaseWrapper;
 
 /**
  * Application class that called once when application is installed for the first time on device.
@@ -40,16 +42,17 @@ public class MyApplication extends Application {
         // initialize the singleton
         sInstance = this;
 
-      /*  CustomTypeface.getInstance().registerTypeface("rbold", getAssets(), "RBold.ttf");
+       /* CustomTypeface.getInstance().registerTypeface("rbold", getAssets(), "RBold.ttf");
         CustomTypeface.getInstance().registerTypeface("rnormal", getAssets(), "RRegular.ttf");
         CustomTypeface.getInstance().registerTypeface("rlight", getAssets(), "RLight.ttf");
 */
-//        db_wrapper = new DatabaseWrapper(this.getApplicationContext());
-//        try {
-//            db_wrapper.createDataBase();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        DatabaseWrapper db_wrapper = new DatabaseWrapper(this.getApplicationContext());
+       try {
+           db_wrapper.createDataBase();
+           Log.e("database", "databse copy done");
+       } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
