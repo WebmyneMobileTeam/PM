@@ -12,10 +12,10 @@ import com.webmyne.paylabasmerchant.R;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
- * Use the {@link CombineGCFragment#newInstance} factory method to
+ * Use the {@link FragmentCombineGC#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CombineGCFragment extends Fragment {
+public class FragmentCombineGC extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -26,8 +26,8 @@ public class CombineGCFragment extends Fragment {
     private LinearLayout linearCombineGiftCode;
 
 
-    public static CombineGCFragment newInstance(String param1, String param2) {
-        CombineGCFragment fragment = new CombineGCFragment();
+    public static FragmentCombineGC newInstance(String param1, String param2) {
+        FragmentCombineGC fragment = new FragmentCombineGC();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -35,7 +35,7 @@ public class CombineGCFragment extends Fragment {
         return fragment;
     }
 
-    public CombineGCFragment() {
+    public FragmentCombineGC() {
 
     }
 

@@ -1,7 +1,5 @@
 package com.webmyne.paylabasmerchant.ui;
 
-import android.support.v4.app.FragmentTransaction;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
@@ -13,8 +11,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -106,7 +102,7 @@ private class ToolsPagerAdapter extends FragmentPagerAdapter {
         public Fragment getItem(int position) {
 
          if(position==0) {
-             CurrencyCoverterFragment frag = new CurrencyCoverterFragment();
+             FragmentCurrencyCoverter frag = new FragmentCurrencyCoverter();
            /*  Bundle args = new Bundle();
              args.putInt(ARG_CONFERENCE_DAY_INDEX, position);
              frag.setArguments(args);*/
@@ -114,7 +110,7 @@ private class ToolsPagerAdapter extends FragmentPagerAdapter {
              return frag;
          }
           else{
-               CombineGCFragment frag1 = new CombineGCFragment();
+               FragmentCombineGC frag1 = new FragmentCombineGC();
               /* Bundle args1 = new Bundle();
                args1.putInt(ARG_CONFERENCE_DAY_INDEX, position);
                frag1.setArguments(args1);*/

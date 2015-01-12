@@ -47,5 +47,11 @@ public class AffilateUser {
     @SerializedName("VerificationCode")
     public String VerificationCode;
 
+    public boolean isGiftCodeServiceAvailable(){
+
+
+        return false;
+    }
+
 
 }

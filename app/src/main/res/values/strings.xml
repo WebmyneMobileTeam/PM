@@ -72,4 +72,7 @@
     <string name="payment_finish">PAY NOW</string>
     <string name="euro_symbol">€</string>
 
+    <string name="menu_cashinout">CashIn/Out</string>
+    <string name="menu_tools">Tools</string>
+
 </resources>

@@ -1,10 +1,8 @@
 package com.webmyne.paylabasmerchant.ui;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,7 +13,6 @@ import com.tuenti.smsradar.SmsListener;
 import com.tuenti.smsradar.SmsRadar;
 import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
-import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
 import com.webmyne.paylabasmerchant.util.LogUtils;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 
@@ -63,7 +60,7 @@ public class VerificationActivity extends ActionBarActivity {
                 PrefUtils.clearLogin(VerificationActivity.this);
                 PrefUtils.clearVerify(VerificationActivity.this);
 
-                Intent in = new Intent(VerificationActivity.this, Login.class);
+                Intent in = new Intent(VerificationActivity.this, LoginActivity.class);
                 startActivity(in);
                 finish();
             }

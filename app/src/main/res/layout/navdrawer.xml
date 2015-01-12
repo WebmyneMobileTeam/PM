@@ -38,7 +38,7 @@
             <ImageView android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/mobiletopup"
+                android:src="@drawable/bg_drawer"
                 android:tint="@color/session_photo_scrim"
                 android:id="@+id/profile_cover_image" />
 
@@ -71,6 +71,7 @@
                     android:src="@drawable/ic_drawer_accounts_expand" />
 
                 <TextView
+                    android:gravity="center"
                     android:id="@+id/profile_email_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -79,7 +80,7 @@
                     android:layout_alignParentBottom="true"
                     android:paddingBottom="16dp"
                     android:textSize="@dimen/text_size_medium"
-                    android:textColor="@color/body_text_2_inverse"
+                    android:textColor="#fff"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:ellipsize="end" />
@@ -98,6 +99,16 @@
                     android:ellipsize="end" />
 
             </RelativeLayout>
+
+            <ImageView
+
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/footer_logo"
+                android:scaleType="centerInside" />
+
 
         </FrameLayout>
 

@@ -3,7 +3,6 @@ package com.webmyne.paylabasmerchant.ui;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
-import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 
 import static com.webmyne.paylabasmerchant.util.PrefUtils.isEnglishSelected;
@@ -38,7 +36,7 @@ import org.json.JSONObject;
 import java.util.Locale;
 
 
-public class Login extends ActionBarActivity {
+public class LoginActivity extends ActionBarActivity {
 
     private TextView btnLoginNext;
     private EditText etMerchantId,etSecretId;
@@ -81,7 +79,7 @@ public class Login extends ActionBarActivity {
                 if(isMerchantEmpty() || isSecretIdEmpty()){
 //                    SnackBar bar = new SnackBar(Login.this,"Please enter merchant id and secret id");
 //                    bar.show();
-                    Toast.makeText(Login.this,"Please enter merchant id and Password",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"Please enter merchant id and Password",Toast.LENGTH_SHORT).show();
                 } else {
                     checkMerchentLogin();
                 }
@@ -92,7 +90,7 @@ public class Login extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                isEnglisSelected= PrefUtils.isEnglishSelected(Login.this);
+                isEnglisSelected= PrefUtils.isEnglishSelected(LoginActivity.this);
                 if(isEnglisSelected){
                     showLanguageAlert("en");
                 }
@@ -104,7 +102,7 @@ public class Login extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                isEnglisSelected= PrefUtils.isEnglishSelected(Login.this);
+                isEnglisSelected= PrefUtils.isEnglishSelected(LoginActivity.this);
                 if(!isEnglisSelected){
                     showLanguageAlert("fr");
                 }
@@ -115,8 +113,8 @@ public class Login extends ActionBarActivity {
 
     private void setLanguage() {
 
-        isEnglisSelected= PrefUtils.isEnglishSelected(Login.this);
-        if(isEnglishSelected(Login.this)){
+        isEnglisSelected= PrefUtils.isEnglishSelected(LoginActivity.this);
+        if(isEnglishSelected(LoginActivity.this)){
             imgUS.setColorFilter(Color.argb(128, 0, 0, 0));
             Configuration config = new Configuration();
             config.locale = Locale.FRANCE;
@@ -136,8 +134,8 @@ public class Login extends ActionBarActivity {
         }
 
 
-        if(isLoggedIn(Login.this)){
-            Intent intent =new Intent(Login.this,VerificationActivity.class);
+        if(isLoggedIn(LoginActivity.this)){
+            Intent intent =new Intent(LoginActivity.this,VerificationActivity.class);
             startActivity(intent);
             finish();
         }
@@ -159,11 +157,11 @@ public class Login extends ActionBarActivity {
                 // TODO Auto-generated method stub
                 if(languageType.equalsIgnoreCase("en")){
 
-                    PrefUtils.setEnglishSelected(Login.this,false);
+                    PrefUtils.setEnglishSelected(LoginActivity.this,false);
                     imgUS.clearColorFilter();
                     imgFrance.setColorFilter(Color.argb(128, 0, 0, 0));
                 } else {
-                    PrefUtils.setEnglishSelected(Login.this,true);
+                    PrefUtils.setEnglishSelected(LoginActivity.this,true);
                     imgFrance.clearColorFilter();
                     imgUS.setColorFilter(Color.argb(128, 0, 0, 0));
                 }
@@ -241,7 +239,7 @@ public class Login extends ActionBarActivity {
 
     private void checkMerchentLogin() {
 
-        circleDialog = new CircleDialog(Login.this, 0);
+        circleDialog = new CircleDialog(LoginActivity.this, 0);
         circleDialog.setCancelable(true);
         circleDialog.show();
 
@@ -263,18 +261,18 @@ public class Login extends ActionBarActivity {
                 affilateUser = new GsonBuilder().create().fromJson(jobj.toString(), AffilateUser.class);
                 if(affilateUser.ResponseCode.equalsIgnoreCase("1")){
                     //store current user and domain in shared preferences
-                    setMerchant(Login.this,affilateUser);
+                    setMerchant(LoginActivity.this,affilateUser);
 
                     // set login true
-                    setLoggedIn(Login.this, true);
+                    setLoggedIn(LoginActivity.this, true);
 
-                    Intent intent =new Intent(Login.this,VerificationActivity.class);
+                    Intent intent =new Intent(LoginActivity.this,VerificationActivity.class);
                     startActivity(intent);
                     finish();
 
                     } else {
 
-                    Toast.makeText(Login.this,"Network Error\n" +"Please try again",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"Network Error\n" +"Please try again",Toast.LENGTH_SHORT).show();
                     }
             }
         }, new Response.ErrorListener() {

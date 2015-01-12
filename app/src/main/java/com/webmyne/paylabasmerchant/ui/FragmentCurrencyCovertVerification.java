@@ -1,7 +1,6 @@
 package com.webmyne.paylabasmerchant.ui;
 
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +9,14 @@ import android.view.ViewGroup;
 import com.webmyne.paylabasmerchant.R;
 
 
-public class CurrencyCoverterFragment extends Fragment {
+public class FragmentCurrencyCovertVerification extends Fragment {
 
-
-    public static CurrencyCoverterFragment newInstance(String param1, String param2) {
-        CurrencyCoverterFragment fragment = new CurrencyCoverterFragment();
-
+    public static FragmentCurrencyCovertVerification newInstance(String param1, String param2) {
+        FragmentCurrencyCovertVerification fragment = new FragmentCurrencyCovertVerification();
         return fragment;
     }
 
-    public CurrencyCoverterFragment() {
+    public FragmentCurrencyCovertVerification() {
         // Required empty public constructor
     }
 
@@ -33,13 +30,7 @@ public class CurrencyCoverterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View convertView= inflater.inflate(R.layout.fragment_currency_coverter, container, false);
-
-        return convertView;
-
-
+        return inflater.inflate(R.layout.fragment_currency_covert_verification, container, false);
     }
-
-
 
 }

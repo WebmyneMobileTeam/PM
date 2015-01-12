@@ -16,38 +16,17 @@
 
 package com.webmyne.paylabasmerchant.ui;
 
-import android.content.Intent;
-import android.graphics.Paint;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 
-import com.webmyne.paylabasmerchant.Config;
 import com.webmyne.paylabasmerchant.R;
-import com.webmyne.paylabasmerchant.ui.widget.CollectionView;
 import com.webmyne.paylabasmerchant.ui.widget.DrawShadowFrameLayout;
-import com.webmyne.paylabasmerchant.util.PrefUtils;
-import com.webmyne.paylabasmerchant.util.UIUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.webmyne.paylabasmerchant.util.LogUtils.*;
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGD;
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGE;
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGW;
@@ -70,7 +49,6 @@ public class MyDrawerActivity extends BaseActivity{
 
     private final static String SCREEN_LABEL = "Explore";
 
-
     private boolean mSpinnerConfigured = false;
 
     // filter tags that are currently selected
@@ -88,7 +66,7 @@ public class MyDrawerActivity extends BaseActivity{
     // time when the user last clicked "refresh" from the stale data butter bar
     private long mLastDataStaleUserActionTime = 0L;
     private int mHeaderColor = 0; // 0 means not customized
-
+    public Toolbar toolbar;
 
 
 
@@ -99,14 +77,14 @@ public class MyDrawerActivity extends BaseActivity{
 
         setContentView(R.layout.activity_browse_sessions);
 
-        Toolbar toolbar = getActionBarToolbar();
+        toolbar = getActionBarToolbar();
         toolbar.setTitle("Merchant");
 
         overridePendingTransition(0, 0);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         ft.setCustomAnimations(R.anim.entry, R.anim.exit,R.anim.entry, R.anim.exit);
-        ft.replace(R.id.payment_fragment, new HomeFragment(), "payment_home");
+        ft.replace(R.id.payment_fragment, new FragmentHome(), "payment_home");
         ft.commit();
 
         if (savedInstanceState != null) {
@@ -115,12 +93,6 @@ public class MyDrawerActivity extends BaseActivity{
             mFilterTagsToRestore[2] = mFilterTags[2] = savedInstanceState.getString(STATE_FILTER_2);
         } else if (getIntent() != null && getIntent().hasExtra(EXTRA_FILTER_TAG)) {
             mFilterTagsToRestore[0] = getIntent().getStringExtra(EXTRA_FILTER_TAG);
-        }
-
-        if (mMode == MODE_EXPLORE) {
-            // no title (to make more room for navigation and actions)
-            // unless Nav Drawer opens
-            toolbar.setTitle(null);
         }
 
         mButterBar = findViewById(R.id.butter_bar);
@@ -132,6 +104,15 @@ public class MyDrawerActivity extends BaseActivity{
     public void onResume() {
         super.onResume();
        // checkShowStaleDataButterBar();
+
+    }
+
+    public void setToolbarTitle(String title){
+        toolbar.setTitle(title);
+    }
+
+    public void setToolbarSubTitle(String subTitle){
+        toolbar.setSubtitle(subTitle);
     }
 
     @Override
@@ -473,24 +454,13 @@ public class MyDrawerActivity extends BaseActivity{
         super.onActionBarAutoShowOrHide(shown);
         mDrawShadowFrameLayout.setShadowVisible(shown, shown);
     }
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        super.onCreateOptionsMenu(menu);
-//
-//        getMenuInflater().inflate(R.menu.browse_sessions, menu);
-//        // remove actions when in time interval mode:
-//        if (mMode != MODE_EXPLORE) {
-//            menu.removeItem(R.id.menu_search);
-//            menu.removeItem(R.id.menu_refresh);
-//            menu.removeItem(R.id.menu_wifi);
-//            menu.removeItem(R.id.menu_debug);
-//            menu.removeItem(R.id.menu_about);
-//        } else {
-//            configureStandardMenuItems(menu);
-//        }
-//        return true;
-//    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.browse_sessions, menu);
+        return true;
+    }
 
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {

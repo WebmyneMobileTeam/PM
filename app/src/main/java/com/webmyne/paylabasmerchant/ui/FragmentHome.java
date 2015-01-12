@@ -3,7 +3,6 @@ package com.webmyne.paylabasmerchant.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -21,7 +20,7 @@ import android.widget.TextView;
 import com.webmyne.paylabasmerchant.R;
 
 
-public class HomeFragment extends Fragment {
+public class FragmentHome extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -33,8 +32,8 @@ public class HomeFragment extends Fragment {
     FrameLayout linearTools;
 
 
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static FragmentHome newInstance(String param1, String param2) {
+        FragmentHome fragment = new FragmentHome();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -42,7 +41,7 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
-    public HomeFragment() {
+    public FragmentHome() {
         // Required empty public constructor
     }
 

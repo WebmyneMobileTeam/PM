@@ -335,6 +335,11 @@ public abstract class BaseActivity extends ActionBarActivity implements
         if (navDrawer != null) {
             final View chosenAccountContentView = findViewById(R.id.chosen_account_content_view);
             final View chosenAccountView = findViewById(R.id.chosen_account_view);
+
+            final TextView txtName = (TextView)chosenAccountView.findViewById(R.id.profile_email_text);
+            txtName.setText(PrefUtils.getMerchant(BaseActivity.this).FName+" "+PrefUtils.getMerchant(BaseActivity.this).LName);
+
+
             final int navDrawerChosenAccountHeight = getResources().getDimensionPixelSize(
                     R.dimen.navdrawer_chosen_account_height);
             navDrawer.setOnInsetsCallback(new ScrimInsetsScrollView.OnInsetsCallback() {
@@ -857,6 +862,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
                 shown ? Color.BLACK : mNormalStatusBarColor,
                 shown ? mNormalStatusBarColor : Color.BLACK)
                 .setDuration(250);
+
         if (mDrawerLayout != null) {
             mStatusBarColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
@@ -865,6 +871,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
                 }
             });
         }
+
         mStatusBarColorAnimator.setEvaluator(ARGB_EVALUATOR);
         mStatusBarColorAnimator.start();
 
