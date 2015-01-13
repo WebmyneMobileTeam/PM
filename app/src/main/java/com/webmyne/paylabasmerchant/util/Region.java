@@ -21,7 +21,6 @@ public class Region {
     ArrayList<State> statelist;
     ArrayList<City> cityList;
     DatabaseWrapper db_wrapper;
-
  private ArrayList<Country> fetchCountryAndDisplay(final Context context) {
 
         new AsyncTask<Void, Void, Void>() {
