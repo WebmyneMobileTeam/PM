@@ -56,7 +56,7 @@ public class FragmentHome extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 //    private Spinner spPaymentType;
     private LinearLayout gcLayout;
-    private TextView btnNext;
+    private TextView btnNext,btnReset;
     private String mParam1;
     private String mParam2;
     FrameLayout linearTools;
@@ -146,30 +146,41 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(isMobileNumberEmpty()){
+                if (isMobileNumberEmpty()) {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_mobile_number));
 //                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_mobile_number), Toast.LENGTH_SHORT).show();
-                } else if(selectedPaymentType==-1){
+                } else if (selectedPaymentType == -1) {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_payment_type_selection));
 //                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_payment_type_selection), Toast.LENGTH_SHORT).show();
-                } else if(selectedPaymentType==1 && isGiftCodeEmpty()){
+                } else if (selectedPaymentType == 1 && isGiftCodeEmpty()) {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_gift_code));
 //                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_gift_code), Toast.LENGTH_SHORT).show();
-                } else if(selectedServiceType==-1){
+                } else if (selectedServiceType == -1) {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_service_type));
 //                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_service_type), Toast.LENGTH_SHORT).show();
-                }else if(isAmountEmpty()) {
+                } else if (isAmountEmpty()) {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_amount));
 //                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_amount), Toast.LENGTH_SHORT).show();
                 } else {
-                    if((selectedPaymentType==2)) {
-                       //TODO Direct to next screen
-                    }else {
+                    if ((selectedPaymentType == 2)) {
+                        //TODO Direct to next screen
+                    } else {
 
                         postPaymentRequest();
                     }
                 }
 
+            }
+        });
+
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etAmount.setText("");
+                etMobileNumber.setText("");
+                etGiftCode.setText("");
+                resetPaymentLinear();
+                resetServiceLinear();
             }
         });
 
@@ -201,6 +212,7 @@ public class FragmentHome extends Fragment {
     private void initView(View convertview) {
         gcLayout=(LinearLayout)convertview.findViewById(R.id.gcLayout);
         btnNext=(TextView)convertview.findViewById(R.id.btnNext);
+        btnReset=(TextView)convertview.findViewById(R.id.btnReset);
         etMobileNumber= (EditText)convertview.findViewById(R.id.etMobileNumber);
         etAmount= (EditText)convertview.findViewById(R.id.etAmount);
         etGiftCode= (EditText)convertview.findViewById(R.id.etGiftCode);
@@ -306,7 +318,7 @@ public class FragmentHome extends Fragment {
             }else{
                 iv.setColorFilter((int)colors_p.get(z),PorterDuff.Mode.SRC_ATOP);
                 linear.setBackgroundResource(R.drawable.circle_border_focused);
-                linear.getBackground().setColorFilter((int)colors_p.get(z),PorterDuff.Mode.SRC_ATOP);
+                linear.getBackground().setColorFilter((int) colors_p.get(z), PorterDuff.Mode.SRC_ATOP);
             }
         }
     }
@@ -357,7 +369,7 @@ public class FragmentHome extends Fragment {
 
         JSONObject requestObject = new JSONObject();
         try {
-            requestObject.put("AffiliateID",affilateUser.MerchantID+"");
+            requestObject.put("AffiliateID",affilateUser.UserID+"");
             requestObject.put("Amount", etAmount.getText().toString().trim()+"");
             if(selectedPaymentType==1){
                 requestObject.put("GiftCode", etGiftCode.getText().toString()); //add if gift code select
@@ -487,7 +499,7 @@ public class FragmentHome extends Fragment {
         JSONObject requestObject = new JSONObject();
         try {
 
-            requestObject.put("AffiliateID",affilateUser.MerchantID+"");
+            requestObject.put("AffiliateID",affilateUser.UserID+"");
             requestObject.put("Amount", etAmount.getText().toString().trim()+"");
             requestObject.put("ServiceUse",getServiceName(selectedServiceType)+"");
             requestObject.put("GiftCode",etGiftCode.getText().toString().trim()+"");
@@ -510,7 +522,7 @@ public class FragmentHome extends Fragment {
                 if(redeemGC.ResponseCode.equalsIgnoreCase("1")){
                     SimpleToast.ok(getActivity(), getResources().getString(R.string.RedeemGC1_1));
                 } else if(redeemGC.ResponseCode.equalsIgnoreCase("2")){
-                    SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_2));
+                    SimpleToast.ok(getActivity(), getResources().getString(R.string.RedeemGC1_2));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_2), Toast.LENGTH_SHORT).show();
                 }else if(redeemGC.ResponseCode.equalsIgnoreCase("-1")){
                     SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m1));
