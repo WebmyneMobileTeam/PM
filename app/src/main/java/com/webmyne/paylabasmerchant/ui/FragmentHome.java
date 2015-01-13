@@ -52,6 +52,7 @@ public class FragmentHome extends Fragment {
     private String mParam2;
     FrameLayout linearTools;
 //    private Spinner spServiceType;
+    private Spinner spCountryCode;
     private ArrayAdapter<String>  paymentTypeAdapter;
     private ArrayAdapter<String> serviceTypeAdapter;
     private ArrayList<AffilateServices> affilateServicesArrayList;
@@ -185,6 +186,7 @@ public class FragmentHome extends Fragment {
         etMobileNumber= (EditText)convertview.findViewById(R.id.etMobileNumber);
         etAmount= (EditText)convertview.findViewById(R.id.etAmount);
         etGiftCode= (EditText)convertview.findViewById(R.id.etGiftCode);
+        spCountryCode=(Spinner)convertview.findViewById(R.id.spCountryCode);
     }
 
 

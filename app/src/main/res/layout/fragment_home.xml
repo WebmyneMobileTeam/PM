@@ -76,8 +76,9 @@
                         android:layout_margin="4dp"
                         android:background="@drawable/circle_border_focused"
                         android:padding="16dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
                         <ImageView
                             android:src="@drawable/ic_wallet"
                             android:layout_width="wrap_content"
@@ -88,8 +89,9 @@
                         android:layout_margin="4dp"
                         android:background="@drawable/circle_border_focused"
                         android:padding="16dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
                         <ImageView
                             android:src="@drawable/ic_gift_code"
                             android:layout_width="wrap_content"
@@ -98,12 +100,14 @@
 
                     <LinearLayout
                         android:layout_margin="4dp"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/circle_border_focused"
                         android:padding="16dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                      >
                         <ImageView
-                            android:layout_margin="2dp"
+
                             android:src="@drawable/ic_euro"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -176,10 +180,11 @@
                         android:layout_margin="4dp"
                         android:background="@drawable/circle_border_focused"
                         android:padding="16dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
                         <ImageView
-                            android:src="@drawable/ic_wallet"
+                            android:src="@drawable/ic_money_transfer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -188,9 +193,24 @@
                         android:layout_margin="4dp"
                         android:background="@drawable/circle_border_focused"
                         android:padding="16dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
                         <ImageView
+                            android:src="@drawable/ic_mobile_topup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_margin="4dp"
+                        android:background="@drawable/circle_border_focused"
+                        android:padding="16dp"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+                        <ImageView
+
                             android:src="@drawable/ic_gift_code"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -199,50 +219,18 @@
                     <LinearLayout
                         android:layout_margin="4dp"
                         android:background="@drawable/circle_border_focused"
-                        android:padding="16dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
                         <ImageView
-                            android:layout_margin="2dp"
-                            android:src="@drawable/ic_euro"
+                            android:src="@drawable/ic_others"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
-
-
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:layout_margin="4dp"
-                        android:background="@drawable/circle_border_focused"
-                        android:padding="16dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:src="@drawable/ic_wallet"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_margin="4dp"
-                        android:background="@drawable/circle_border_focused"
-                        android:padding="16dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:src="@drawable/ic_gift_code"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    </LinearLayout>
                 <!--<Spinner-->
                     <!--android:spinnerMode="dropdown"-->
                     <!--android:id="@+id/spServiceType"-->
