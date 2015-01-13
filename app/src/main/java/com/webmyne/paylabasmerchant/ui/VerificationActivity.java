@@ -13,6 +13,7 @@ import com.tuenti.smsradar.SmsListener;
 import com.tuenti.smsradar.SmsRadar;
 import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
+import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.LogUtils;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 
@@ -36,7 +37,8 @@ public class VerificationActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if(isVerificationEmpty()){
-                    Toast.makeText(VerificationActivity.this, "Please enter verification code", Toast.LENGTH_SHORT).show();
+                    SimpleToast.error(VerificationActivity.this,getString(R.string.verification_activity_empty_verification_msg));
+//                    Toast.makeText(VerificationActivity.this, "Please enter verification code", Toast.LENGTH_SHORT).show();
                 } else {
                     if(affilateUser.VerificationCode.toString().equalsIgnoreCase(etVerificationCode.getText().toString().trim())) {
 
@@ -46,7 +48,7 @@ public class VerificationActivity extends ActionBarActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(VerificationActivity.this, "Please enter valid verification code", Toast.LENGTH_SHORT).show();
+                        SimpleToast.error(VerificationActivity.this,getString(R.string.verification_activity_empty_verification_msg));
                     }
                 }
 

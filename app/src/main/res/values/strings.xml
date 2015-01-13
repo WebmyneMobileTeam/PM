@@ -18,18 +18,7 @@
     <string name="nav_drawer_settings_en">Settings</string>
     <string name="nav_drawer_logout_en">Logout</string>
 
-    <!-- French Names -->
-    <string name="nav_drawer_home_fr">Home</string>
-    <string name="nav_drawer_invoice_fr">Invoice Request</string>
-    <string name="nav_drawer_reports_fr">Reports</string>
-    <string name="nav_drawer_notification_fr">Notification</string>
-    <string name="nav_drawer_profile_fr">Profile</string>
-    <string name="nav_drawer_abount_fr">Profile</string>
-    <string name="nav_drawer_contact_fr">Profile</string>
-    <string name="nav_drawer_howitworks_fr">Profile</string>
-    <string name="nav_drawer_faq_fr">Profile</string>
-    <string name="nav_drawer_settings_fr">Settings</string>
-    <string name="nav_drawer_logout_fr">Profile</string>
+
     <string name="title_activity_tools">ToolsActivity</string>
     <string name="title_activity_mobiletopup">MobileTopupActivity</string>
     <string name="my_schedule_tab_desc_a11y">Tap to show your schedule .</string>
@@ -55,13 +44,13 @@
     <string name="payment_hint_gc">Gift Code</string>
     <string name="payment_next">NEXT</string>
     <string name="payment_reset">RESET</string>
-    <string name="payment_type_header">Payment Type</string>
+    <string name="payment_type_header">Select Payment Type</string>
     <string name="verification_code_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n</string>
     <string name="hint_verification_code">Verification Code</string>
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="payment_service_type">Service Type</string>
+    <string name="payment_service_type">Select Service Type</string>
     <string name="payment_service_amount">Amount</string>
     <string name="payment_finish">PAY NOW</string>
     <string name="euro_symbol">€</string>
@@ -84,6 +73,9 @@
     <string name="PaymentStep1_m3">Error In While Getting Balance</string>
     <string name="PaymentStep1_m4">Low Balance</string>
     <string name="PaymentStep1_m5">GC is Used</string>
+    <string name="network_error_message">Network Error\n</string>
+    <string name="login_merchant_and_password_message">Please enter merchant id and Password</string>
+    <string name="verification_activity_empty_verification_msg">Please enter verification code</string>
 
 
 </resources>

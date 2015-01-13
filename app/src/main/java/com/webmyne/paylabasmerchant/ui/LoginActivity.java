@@ -24,6 +24,7 @@ import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.util.CountryUtils;
+import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 import com.webmyne.paylabasmerchant.util.RegionUtils;
 
@@ -82,7 +83,8 @@ public class LoginActivity extends ActionBarActivity {
                 if(isMerchantEmpty() || isSecretIdEmpty()){
 //                    SnackBar bar = new SnackBar(Login.this,"Please enter merchant id and secret id");
 //                    bar.show();
-                    Toast.makeText(LoginActivity.this,"Please enter merchant id and Password",Toast.LENGTH_SHORT).show();
+                    SimpleToast.error(LoginActivity.this,getString(R.string.login_merchant_and_password_message));
+//                    Toast.makeText(LoginActivity.this,"Please enter merchant id and Password",Toast.LENGTH_SHORT).show();
                 } else {
                     checkMerchentLogin();
                 }
@@ -273,8 +275,8 @@ public class LoginActivity extends ActionBarActivity {
                     finish();
 
                     } else {
-
-                    Toast.makeText(LoginActivity.this,"Network Error\n" +"Please try again",Toast.LENGTH_SHORT).show();
+                    SimpleToast.error(LoginActivity.this, getString(R.string.network_error_message) +"Please try again");
+//                    Toast.makeText(LoginActivity.this,"Network Error\n" +"Please try again",Toast.LENGTH_SHORT).show();
                     }
             }
         }, new Response.ErrorListener() {
