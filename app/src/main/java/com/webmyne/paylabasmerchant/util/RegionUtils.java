@@ -16,25 +16,23 @@ import java.util.ArrayList;
 /**
  * Created by Android on 12-01-2015.
  */
-public abstract class RegionUtils {
+public abstract class RegionUtils implements IService{
 
-
-    public abstract void result(ArrayList result);
+    public abstract void response(ArrayList response);
     static ArrayList<Country> countrylist;
-    ArrayList<State> statelist;
-    ArrayList<City> cityList;
+    static ArrayList<State> statelist;
+    static ArrayList<City> cityList;
 
-
-    public static ArrayList<Country> fetchCountryAndDisplay(final Context context) {
-
+ public synchronized final RegionUtils fetchCountry(final Context ctx){
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
 
-                DatabaseWrapper  db_wrapper = new DatabaseWrapper(context);
+                DatabaseWrapper  db_wrapper = new DatabaseWrapper(ctx);
                 try {
                     db_wrapper.openDataBase();
-                    countrylist = db_wrapper.getCountryData();
+                     countrylist = db_wrapper.getCountryData();
+                   // response(countrylist);
                     db_wrapper.close();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -46,27 +44,18 @@ public abstract class RegionUtils {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                /*CountryAdapter countryAdapter = new CountryAdapter(SignUpActivity.this, R.layout.spinner_country, countrylist);
-                spCountry.setAdapter(countryAdapter);*/
+                response(countrylist);
             }
         }.execute();
-        return countrylist;
+        return this;
     }
 
-
-    public static void fetchCountries(Context ctx){
-
-
-    }
-
-
-
-    private ArrayList<State> fetchStateAndDisplay(final Context context, final int CountryID) {
-        statelist = new ArrayList<State>();
+ public synchronized final RegionUtils fetchState(final Context ctx,final int CountryID){
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                DatabaseWrapper  db_wrapper = new DatabaseWrapper(context);
+
+                DatabaseWrapper  db_wrapper = new DatabaseWrapper(ctx);
                 try {
                     db_wrapper.openDataBase();
                     statelist = db_wrapper.getStateData(CountryID);
@@ -81,17 +70,17 @@ public abstract class RegionUtils {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-
+                response(statelist);
             }
         }.execute();
-
-        return statelist;
+        return this;
     }
 
-    private ArrayList<City> fetchAndDisplayCity(final Context context, final int stateID) {
+/*
+private void fetchAndDisplayCity(final int stateID) {
         cityList = new ArrayList<City>();
         boolean isAlreadyThere = false;
-        DatabaseWrapper db_wrapper = new DatabaseWrapper(context);
+         DatabaseWrapper db_wrapper = new DatabaseWrapper(SignUpActivity.this);
         try {
             db_wrapper.openDataBase();
             isAlreadyThere = db_wrapper.isAlreadyInDatabase(stateID);
@@ -106,7 +95,7 @@ public abstract class RegionUtils {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... voids) {
-                    DatabaseWrapper db_wrapper = new DatabaseWrapper(context);
+                    db_wrapper = new DatabaseWrapper(SignUpActivity.this);
                     try {
                         db_wrapper.openDataBase();
                         cityList = db_wrapper.getCityData(stateID);
@@ -121,8 +110,8 @@ public abstract class RegionUtils {
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
 
-                  /*  CityAdapter cityAdapter = new CityAdapter(SignUpActivity.this, R.layout.spinner_country, cityList);
-                    spCity.setAdapter(cityAdapter);*/
+                    CityAdapter cityAdapter = new CityAdapter(SignUpActivity.this, R.layout.spinner_country, cityList);
+                    spCity.setAdapter(cityAdapter);
 
                 }
             }.execute();
@@ -130,53 +119,47 @@ public abstract class RegionUtils {
 
         } else {
 
-            final CircleDialog circleDialog = new CircleDialog(context, 0);
+            final CircleDialog circleDialog = new CircleDialog(SignUpActivity.this, 0);
             circleDialog.setCancelable(true);
             circleDialog.show();
 
 
             System.out.println("Cities are not there");
+            new CallWebService(AppConstants.GETCITIES + stateID, CallWebService.TYPE_JSONARRAY) {
+
+                @Override
+                public void response(String response) {
+
+                    circleDialog.dismiss();
+                    Type listType = new TypeToken<List<City>>() {
+                    }.getType();
+                    cityList = new GsonBuilder().create().fromJson(response, listType);
+                    CityAdapter cityAdapter = new CityAdapter(SignUpActivity.this, R.layout.spinner_country, cityList);
+                    spCity.setAdapter(cityAdapter);
+
+                    db_wrapper = new DatabaseWrapper(SignUpActivity.this);
+                    try {
+                        db_wrapper.openDataBase();
+                        db_wrapper.insertCities(cityList);
+                        db_wrapper.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void error(VolleyError error) {
+
+                    circleDialog.dismiss();
+                }
+            }.start();
 
         }
 
-        return cityList;
     }
 
-    public abstract class ABCountry implements IService{
-
-        public abstract void response(ArrayList response);
-
-        public synchronized final ABCountry fetch(){
-
-
-
-            return this;
-
-        }
-
-
-
-    }
-
-    public abstract class ABState implements IService{
-
-        public abstract void response(ArrayList response);
-
-    }
-
-    public abstract class ABCity implements IService{
-
-        public abstract void response(ArrayList response);
-
-    }
-
-
-
-
-
-
-
-
+*/
 
 
 

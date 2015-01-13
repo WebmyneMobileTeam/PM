@@ -85,7 +85,8 @@ public class AppConstants {
     //Payment
     public static final String PAYMENT_STEP_1=BASE_URL+"Payment.svc/json/PaymentStep1";
 
-
+    //Redeem GC
+    public static final String REDEEM_GC=BASE_URL+"Payment.svc/json/RedeemGC";
 }
 
 

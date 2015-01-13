@@ -68,14 +68,26 @@
     <string name="validation_empty_amount">Please Enter Amount</string>
 
     <!-- PaymentStep1 response messages-->
+    <string name="PaymentStep1_1">Verification Code Send Successfully</string>
     <string name="PaymentStep1_2">Error While Sending Verification Code</string>
     <string name="PaymentStep1_m2">Invalid User</string>
     <string name="PaymentStep1_m3">Error In While Getting Balance</string>
     <string name="PaymentStep1_m4">Low Balance</string>
     <string name="PaymentStep1_m5">GC is Used</string>
+
+    <!-- Redeem GC response messages-->
+    <string name="RedeemGC1_1">GC Redeem Successfully</string>
+    <string name="RedeemGC1_2">GC Redeem and Regenerated Successfully</string>
+    <string name="RedeemGC1_m1">Error Occure While redeem GC</string>
+    <string name="RedeemGC1_m2">GC Redeem Successfully bt Error Occure while Regeneratting new GC </string>
+    <string name="RedeemGC1_m3">Lower amount GC</string>
+    <string name="RedeemGC1_m4">GC is Used</string>
+    <string name="RedeemGC1_m5">Invalid GC</string>
+
     <string name="network_error_message">Network Error\n</string>
     <string name="login_merchant_and_password_message">Please enter merchant id and Password</string>
     <string name="verification_activity_empty_verification_msg">Please enter verification code</string>
+
 
 
 </resources>

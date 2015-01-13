@@ -2,12 +2,15 @@ package com.webmyne.paylabasmerchant.ui;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +34,14 @@ import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateServices;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
+import com.webmyne.paylabasmerchant.model.Country;
 import com.webmyne.paylabasmerchant.model.PaymentStep1;
+import com.webmyne.paylabasmerchant.model.RedeemGC;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
+import com.webmyne.paylabasmerchant.util.DatabaseWrapper;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
+import com.webmyne.paylabasmerchant.util.RegionUtils;
 
 import org.json.JSONObject;
 
@@ -45,6 +52,8 @@ import static com.webmyne.paylabasmerchant.util.LogUtils.LOGE;
 
 public class FragmentHome extends Fragment {
 
+    private DatabaseWrapper db_wrapper;
+    private ArrayList<Country> countries;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 //    private Spinner spPaymentType;
@@ -94,7 +103,6 @@ public class FragmentHome extends Fragment {
         }
 
         filterService();
-
         paymentTypeList();
     }
 
@@ -125,6 +133,7 @@ public class FragmentHome extends Fragment {
         View convertview = inflater.inflate(R.layout.fragment_home, container, false);
 
         initView(convertview);
+
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,16 +165,34 @@ public class FragmentHome extends Fragment {
             }
         });
 
+        setCountryCode();
 
         return convertview;
     }
 
-    private void initView(View convertview) {
-//        spPaymentType=(Spinner)convertview.findViewById(R.id.spPaymentType);
-        gcLayout=(LinearLayout)convertview.findViewById(R.id.gcLayout);
+    private void setCountryCode() {
 
+
+
+
+        new RegionUtils() {
+
+            @Override
+            public void response(ArrayList response) {
+                countries=response;
+                for(int i=0;i<countries.size();i++){
+                    Log.e("country names:",countries.get(i).CountryCode+"");
+                }
+
+                CountryCodeAdapter countryAdapter = new CountryCodeAdapter(getActivity(),R.layout.spinner_country, countries);
+                spCountryCode.setAdapter(countryAdapter);
+            }
+        }.fetchCountry(getActivity());
+    }
+
+    private void initView(View convertview) {
+        gcLayout=(LinearLayout)convertview.findViewById(R.id.gcLayout);
         btnNext=(TextView)convertview.findViewById(R.id.btnNext);
-//        spServiceType=(Spinner)convertview.findViewById(R.id.spServiceType);
         etMobileNumber= (EditText)convertview.findViewById(R.id.etMobileNumber);
         etAmount= (EditText)convertview.findViewById(R.id.etAmount);
         etGiftCode= (EditText)convertview.findViewById(R.id.etGiftCode);
@@ -299,7 +326,8 @@ public class FragmentHome extends Fragment {
             } else {
                 requestObject.put("PaymentVia","Cash");
             }
-            requestObject.put("UserCountryCode","91");
+            Country countryObject=(Country)spCountryCode.getSelectedItem();
+            requestObject.put("UserCountryCode",countryObject.CountryCode);
             requestObject.put("UserMobileNo", etMobileNumber.getText().toString().trim()+"");
         } catch (Exception e){
             e.printStackTrace();
@@ -316,6 +344,7 @@ public class FragmentHome extends Fragment {
                     if(paymentStep1.ResponseCode.equalsIgnoreCase("1")){
 
 
+                        SimpleToast.ok(getActivity(), getResources().getString(R.string.PaymentStep1_1));
                         showVerificationAlert();
 
 
@@ -374,22 +403,15 @@ public class FragmentHome extends Fragment {
 
                 if(paymentStep1.VerificationCode.equalsIgnoreCase(etVerificationCode.getText().toString().trim())){
                     // TODO goto next screen
-//                    if(spServiceType.getSelectedItemPosition()==3){
-//
+
 //                        Intent i =  new Intent(getActivity(),MobileTopupActivity.class);
 //                        startActivity(i);
-//                    }
 
                     dialog.dismiss();
 
-                    /*if(isRedeemGC()){
+                    if(isRedeemGC()){
                         processRedeemGC();
                     }
-*/
-
-
-
-
 
                 } else{
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_verification_code));
@@ -412,15 +434,83 @@ public class FragmentHome extends Fragment {
         alert.show();
     }
 
+
     private void processRedeemGC() {
 
+        circleDialog = new CircleDialog(getActivity(), 0);
+        circleDialog.setCancelable(true);
+        circleDialog.show();
+
+        JSONObject requestObject = new JSONObject();
+        try {
+
+            requestObject.put("AffiliateID","");
+            requestObject.put("Amount", "");
+            requestObject.put("ServiceUse","");
+            requestObject.put("GCAmount", "");
+            requestObject.put("GiftCode","");
+            requestObject.put("UserCountryCode", "");
+            requestObject.put("UserMobileNo","");
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        Log.e("object request",requestObject.toString()+"");
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.REDEEM_GC, requestObject, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject jobj) {
+                circleDialog.dismiss();
+                LOGE("response: ", jobj.toString() + "");
+                Log.e("response: ", jobj.toString() + "");
+                RedeemGC redeemGC= new GsonBuilder().create().fromJson(jobj.toString(), RedeemGC.class);
+                if(redeemGC.ResponseCode.equalsIgnoreCase("1")){
+                    SimpleToast.ok(getActivity(), getResources().getString(R.string.RedeemGC1_1));
+                } else if(redeemGC.ResponseCode.equalsIgnoreCase("2")){
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_2));
+//                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_2), Toast.LENGTH_SHORT).show();
+                }else if(redeemGC.ResponseCode.equalsIgnoreCase("-1")){
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m1));
+//                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_2), Toast.LENGTH_SHORT).show();
+                }   else if(redeemGC.ResponseCode.equalsIgnoreCase("-2")){
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m2));
+//                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m2), Toast.LENGTH_SHORT).show();
+                } else if(redeemGC.ResponseCode.equalsIgnoreCase("-3")){
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m3));
+//                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m3), Toast.LENGTH_SHORT).show();
+                } else if(redeemGC.ResponseCode.equalsIgnoreCase("-4")){
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m4));
+//                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
+                } else {
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m5));
+//                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m5), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                circleDialog.dismiss();
+            }
+        });
+
+        req.setRetryPolicy(new DefaultRetryPolicy(0,0,0));
+
+        MyApplication.getInstance().addToRequestQueue(req);
 
 
     }
 
     private boolean isRedeemGC() {
+        boolean isAvailable=false;
+        if(selectedPaymentType==1 && selectedServiceType==2) {
+            isAvailable=true;
 
-        return true;
+        }
+        return isAvailable;
     }
 
     public boolean isMobileNumberEmpty(){
@@ -452,5 +542,43 @@ public class FragmentHome extends Fragment {
         }
         return isEmpty;
     }
+
+
+    public class CountryCodeAdapter extends ArrayAdapter<Country> {
+        Context context;
+        int layoutResourceId;
+        ArrayList<Country> values;
+        // int android.R.Layout.
+        public CountryCodeAdapter(Context context, int resource, ArrayList<Country> objects) {
+            super(context, resource, objects);
+            this.context = context;
+            this.values=objects;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+
+            TextView txt = new TextView(getActivity());
+            txt.setPadding(16,16,16,16);
+            txt.setGravity(Gravity.CENTER_VERTICAL);
+
+                txt.setText(values.get(position).CountryName+" +"+String.valueOf(values.get(position).CountryCode));
+
+
+
+            return  txt;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            TextView txt = new TextView(getActivity());
+            txt.setGravity(Gravity.CENTER_VERTICAL);
+            txt.setPadding(16,16,16,16);
+            txt.setText("+"+String.valueOf(values.get(position).CountryCode));
+
+            return  txt;
+        }
+    }
+
 //end of main class
 }
