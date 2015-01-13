@@ -112,14 +112,17 @@ public class FragmentHome extends Fragment {
 
         filterService();
         paymentTypeList();
+
     }
 
     private void paymentTypeList() {
+
         paymentTypeList=new ArrayList<String>();
         paymentTypeList.add("Select Payment Type");
         paymentTypeList.add(AppConstants.wallet);
         paymentTypeList.add(AppConstants.gc);
         paymentTypeList.add(AppConstants.cash);
+
     }
 
     private void filterService() {
@@ -236,19 +239,21 @@ public class FragmentHome extends Fragment {
 
         resetPaymentLinear();
         resetServiceLinear();
+
         setupPaymentLinear();
         setupServiceLinear();
-
 
 
     }
 
     public void resetPaymentLinear(){
         selectedPaymentType = -1;
+
         for(int i=0;i< linearPaymentType.getChildCount();i++){
             int k = i;
             LinearLayout linear = (LinearLayout)linearPaymentType.getChildAt(i);
             ImageView img = (ImageView)linear.getChildAt(0);
+            linear.setBackgroundResource(R.drawable.circle_border_focused);
             linear.getBackground().setColorFilter((int)colors_p.get(k),PorterDuff.Mode.SRC_ATOP);
             img.setColorFilter((int)colors_p.get(k),PorterDuff.Mode.SRC_ATOP);
         }
@@ -260,6 +265,7 @@ public class FragmentHome extends Fragment {
             int k = i;
             LinearLayout linear = (LinearLayout)linearServiceType.getChildAt(i);
             ImageView img = (ImageView)linear.getChildAt(0);
+            linear.setBackgroundResource(R.drawable.circle_border_focused);
             linear.getBackground().setColorFilter((int)colors_p.get(k),PorterDuff.Mode.SRC_ATOP);
             img.setColorFilter((int)colors_p.get(k),PorterDuff.Mode.SRC_ATOP);
         }
@@ -344,8 +350,6 @@ public class FragmentHome extends Fragment {
                 linear.getBackground().setColorFilter((int)colors_p.get(z),PorterDuff.Mode.SRC_ATOP);
 
             }
-
-
         }
         if(selectedPaymentType==1){
             gcLayout.setVisibility(View.VISIBLE);
