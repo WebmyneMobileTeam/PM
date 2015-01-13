@@ -17,7 +17,6 @@ import java.util.ArrayList;
  * Created by Android on 12-01-2015.
  */
 public class Region {
-
     ArrayList<Country> countrylist;
     ArrayList<State> statelist;
     ArrayList<City> cityList;
