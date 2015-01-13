@@ -52,13 +52,15 @@
 
             <LinearLayout
 
-                android:gravity="center"
+                android:gravity="left"
                 android:orientation="vertical"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/txtPaymentTypes"
+                    android:layout_marginLeft="4dp"
                     android:textSize="@dimen/normal_text"
                     android:layout_width="wrap_content"
                     android:text="@string/payment_type_header"
@@ -67,7 +69,7 @@
                 <LinearLayout
                     android:id="@+id/linearPaymentType"
                     android:layout_marginTop="8dp"
-                    android:gravity="center"
+
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
                     android:layout_height="wrap_content">
@@ -86,8 +88,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
-
-
 
                     <LinearLayout
                         android:clickable="true"
@@ -141,6 +141,9 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/txtServiceType"
+                    android:layout_marginLeft="4dp"
+                    android:layout_gravity="left"
                     android:textSize="@dimen/normal_text"
                     android:layout_width="wrap_content"
                     android:text="@string/payment_service_type"
@@ -149,7 +152,7 @@
                 <LinearLayout
                     android:id="@+id/linearServiceType"
                     android:layout_marginTop="8dp"
-                    android:gravity="center"
+
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
                     android:layout_height="wrap_content">
