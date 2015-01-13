@@ -4,6 +4,7 @@ package com.webmyne.paylabasmerchant.ui;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -64,6 +66,10 @@ public class FragmentHome extends Fragment {
     private EditText etMobileNumber,etAmount,etGiftCode;
     private String paymentType;
     private int paymentTypePosition,serviceTypePosition;
+    private LinearLayout linerPaymentType;
+    public int selectedPaymentType = -1;
+    public int selectedServiceType = -1;
+    private LinearLayout linearServiceType;
 
     public static FragmentHome newInstance(String param1, String param2) {
         FragmentHome fragment = new FragmentHome();
@@ -145,34 +151,6 @@ public class FragmentHome extends Fragment {
             }
         });
 
-//        spPaymentType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                if(position==2){
-//                    gcLayout.setVisibility(View.VISIBLE);
-//                } else {
-//                    gcLayout.setVisibility(View.GONE);
-//                }
-//                paymentType=paymentTypeList.get(position);
-//                paymentTypePosition=position;
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-//
-//        spServiceType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                serviceTypePosition=position;
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
 
         return convertview;
     }
@@ -186,6 +164,8 @@ public class FragmentHome extends Fragment {
         etMobileNumber= (EditText)convertview.findViewById(R.id.etMobileNumber);
         etAmount= (EditText)convertview.findViewById(R.id.etAmount);
         etGiftCode= (EditText)convertview.findViewById(R.id.etGiftCode);
+        linerPaymentType = (LinearLayout)convertview.findViewById(R.id.linearPaymentType);
+        linearServiceType = (LinearLayout)convertview.findViewById(R.id.linearServiceType);
         spCountryCode=(Spinner)convertview.findViewById(R.id.spCountryCode);
     }
 
@@ -199,7 +179,86 @@ public class FragmentHome extends Fragment {
 //        spPaymentType.setAdapter(paymentTypeAdapter);
         serviceTypeAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, affilateServiceNames);
 //        spServiceType.setAdapter(serviceTypeAdapter);
+        setupPaymentLinear();
+        setupServiceLinear();
     }
+
+    private void setupPaymentLinear() {
+
+        for(int i=0;i<linerPaymentType.getChildCount();i++){
+            LinearLayout linearChild = (LinearLayout)linerPaymentType.getChildAt(i);
+            linearChild.setOnClickListener(linearPaymentListner);
+        }
+    }
+
+    private void setupServiceLinear() {
+
+        for(int i=0;i<linearServiceType.getChildCount();i++){
+            LinearLayout linearChild = (LinearLayout)linearServiceType.getChildAt(i);
+            linearChild.setOnClickListener(linearServiceListner);
+        }
+    }
+
+    View.OnClickListener linearPaymentListner = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+          LinearLayout linearChild = (LinearLayout)v;
+          selectedPaymentType = linerPaymentType.indexOfChild(linearChild);
+          setPaymentSelection(selectedPaymentType);
+
+        }
+    };
+
+    View.OnClickListener linearServiceListner = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            LinearLayout linearChild = (LinearLayout)v;
+            selectedServiceType = linearServiceType.indexOfChild(linearChild);
+            setServiceSelection(selectedServiceType);
+
+        }
+    };
+
+    private void setServiceSelection(int selectedServiceType) {
+
+        for(int i=0;i<linearServiceType.getChildCount();i++){
+
+            LinearLayout linear = (LinearLayout)linearServiceType.getChildAt(i);
+            ImageView iv = (ImageView)linear.getChildAt(0);
+
+            int z = i;
+            if(z == selectedServiceType){
+                iv.setColorFilter(Color.WHITE);
+                linear.setBackgroundResource(R.drawable.circle_mask);
+            }else{
+
+                iv.setColorFilter(getResources().getColor(R.color.theme_primary));
+                linear.setBackgroundResource(R.drawable.circle_border_focused);
+            }
+        }
+    }
+
+    private void setPaymentSelection(int selectedPaymentType) {
+
+        for(int i=0;i<linerPaymentType.getChildCount();i++){
+
+            LinearLayout linear = (LinearLayout)linerPaymentType.getChildAt(i);
+            ImageView iv = (ImageView)linear.getChildAt(0);
+
+            int z = i;
+            if(z == selectedPaymentType){
+                iv.setColorFilter(Color.WHITE);
+                linear.setBackgroundResource(R.drawable.circle_mask);
+            }else{
+
+                iv.setColorFilter(getResources().getColor(R.color.theme_primary));
+                linear.setBackgroundResource(R.drawable.circle_border_focused);
+            }
+        }
+    }
+
 
     private void postPaymentRequest() {
 
@@ -284,6 +343,7 @@ public class FragmentHome extends Fragment {
     }
 
     private void showVerificationAlert() {
+
         LayoutInflater li = LayoutInflater.from(getActivity());
         View promptsView = li.inflate(R.layout.custom_alert_dialog, null);
        final  EditText etVerificationCode=(EditText)promptsView.findViewById(R.id.etVerificationCode);
@@ -313,6 +373,8 @@ public class FragmentHome extends Fragment {
 
 
 
+
+
                 } else{
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_verification_code));
 //                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_verification_code), Toast.LENGTH_SHORT).show();
@@ -332,6 +394,17 @@ public class FragmentHome extends Fragment {
         });
 
         alert.show();
+    }
+
+    private void processRedeemGC() {
+
+
+
+    }
+
+    private boolean isRedeemGC() {
+
+        return true;
     }
 
     public boolean isMobileNumberEmpty(){
