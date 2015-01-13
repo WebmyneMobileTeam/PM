@@ -126,7 +126,7 @@ public class LoginActivity extends ActionBarActivity {
             getResources().updateConfiguration(config, null);
             etMerchantId.setHint("Merchant ID");
             etSecretId.setHint("Password");
-            btnLoginNext.setText("NEXT F");
+            btnLoginNext.setText("NEXT");
 
         } else {
             imgFrance.setColorFilter(Color.argb(128, 0, 0, 0));
@@ -135,7 +135,7 @@ public class LoginActivity extends ActionBarActivity {
             getResources().updateConfiguration(config, null);
             etMerchantId.setHint("Merchant ID");
             etSecretId.setHint("Password");
-            btnLoginNext.setText("NEXT E");
+            btnLoginNext.setText("NEXT");
         }
 
 
@@ -198,7 +198,7 @@ public class LoginActivity extends ActionBarActivity {
             getResources().updateConfiguration(config, null);
             etMerchantId.setHint("Merchant ID");
             etSecretId.setHint("Password");
-            btnLoginNext.setText("NEXT E");
+            btnLoginNext.setText("NEXT");
         } else {
             Log.e("french","french");
             Configuration config = new Configuration();
@@ -206,7 +206,7 @@ public class LoginActivity extends ActionBarActivity {
             getResources().updateConfiguration(config, null);
             etMerchantId.setHint("Merchant ID");
             etSecretId.setHint("Password");
-            btnLoginNext.setText("NEXT F");
+            btnLoginNext.setText("NEXT");
         }
 
 
