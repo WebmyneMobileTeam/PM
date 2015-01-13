@@ -4,9 +4,9 @@ package com.webmyne.paylabasmerchant.ui;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,7 +14,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -22,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -73,11 +71,15 @@ public class FragmentHome extends Fragment {
     private PaymentStep1 paymentStep1;
     private AffilateUser affilateUser;
     private EditText etMobileNumber,etAmount,etGiftCode;
+    private String paymentType;
+    private int paymentTypePosition,serviceTypePosition;
+    private LinearLayout linearPaymentType;
 //    private String paymentType;
 //    private int paymentTypePosition,serviceTypePosition;
     private LinearLayout linerPaymentType;
     public int selectedPaymentType = -1;
     public int selectedServiceType = -1;
+    private ArrayList colors_p;
     private LinearLayout linearServiceType,layoutOthers;
 
     public static FragmentHome newInstance(String param1, String param2) {
@@ -101,6 +103,12 @@ public class FragmentHome extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        colors_p = new ArrayList();
+        colors_p.add(getResources().getColor(R.color.color_giftcode_t));
+        colors_p.add(getResources().getColor(R.color.color_mobiletopup_t));
+        colors_p.add(getResources().getColor(R.color.color_moneytransfer_t));
+        colors_p.add(getResources().getColor(R.color.all_track_color));
 
         filterService();
         paymentTypeList();
@@ -196,7 +204,7 @@ public class FragmentHome extends Fragment {
         etMobileNumber= (EditText)convertview.findViewById(R.id.etMobileNumber);
         etAmount= (EditText)convertview.findViewById(R.id.etAmount);
         etGiftCode= (EditText)convertview.findViewById(R.id.etGiftCode);
-        linerPaymentType = (LinearLayout)convertview.findViewById(R.id.linearPaymentType);
+        linearPaymentType = (LinearLayout)convertview.findViewById(R.id.linearPaymentType);
         linearServiceType = (LinearLayout)convertview.findViewById(R.id.linearServiceType);
         layoutOthers= (LinearLayout)convertview.findViewById(R.id.layoutOthers);
         spCountryCode=(Spinner)convertview.findViewById(R.id.spCountryCode);
@@ -209,17 +217,46 @@ public class FragmentHome extends Fragment {
         affilateUser=PrefUtils.getMerchant(getActivity());
 
         paymentTypeAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, paymentTypeList);
-//        spPaymentType.setAdapter(paymentTypeAdapter);
+//      spPaymentType.setAdapter(paymentTypeAdapter);
         serviceTypeAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, affilateServiceNames);
-//        spServiceType.setAdapter(serviceTypeAdapter);
+//      spServiceType.setAdapter(serviceTypeAdapter);
+
+
+        resetPaymentLinear();
+        resetServiceLinear();
         setupPaymentLinear();
         setupServiceLinear();
+
+
+
+    }
+
+    public void resetPaymentLinear(){
+        selectedPaymentType = -1;
+        for(int i=0;i< linearPaymentType.getChildCount();i++){
+            int k = i;
+            LinearLayout linear = (LinearLayout)linearPaymentType.getChildAt(i);
+            ImageView img = (ImageView)linear.getChildAt(0);
+            linear.getBackground().setColorFilter((int)colors_p.get(k),PorterDuff.Mode.SRC_ATOP);
+            img.setColorFilter((int)colors_p.get(k),PorterDuff.Mode.SRC_ATOP);
+        }
+    }
+
+    public void resetServiceLinear(){
+        selectedServiceType = -1;
+        for(int i=0;i< linearServiceType.getChildCount();i++){
+            int k = i;
+            LinearLayout linear = (LinearLayout)linearServiceType.getChildAt(i);
+            ImageView img = (ImageView)linear.getChildAt(0);
+            linear.getBackground().setColorFilter((int)colors_p.get(k),PorterDuff.Mode.SRC_ATOP);
+            img.setColorFilter((int)colors_p.get(k),PorterDuff.Mode.SRC_ATOP);
+        }
     }
 
     private void setupPaymentLinear() {
 
-        for(int i=0;i<linerPaymentType.getChildCount();i++){
-            LinearLayout linearChild = (LinearLayout)linerPaymentType.getChildAt(i);
+        for(int i=0;i< linearPaymentType.getChildCount();i++){
+            LinearLayout linearChild = (LinearLayout) linearPaymentType.getChildAt(i);
             linearChild.setOnClickListener(linearPaymentListner);
         }
     }
@@ -237,7 +274,7 @@ public class FragmentHome extends Fragment {
         public void onClick(View v) {
 
           LinearLayout linearChild = (LinearLayout)v;
-          selectedPaymentType = linerPaymentType.indexOfChild(linearChild);
+          selectedPaymentType = linearPaymentType.indexOfChild(linearChild);
           setPaymentSelection(selectedPaymentType);
 
         }
@@ -260,34 +297,40 @@ public class FragmentHome extends Fragment {
 
             LinearLayout linear = (LinearLayout)linearServiceType.getChildAt(i);
             ImageView iv = (ImageView)linear.getChildAt(0);
-
             int z = i;
             if(z == selectedServiceType){
                 iv.setColorFilter(Color.WHITE);
                 linear.setBackgroundResource(R.drawable.circle_mask);
-            }else{
+                linear.getBackground().setColorFilter((int)colors_p.get(selectedServiceType),PorterDuff.Mode.SRC_ATOP);
 
-                iv.setColorFilter(getResources().getColor(R.color.theme_primary));
+            }else{
+                iv.setColorFilter((int)colors_p.get(z),PorterDuff.Mode.SRC_ATOP);
                 linear.setBackgroundResource(R.drawable.circle_border_focused);
+                linear.getBackground().setColorFilter((int)colors_p.get(z),PorterDuff.Mode.SRC_ATOP);
             }
         }
     }
 
     private void setPaymentSelection(int selectedPaymentType) {
 
-        for(int i=0;i<linerPaymentType.getChildCount();i++){
+        for(int i=0;i< linearPaymentType.getChildCount();i++){
 
-            LinearLayout linear = (LinearLayout)linerPaymentType.getChildAt(i);
+            LinearLayout linear = (LinearLayout) linearPaymentType.getChildAt(i);
             ImageView iv = (ImageView)linear.getChildAt(0);
 
             int z = i;
+
             if(z == selectedPaymentType){
                 iv.setColorFilter(Color.WHITE);
                 linear.setBackgroundResource(R.drawable.circle_mask);
+                linear.getBackground().setColorFilter((int)colors_p.get(selectedPaymentType),PorterDuff.Mode.SRC_ATOP);
+
             }else{
 
-                iv.setColorFilter(getResources().getColor(R.color.theme_primary));
+                iv.setColorFilter((int)colors_p.get(z),PorterDuff.Mode.SRC_ATOP);
                 linear.setBackgroundResource(R.drawable.circle_border_focused);
+                linear.getBackground().setColorFilter((int)colors_p.get(z),PorterDuff.Mode.SRC_ATOP);
+
             }
 
 
