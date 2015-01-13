@@ -31,6 +31,7 @@
     <string name="nav_drawer_settings_fr">Settings</string>
     <string name="nav_drawer_logout_fr">Profile</string>
     <string name="title_activity_tools">ToolsActivity</string>
+    <string name="title_activity_mobiletopup">MobileTopupActivity</string>
     <string name="my_schedule_tab_desc_a11y">Tap to show your schedule .</string>
 
     <!-- Verification -->
@@ -39,6 +40,10 @@
     <string name="verify_hint_secret_id">Secret ID </string>
     <string name="verify_change_merchant">Change Merchant ? </string>
     <string name="verify_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n</string>
+
+    <!-- Mobile Topup -->
+    <string name="mobiletopup_title">Mobile Topup</string>
+    <string name="mobiletopup_recharge">RECHARGE</string>
 
     <!-- Tools -->
     <string name="tools_title">Tools</string>
