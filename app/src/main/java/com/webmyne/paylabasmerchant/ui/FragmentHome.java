@@ -119,19 +119,21 @@ public class FragmentHome extends Fragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(isMobileNumberEmpty()){
-                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_mobile_number), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please Enter Mobile Number", Toast.LENGTH_SHORT).show();
                 } else if(paymentTypePosition==0){
-                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_payment_type_selection), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please Select Payment Type", Toast.LENGTH_SHORT).show();
                 } else if(paymentTypePosition==2 && isGiftCodeEmpty()){
-                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_gift_code), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please Enter Gift Code", Toast.LENGTH_SHORT).show();
                 } else if(serviceTypePosition==0){
-                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_service_type), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please Select Service Type", Toast.LENGTH_SHORT).show();
                 }else if(isAmountEmpty()) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_amount), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please Enter Amount", Toast.LENGTH_SHORT).show();
                 } else {
                     postPaymentRequest();
                 }
+
             }
         });
 
@@ -168,14 +170,15 @@ public class FragmentHome extends Fragment {
     }
 
     private void initView(View convertview) {
+
         spPaymentType=(Spinner)convertview.findViewById(R.id.spPaymentType);
         gcLayout=(LinearLayout)convertview.findViewById(R.id.gcLayout);
-
         btnNext=(TextView)convertview.findViewById(R.id.btnNext);
         spServiceType=(Spinner)convertview.findViewById(R.id.spServiceType);
         etMobileNumber= (EditText)convertview.findViewById(R.id.etMobileNumber);
         etAmount= (EditText)convertview.findViewById(R.id.etAmount);
         etGiftCode= (EditText)convertview.findViewById(R.id.etGiftCode);
+
     }
 
 
@@ -272,6 +275,7 @@ public class FragmentHome extends Fragment {
     }
 
     private void showVerificationAlert() {
+
         LayoutInflater li = LayoutInflater.from(getActivity());
         View promptsView = li.inflate(R.layout.custom_alert_dialog, null);
        final  EditText etVerificationCode=(EditText)promptsView.findViewById(R.id.etVerificationCode);
@@ -286,8 +290,15 @@ public class FragmentHome extends Fragment {
 
                 if(paymentStep1.VerificationCode.equalsIgnoreCase(etVerificationCode.getText().toString().trim())){
                     // TODO goto next screen
-
                     dialog.dismiss();
+
+                    if(isRedeemGC()){
+                        processRedeemGC();
+                    }
+
+
+
+
                 } else{
                     Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_verification_code), Toast.LENGTH_SHORT).show();
                 }
@@ -306,6 +317,17 @@ public class FragmentHome extends Fragment {
         });
 
         alert.show();
+    }
+
+    private void processRedeemGC() {
+
+
+
+    }
+
+    private boolean isRedeemGC() {
+
+        return true;
     }
 
     public boolean isMobileNumberEmpty(){

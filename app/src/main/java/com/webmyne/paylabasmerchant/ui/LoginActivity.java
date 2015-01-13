@@ -23,7 +23,9 @@ import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
+import com.webmyne.paylabasmerchant.util.CountryUtils;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
+import com.webmyne.paylabasmerchant.util.RegionUtils;
 
 import static com.webmyne.paylabasmerchant.util.PrefUtils.isEnglishSelected;
 import static com.webmyne.paylabasmerchant.util.PrefUtils.isLoggedIn;
@@ -33,6 +35,7 @@ import static com.webmyne.paylabasmerchant.util.PrefUtils.setMerchant;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -51,7 +54,7 @@ public class LoginActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // overridePendingTransition(R.anim.entry,R.anim.exit);
-        setContentView(R.layout.activity_launcher);
+       setContentView(R.layout.activity_launcher);
        initView();
     }
 
@@ -191,7 +194,6 @@ public class LoginActivity extends ActionBarActivity {
             Configuration config = new Configuration();
             config.locale = Locale.ENGLISH;
             getResources().updateConfiguration(config, null);
-
             etMerchantId.setHint("Merchant ID");
             etSecretId.setHint("Password");
             btnLoginNext.setText("NEXT E");
