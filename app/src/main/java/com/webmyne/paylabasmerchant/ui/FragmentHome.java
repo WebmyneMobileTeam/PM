@@ -487,14 +487,13 @@ public class FragmentHome extends Fragment {
         JSONObject requestObject = new JSONObject();
         try {
 
-            requestObject.put("AffiliateID","");
-            requestObject.put("Amount", "");
-            requestObject.put("ServiceUse","");
-            requestObject.put("GCAmount", "");
-            requestObject.put("GiftCode","");
-            requestObject.put("UserCountryCode", "");
-            requestObject.put("UserMobileNo","");
-
+            requestObject.put("AffiliateID",affilateUser.MerchantID+"");
+            requestObject.put("Amount", etAmount.getText().toString().trim()+"");
+            requestObject.put("ServiceUse",getServiceName(selectedServiceType)+"");
+            requestObject.put("GiftCode",etGiftCode.getText().toString().trim()+"");
+            Country countryObject=(Country)spCountryCode.getSelectedItem();
+            requestObject.put("UserCountryCode",countryObject.CountryCode+"");
+            requestObject.put("UserMobileNo",etMobileNumber.getText().toString().trim()+"");
 
         } catch (Exception e){
             e.printStackTrace();
@@ -543,15 +542,12 @@ public class FragmentHome extends Fragment {
         req.setRetryPolicy(new DefaultRetryPolicy(0,0,0));
 
         MyApplication.getInstance().addToRequestQueue(req);
-
-
     }
 
     private boolean isRedeemGC() {
         boolean isAvailable=false;
-        if(selectedPaymentType==1 && selectedServiceType==2) {
+        if(selectedPaymentType==1 && selectedServiceType==3) {
             isAvailable=true;
-
         }
         return isAvailable;
     }
@@ -607,8 +603,6 @@ public class FragmentHome extends Fragment {
 
                 txt.setText(values.get(position).CountryName+" +"+String.valueOf(values.get(position).CountryCode));
 
-
-
             return  txt;
         }
 
@@ -623,5 +617,18 @@ public class FragmentHome extends Fragment {
         }
     }
 
+    private String getServiceName(int selectedServiceType){
+        String serviceType;
+        if(selectedServiceType==0){
+            serviceType="";
+        } else if(selectedServiceType==1){
+            serviceType="";
+        }else if(selectedServiceType==2){
+            serviceType="";
+        }else {
+            serviceType="Other";
+        }
+       return  serviceType;
+    }
 //end of main class
 }

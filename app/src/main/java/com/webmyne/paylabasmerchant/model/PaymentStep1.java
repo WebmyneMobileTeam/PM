@@ -12,7 +12,7 @@ public class PaymentStep1 {
     @SerializedName("Amount")
     public String Amount;
     @SerializedName("GCAmount")
-    public int GCAmount;
+    public long GCAmount;
     @SerializedName("GiftCode")
     public String GiftCode;
     @SerializedName("IsGCUsed")

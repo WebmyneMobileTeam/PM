@@ -14,7 +14,7 @@ public class RedeemGC {
     @SerializedName("ServiceUse")
     public String ServiceUse;
     @SerializedName("GCAmount")
-    public int GCAmount;
+    public long GCAmount;
     @SerializedName("GiftCode")
     public String GiftCode;
     @SerializedName("UserCountryCode")
