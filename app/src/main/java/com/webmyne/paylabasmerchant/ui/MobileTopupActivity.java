@@ -1,12 +1,14 @@
 package com.webmyne.paylabasmerchant.ui;
 
-import android.content.res.Resources;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+
+import android.content.res.Resources;
+
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
@@ -18,11 +20,19 @@ import com.webmyne.paylabasmerchant.util.AppUtils;
 
 
 public class MobileTopupActivity extends ActionBarActivity {
+
+    private static final String ARG_CONFERENCE_DAY_INDEX
+            = "com.google.samples.apps.iosched.ARG_CONFERENCE_DAY_INDEX";
+
+    ViewPager mViewPager = null;
+    SlidingTabLayout mSlidingTabLayout = null;
+    ToolsPagerAdapter mViewPagerAdapter = null;
     Toolbar toolbar_actionbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mobiletopup);
+        setContentView(R.layout.activity_tools);
 
         toolbar_actionbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
 
@@ -37,7 +47,7 @@ public class MobileTopupActivity extends ActionBarActivity {
         toolbar_actionbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             finish();
+                finish();
             }
         });
 
@@ -55,6 +65,68 @@ public class MobileTopupActivity extends ActionBarActivity {
     }
 
     private void intView(){
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+        mSlidingTabLayout.setCustomTabView(R.layout.tab_indicator, android.R.id.text1);
+        setSlidingTabLayoutContentDescriptions();
 
+        mViewPagerAdapter = new ToolsPagerAdapter(getSupportFragmentManager());
+
+        mViewPager.setAdapter(mViewPagerAdapter);
+
+        Resources res = getResources();
+        mSlidingTabLayout.setSelectedIndicatorColors(res.getColor(R.color.tab_selected_strip));
+        mSlidingTabLayout.setDistributeEvenly(true);
+        mSlidingTabLayout.setViewPager(mViewPager);
     }
+
+    private void setSlidingTabLayoutContentDescriptions() {
+        for (int i = 0; i < 2; i++) {
+            mSlidingTabLayout.setContentDescription(i,getString(R.string.my_schedule_tab_desc_a11y, getTittle(i)));
+        }
+    }
+
+    private String getTittle(int position) {
+        if (position == 0) return getResources().getString(R.string.mobiletopup_recharge);
+        else return getResources().getString(R.string.mobiletopup_history);
+    }
+
+
+    private class ToolsPagerAdapter extends FragmentPagerAdapter {
+
+        public ToolsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            if(position==0) {
+                FragmentMobileTopupRecharge frag = new FragmentMobileTopupRecharge();
+           /*  Bundle args = new Bundle();
+             args.putInt(ARG_CONFERENCE_DAY_INDEX, position);
+             frag.setArguments(args);*/
+
+                return frag;
+            }
+            else{
+                FragmentMobileTopupHistory frag1 = new FragmentMobileTopupHistory();
+              /* Bundle args1 = new Bundle();
+               args1.putInt(ARG_CONFERENCE_DAY_INDEX, position);
+               frag1.setArguments(args1);*/
+                return frag1;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return getTittle(position);
+        }
+    }
+
 }

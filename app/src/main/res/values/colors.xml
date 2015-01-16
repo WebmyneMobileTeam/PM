@@ -94,5 +94,9 @@
 
     <color name="my_schedule_conflict">#db4437</color>
 
+    <color name="green">#689F38</color>
+    <color name="red">#FFC93437</color>
+    <color name="blue">#FF375BF1</color>
+    <color name="yellow">#FFF7D23E</color>
 
 </resources>

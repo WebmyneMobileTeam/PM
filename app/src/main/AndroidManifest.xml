@@ -46,6 +46,7 @@
         </activity>
 
         <activity
+            android:windowSoftInputMode="adjustNothing"
             android:name=".ui.MobileTopupActivity"
             android:label="@string/title_activity_mobiletopup" >
 

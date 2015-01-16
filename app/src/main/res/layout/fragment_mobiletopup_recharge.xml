@@ -1,0 +1,187 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.webmyne.paylabas.userapp.mobile_topup.MobileTopupRechargeFragment">
+
+    <!--Bottom Linear-->
+    <RelativeLayout
+        android:background="@android:color/white"
+        android:layout_marginTop="8dp"
+        android:id="@+id/registrationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:background="@android:color/white"
+        android:id="@+id/bottomLinearGenerateGC"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+.
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/btnRecharge"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="RECHARGE"
+            android:background="@drawable/button_selector"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:background="@android:color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomLinearGenerateGC"
+        android:fillViewport="false"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <!--main Linear-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:orientation="vertical">
+
+    <TextView
+        android:fontFamily="sans-serif-condensed"
+        android:text="Select Country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="@dimen/medium_text" />
+
+
+        <Spinner
+            android:spinnerMode="dialog"
+            android:id="@+id/spCountryRecharge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"></Spinner>
+
+
+        <TextView
+            android:fontFamily="sans-serif-condensed"
+            android:layout_marginTop="8dp"
+            android:text="Service Provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="@dimen/medium_text" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <Spinner
+            android:spinnerMode="dialog"
+            android:id="@+id/spServiceProvider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                ></Spinner>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:id="@+id/ProviderImg"/>
+
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:fontFamily="sans-serif-condensed"
+            android:layout_marginTop="8dp"
+            android:text="Select Recharge Amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="@dimen/medium_text" />
+
+
+        <Spinner
+            android:spinnerMode="dialog"
+            android:id="@+id/spRechargeAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2dp"
+            android:layout_marginTop="8dp"></Spinner>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/theme_primary"
+            android:orientation="vertical"
+            android:padding="8dp">
+            <TextView
+                android:fontFamily="sans-serif-condensed"
+                android:id="@+id/amountPay"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="N/A"
+                android:textColor="#fff"  />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/theme_primary"
+            android:orientation="vertical"
+            android:padding="8dp">
+            <TextView
+                android:fontFamily="sans-serif-condensed"
+                android:id="@+id/recipeintAmountGET"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="N/A"
+                android:textColor="#fff"  />
+
+        </LinearLayout>
+
+
+
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:inputType="phone"
+            android:hint="Enter mobile no."
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/edRechargeMobileNumber"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"/>
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
+</RelativeLayout>

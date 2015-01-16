@@ -33,7 +33,7 @@
     <!-- Mobile Topup -->
     <string name="mobiletopup_title">Mobile Topup</string>
     <string name="mobiletopup_recharge">RECHARGE</string>
-
+    <string name="mobiletopup_history">HISTORY</string>
     <!-- Tools -->
     <string name="tools_title">Tools</string>
     <string name="tabstrip_item1">Currency</string>

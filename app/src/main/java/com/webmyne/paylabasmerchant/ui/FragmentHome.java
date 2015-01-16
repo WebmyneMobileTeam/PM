@@ -4,8 +4,8 @@ package com.webmyne.paylabasmerchant.ui;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -54,13 +54,13 @@ public class FragmentHome extends Fragment {
     private ArrayList<Country> countries;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-//    private Spinner spPaymentType;
+    //    private Spinner spPaymentType;
     private LinearLayout gcLayout;
     private TextView btnNext,btnReset;
     private String mParam1;
     private String mParam2;
     FrameLayout linearTools;
-//    private Spinner spServiceType;
+    //    private Spinner spServiceType;
     private Spinner spCountryCode;
     private ArrayAdapter<String>  paymentTypeAdapter;
     private ArrayAdapter<String> serviceTypeAdapter;
@@ -74,7 +74,7 @@ public class FragmentHome extends Fragment {
     private String paymentType;
     private int paymentTypePosition,serviceTypePosition;
     private LinearLayout linearPaymentType;
-//    private String paymentType;
+    //    private String paymentType;
 //    private int paymentTypePosition,serviceTypePosition;
     private LinearLayout linerPaymentType;
     public int selectedPaymentType = -1;
@@ -291,9 +291,9 @@ public class FragmentHome extends Fragment {
         @Override
         public void onClick(View v) {
 
-          LinearLayout linearChild = (LinearLayout)v;
-          selectedPaymentType = linearPaymentType.indexOfChild(linearChild);
-          setPaymentSelection(selectedPaymentType);
+            LinearLayout linearChild = (LinearLayout)v;
+            selectedPaymentType = linearPaymentType.indexOfChild(linearChild);
+            setPaymentSelection(selectedPaymentType);
 
         }
     };
@@ -382,8 +382,6 @@ public class FragmentHome extends Fragment {
                 requestObject.put("PaymentVia","GC"); //GC or Wallet
             } else if(selectedPaymentType==0) {
                 requestObject.put("PaymentVia","Wallet");
-            } else {
-                requestObject.put("PaymentVia","Cash");
             }
             Country countryObject=(Country)spCountryCode.getSelectedItem();
             requestObject.put("UserCountryCode",countryObject.CountryCode);
@@ -392,56 +390,56 @@ public class FragmentHome extends Fragment {
             e.printStackTrace();
         }
         Log.e("object request",requestObject.toString()+"");
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.PAYMENT_STEP_1, requestObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.PAYMENT_STEP_1, requestObject, new Response.Listener<JSONObject>() {
 
-                @Override
-                public void onResponse(JSONObject jobj) {
-                    circleDialog.dismiss();
-                    LOGE("response: ", jobj.toString() + "");
-                    Log.e("response: ", jobj.toString() + "");
-                    paymentStep1 = new GsonBuilder().create().fromJson(jobj.toString(), PaymentStep1.class);
-                    if(paymentStep1.ResponseCode.equalsIgnoreCase("1")){
-
-
-                        SimpleToast.ok(getActivity(), getResources().getString(R.string.PaymentStep1_1));
-                        showVerificationAlert();
+            @Override
+            public void onResponse(JSONObject jobj) {
+                circleDialog.dismiss();
+                LOGE("response: ", jobj.toString() + "");
+                Log.e("response: ", jobj.toString() + "");
+                paymentStep1 = new GsonBuilder().create().fromJson(jobj.toString(), PaymentStep1.class);
+                if(paymentStep1.ResponseCode.equalsIgnoreCase("1")){
 
 
+                    SimpleToast.ok(getActivity(), getResources().getString(R.string.PaymentStep1_1));
+                    showVerificationAlert();
 
-                    } else if(paymentStep1.ResponseCode.equalsIgnoreCase("2")){
-                        SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_2));
+
+
+                } else if(paymentStep1.ResponseCode.equalsIgnoreCase("2")){
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_2));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_2), Toast.LENGTH_SHORT).show();
-                    }   else if(paymentStep1.ResponseCode.equalsIgnoreCase("-2")){
-                        SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m2));
+                }   else if(paymentStep1.ResponseCode.equalsIgnoreCase("-2")){
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m2));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m2), Toast.LENGTH_SHORT).show();
-                    } else if(paymentStep1.ResponseCode.equalsIgnoreCase("-3")){
-                        SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m3));
+                } else if(paymentStep1.ResponseCode.equalsIgnoreCase("-3")){
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m3));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m3), Toast.LENGTH_SHORT).show();
-                    } else if(paymentStep1.ResponseCode.equalsIgnoreCase("-4")){
-                        SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m4));
+                } else if(paymentStep1.ResponseCode.equalsIgnoreCase("-4")){
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m4));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
-                    } else {
-                        SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m5));
+                } else {
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m5));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m5), Toast.LENGTH_SHORT).show();
-                    }
-
                 }
 
-            }, new Response.ErrorListener() {
+            }
 
-                @Override
-                public void onErrorResponse(VolleyError error) {
+        }, new Response.ErrorListener() {
 
-                    circleDialog.dismiss();
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                circleDialog.dismiss();
 
 
 
-                }
-            });
+            }
+        });
 
-            req.setRetryPolicy(new DefaultRetryPolicy(0,0,0));
+        req.setRetryPolicy(new DefaultRetryPolicy(0,0,0));
 
-            MyApplication.getInstance().addToRequestQueue(req);
+        MyApplication.getInstance().addToRequestQueue(req);
 
 
     }
@@ -450,7 +448,7 @@ public class FragmentHome extends Fragment {
 
         LayoutInflater li = LayoutInflater.from(getActivity());
         View promptsView = li.inflate(R.layout.custom_alert_dialog, null);
-       final  EditText etVerificationCode=(EditText)promptsView.findViewById(R.id.etVerificationCode);
+        final  EditText etVerificationCode=(EditText)promptsView.findViewById(R.id.etVerificationCode);
         etVerificationCode.setText(paymentStep1.VerificationCode+"");
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setView(promptsView);
@@ -470,7 +468,24 @@ public class FragmentHome extends Fragment {
 
                     if(isRedeemGC()){
                         processRedeemGC();
+                    } else if(selectedServiceType==1){ // Mobile Topup
+                        //TODO
+                        affilateUser.tempAmount=etAmount.getText().toString().trim();
+                        Country countryObject=(Country)spCountryCode.getSelectedItem();
+                        affilateUser.tempCountryCode=countryObject.CountryCode+"";
+                        affilateUser.tempMobileNumber=etMobileNumber.getText().toString();
+
+                        if(selectedPaymentType==1){
+                            affilateUser.tempPaymentVia="GC";
+                            affilateUser.tempGiftCode=etGiftCode.getText().toString().trim();
+                        } else {
+                            affilateUser.tempPaymentVia="Wallet";
+                        }
+                        PrefUtils.setMerchant(getActivity(),affilateUser);
+                        Intent intent =new Intent(getActivity(),MobileTopupActivity.class);
+                        startActivity(intent);
                     }
+
 
                 } else{
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_verification_code));
@@ -617,7 +632,7 @@ public class FragmentHome extends Fragment {
             txt.setPadding(16,16,16,16);
             txt.setGravity(Gravity.CENTER_VERTICAL);
 
-                txt.setText(values.get(position).CountryName+" +"+String.valueOf(values.get(position).CountryCode));
+            txt.setText(values.get(position).CountryName+" +"+String.valueOf(values.get(position).CountryCode));
 
             return  txt;
         }
@@ -644,7 +659,7 @@ public class FragmentHome extends Fragment {
         }else {
             serviceType="Other";
         }
-       return  serviceType;
+        return  serviceType;
     }
 //end of main class
 }

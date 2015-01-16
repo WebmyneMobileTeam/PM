@@ -86,5 +86,12 @@ public class AffilateUser {
         return  available;
     }
 
+    public String tempCountryCode;
+    public String tempMobileNumber;
+    public String tempPaymentVia;
+    public String tempAmount;
+    public String tempGiftCode;
+
+
 
 }

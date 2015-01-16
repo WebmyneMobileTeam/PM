@@ -45,10 +45,7 @@ public class AppConstants {
     public static String GET_PAYMENT_STATUS = BASE_URL + "MoneyTransfer.svc/json/GetPaymentStatus";
 
 
-// Mobile top up web service
-    public static String MOBILE_TOPUP = BASE_URL + "MobileTopUp.svc/json/RechargeMobile";
 
-    public static String GET_MOBILE_TOPUP_DETAILS = BASE_URL+"MobileTopUp.svc/json/GetIDTInfos";
 
 
     /*********  FTP IP ***********/
@@ -87,6 +84,14 @@ public class AppConstants {
 
     //Redeem GC
     public static final String REDEEM_GC=BASE_URL+"Payment.svc/json/RedeemGC";
+
+    // Mobile top up web service
+
+    public static String MOBILE_TOPUP = BASE_URL + "Payment.svc/json/MobileTopUp";
+    public static String GET_MOBILE_TOPUP_DETAILS = BASE_URL+"MobileTopUp.svc/json/GetIDTInfos";
+    /*********  image download for service provider ***********/
+    public static final String providerImageURL="http://ws-srv-net.in.webmyne.com/Applications/PayLabas_V02/images/MobileOperators/";
+    public static String GET_MY_MOBILE_TOPUPLIST = BASE_URL+"MobileTopUp.svc/json/RechargeHistory/";
 }
 
 

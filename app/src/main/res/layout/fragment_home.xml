@@ -269,6 +269,7 @@
                     android:layout_marginLeft="5dp"
                     android:fontFamily="sans-serif-condensed"
                     android:singleLine="true"
+                    android:digits="0123456789."
                     android:hint="@string/payment_service_amount"
                     android:inputType="number"
                     android:textSize="@dimen/normal_text"
