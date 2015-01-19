@@ -82,6 +82,8 @@ public class FragmentHome extends Fragment {
     private ArrayList colors_p;
     private LinearLayout linearServiceType,layoutOthers;
 
+    public static boolean isFromDetailPage=false;
+
     public static FragmentHome newInstance(String param1, String param2) {
         FragmentHome fragment = new FragmentHome();
         Bundle args = new Bundle();
@@ -179,17 +181,24 @@ public class FragmentHome extends Fragment {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                etAmount.setText("");
-                etMobileNumber.setText("");
-                etGiftCode.setText("");
-                resetPaymentLinear();
-                resetServiceLinear();
+
+                resetAll();
+
             }
         });
 
         setCountryCode();
 
         return convertview;
+    }
+
+    private void resetAll(){
+        etAmount.setText("");
+        etMobileNumber.setText("");
+        etGiftCode.setText("");
+        resetPaymentLinear();
+        resetServiceLinear();
+        spCountryCode.setSelection(0);
     }
 
     private void setCountryCode() {
@@ -229,6 +238,10 @@ public class FragmentHome extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        if(isFromDetailPage==true){
+            resetAll();
+        }
         affilateUser=PrefUtils.getMerchant(getActivity());
 
         paymentTypeAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, paymentTypeList);

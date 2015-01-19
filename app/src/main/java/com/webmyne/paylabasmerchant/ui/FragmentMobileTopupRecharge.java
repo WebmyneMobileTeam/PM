@@ -59,6 +59,7 @@ public class FragmentMobileTopupRecharge extends Fragment {
     ArrayList<MobileTopupMain> mobileTopupList;
     ArrayList<MobileTopUpProducts> mobileTopUpProductsArrayList;
     ArrayList<MobileTopupRechargeService> mobileTopupRechargeServiceList;
+    String roundup_total;
 
     public static FragmentMobileTopupRecharge newInstance(String param1, String param2) {
         FragmentMobileTopupRecharge fragment = new FragmentMobileTopupRecharge();
@@ -223,7 +224,7 @@ public class FragmentMobileTopupRecharge extends Fragment {
         Log.e(" charges",String.valueOf(charges));
 
         Float Total = charges*EuroRate;
-        String roundup_total = String.format("%.2f", Total);
+        roundup_total = String.format("%.2f", Total);
 
         Log.e("Total",String.valueOf(roundup_total));
         amountPay.setText("You have to Pay € " + String.valueOf(roundup_total));
@@ -253,7 +254,7 @@ public class FragmentMobileTopupRecharge extends Fragment {
                     userObject.put("UserCountryCode",user.tempCountryCode+"");
                     userObject.put("UserMobileNo",user.tempMobileNumber+"");
                     userObject.put("PaymentVia",user.tempPaymentVia+"");
-                    userObject.put("Amount",user.tempAmount+"");
+                    userObject.put("Amount",String.valueOf(roundup_total)+"");
                     if(user.tempPaymentVia.equalsIgnoreCase("GC")){
                         userObject.put("GiftCode",user.tempGiftCode+"");
                     }
@@ -356,11 +357,13 @@ public class FragmentMobileTopupRecharge extends Fragment {
         @Override
         public void onFinish() {
             Log.e("counter","Time's up!");
-
-            FragmentManager manager = getActivity().getSupportFragmentManager();
-            FragmentTransaction ft = manager.beginTransaction();
-            ft.replace(R.id.payment_fragment,new FragmentHome());
-            ft.commit();
+            FragmentHome.isFromDetailPage=true;
+                getActivity().finish();
+//            FragmentManager manager = getActivity().getSupportFragmentManager();
+//            FragmentTransaction ft = manager.beginTransaction();
+//            ft.setCustomAnimations(R.anim.entry, R.anim.exit,R.anim.entry, R.anim.exit);
+//            ft.replace(R.id.payment_fragment, new FragmentHome(), "payment_home");
+//            ft.commit();
         }
 
         @Override
