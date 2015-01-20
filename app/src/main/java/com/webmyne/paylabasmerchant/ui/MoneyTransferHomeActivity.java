@@ -139,7 +139,6 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
 
-
             Intent i = new Intent(MoneyTransferHomeActivity.this,MoneyTransferFinalActivity.class);
             startActivity(i);
 
