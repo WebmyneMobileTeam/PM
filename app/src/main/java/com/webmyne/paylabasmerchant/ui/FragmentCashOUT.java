@@ -1,7 +1,10 @@
 package com.webmyne.paylabasmerchant.ui;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.Country;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
+import com.webmyne.paylabasmerchant.util.PrefUtils;
 import com.webmyne.paylabasmerchant.util.RegionUtils;
 
 import java.util.ArrayList;
@@ -72,6 +76,7 @@ public class FragmentCashOUT extends Fragment {
                     SimpleToast.error(getActivity(), "Please Enter Pin");
                 }
                 else{
+                    showVerificationAlert();
                     processPay();
                 }
             }
@@ -99,6 +104,45 @@ public class FragmentCashOUT extends Fragment {
 
     private void processPay(){
 
+    }
+    private void showVerificationAlert() {
+
+        LayoutInflater li = LayoutInflater.from(getActivity());
+        View promptsView = li.inflate(R.layout.custom_alert_dialog, null);
+        final  EditText etVerificationCode=(EditText)promptsView.findViewById(R.id.etVerificationCode);
+        //etVerificationCode.setText(paymentStep1.VerificationCode+"");
+        etVerificationCode.setText("temp");
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setView(promptsView);
+
+        alert.setPositiveButton("VERIFY", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if(etVerificationCode.getText().toString().trim().equalsIgnoreCase("temp")){
+
+
+
+                } else{
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_verification_code));
+
+                }
+
+
+            }
+        });
+
+        alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
     }
 
 

@@ -128,7 +128,7 @@ private void processPay(){
             userObject.put("AffiliateID",user.UserID+"");
 
             userObject.put("Amount",edCashInAmount.toString());
-            userObject.put("Currency",countries.get(spCountry.getSelectedItemPosition()).CountryShortName);
+          //  userObject.put("Currency",countries.get(spCountry.getSelectedItemPosition()).CountryShortName);
             userObject.put("FormDetail",edFormId.toString());
 
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);
