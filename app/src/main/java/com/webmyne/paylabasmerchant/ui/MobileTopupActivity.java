@@ -91,7 +91,6 @@ public class MobileTopupActivity extends ActionBarActivity {
         else return getResources().getString(R.string.mobiletopup_history);
     }
 
-
     private class ToolsPagerAdapter extends FragmentPagerAdapter {
 
         public ToolsPagerAdapter(FragmentManager fm) {
@@ -103,7 +102,7 @@ public class MobileTopupActivity extends ActionBarActivity {
 
             if(position==0) {
                 FragmentMobileTopupRecharge frag = new FragmentMobileTopupRecharge();
-           /*  Bundle args = new Bundle();
+             /*Bundle args = new Bundle();
              args.putInt(ARG_CONFERENCE_DAY_INDEX, position);
              frag.setArguments(args);*/
 
@@ -120,7 +119,7 @@ public class MobileTopupActivity extends ActionBarActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 1;
         }
 
         @Override

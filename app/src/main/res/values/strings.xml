@@ -17,8 +17,6 @@
     <string name="nav_drawer_faq_en">FAQ</string>
     <string name="nav_drawer_settings_en">Settings</string>
     <string name="nav_drawer_logout_en">Logout</string>
-
-
     <string name="title_activity_tools">ToolsActivity</string>
     <string name="title_activity_mobiletopup">MobileTopupActivity</string>
     <string name="my_schedule_tab_desc_a11y">Tap to show your schedule .</string>
@@ -31,6 +29,7 @@
     <string name="verify_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n</string>
 
     <!-- Mobile Topup -->
+    <string name="money_transfer_title">Money Transfer</string>
     <string name="mobiletopup_title">Mobile Topup</string>
     <string name="mobiletopup_recharge">RECHARGE</string>
     <string name="mobiletopup_history">HISTORY</string>
@@ -47,17 +46,13 @@
     <string name="payment_type_header">Select Payment Type</string>
     <string name="verification_code_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n</string>
     <string name="hint_verification_code">Verification Code</string>
-
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="payment_service_type">Select Service Type</string>
     <string name="payment_service_amount">Amount</string>
     <string name="payment_finish">PAY NOW</string>
     <string name="euro_symbol">€</string>
-
     <string name="menu_cashinout">CashIn/Out</string>
     <string name="menu_tools">Tools</string>
-
 
     <!-- validation -->
     <string name="validation_empty_verification_code">Please Enter Valid Verification Code</string>
@@ -67,7 +62,7 @@
     <string name="validation_empty_service_type">Please Select Service Type</string>
     <string name="validation_empty_amount">Please Enter Amount</string>
 
-    <!-- PaymentStep1 response messages-->
+    <!-- PaymentStep1 response messages -->
     <string name="PaymentStep1_1">Verification Code Send Successfully</string>
     <string name="PaymentStep1_2">Error While Sending Verification Code</string>
     <string name="PaymentStep1_m2">Invalid User</string>
@@ -75,7 +70,7 @@
     <string name="PaymentStep1_m4">Low Balance</string>
     <string name="PaymentStep1_m5">GC is Used</string>
 
-    <!-- Redeem GC response messages-->
+    <!-- Redeem GC response messages -->
     <string name="RedeemGC1_1">GC Redeem Successfully</string>
     <string name="RedeemGC1_2">GC Redeem and Regenerated Successfully</string>
     <string name="RedeemGC1_m1">Error Occure While redeem GC</string>
@@ -83,11 +78,9 @@
     <string name="RedeemGC1_m3">Lower amount GC</string>
     <string name="RedeemGC1_m4">GC is Used</string>
     <string name="RedeemGC1_m5">Invalid GC</string>
-
     <string name="network_error_message">Network Error\n</string>
     <string name="login_merchant_and_password_message">Please enter merchant id and Password</string>
     <string name="verification_activity_empty_verification_msg">Please enter verification code</string>
-
-
+    <string name="title_activity_money_transfer_home">MoneyTransferHomeActivity</string>
 
 </resources>

@@ -323,6 +323,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
                 getResources().getColor(R.color.theme_primary_dark));
         ScrimInsetsScrollView navDrawer = (ScrimInsetsScrollView)
                 mDrawerLayout.findViewById(R.id.navdrawer);
+
         if (selfItem == NAVDRAWER_ITEM_INVALID) {
             // do not show a nav drawer
             if (navDrawer != null) {
@@ -581,7 +582,6 @@ public abstract class BaseActivity extends ActionBarActivity implements
         super.onResume();
 
 
-
     }
 
     @Override
@@ -641,10 +641,6 @@ public abstract class BaseActivity extends ActionBarActivity implements
 
 
     }
-
-
-
-
 
     @Override
     public void onStop() {

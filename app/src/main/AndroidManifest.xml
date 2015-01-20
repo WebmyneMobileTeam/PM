@@ -7,7 +7,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS" />
+
     <application
         android:name=".ui.MyApplication"
         android:allowBackup="true"
@@ -28,6 +29,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:windowSoftInputMode="adjustPan|stateHidden"
             android:name=".ui.MyDrawerActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.IOSched.Sessions" >
@@ -39,24 +41,23 @@
                 <data android:mimeType="vnd.android.cursor.dir/vnd.iosched2014.session" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.ToolsActivity"
-            >
-
+        <activity android:name=".ui.ToolsActivity" >
         </activity>
-
         <activity
-            android:windowSoftInputMode="adjustNothing"
             android:name=".ui.MobileTopupActivity"
-            android:label="@string/title_activity_mobiletopup" >
-
+            android:label="@string/title_activity_mobiletopup"
+            android:windowSoftInputMode="adjustNothing" >
         </activity>
 
         <service
             android:name="com.tuenti.smsradar.SmsRadarService"
             android:exported="false"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name" />
 
+        <activity
+            android:name=".ui.MoneyTransferHomeActivity"
+            android:label="@string/title_activity_money_transfer_home" >
+        </activity>
     </application>
 
 </manifest>

@@ -5,7 +5,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +20,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -43,6 +50,9 @@ import com.webmyne.paylabasmerchant.util.RegionUtils;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGE;
@@ -115,6 +125,7 @@ public class FragmentHome extends Fragment {
         filterService();
         paymentTypeList();
 
+
     }
 
     private void paymentTypeList() {
@@ -169,8 +180,12 @@ public class FragmentHome extends Fragment {
                 } else {
                     if ((selectedPaymentType == 2)) {
                         //TODO Direct to next screen
-                    } else {
+                    }else if(selectedServiceType == 0){
 
+                        Intent i = new Intent(getActivity(),MoneyTransferHomeActivity.class);
+                        startActivity(i);
+                    }
+                    else {
                         postPaymentRequest();
                     }
                 }
@@ -249,10 +264,8 @@ public class FragmentHome extends Fragment {
         serviceTypeAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, affilateServiceNames);
 //      spServiceType.setAdapter(serviceTypeAdapter);
 
-
         resetPaymentLinear();
         resetServiceLinear();
-
         setupPaymentLinear();
         setupServiceLinear();
 
@@ -268,7 +281,7 @@ public class FragmentHome extends Fragment {
             ImageView img = (ImageView)linear.getChildAt(0);
             linear.setBackgroundResource(R.drawable.circle_border_focused);
             linear.getBackground().setColorFilter((int)colors_p.get(k),PorterDuff.Mode.SRC_ATOP);
-            img.setColorFilter((int)colors_p.get(k),PorterDuff.Mode.SRC_ATOP);
+            img.setColorFilter((int) colors_p.get(k), PorterDuff.Mode.SRC_ATOP);
         }
     }
 
@@ -280,7 +293,7 @@ public class FragmentHome extends Fragment {
             ImageView img = (ImageView)linear.getChildAt(0);
             linear.setBackgroundResource(R.drawable.circle_border_focused);
             linear.getBackground().setColorFilter((int)colors_p.get(k),PorterDuff.Mode.SRC_ATOP);
-            img.setColorFilter((int)colors_p.get(k),PorterDuff.Mode.SRC_ATOP);
+            img.setColorFilter((int) colors_p.get(k), PorterDuff.Mode.SRC_ATOP);
         }
     }
 
@@ -333,7 +346,6 @@ public class FragmentHome extends Fragment {
                 iv.setColorFilter(Color.WHITE);
                 linear.setBackgroundResource(R.drawable.circle_mask);
                 linear.getBackground().setColorFilter((int)colors_p.get(selectedServiceType),PorterDuff.Mode.SRC_ATOP);
-
             }else{
                 iv.setColorFilter((int)colors_p.get(z),PorterDuff.Mode.SRC_ATOP);
                 linear.setBackgroundResource(R.drawable.circle_border_focused);
@@ -348,9 +360,7 @@ public class FragmentHome extends Fragment {
 
             LinearLayout linear = (LinearLayout) linearPaymentType.getChildAt(i);
             ImageView iv = (ImageView)linear.getChildAt(0);
-
             int z = i;
-
             if(z == selectedPaymentType){
                 iv.setColorFilter(Color.WHITE);
                 linear.setBackgroundResource(R.drawable.circle_mask);
@@ -416,7 +426,11 @@ public class FragmentHome extends Fragment {
 
                     SimpleToast.ok(getActivity(), getResources().getString(R.string.PaymentStep1_1));
                     showVerificationAlert();
+                        SimpleToast.ok(getActivity(), getResources().getString(R.string.PaymentStep1_1));
+                        showVerificationAlert();
 
+                    } else if(paymentStep1.ResponseCode.equalsIgnoreCase("2")){
+                        SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_2));
 
 
                 } else if(paymentStep1.ResponseCode.equalsIgnoreCase("2")){
@@ -442,18 +456,12 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 circleDialog.dismiss();
-
-
-
             }
         });
 
         req.setRetryPolicy(new DefaultRetryPolicy(0,0,0));
-
         MyApplication.getInstance().addToRequestQueue(req);
-
 
     }
 
@@ -473,12 +481,10 @@ public class FragmentHome extends Fragment {
 
                 if(paymentStep1.VerificationCode.equalsIgnoreCase(etVerificationCode.getText().toString().trim())){
                     // TODO goto next screen
-
-//                        Intent i =  new Intent(getActivity(),MobileTopupActivity.class);
-//                        startActivity(i);
+//                  Intent i =  new Intent(getActivity(),MobileTopupActivity.class);
+//                  startActivity(i);
 
                     dialog.dismiss();
-
                     if(isRedeemGC()){
                         processRedeemGC();
                     } else if(selectedServiceType==1){ // Mobile Topup
@@ -487,7 +493,6 @@ public class FragmentHome extends Fragment {
                         Country countryObject=(Country)spCountryCode.getSelectedItem();
                         affilateUser.tempCountryCode=countryObject.CountryCode+"";
                         affilateUser.tempMobileNumber=etMobileNumber.getText().toString();
-
                         if(selectedPaymentType==1){
                             affilateUser.tempPaymentVia="GC";
                             affilateUser.tempGiftCode=etGiftCode.getText().toString().trim();
@@ -522,6 +527,22 @@ public class FragmentHome extends Fragment {
     }
 
 
+     /*
+        Retreive image from assests and return in Bitmap format
+     */
+    private Bitmap getBitmapFromAsset(String strName)
+    {
+        AssetManager assetManager = getActivity().getAssets();
+        InputStream istr = null;
+        try {
+            istr = assetManager.open(strName+".png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Bitmap bitmap = BitmapFactory.decodeStream(istr);
+        return bitmap;
+    }
+
     private void processRedeemGC() {
 
         circleDialog = new CircleDialog(getActivity(), 0);
@@ -530,7 +551,6 @@ public class FragmentHome extends Fragment {
 
         JSONObject requestObject = new JSONObject();
         try {
-
             requestObject.put("AffiliateID",affilateUser.UserID+"");
             requestObject.put("Amount", etAmount.getText().toString().trim()+"");
             requestObject.put("ServiceUse",getServiceName(selectedServiceType)+"");
@@ -584,7 +604,6 @@ public class FragmentHome extends Fragment {
         });
 
         req.setRetryPolicy(new DefaultRetryPolicy(0,0,0));
-
         MyApplication.getInstance().addToRequestQueue(req);
     }
 
@@ -644,18 +663,36 @@ public class FragmentHome extends Fragment {
             TextView txt = new TextView(getActivity());
             txt.setPadding(16,16,16,16);
             txt.setGravity(Gravity.CENTER_VERTICAL);
-
             txt.setText(values.get(position).CountryName+" +"+String.valueOf(values.get(position).CountryCode));
 
+            txt.setText(values.get(position).CountryName+" +"+String.valueOf(values.get(position).CountryCode));
+            if(values.get(position).ShortCode == null || values.get(position).ShortCode.equalsIgnoreCase("") ||values.get(position).ShortCode.equalsIgnoreCase("NULL") ){
+            }else{
+                try {
+                  /*  Class res = R.drawable.class;
+                    Field field = res.getField(values.get(position).ShortCode.toLowerCase().toString()+".png");
+                    int drawableId = field.getInt(null);*/
+                    int idd = getResources().getIdentifier("com.webmyne.paylabasmerchant:drawable/" + values.get(position).ShortCode.toString().trim().toLowerCase(), null, null);
+                    txt.setCompoundDrawablesWithIntrinsicBounds(idd,0,0,0);
+                }
+                catch (Exception e) {
+                    Log.e("MyTag", "Failure to get drawable id.", e);
+                }
+
+
+
+            }
             return  txt;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+
             TextView txt = new TextView(getActivity());
             txt.setGravity(Gravity.CENTER_VERTICAL);
             txt.setPadding(16,16,16,16);
             txt.setText("+"+String.valueOf(values.get(position).CountryCode));
+
 
             return  txt;
         }
