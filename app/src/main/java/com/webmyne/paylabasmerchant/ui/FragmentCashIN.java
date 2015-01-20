@@ -127,19 +127,19 @@ private void processPay(){
 
             userObject.put("AffiliateID",user.UserID+"");
 
-            userObject.put("Amount",edCashInAmount.toString());
-          //  userObject.put("Currency",countries.get(spCountry.getSelectedItemPosition()).CountryShortName);
-            userObject.put("FormDetail",edFormId.toString());
+            userObject.put("Amount",edCashInAmount.getText().toString());
+            userObject.put("Currency","EUR");
+            userObject.put("FormDetail",edFormId.getText().toString());
 
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);
-            userObject.put("UserMobileNo",edMobileNumber.toString());
+            userObject.put("UserMobileNo",edMobileNumber.getText().toString());
 
             Log.e("cash in post object",userObject.toString());
 
             final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
             circleDialog.setCancelable(true);
             circleDialog.show();
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.MOBILE_TOPUP, userObject, new Response.Listener<JSONObject>() {
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.CASH_IN, userObject, new Response.Listener<JSONObject>() {
 
                 @Override
                 public void onResponse(JSONObject jobj) {
@@ -152,13 +152,14 @@ private void processPay(){
                         JSONObject obj = new JSONObject(response);
                         if(obj.getString("ResponseCode").equalsIgnoreCase("1")){
                             SimpleToast.ok(getActivity(), "Cash In Done");
+
                             CountDownTimer countDownTimer;
                             countDownTimer = new MyCountDownTimer(3000, 1000); // 1000 = 1s
                             countDownTimer.start();
                         }
                         else {
-                            if(obj.getString("ResponseCode").equalsIgnoreCase("-2")) {
-                                SimpleToast.error(getActivity(), "Cash In Fail");
+                            if(obj.getString("ResponseCode").equalsIgnoreCase("2")) {
+                                SimpleToast.error(getActivity(), "Invalid User Details !!!");
                             }
                             else {
                             SimpleToast.error(getActivity(), "Cash In Failed. Please Try again !!!");

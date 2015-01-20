@@ -44,7 +44,7 @@ public class AppConstants {
 
     public static String GET_PAYMENT_STATUS = BASE_URL + "MoneyTransfer.svc/json/GetPaymentStatus";
 
-
+    public static String CASH_IN = BASE_URL + "Payment.svc/json/CashIn";
 
 
 
