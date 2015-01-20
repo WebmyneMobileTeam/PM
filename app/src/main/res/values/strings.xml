@@ -28,6 +28,11 @@
     <string name="verify_change_merchant">Change Merchant ? </string>
     <string name="verify_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n</string>
 
+   <!-- CashInOut-->
+    <string name="cashinout_title">Cash IN/OUT</string>
+    <string name="cashinout_tabstrip1">CASH IN</string>
+    <string name="cashinout_tabstrip2">CASH OUT</string>
+
     <!-- Mobile Topup -->
     <string name="money_transfer_title">Money Transfer</string>
     <string name="mobiletopup_title">Mobile Topup</string>
@@ -51,7 +56,7 @@
     <string name="payment_service_amount">Amount</string>
     <string name="payment_finish">PAY NOW</string>
     <string name="euro_symbol">€</string>
-    <string name="menu_cashinout">CashIn/Out</string>
+    <string name="menu_cashinout">Cash In/Out</string>
     <string name="menu_tools">Tools</string>
 
     <!-- validation -->
@@ -83,5 +88,6 @@
     <string name="verification_activity_empty_verification_msg">Please enter verification code</string>
     <string name="title_activity_money_transfer_home">MoneyTransferHomeActivity</string>
     <string name="title_activity_money_transfer_final">MoneyTransferFinalActivity</string>
+    <string name="title_activity_cash_in_out">CashInOutActivity</string>
 
 </resources>

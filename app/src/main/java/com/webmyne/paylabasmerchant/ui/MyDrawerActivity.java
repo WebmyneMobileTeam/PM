@@ -16,11 +16,14 @@
 
 package com.webmyne.paylabasmerchant.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 
@@ -462,7 +465,23 @@ public class MyDrawerActivity extends BaseActivity{
         return true;
     }
 
-//    @Override
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.e("Item id ", String.valueOf(item));
+        switch (item.getItemId()){
+
+           case R.id.menuCashInOut:
+                    startActivity(new Intent(this, CashInOutActivity.class));
+                break;
+
+            case R.id.menuTools:
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        switch (item.getItemId()) {
 //            case R.id.menu_search:

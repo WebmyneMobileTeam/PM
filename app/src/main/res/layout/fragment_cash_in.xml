@@ -1,0 +1,111 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.webmyne.paylabas.userapp.mobile_topup.MobileTopupRechargeFragment">
+
+    <!--Bottom Linear-->
+    <RelativeLayout
+        android:background="@android:color/white"
+        android:layout_marginTop="8dp"
+        android:id="@+id/registrationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:background="@android:color/white"
+        android:id="@+id/bottomLinearGenerateGC"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+.
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/btnPay"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="PAY"
+            android:background="@drawable/button_selector"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:background="@android:color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomLinearGenerateGC"
+        android:fillViewport="false"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <!--main Linear-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:orientation="vertical">
+
+    <TextView
+        android:fontFamily="sans-serif-condensed"
+        android:text="Select Country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="@dimen/medium_text" />
+
+
+        <Spinner
+            android:spinnerMode="dialog"
+            android:id="@+id/spCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"></Spinner>
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:inputType="phone"
+            android:hint="Enter mobile no."
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/edMobileNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"/>
+        <EditText
+            android:layout_marginTop="10dp"
+            android:inputType="numberDecimal"
+            android:hint="Enter cash in amount"
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/edCashInAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"/>
+        <EditText
+            android:layout_marginTop="10dp"
+            android:inputType="text"
+            android:hint="Enter Form Id"
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/edFormId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"/>
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
+</RelativeLayout>

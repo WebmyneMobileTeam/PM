@@ -62,6 +62,10 @@
             android:name=".ui.MoneyTransferFinalActivity"
             android:label="@string/title_activity_money_transfer_final" >
         </activity>
+        <activity
+            android:name=".ui.CashInOutActivity"
+            android:label="@string/title_activity_cash_in_out" >
+        </activity>
     </application>
 
 </manifest>
