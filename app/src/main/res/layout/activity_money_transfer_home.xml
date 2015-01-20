@@ -9,24 +9,32 @@
     android:orientation="vertical"
     tools:context="com.webmyne.paylabasmerchant.ui.MoneyTransferHomeActivity">
     <include layout="@layout/toolbar_actionbar" />
+
     <LinearLayout
-        android:padding="16dp"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <Spinner
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:id="@+id/spinner_country"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></Spinner>
 
         <Spinner
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
             android:id="@+id/spinner_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></Spinner>
 
         <TextView
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:id="@+id/btnSelectCashPickUp"
             android:layout_marginTop="8dp"
             android:background="#d1d1d1"
@@ -38,7 +46,14 @@
             android:gravity="center_vertical"
             android:textSize="18sp" />
 
-        <include layout="@layout/item_pickup_points"></include>
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:id="@+id/include_item_pickup"
+            layout="@layout/item_pickup_points"></include>
+
 
 
 <!--        <ListView
@@ -64,8 +79,10 @@
         android:id="@+id/btnNextMoneyTransfer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Hello"
+        android:text="Next"
+        android:textColor="#fff"
         android:textSize="22sp"
+        android:background="@color/theme_primary"
         android:gravity="center"
         android:padding="8dp" />
 

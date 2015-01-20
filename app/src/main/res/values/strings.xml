@@ -82,5 +82,6 @@
     <string name="login_merchant_and_password_message">Please enter merchant id and Password</string>
     <string name="verification_activity_empty_verification_msg">Please enter verification code</string>
     <string name="title_activity_money_transfer_home">MoneyTransferHomeActivity</string>
+    <string name="title_activity_money_transfer_final">MoneyTransferFinalActivity</string>
 
 </resources>

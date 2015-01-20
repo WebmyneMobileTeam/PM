@@ -2,6 +2,7 @@ package com.webmyne.paylabasmerchant.ui;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +38,13 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
     public int selected_cash_pickup = -1;
     private TextView btnSelectCashPickUp;
 
+    private CheckedTextView txtTitlePickUp;
+    private TextView txtTitlePickUpSubTitle;
+    private TextView txtWeekend;
+    private View include_item_pickup;
+    private Button btnNextMoneyTransfer;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +65,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
                 finish();
             }
         });
+
         init();
 
     }
@@ -67,8 +76,17 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
        spinner_city = (Spinner)findViewById(R.id.spinner_city);
        btnSelectCashPickUp = (TextView)findViewById(R.id.btnSelectCashPickUp);
        btnSelectCashPickUp.setOnClickListener(mySelectListner);
-     //  list_pickup_points = (ListView)findViewById(R.id.list_pickup_points);
-       //spinner_pickup_points = (Spinner)findViewById(R.id.spinner_pickup_points);
+
+
+        txtTitlePickUp = (CheckedTextView)findViewById(R.id.txtTitlePickUp);
+        txtTitlePickUpSubTitle = (TextView)findViewById(R.id.txtTitlePickUpSubTitle);
+        txtWeekend = (TextView)findViewById(R.id.txtWeekend);
+
+        include_item_pickup = (View)findViewById(R.id.include_item_pickup);
+        include_item_pickup.setVisibility(View.GONE);
+
+        btnNextMoneyTransfer = (Button)findViewById(R.id.btnNextMoneyTransfer);
+        btnNextMoneyTransfer.setOnClickListener(nextClickLisnter);
 
 
        fetchCountryAndDisplay();
@@ -97,7 +115,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
                 if(position == 0){
 
                 }else{
-                    fetchPickUpPointsAndDisplay(position);
+
                 }
             }
 
@@ -112,49 +130,32 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
 
-            Dialog dialog = new Dialog(MoneyTransferHomeActivity.this,android.R.style.Theme_Translucent_NoTitleBar);
-            dialog.setTitle("Select pickup point");
-            dialog.setCancelable(true);
+            fetchPickUpPointsAndDisplay();
 
-            ArrayList points = new ArrayList();
+        }
+    };
 
-            PickUpPoint point = new PickUpPoint();
-            point.name = "ICICI BANK LIMITED, INDIA";
-            point.address = "ICICI BANK TOWERS, BANDRA KURLA COMPLEX, BANDRA(E)";
-            point.weekend = "10.00 - 23.00";
-            points.add(point);
-
-            point = new PickUpPoint();
-            point.name = "ICICI BANK LIMITED, INDIA - CASH PAYMENTS";
-            point.address = "ICICI BANK TOWERS, BANDRA KURLA COMPLEX, BANDRA(E)";
-            point.weekend = "SA: 07:00-15:00";
-            points.add(point);
-
-            point = new PickUpPoint();
-            point.name = "MUTHFOOT FINANCE - MAHIM WEST";
-            point.address = "61, RAM HALL, OPP. MAHIM RAILWAY STATION (WEST) MAHIM, MUMBAI - 400016";
-            point.weekend = "SA: 07:00-15:00";
-            points.add(point);
-
-            MobilePickUpPointsAdapter adapter = new MobilePickUpPointsAdapter(MoneyTransferHomeActivity.this,android.R.layout.simple_list_item_single_choice,points);
-
-            View vDialog = getLayoutInflater().inflate(R.layout.item_dialog_pickup,null);
-            ListView  list_pickup_points = (ListView)vDialog.findViewById(R.id.list_pickup_points);
-            list_pickup_points.setAdapter(adapter);
-            dialog.setContentView(vDialog);
+    private View.OnClickListener nextClickLisnter = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
 
-            dialog.show();
+            Intent i = new Intent(MoneyTransferHomeActivity.this,MoneyTransferFinalActivity.class);
+            startActivity(i);
+
 
         }
     };
 
 
 
-    private void fetchPickUpPointsAndDisplay(int position) {
+    private void fetchPickUpPointsAndDisplay() {
+
+        final Dialog dialog = new Dialog(MoneyTransferHomeActivity.this,android.R.style.Theme_Holo_Light_DarkActionBar);
+        dialog.setTitle("SELECT PICKUP POINT");
+        dialog.setCancelable(true);
 
         ArrayList points = new ArrayList();
-
         PickUpPoint point = new PickUpPoint();
         point.name = "ICICI BANK LIMITED, INDIA";
         point.address = "ICICI BANK TOWERS, BANDRA KURLA COMPLEX, BANDRA(E)";
@@ -173,10 +174,36 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         point.weekend = "SA: 07:00-15:00";
         points.add(point);
 
-     //   MobilePickUpPointsAdapter adapter = new MobilePickUpPointsAdapter(MoneyTransferHomeActivity.this,android.R.layout.simple_list_item_single_choice,points);
-       // list_pickup_points.setAdapter(adapter);
-      //list_pickup_points.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        MobilePickUpPointsAdapter adapter = new MobilePickUpPointsAdapter(MoneyTransferHomeActivity.this,android.R.layout.simple_list_item_single_choice,points);
+        View vDialog = getLayoutInflater().inflate(R.layout.item_dialog_pickup,null);
+        ListView  list_pickup_points = (ListView)vDialog.findViewById(R.id.list_pickup_points);
+        list_pickup_points.setAdapter(adapter);
+        dialog.setContentView(vDialog);
+        dialog.show();
 
+        list_pickup_points.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                dialog.dismiss();
+
+                fillSelectedPoint();
+
+            }
+        });
+
+
+
+    }
+
+    private void fillSelectedPoint() {
+
+        if(!include_item_pickup.isShown()){
+            include_item_pickup.setVisibility(View.VISIBLE);
+        }
+
+        txtTitlePickUp.setText("ICICI BANK LIMITED, INDIA - CASH PAYMENTS");
+        txtTitlePickUpSubTitle.setText("ICICI BANK TOWERS, BANDRA KURLA COMPLEX, BANDRA(E)");
+        txtWeekend.setText("SA: 07:00-15:00");
     }
 
     private void addStaticOneCityToSpinner() {
@@ -249,7 +276,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
                 convertView = getLayoutInflater().inflate(R.layout.item_pickup_points,null);
             }
 
-            CheckedTextView txtTitle = (CheckedTextView) convertView.findViewById(android.R.id.text1);
+            CheckedTextView txtTitle = (CheckedTextView) convertView.findViewById(R.id.txtTitlePickUp);
             TextView txtSubTitle = (TextView) convertView.findViewById(R.id.txtTitlePickUpSubTitle);
             TextView txtWeekend = (TextView) convertView.findViewById(R.id.txtWeekend);
             txtSubTitle.setText(values.get(position).address);
