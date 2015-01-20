@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fff"
+    android:padding="16dp"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+       <ListView
+            android:choiceMode="singleChoice"
+            android:layout_marginTop="8dp"
+            android:id="@+id/list_pickup_points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="1dp" />
+
+</LinearLayout>

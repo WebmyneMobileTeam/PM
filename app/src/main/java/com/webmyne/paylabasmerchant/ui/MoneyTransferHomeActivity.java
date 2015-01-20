@@ -1,5 +1,6 @@
 package com.webmyne.paylabasmerchant.ui;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -33,6 +35,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
    // private Spinner spinner_pickup_points;
    // private ListView list_pickup_points;
     public int selected_cash_pickup = -1;
+    private TextView btnSelectCashPickUp;
 
 
     @Override
@@ -62,6 +65,8 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
 
        spinner_country = (Spinner)findViewById(R.id.spinner_country);
        spinner_city = (Spinner)findViewById(R.id.spinner_city);
+       btnSelectCashPickUp = (TextView)findViewById(R.id.btnSelectCashPickUp);
+       btnSelectCashPickUp.setOnClickListener(mySelectListner);
      //  list_pickup_points = (ListView)findViewById(R.id.list_pickup_points);
        //spinner_pickup_points = (Spinner)findViewById(R.id.spinner_pickup_points);
 
@@ -102,6 +107,49 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
             }
         });
     }
+
+    private View.OnClickListener mySelectListner = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            Dialog dialog = new Dialog(MoneyTransferHomeActivity.this,android.R.style.Theme_Translucent_NoTitleBar);
+            dialog.setTitle("Select pickup point");
+            dialog.setCancelable(true);
+
+            ArrayList points = new ArrayList();
+
+            PickUpPoint point = new PickUpPoint();
+            point.name = "ICICI BANK LIMITED, INDIA";
+            point.address = "ICICI BANK TOWERS, BANDRA KURLA COMPLEX, BANDRA(E)";
+            point.weekend = "10.00 - 23.00";
+            points.add(point);
+
+            point = new PickUpPoint();
+            point.name = "ICICI BANK LIMITED, INDIA - CASH PAYMENTS";
+            point.address = "ICICI BANK TOWERS, BANDRA KURLA COMPLEX, BANDRA(E)";
+            point.weekend = "SA: 07:00-15:00";
+            points.add(point);
+
+            point = new PickUpPoint();
+            point.name = "MUTHFOOT FINANCE - MAHIM WEST";
+            point.address = "61, RAM HALL, OPP. MAHIM RAILWAY STATION (WEST) MAHIM, MUMBAI - 400016";
+            point.weekend = "SA: 07:00-15:00";
+            points.add(point);
+
+            MobilePickUpPointsAdapter adapter = new MobilePickUpPointsAdapter(MoneyTransferHomeActivity.this,android.R.layout.simple_list_item_single_choice,points);
+
+            View vDialog = getLayoutInflater().inflate(R.layout.item_dialog_pickup,null);
+            ListView  list_pickup_points = (ListView)vDialog.findViewById(R.id.list_pickup_points);
+            list_pickup_points.setAdapter(adapter);
+            dialog.setContentView(vDialog);
+
+
+            dialog.show();
+
+        }
+    };
+
+
 
     private void fetchPickUpPointsAndDisplay(int position) {
 
@@ -180,58 +228,40 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         spinner_city.setAdapter(adapter);
     }
 
-//    public class MobilePickUpPointsAdapter extends ArrayAdapter<PickUpPoint> {
-//
-//        Context context;
-//        int layoutResourceId;
-//        ArrayList<PickUpPoint> values;
-//        // int android.R.Layout.
-//
-//        public MobilePickUpPointsAdapter(Context context, int resource, ArrayList<PickUpPoint> objects) {
-//            super(context, resource, objects);
-//            this.context = context;
-//            this.values=objects;
-//        }
-//
-//
-//        @Override
-//        public View getView(final int position, View convertView, ViewGroup parent) {
-//
-//            if(convertView == null){
-//                convertView = getLayoutInflater().inflate(R.layout.item_pickup_points,null);
-//            }
-//
-//            CheckedTextView txtTitle = (CheckedTextView) convertView.findViewById(android.R.id.text1);
-//            TextView txtSubTitle = (TextView) convertView.findViewById(R.id.txtTitlePickUpSubTitle);
-//            TextView txtWeekend = (TextView) convertView.findViewById(R.id.txtWeekend);
-//            txtSubTitle.setText(values.get(position).address);
-//            txtTitle.setText(values.get(position).name);
-//            txtWeekend.setText(values.get(position).weekend);
-//            final RadioButton rb = (RadioButton)convertView.findViewById(R.id.rbCashPickUp);
-//            convertView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    // list_pickup_points.setItemChecked(position,true);
-//                    rb.setChecked(true);
-//                    selected_cash_pickup = position;
-//                    for(int z=0;z<list_pickup_points.getChildCount();z++){
-//
-//                        if(z == selected_cash_pickup){
-//                        }else{
-//                            RadioButton rb = (RadioButton)list_pickup_points.getChildAt(z).findViewById(R.id.rbCashPickUp);
-//                            rb.setChecked(false);
-//                        }
-//
-//                    }
-//                }
-//            });
-//
-//
-//            return  convertView;
-//
-//        }
-//    }
+    public class MobilePickUpPointsAdapter extends ArrayAdapter<PickUpPoint> {
+
+        Context context;
+        int layoutResourceId;
+        ArrayList<PickUpPoint> values;
+        // int android.R.Layout.
+
+        public MobilePickUpPointsAdapter(Context context, int resource, ArrayList<PickUpPoint> objects) {
+            super(context, resource, objects);
+            this.context = context;
+            this.values=objects;
+        }
+
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+
+            if(convertView == null){
+                convertView = getLayoutInflater().inflate(R.layout.item_pickup_points,null);
+            }
+
+            CheckedTextView txtTitle = (CheckedTextView) convertView.findViewById(android.R.id.text1);
+            TextView txtSubTitle = (TextView) convertView.findViewById(R.id.txtTitlePickUpSubTitle);
+            TextView txtWeekend = (TextView) convertView.findViewById(R.id.txtWeekend);
+            txtSubTitle.setText(values.get(position).address);
+            txtTitle.setText(values.get(position).name);
+            txtWeekend.setText(values.get(position).weekend);
+
+
+
+            return  convertView;
+
+        }
+    }
 
 
     public class MobileCityAdapter extends ArrayAdapter<City> {
