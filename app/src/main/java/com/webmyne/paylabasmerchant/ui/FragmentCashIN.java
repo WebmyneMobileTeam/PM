@@ -160,6 +160,9 @@ private void processPay(){
                             if(obj.getString("ResponseCode").equalsIgnoreCase("2")) {
                                 SimpleToast.error(getActivity(), "Invalid User Details !!!");
                             }
+                            else if(obj.getString("ResponseCode").equalsIgnoreCase("4")) {
+                                SimpleToast.error(getActivity(), "Cash In Failed !!! Insufficient Balance");
+                            }
                             else {
                             SimpleToast.error(getActivity(), "Cash In Failed. Please Try again !!!");
                             }
