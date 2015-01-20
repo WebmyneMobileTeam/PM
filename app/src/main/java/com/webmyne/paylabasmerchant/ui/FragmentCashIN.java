@@ -126,7 +126,6 @@ private void processPay(){
             AffilateUser user= PrefUtils.getMerchant(getActivity());
 
             userObject.put("AffiliateID",user.UserID+"");
-
             userObject.put("Amount",edCashInAmount.getText().toString());
             userObject.put("Currency","EUR");
             userObject.put("FormDetail",edFormId.getText().toString());
