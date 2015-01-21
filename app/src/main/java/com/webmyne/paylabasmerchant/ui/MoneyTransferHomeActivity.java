@@ -3,9 +3,12 @@ package com.webmyne.paylabasmerchant.ui;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,14 +22,32 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import com.webmyne.paylabasmerchant.R;
+import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.model.City;
 import com.webmyne.paylabasmerchant.model.Country;
+import com.webmyne.paylabasmerchant.model.MobileTopupMain;
 import com.webmyne.paylabasmerchant.model.PickUpPoint;
+import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
+import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
+import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.RegionUtils;
 
+import org.json.JSONArray;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MoneyTransferHomeActivity extends ActionBarActivity {
 
@@ -44,6 +65,8 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
     private View include_item_pickup;
     private Button btnNextMoneyTransfer;
 
+    private ArrayList<MONEYPOLO_COUNTRY> countries;
+    private ArrayList<MONEYPOLO_CITY> cities;
 
 
     @Override
@@ -90,7 +113,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
 
 
        fetchCountryAndDisplay();
-       addStaticOneCityToSpinner();
+       //addStaticOneCityToSpinner();
 
        spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
            @Override
@@ -191,7 +214,6 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         });
 
 
-
     }
 
     private void fillSelectedPoint() {
@@ -205,53 +227,71 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         txtWeekend.setText("SA: 07:00-15:00");
     }
 
-    private void addStaticOneCityToSpinner() {
 
-        ArrayList cities = new ArrayList();
-        City c = new City();
-        c.CityName = "Select City";
-        cities.add(c);
-        MobileCityAdapter adapter = new MobileCityAdapter(MoneyTransferHomeActivity.this,android.R.layout.simple_spinner_item,cities);
-        spinner_city.setAdapter(adapter);
-
-    }
 
     private void fetchCountryAndDisplay() {
 
-        new RegionUtils() {
+        Log.e("Money polo country list ","................in fetch "+AppConstants.GET_MONEYPOLO_COUNTRYLIST);
+        final CircleDialog circleDialog=new CircleDialog(MoneyTransferHomeActivity.this,0);
+        circleDialog.setCancelable(true);
+        circleDialog.show();
+
+
+        JsonArrayRequest request2 = new JsonArrayRequest(AppConstants.GET_MONEYPOLO_COUNTRYLIST,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray jArray) {
+
+                        circleDialog.dismiss();
+                        Log.e("Response Country ",jArray.toString());
+
+                        countries = new ArrayList<>();
+                        Type listType=new TypeToken<List<MONEYPOLO_COUNTRY>>(){
+                        }.getType();
+                        countries =  new GsonBuilder().create().fromJson(jArray.toString(),listType);
+
+                        MONEYPOLO_COUNTRY c1 = new MONEYPOLO_COUNTRY();
+                        c1.CountryCodeName = "Select Country";
+                        countries.add(0,c1);
+
+                        MobileCountryAdapter adapter = new MobileCountryAdapter(MoneyTransferHomeActivity.this,
+                                android.R.layout.simple_spinner_item,countries);
+
+                        spinner_country.setAdapter(adapter);
+
+
+                    }
+                }, new Response.ErrorListener() {
+
             @Override
-            public void response(ArrayList response) {
-                //int cid,String cname,int ccode,String shcode,int ftopup,String flagc,String cshname
-                Country first_country = new Country(0,"Select Country",0,"",0,"","");
-                response.add(0,first_country);
-                MobileCountryAdapter adapter = new MobileCountryAdapter(MoneyTransferHomeActivity.this,android.R.layout.simple_spinner_item,response);
-                spinner_country.setAdapter(adapter);
+            public void onErrorResponse(VolleyError arg0) {
+
+                Log.e("Response Country ",""+arg0);
+                circleDialog.dismiss();
+
             }
-        }.fetchCountry(MoneyTransferHomeActivity.this);
+        });
+
+        int socketTimeout2 = 60000;//60 seconds - change to what you want
+        RetryPolicy policy2 = new DefaultRetryPolicy(socketTimeout2, 0, 0);
+        request2.setRetryPolicy(policy2);
+
+        MyApplication.getInstance().addToRequestQueue(request2);
+
+
+
     }
 
     private void fetchCityAndDisplay(int countrycode){
 
-        ArrayList cities = new ArrayList();
+        Log.e("Selected Country ",countries.get(countrycode).CountryCodeName);
 
-        City c = new City();
-        c.CityName = "Baroda";
-        cities.add(c);
 
-        c = new City();
-        c.CityName = "Ahmedabad";
-        cities.add(c);
+       // MobileCityAdapter adapter = new MobileCityAdapter(MoneyTransferHomeActivity.this,android.R.layout.simple_spinner_item,cities);
+      //  spinner_city.setAdapter(adapter);
 
-        c = new City();
-        c.CityName = "Surat";
-        cities.add(c);
 
-        c = new City();
-        c.CityName = "Select City";
-        cities.add(0,c);
-
-        MobileCityAdapter adapter = new MobileCityAdapter(MoneyTransferHomeActivity.this,android.R.layout.simple_spinner_item,cities);
-        spinner_city.setAdapter(adapter);
     }
 
     public class MobilePickUpPointsAdapter extends ArrayAdapter<PickUpPoint> {
@@ -290,14 +330,14 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
     }
 
 
-    public class MobileCityAdapter extends ArrayAdapter<City> {
+    public class MobileCityAdapter extends ArrayAdapter<MONEYPOLO_CITY> {
 
         Context context;
         int layoutResourceId;
-        ArrayList<City> values;
+        ArrayList<MONEYPOLO_CITY> values;
         // int android.R.Layout.
 
-        public MobileCityAdapter(Context context, int resource, ArrayList<City> objects) {
+        public MobileCityAdapter(Context context, int resource, ArrayList<MONEYPOLO_CITY> objects) {
             super(context, resource, objects);
             this.context = context;
             this.values=objects;
@@ -309,7 +349,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
             TextView txt = new TextView(MoneyTransferHomeActivity.this);
             txt.setPadding(16,16,16,16);
             txt.setGravity(Gravity.CENTER_VERTICAL);
-            txt.setText(values.get(position).CityName);
+            txt.setText(values.get(position).Description);
             return  txt;
         }
 
@@ -319,20 +359,20 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
             TextView txt = new TextView(MoneyTransferHomeActivity.this);
             txt.setGravity(Gravity.CENTER_VERTICAL);
             txt.setPadding(16,16,16,16);
-            txt.setText(values.get(position).CityName);
+            txt.setText(values.get(position).Description);
             return  txt;
         }
     }
 
 
-    public class MobileCountryAdapter extends ArrayAdapter<Country> {
+    public class MobileCountryAdapter extends ArrayAdapter<MONEYPOLO_COUNTRY> {
 
         Context context;
         int layoutResourceId;
-        ArrayList<Country> values;
+        ArrayList<MONEYPOLO_COUNTRY> values;
         // int android.R.Layout.
 
-        public MobileCountryAdapter(Context context, int resource, ArrayList<Country> objects) {
+        public MobileCountryAdapter(Context context, int resource, ArrayList<MONEYPOLO_COUNTRY> objects) {
             super(context, resource, objects);
             this.context = context;
             this.values=objects;
@@ -344,7 +384,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
             TextView txt = new TextView(MoneyTransferHomeActivity.this);
             txt.setPadding(16,16,16,16);
             txt.setGravity(Gravity.CENTER_VERTICAL);
-            txt.setText(values.get(position).CountryName);
+            txt.setText(values.get(position).CountryCodeName);
             return  txt;
         }
 
@@ -354,10 +394,15 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
             TextView txt = new TextView(MoneyTransferHomeActivity.this);
             txt.setGravity(Gravity.CENTER_VERTICAL);
             txt.setPadding(16,16,16,16);
-            txt.setText(values.get(position).CountryName);
+            txt.setText(values.get(position).CountryCodeName);
+
+
             return  txt;
         }
     }
+
+
+
 
 
     @Override
@@ -381,4 +426,43 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public static class MONEYPOLO_COUNTRY{
+
+        @SerializedName("ConvRate")
+        public String ConvRate;
+        @SerializedName("CountryCodeName")
+        public String CountryCodeName;
+        @SerializedName("CountryID")
+        public int CountryID;
+        @SerializedName("Description")
+        public String Description;
+        @SerializedName("FrmCurrencyCode")
+        public String FrmCurrencyCode;
+        @SerializedName("RegionsCount")
+        public int RegionsCount;
+        @SerializedName("ShortCode")
+        public String ShortCode;
+        @SerializedName("ToCurrencyCode")
+        public String ToCurrencyCode;
+        public MONEYPOLO_COUNTRY() {
+        }
+    }
+
+    public static class MONEYPOLO_CITY{
+
+//        "Amount":"String content",
+//                "CityID":4294967295,
+//                "Description":"String content"
+
+        @SerializedName("Amount")
+        public String Amount;
+        @SerializedName("CityID")
+        public int CityID;
+        @SerializedName("Description")
+        public String Description;
+
+    }
+
+
 }

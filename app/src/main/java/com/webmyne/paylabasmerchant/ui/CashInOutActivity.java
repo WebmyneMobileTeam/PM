@@ -100,6 +100,7 @@ public class CashInOutActivity extends ActionBarActivity {
         public Fragment getItem(int position) {
 
             if(position==0) {
+
                 FragmentCashIN frag = new FragmentCashIN();
 
                 return frag;

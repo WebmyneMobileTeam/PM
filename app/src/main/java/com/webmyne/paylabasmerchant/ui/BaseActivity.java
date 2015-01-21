@@ -556,21 +556,21 @@ public abstract class BaseActivity extends ActionBarActivity implements
         if (isSpecialItem(itemId)) {
             goToNavDrawerItem(itemId);
         } else {
-            // launch the target Activity after a short delay, to allow the close animation to play
+       /*     // launch the target Activity after a short delay, to allow the close animation to play
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     goToNavDrawerItem(itemId);
                 }
-            }, NAVDRAWER_LAUNCH_DELAY);
+            }, NAVDRAWER_LAUNCH_DELAY);*/
 
             // change the active item on the list so the user can see the item changed
             setSelectedNavDrawerItem(itemId);
-            // fade out the main content
+         /*   // fade out the main content
             View mainContent = findViewById(R.id.main_content);
             if (mainContent != null) {
                 mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
-            }
+            }*/
         }
 
         mDrawerLayout.closeDrawer(Gravity.START);

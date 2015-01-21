@@ -33,6 +33,7 @@ import com.webmyne.paylabasmerchant.ui.widget.DrawShadowFrameLayout;
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGD;
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGE;
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGW;
+
 import static com.webmyne.paylabasmerchant.util.LogUtils.makeLogTag;
 
 public class MyDrawerActivity extends BaseActivity{
@@ -155,6 +156,8 @@ public class MyDrawerActivity extends BaseActivity{
 //        }
 //        updateFragContentTopClearance();
 //    }
+
+
 
     @Override
     protected int getSelfNavDrawerItem() {
