@@ -50,6 +50,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -444,7 +445,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
         mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
         mNavDrawerItems.add(NAVDRAWER_ITEM_INVOICE);
         mNavDrawerItems.add(NAVDRAWER_ITEM_REPORTS);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_NOTIFICATION);
+        //mNavDrawerItems.add(NAVDRAWER_ITEM_NOTIFICATION);
         mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
         mNavDrawerItems.add(NAVDRAWER_ITEM_PROFILE);
         mNavDrawerItems.add(NAVDRAWER_ITEM_CONTACTUS);
@@ -537,7 +538,12 @@ public abstract class BaseActivity extends ActionBarActivity implements
         Intent intent;
         switch (item) {
 
+            case NAVDRAWER_ITEM_REPORTS:
+                 intent = new Intent(this, ReportsActivity.class);
+                 startActivity(intent);
+                break;
             case NAVDRAWER_ITEM_SETTINGS:
+
 //                intent = new Intent(this, SettingsActivity.class);
 //                startActivity(intent);
                 break;
@@ -556,18 +562,21 @@ public abstract class BaseActivity extends ActionBarActivity implements
         if (isSpecialItem(itemId)) {
             goToNavDrawerItem(itemId);
         } else {
-       /*     // launch the target Activity after a short delay, to allow the close animation to play
-            mHandler.postDelayed(new Runnable() {
+            goToNavDrawerItem(itemId);
+            // launch the target Activity after a short delay, to allow the close animation to play
+         /*   mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     goToNavDrawerItem(itemId);
                 }
-            }, NAVDRAWER_LAUNCH_DELAY);*/
+            }, NAVDRAWER_LAUNCH_DELAY);
 
+
+*/
             // change the active item on the list so the user can see the item changed
-            setSelectedNavDrawerItem(itemId);
-         /*   // fade out the main content
-            View mainContent = findViewById(R.id.main_content);
+          //  setSelectedNavDrawerItem(itemId);
+            // fade out the main content
+           /* View mainContent = findViewById(R.id.main_content);
             if (mainContent != null) {
                 mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
             }*/

@@ -66,6 +66,12 @@
             android:name=".ui.CashInOutActivity"
             android:label="@string/title_activity_cash_in_out" >
         </activity>
+
+        <activity
+            android:name=".ui.ReportsActivity"
+            android:label="@string/title_activity_reports" >
+        </activity>
+
     </application>
 
 </manifest>

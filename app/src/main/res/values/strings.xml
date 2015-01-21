@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
 
     <!-- English Names -->
+    <string name="euro">€</string>
     <string name="nav_drawer_home_en">Home</string>
     <string name="nav_drawer_invoice_en">Invoice Request</string>
     <string name="nav_drawer_reports_en">Reports</string>
@@ -38,10 +39,15 @@
     <string name="mobiletopup_title">Mobile Topup</string>
     <string name="mobiletopup_recharge">RECHARGE</string>
     <string name="mobiletopup_history">HISTORY</string>
+
+    <!-- Reports -->
+    <string name="reports_title">Reports</string>
     <!-- Tools -->
     <string name="tools_title">Tools</string>
     <string name="tabstrip_item1">Currency</string>
     <string name="tabstrip_item2">Combine GC</string>
+    <string name="button_combinegc">Combine</string>
+    <string name="button_add">Add</string>
 
     <!-- Payment -->
     <string name="payment_hint_mobile">Mobile</string>
@@ -89,5 +95,5 @@
     <string name="title_activity_money_transfer_home">MoneyTransferHomeActivity</string>
     <string name="title_activity_money_transfer_final">MoneyTransferFinalActivity</string>
     <string name="title_activity_cash_in_out">CashInOutActivity</string>
-
+    <string name="title_activity_reports">ReportsActivity</string>
 </resources>

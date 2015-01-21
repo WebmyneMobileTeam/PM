@@ -1,9 +1,7 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context="com.webmyne.paylabas.userapp.giftcode.CombineGCFragment">
+    tools:context="com.webmyne.paylabasmerchant.ui.FragmentCombineGC">
 
 
 
@@ -16,17 +14,34 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:layout_weight="1"
-            android:text="COMBINE"
-            android:layout_height="48dp"
-            android:layout_width="match_parent"></Button>
+        <TextView
 
-        <Button
             android:layout_weight="1"
-            android:text="COMBINE"
-            android:layout_height="48dp"
-            android:layout_width="match_parent"></Button>
+            android:gravity="left|center_vertical"
+            android:drawablePadding="8dp"
+            android:text="@string/button_add"
+            android:textColor="@android:color/white"
+            android:padding="8dp"
+            android:id="@+id/btnAdd"
+            android:background="@drawable/button_selector"
+            android:textSize="@dimen/normal_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:drawablePadding="8dp"
+            android:id="@+id/btnCombine"
+            android:layout_alignParentBottom="true"
+            android:gravity="right|center_vertical"
+            android:layout_gravity="bottom"
+            android:text="@string/button_combinegc"
+            android:textColor="@android:color/white"
+            android:padding="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:textSize="@dimen/normal_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
