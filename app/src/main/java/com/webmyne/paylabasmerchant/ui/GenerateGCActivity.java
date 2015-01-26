@@ -708,7 +708,7 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
 //                            SnackBar bar = new SnackBar(getActivity(),"Gift code generated Successfully");
 //                            bar.show();
                             SimpleToast.ok(GenerateGCActivity.this,"Gift code generated Successfully");
-                            processCheckMobileExists();
+//                            processCheckMobileExists();
                             //resetAll();
 //                            FragmentManager manager = getActivity().getSupportFragmentManager();
 //                            FragmentTransaction ft = manager.beginTransaction();
@@ -802,11 +802,11 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent i = new Intent(GenerateGCActivity.this, AddRecipientActivity.class);
-
-                    i.putExtra("CountryID",(int)arrCheckCountries.get(temp_posCountrySpinner).CountryId);
-                    i.putExtra("Mobileno",edMobileNumberGenerateGC.getText().toString());
-                    startActivity(i);
+//                    Intent i = new Intent(GenerateGCActivity.this, AddRecipientActivity.class);
+//
+//                    i.putExtra("CountryID",(int)arrCheckCountries.get(temp_posCountrySpinner).CountryId);
+//                    i.putExtra("Mobileno",edMobileNumberGenerateGC.getText().toString());
+//                    startActivity(i);
 
 
                 }
