@@ -180,10 +180,6 @@ public class FragmentHome extends Fragment {
                 } else {
                     if ((selectedPaymentType == 2)) {
                         //TODO Direct to next screen
-                    }else if(selectedServiceType == 0){
-
-                        Intent i = new Intent(getActivity(),MoneyTransferHomeActivity.class);
-                        startActivity(i);
                     }
                     else {
                         postPaymentRequest();
@@ -485,9 +481,26 @@ public class FragmentHome extends Fragment {
 //                  startActivity(i);
 
                     dialog.dismiss();
-                    if(isRedeemGC()){
+                    if(isRedeemGC()){ // Redeem GC
                         processRedeemGC();
-                    } else if(selectedServiceType==1){ // Mobile Topup
+
+                    } else if(selectedServiceType==0) { // Money Transfer
+                        //TODO
+                        affilateUser.tempAmount=etAmount.getText().toString().trim();
+                        Country countryObject=(Country)spCountryCode.getSelectedItem();
+                        affilateUser.tempCountryCode=countryObject.CountryCode+"";
+                        affilateUser.tempMobileNumber=etMobileNumber.getText().toString();
+                        if(selectedPaymentType==1){
+                            affilateUser.tempPaymentVia="GC";
+                            affilateUser.tempGiftCode=etGiftCode.getText().toString().trim();
+                        } else {
+                            affilateUser.tempPaymentVia="Wallet";
+                        }
+                        PrefUtils.setMerchant(getActivity(),affilateUser);
+                        Intent intent =new Intent(getActivity(),MoneyTransferHomeActivity.class);
+                        startActivity(intent);
+
+                    }  else if(selectedServiceType==1){ // Mobile Topup
                         //TODO
                         affilateUser.tempAmount=etAmount.getText().toString().trim();
                         Country countryObject=(Country)spCountryCode.getSelectedItem();
@@ -502,6 +515,8 @@ public class FragmentHome extends Fragment {
                         PrefUtils.setMerchant(getActivity(),affilateUser);
                         Intent intent =new Intent(getActivity(),MobileTopupActivity.class);
                         startActivity(intent);
+                    } else if(selectedServiceType==2){ //Generate GC
+
                     }
 
 
