@@ -10,81 +10,142 @@
     tools:context="com.webmyne.paylabasmerchant.ui.MoneyTransferHomeActivity">
     <include layout="@layout/toolbar_actionbar" />
 
-    <LinearLayout
-
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <Spinner
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:id="@+id/spinner_country"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
-
-        <Spinner
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:id="@+id/spinner_city"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
-
-        <TextView
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:id="@+id/btnSelectCashPickUp"
-            android:layout_marginTop="8dp"
-            android:background="#d1d1d1"
-            android:padding="8dp"
-            android:text="Click to select cash pickup point"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#494949"
-            android:gravity="center_vertical"
-            android:textSize="18sp" />
-
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:id="@+id/include_item_pickup"
-            layout="@layout/item_pickup_points"></include>
-
-
-
-<!--        <ListView
-            android:choiceMode="singleChoice"
-            android:layout_marginTop="8dp"
-            android:id="@+id/list_pickup_points"
-            android:layout_width="match_parent"
+        <LinearLayout android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="1dp" />-->
+            android:orientation="vertical">
 
-        <!--    <Spinner
-                android:spinnerMode="dialog"
-                android:layout_marginTop="16dp"
-                android:id="@+id/spinner_pickup_points"
+            <ScrollView
+                android:padding="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></Spinner>-->
+                android:layout_height="match_parent"
 
-    </LinearLayout>
-   </LinearLayout>
+                android:fillViewport="false"
+                >
 
-    <Button
-        android:layout_gravity="bottom"
-        android:id="@+id/btnNextMoneyTransfer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Next"
-        android:textColor="#fff"
-        android:textSize="22sp"
-        android:background="@color/theme_primary"
-        android:gravity="center"
-        android:padding="8dp" />
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:id="@+id/spinner_country"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></Spinner>
+
+                        <Spinner
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginTop="8dp"
+                            android:id="@+id/spinner_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></Spinner>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="8dp">
+
+                            <TextView
+                                android:fontFamily="sans-serif-condensed"
+                                android:paddingRight="8dp"
+                                android:gravity="right|center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/euro"
+                                android:layout_weight="4" />
+
+
+
+                            <EditText
+                                android:hint="amount"
+                                android:fontFamily="sans-serif-condensed"
+                                android:id="@+id/edAmountTransfer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000"
+                                android:inputType="number"
+                                android:layout_weight="1"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/btnSelectCashPickUp"
+                            android:layout_marginTop="8dp"
+                            android:background="#d1d1d1"
+                            android:padding="8dp"
+                            android:text="Click to select cash pickup point"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#494949"
+                            android:gravity="center_vertical"
+                            android:textSize="18sp" />
+
+                        <include
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:id="@+id/include_item_pickup"
+                            layout="@layout/item_pickup_points"></include>
+
+
+
+
+                        <!--        <ListView
+                                    android:choiceMode="singleChoice"
+                                    android:layout_marginTop="8dp"
+                                    android:id="@+id/list_pickup_points"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:dividerHeight="1dp" />-->
+
+                        <!--    <Spinner
+                                android:spinnerMode="dialog"
+                                android:layout_marginTop="16dp"
+                                android:id="@+id/spinner_pickup_points"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"></Spinner>-->
+
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+
+
+
+
+        </LinearLayout>
+
+        <Button
+            android:layout_gravity="bottom"
+            android:id="@+id/btnNextMoneyTransfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NEXT"
+            android:textColor="#fff"
+            android:textSize="22sp"
+            android:background="@color/theme_primary"
+            android:gravity="center"
+            android:padding="8dp" />
+
+
+
+    </FrameLayout>
+</LinearLayout>
 
 
 </FrameLayout>

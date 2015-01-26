@@ -75,7 +75,7 @@ public class LoginActivity extends ActionBarActivity {
 
         super.onResume();
         setLanguage();
-        etMerchantId.setText("4CF5B52A19");
+        etMerchantId.setText("E2930140CB");
         etSecretId.setText("123456");
         btnLoginNext.setOnClickListener(new View.OnClickListener() {
             @Override

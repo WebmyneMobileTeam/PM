@@ -1,42 +1,176 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:orientation="vertical"
-    tools:context="com.webmyne.paylabasmerchant.ui.MoneyTransferFinalActivity">
+    android:layout_height="match_parent"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    tools:context="com.webmyne.paylabas.userapp.base.AddRecipientActivity">
 
-    <include layout="@layout/toolbar_actionbar" />
+    <include
+        layout="@layout/toolbar_actionbar" />
 
-    <RelativeLayout
+    <!-- activity view -->
+    <FrameLayout
+        android:id="@+id/main_container"
         android:layout_width="match_parent"
+        android:background="#fff"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btnFinishMoneyTransfer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Transfer Money"
-            android:textColor="#fff"
-            android:layout_alignParentBottom="true"
-            android:background="@color/theme_primary"
-            android:textSize="22sp"
-            android:gravity="center"
-            android:padding="8dp" />
-
-
-
-
-
-        <LinearLayout
-            android:background="#fff"
-            android:layout_above="@id/btnFinishMoneyTransfer"
+        <RelativeLayout
+            android:layout_marginTop="8dp"
+            android:id="@+id/registrationView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_gravity="bottom"
+                    android:id="@+id/btnAddRecipient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TRANSFER"
+                    android:textColor="#fff"
+                    android:textSize="22sp"
+                    android:background="@color/theme_primary"
+                    android:gravity="center"
+                    android:padding="8dp" />
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/linear"
+                android:fillViewport="false"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:padding="16dp"
+                            android:id="@+id/txtSelectRecipient"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Enter Recipient Details"
+                            android:drawableRight="@drawable/ic_hardware_keyboard_arrow_right"
+                            android:textSize="16sp"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#cccccc"></View>
+                        <LinearLayout
+                            android:id="@+id/linearMoneyTransferView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                        <TextView
+                            android:padding="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Amount Send"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="#494949"
+                            android:textSize="18sp"/>
+                            <TextView
+                                android:id="@+id/txtSendAmount"
+                                android:textColor="@color/theme_primary"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="€ 10"
+                                android:gravity="center"
+                                android:textSize="24sp"/>
+
+                            <TextView
+                                android:fontFamily="sans-serif-condensed"
+                                android:id="@+id/txtFees"
+                                android:gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Fees:  € 10 "
+                                android:textSize="15sp"
+                                android:textColor="#494949" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginRight="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:background="@color/theme_primary"
+                                android:orientation="vertical"
+                                android:padding="8dp">
+                                <TextView
+                                    android:fontFamily="sans-serif-condensed"
+                                    android:id="@+id/txtamountPayable"
+                                    android:textStyle="bold"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total Payable Amount:  € 10 "
+                                    android:textColor="#fff"  />
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginRight="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:background="@color/theme_primary"
+                                android:orientation="vertical"
+                                android:padding="8dp">
+                                <TextView
+                                    android:fontFamily="sans-serif-condensed"
+                                    android:id="@+id/txtamountRecipientGET"
+                                    android:textStyle="bold"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Recipient Gets:  10 INR "
+                                    android:textColor="#fff"  />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:fontFamily="sans-serif-condensed"
+                                android:id="@+id/txtExchangerate"
+                                android:gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Exchnage Rate:  € 1 = 71.46 INR "
+                                android:textSize="18sp"
+                                android:textColor="@color/theme_primary" />
+
+                        </LinearLayout>
 
 
-    </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
 
 
 </LinearLayout>

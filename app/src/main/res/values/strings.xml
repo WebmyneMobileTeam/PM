@@ -96,4 +96,5 @@
     <string name="title_activity_money_transfer_final">MoneyTransferFinalActivity</string>
     <string name="title_activity_cash_in_out">CashInOutActivity</string>
     <string name="title_activity_reports">ReportsActivity</string>
+    <string name="title_activity_money">MoneyTransferFinalActivity</string>
 </resources>

@@ -1,0 +1,189 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    tools:context="com.webmyne.paylabas.userapp.base.AddRecipientActivity">
+
+    <include
+        layout="@layout/toolbar_actionbar" />
+    <!-- activity view -->
+    <FrameLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_marginTop="8dp"
+            android:id="@+id/registrationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_gravity="bottom"
+                    android:id="@+id/btnAddRecipient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NEXT"
+                    android:textColor="#fff"
+                    android:textSize="22sp"
+                    android:background="@color/theme_primary"
+                    android:gravity="center"
+                    android:padding="8dp" />
+
+
+
+            </LinearLayout>
+
+            <ScrollView
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/linear"
+                android:fillViewport="false">
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="sans-serif-condensed"
+                        android:singleLine="true"
+                        android:hint="First Name"
+                    android:layout_weight="1"
+                        android:id="@+id/edFirstname" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="sans-serif-condensed"
+                        android:singleLine="true"
+                        android:hint="Last Name"
+
+                        android:layout_weight="1"
+                        android:id="@+id/edLastname" />
+               </LinearLayout>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="sans-serif-condensed"
+                        android:singleLine="true"
+                        android:hint="Email address"
+
+                        android:id="@+id/edEmail" />
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="sans-serif-condensed"
+                        android:minLines="3"
+                        android:maxLines="3"
+                        android:gravity="left"
+                        android:hint="Address"
+
+                        android:id="@+id/edAddress" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:spinnerMode="dialog"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="One"
+                            android:id="@+id/spCountry"
+                            android:layout_weight="1" />
+
+                        <Spinner
+                            android:spinnerMode="dialog"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="One"
+                            android:id="@+id/spState"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                    <Spinner
+                        android:spinnerMode="dialog"
+                        android:id="@+id/spCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="One"
+                        android:layout_weight="1" />
+                    <EditText
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:fontFamily="sans-serif-condensed"
+                        android:singleLine="true"
+                        android:hint="Zip"
+                        android:id="@+id/edZipcode" />
+
+
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText android:layout_width="match_parent"
+                            android:fontFamily="sans-serif-condensed"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:gravity="center"
+                            android:focusable="false"
+                            android:textColor="#000"
+                            android:focusableInTouchMode="false"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/edCountryCode"
+                            android:text="00"/>
+                        <EditText android:layout_width="match_parent"
+                            android:fontFamily="sans-serif-condensed"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@android:color/black"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:gravity="left|center_vertical"
+                            android:hint="Mobile"
+                            android:id="@+id/edMobileno" />
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

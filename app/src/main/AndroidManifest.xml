@@ -59,10 +59,6 @@
             android:label="@string/title_activity_money_transfer_home" >
         </activity>
         <activity
-            android:name=".ui.MoneyTransferFinalActivity"
-            android:label="@string/title_activity_money_transfer_final" >
-        </activity>
-        <activity
             android:name=".ui.CashInOutActivity"
             android:label="@string/title_activity_cash_in_out" >
         </activity>
@@ -70,6 +66,16 @@
         <activity
             android:name=".ui.ReportsActivity"
             android:label="@string/title_activity_reports" >
+        </activity>
+
+        <activity
+            android:name=".ui.MoneyTransferFinalActivity"
+            android:label="@string/title_activity_money" >
+        </activity>
+
+        <activity
+            android:name=".ui.MoneyTransferRecipientActivity"
+            android:label="@string/title_activity_money" >
         </activity>
 
     </application>
