@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#fff"
+    android:layout_height="match_parent">
+
+
+<!--    <LinearLayout
+        android:id="@+id/bottomLinearGenerateG"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/btnBackGenerateGCDialog"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Back"
+            android:background="@color/paylabas_dkgrey"
+            android:layout_weight="1" />
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/btnGenerateGCDialog"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Generate GC"
+            android:background="@color/color_giftcode"
+            android:layout_weight="1" />
+    </LinearLayout>-->
+
+    <LinearLayout
+
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--1-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:textSize="@dimen/normal_text"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile :"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/txtMobileGenerateGCService"
+                    android:textSize="@dimen/normal_text"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingLeft="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <!--1-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:textSize="@dimen/normal_text"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amount :"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/txtAmountGenerateGCService"
+                    android:textSize="@dimen/normal_text"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingLeft="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amount"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:textSize="@dimen/normal_text"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Percentage Charge :"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/txtTransactionChargeGenerateGCService"
+                    android:textSize="@dimen/normal_text"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingLeft="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amount"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:textSize="@dimen/normal_text"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fixed Charge :"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/txtPaylabasChargeGenerateGCService"
+                    android:textSize="@dimen/normal_text"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingLeft="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amount"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+
+
+
+
+            <View
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/paylabas_dkgrey"></View>
+
+
+            <!--1-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="@dimen/normal_text"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Payable Amount :"
+                    android:layout_weight="1" />
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/txtPayableAmountGenerateGCService"
+                    android:textSize="@dimen/normal_text"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingLeft="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Payable Amount"
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/paylabas_dkgrey"></View>
+
+
+            <!--1-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/normal_text"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Recipient Gets :"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/txtReceipientGets"
+                    android:textSize="@dimen/normal_text"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingLeft="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="32dp"
+                android:id="@+id/txtExchangeRate"
+android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

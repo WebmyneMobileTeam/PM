@@ -18,7 +18,7 @@ public class AppConstants {
 
     public static String GETRECEIPIENTS = BASE_URL + "GiftCode.svc/json/GetRecipientList/";
 
-    public static String GENERATE_GC = BASE_URL+"GiftCode.svc/json/GenerateGC";
+//    public static String GENERATE_GC = BASE_URL+"GiftCode.svc/json/GenerateGC";
 
     public static String USER_REGISTRATION = BASE_URL + "User.svc/json/Registration";
 
@@ -101,11 +101,10 @@ public class AppConstants {
     /*********  image download for service provider ***********/
     public static final String providerImageURL="http://ws-srv-net.in.webmyne.com/Applications/PayLabas_V02/images/MobileOperators/";
     public static String GET_MY_MOBILE_TOPUPLIST = BASE_URL+"MobileTopUp.svc/json/RechargeHistory/";
-
     public static String GET_MONEYPOLO_COUNTRYLIST = BASE_URL + "MoneyPolo.svc/json/GetMoneyPoloCountryList";
 
-
-
+    public static String GET_GC_COUNTRY = BASE_URL+"GiftCode.svc/json/GCCountry";
+    public static String GENERATE_GC = BASE_URL+"Payment.svc/json/GenerateGC";
 }
 
 

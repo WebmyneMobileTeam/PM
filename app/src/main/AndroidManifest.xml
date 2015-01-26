@@ -62,7 +62,6 @@
             android:name=".ui.CashInOutActivity"
             android:label="@string/title_activity_cash_in_out" >
         </activity>
-
         <activity
             android:name=".ui.ReportsActivity"
             android:label="@string/title_activity_reports" >
@@ -77,7 +76,18 @@
             android:name=".ui.MoneyTransferRecipientActivity"
             android:label="@string/title_activity_money" >
         </activity>
-
+        <activity
+            android:name=".ui.GenerateGCActivity"
+            android:label="@string/title_activity_reports" >
+        </activity>
+        <activity
+            android:name=".ui.AddRecipientActivity"
+            android:label="@string/title_activity_reports" >
+        </activity>
+        <activity
+            android:name=".ui.ConfirmRecipientActivity"
+            android:label="@string/title_activity_reports" >
+        </activity>
     </application>
 
 </manifest>

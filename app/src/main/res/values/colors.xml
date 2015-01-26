@@ -14,7 +14,8 @@
   limitations under the License.
   -->
 <resources>
-
+    <color name="paylabas_grey">#d1d1d1</color>
+    <color name="paylabas_dkgrey">#494949</color>
     <color name="paylabas_btn_active">#ff00384a</color>
     <color name="paylabas_btn_passive">#086381</color>
 

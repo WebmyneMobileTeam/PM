@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/main_gc_view"
+    android:layout_height="match_parent">
+    <include layout="@layout/toolbar_actionbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        >
+
+        <!--Bottom Linear-->
+        <LinearLayout
+
+            android:id="@+id/bottomLinearGenerateGC"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/btnResetGenerateGC"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Reset"
+                android:background="@color/theme_primary"
+                android:layout_weight="1" />
+
+            <TextView
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/btnGenerateGCGenerateGC"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Check Price"
+                android:background="@color/theme_primary"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+
+
+        <ScrollView
+            android:layout_above="@id/bottomLinearGenerateGC"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Main linear -->
+            <LinearLayout
+                android:id="@+id/mainlineargenerategc"
+                android:padding="@dimen/activity_horizontal_margin"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Receipient Contact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:textSize="@dimen/normal_text" />
+
+                <Spinner
+                    android:spinnerMode="dialog"
+                    android:id="@+id/spinnerRecipientContactGenerateGc"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    ></Spinner>
+
+
+
+                <TextView
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginTop="8dp"
+                    android:text="Country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:textSize="@dimen/normal_text" />
+
+                <Spinner
+                    android:spinnerMode="dialog"
+                    android:id="@+id/spinnerCountryGenerateGc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"></Spinner>
+
+
+                <TextView
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginTop="8dp"
+                    android:text="Mobile Number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:textSize="@dimen/normal_text" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtCCGenerateGC"
+                        android:fontFamily="sans-serif-condensed"
+                        android:paddingRight="8dp"
+                        android:gravity="right|center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="000"
+                        android:layout_weight="4" />
+
+                    <EditText
+
+                        android:inputType="phone"
+                        android:hint="mobile"
+                        android:fontFamily="sans-serif-condensed"
+                        android:id="@+id/edMobileNumberGenerateGC"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginTop="8dp"
+                    android:text="Amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:textSize="@dimen/normal_text" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:fontFamily="sans-serif-condensed"
+                        android:paddingRight="8dp"
+                        android:gravity="right|center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/euro"
+                        android:layout_weight="4" />
+
+
+
+                    <EditText
+                        android:hint="amount"
+                        android:fontFamily="sans-serif-condensed"
+                        android:id="@+id/edAmountGenerateGC"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:inputType="number"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+        <!--AnotherLinear-->
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottomLinearGenerateGC"
+            android:id="@+id/linearService"
+            layout="@layout/item_dialog_generategc"
+            >
+
+        </include>
+
+
+    </RelativeLayout>
+</LinearLayout>
