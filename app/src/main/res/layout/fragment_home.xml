@@ -88,6 +88,7 @@
                             android:src="@drawable/ic_wallet"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -121,7 +122,32 @@
                     </LinearLayout>
 
                 </LinearLayout>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="WALLET"
+        android:textStyle="bold"
+        android:textColor="#494949"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="GIFT CODE"
+        android:textStyle="bold"
+        android:textColor="#494949"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:text="CASH"
+        android:textStyle="bold"
+        android:textColor="#494949"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
                 <!--<Spinner-->
                     <!--android:spinnerMode="dropdown"-->
                     <!--android:id="@+id/spPaymentType"-->
@@ -219,6 +245,33 @@
                     <!--android:id="@+id/spServiceType"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"></Spinner>-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="TRANSFER"
+                    android:textStyle="bold"
+                    android:textColor="#494949"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="TOPUP"
+                    android:textStyle="bold"
+                    android:textColor="#494949"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="GENERATE"
+                    android:textStyle="bold"
+                    android:textColor="#494949"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
             <LinearLayout

@@ -29,7 +29,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="NEXT"
+            android:text="@string/btn_next"
             android:background="@drawable/button_selector"
             android:layout_weight="1" />
 
@@ -61,7 +61,7 @@
 
     <TextView
         android:fontFamily="sans-serif-condensed"
-        android:text="Select Country"
+        android:text="@string/select_country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000"
@@ -78,7 +78,7 @@
         <EditText
             android:layout_marginTop="10dp"
             android:inputType="phone"
-            android:hint="Enter mobile no."
+            android:hint="@string/enter_mobile"
             android:fontFamily="sans-serif-condensed"
             android:id="@+id/edMobileNumber"
             android:layout_width="match_parent"
@@ -87,16 +87,16 @@
         <EditText
             android:layout_marginTop="10dp"
             android:inputType="numberDecimal"
-            android:hint="Enter cash in amount"
+            android:hint="@string/enter_cashout_amount"
             android:fontFamily="sans-serif-condensed"
-            android:id="@+id/edCashInAmount"
+            android:id="@+id/edCashoutAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"/>
         <EditText
             android:layout_marginTop="10dp"
             android:inputType="text"
-            android:hint="Enter Form Id"
+            android:hint="@string/enter_form_id"
             android:fontFamily="sans-serif-condensed"
             android:id="@+id/edFormId"
             android:layout_width="match_parent"
@@ -105,12 +105,21 @@
         <EditText
             android:layout_marginTop="10dp"
             android:inputType="numberPassword"
-            android:hint="Enter PIN"
+            android:hint="@string/enter_pin"
             android:fontFamily="sans-serif-condensed"
             android:id="@+id/edPin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"/>
+
+        <TextView
+            android:textSize="20sp"
+            android:id="@+id/LiveRate"
+            android:paddingTop="5dp"
+            android:gravity="center"
+            android:textColor="@color/theme_primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

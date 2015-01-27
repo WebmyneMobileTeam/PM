@@ -99,4 +99,19 @@
     <string name="title_activity_money">MoneyTransferFinalActivity</string>
     <string name="title_activity_new_generate_gc">NewGenerateGCActivity</string>
 
+    <string name="enter_mobile">Enter mobile no.</string>
+    <string name="enter_cashout_amount">Enter cash Out amount</string>
+    <string name="enter_form_id">Enter Form Id</string>
+    <string name="enter_pin">Enter PIN</string>
+    <string name="select_country">Select Country</string>
+    <string name="btn_next">NEXT</string>
+    <string name="err_mobile">Please Enter Mobile Number</string>
+    <string name="err_entercashout">Please Enter Cash Out Amount</string>
+    <string name="err_enter_formid">Please Enter FormID</string>
+    <string name="err_enter_pin">Please Enter Pin</string>
+    <string name="err_invalid_user">Invalid User Details !!!</string>
+    <string name="err_insufficient_bal">Cash Out Failed !!! Insufficient Balance</string>
+    <string name="err_cashout">Cash Out Failed. Please Try again !!!</string>
+    <string name="er_network">Network Error. Please Try Again</string>
+    <string name="cash_outdone">Cash out done Sucessfully</string>
 </resources>

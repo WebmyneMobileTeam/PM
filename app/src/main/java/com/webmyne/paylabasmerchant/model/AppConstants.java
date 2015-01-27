@@ -46,6 +46,13 @@ public class AppConstants {
 
     public static String CASH_IN = BASE_URL + "Payment.svc/json/CashIn";
 
+    public static String CASH_OUT = BASE_URL + "Payment.svc/json/CashoutMoney";
+
+    public static String SEND_VC_FOR_CASHOUT = BASE_URL + "Payment.svc/json/SendVCForCashout";
+
+    public static String GET_LIVE_CURRENCY = BASE_URL + "Payment.svc/json/LiveCurrencyRate";
+
+
 
 
     public static String GET_MONERPOLO_CITYLIST = BASE_URL + "MoneyPolo.svc/json/GetMoneyPoloCityList";
