@@ -23,7 +23,6 @@
 
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Spinner
@@ -63,6 +62,8 @@
                     android:id="@+id/txtPaymentTypes"
                     android:layout_marginLeft="4dp"
                     android:textSize="@dimen/normal_text"
+                    android:textStyle="bold"
+                    android:textColor="#494949"
                     android:layout_width="wrap_content"
                     android:text="@string/payment_type_header"
                     android:layout_height="wrap_content" />
@@ -130,22 +131,17 @@
         android:layout_width="wrap_content"
         android:layout_marginLeft="8dp"
         android:text="WALLET"
-        android:textStyle="bold"
-        android:textColor="#494949"
+
         android:layout_height="wrap_content" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_marginLeft="10dp"
         android:text="GIFT CODE"
-        android:textStyle="bold"
-        android:textColor="#494949"
         android:layout_height="wrap_content" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_marginLeft="15dp"
         android:text="CASH"
-        android:textStyle="bold"
-        android:textColor="#494949"
         android:layout_height="wrap_content" />
     </LinearLayout>
                 <!--<Spinner-->
@@ -172,6 +168,8 @@
                     android:layout_marginLeft="4dp"
                     android:layout_gravity="left"
                     android:textSize="@dimen/normal_text"
+                    android:textStyle="bold"
+                    android:textColor="#494949"
                     android:layout_width="wrap_content"
                     android:text="@string/payment_service_type"
                     android:layout_height="wrap_content" />
@@ -255,22 +253,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:text="TRANSFER"
-                    android:textStyle="bold"
-                    android:textColor="#494949"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="TOPUP"
-                    android:textStyle="bold"
-                    android:textColor="#494949"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="GENERATE"
-                    android:textStyle="bold"
-                    android:textColor="#494949"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
