@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.webmyne.paylabasmerchant.ui.FragmentCombineGC">
-
+    android:background="@android:color/white"
+    tools:context="com.webmyne.paylabas.userapp.giftcode.CombineGCFragment">
 
 
     <!--Bottom Linear Layout-->
@@ -15,33 +15,28 @@
         android:orientation="horizontal">
 
         <TextView
-
-            android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:drawablePadding="8dp"
-            android:text="@string/button_add"
-            android:textColor="@android:color/white"
-            android:padding="8dp"
-            android:id="@+id/btnAdd"
-            android:background="@drawable/button_selector"
-            android:textSize="@dimen/normal_text"
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/btnAddCombineGiftCode"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="48dp"
+            android:text="Add"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@color/theme_primary"
+            android:layout_weight="1" />
 
         <TextView
-            android:drawablePadding="8dp"
-            android:id="@+id/btnCombine"
-            android:layout_alignParentBottom="true"
-            android:gravity="right|center_vertical"
-            android:layout_gravity="bottom"
-            android:text="@string/button_combinegc"
             android:textColor="@android:color/white"
-            android:padding="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_selector"
-            android:textSize="@dimen/normal_text"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/btnCombineGcCombineGc"
+            android:fontFamily="sans-serif-condensed"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="48dp"
+            android:text="Combine"
+            android:background="@color/theme_primary"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -53,9 +48,11 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
 
             <TextView
                 android:fontFamily="sans-serif-condensed"
@@ -65,7 +62,6 @@
                 android:layout_height="wrap_content"
                 android:text="GiftCode"
                 android:layout_weight="1" />
-
 
             <TextView
                 android:fontFamily="sans-serif-condensed"
@@ -79,6 +75,23 @@
 
         </LinearLayout>
 
+        <Spinner
+            android:spinnerMode="dropdown"
+            android:id="@+id/spGCCountry"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Spinner>
+
+        <EditText
+            android:id="@+id/edUserMobile"
+            android:hint="Mobile No"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         <LinearLayout
             android:id="@+id/linearCombineGiftCode"
             android:layout_width="match_parent"
@@ -88,6 +101,7 @@
         </LinearLayout>
 
 
+ </ScrollView>
     </LinearLayout>
 
 </RelativeLayout>

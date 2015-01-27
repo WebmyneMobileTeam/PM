@@ -66,12 +66,10 @@
             android:name=".ui.ReportsActivity"
             android:label="@string/title_activity_reports" >
         </activity>
-
         <activity
             android:name=".ui.MoneyTransferFinalActivity"
             android:label="@string/title_activity_money" >
         </activity>
-
         <activity
             android:name=".ui.MoneyTransferRecipientActivity"
             android:label="@string/title_activity_money" >
@@ -87,6 +85,10 @@
         <activity
             android:name=".ui.ConfirmRecipientActivity"
             android:label="@string/title_activity_reports" >
+        </activity>
+        <activity
+            android:name=".ui.NewGenerateGCActivity"
+            android:label="@string/title_activity_new_generate_gc" >
         </activity>
     </application>
 

@@ -254,7 +254,7 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.activity_generate_gc);
+        setContentView(R.layout.activity_new_generate_gc);
         Log.e("nirav","nsdfnsdklf");
         init();
         getGCCountries();
@@ -403,12 +403,12 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
     public void activeReset(){
 
         btnResetGenerateGC.setEnabled(true);
-        btnResetGenerateGC.setBackgroundColor(getResources().getColor(R.color.paylabas_dkgrey));
+        btnResetGenerateGC.setBackgroundColor(getResources().getColor(R.color.blue));
     }
     public void passiveReset(){
 
         btnResetGenerateGC.setEnabled(false);
-        btnResetGenerateGC.setBackgroundColor(getResources().getColor(R.color.paylabas_grey));
+        btnResetGenerateGC.setBackgroundColor(getResources().getColor(R.color.blue));
     }
 
     @Override

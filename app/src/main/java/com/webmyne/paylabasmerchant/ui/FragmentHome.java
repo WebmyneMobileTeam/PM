@@ -417,33 +417,37 @@ public class FragmentHome extends Fragment {
                 LOGE("response: ", jobj.toString() + "");
                 Log.e("response: ", jobj.toString() + "");
                 paymentStep1 = new GsonBuilder().create().fromJson(jobj.toString(), PaymentStep1.class);
-                if(paymentStep1.ResponseCode.equalsIgnoreCase("1")){
+                try {
+                    if (paymentStep1.ResponseCode.equalsIgnoreCase("1")) {
 
 
-                    SimpleToast.ok(getActivity(), getResources().getString(R.string.PaymentStep1_1));
-                    showVerificationAlert();
                         SimpleToast.ok(getActivity(), getResources().getString(R.string.PaymentStep1_1));
                         showVerificationAlert();
 
-                    } else if(paymentStep1.ResponseCode.equalsIgnoreCase("2")){
+
+                    } else if (paymentStep1.ResponseCode.equalsIgnoreCase("2")) {
                         SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_2));
 
 
-                } else if(paymentStep1.ResponseCode.equalsIgnoreCase("2")){
-                    SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_2));
+                    } else if (paymentStep1.ResponseCode.equalsIgnoreCase("2")) {
+                        SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_2));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_2), Toast.LENGTH_SHORT).show();
-                }   else if(paymentStep1.ResponseCode.equalsIgnoreCase("-2")){
-                    SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m2));
+                    } else if (paymentStep1.ResponseCode.equalsIgnoreCase("-2")) {
+                        SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m2));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m2), Toast.LENGTH_SHORT).show();
-                } else if(paymentStep1.ResponseCode.equalsIgnoreCase("-3")){
-                    SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m3));
+                    } else if (paymentStep1.ResponseCode.equalsIgnoreCase("-3")) {
+                        SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m3));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m3), Toast.LENGTH_SHORT).show();
-                } else if(paymentStep1.ResponseCode.equalsIgnoreCase("-4")){
-                    SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m4));
+                    } else if (paymentStep1.ResponseCode.equalsIgnoreCase("-4")) {
+                        SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m4));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
-                } else {
-                    SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m5));
+                    } else {
+                        SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m5));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m5), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e){
+                    e.printStackTrace();
+                    SimpleToast.error(getActivity(), "Error");
                 }
 
             }
@@ -529,7 +533,8 @@ public class FragmentHome extends Fragment {
                         }
 
                         PrefUtils.setMerchant(getActivity(),affilateUser);
-                        Intent intent =new Intent(getActivity(),GenerateGCActivity.class);
+                        Intent intent =new Intent(getActivity(),NewGenerateGCActivity.class);
+                        intent.putExtra("payment_via",selectedPaymentType);
                         startActivity(intent);
 
                     }

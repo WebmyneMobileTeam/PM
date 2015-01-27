@@ -110,7 +110,7 @@ private class ToolsPagerAdapter extends FragmentPagerAdapter {
              return frag;
          }
           else{
-               FragmentCombineGC frag1 = new FragmentCombineGC();
+               CombineGCFragment frag1 = new CombineGCFragment();
               /* Bundle args1 = new Bundle();
                args1.putInt(ARG_CONFERENCE_DAY_INDEX, position);
                frag1.setArguments(args1);*/

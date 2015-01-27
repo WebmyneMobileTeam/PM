@@ -29,7 +29,7 @@
     <string name="verify_change_merchant">Change Merchant ? </string>
     <string name="verify_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n</string>
 
-   <!-- CashInOut-->
+    <!-- CashInOut -->
     <string name="cashinout_title">Cash IN/OUT</string>
     <string name="cashinout_tabstrip1">CASH IN</string>
     <string name="cashinout_tabstrip2">CASH OUT</string>
@@ -97,4 +97,6 @@
     <string name="title_activity_cash_in_out">CashInOutActivity</string>
     <string name="title_activity_reports">ReportsActivity</string>
     <string name="title_activity_money">MoneyTransferFinalActivity</string>
+    <string name="title_activity_new_generate_gc">NewGenerateGCActivity</string>
+
 </resources>
