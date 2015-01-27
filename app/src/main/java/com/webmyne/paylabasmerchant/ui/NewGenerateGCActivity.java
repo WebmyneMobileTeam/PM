@@ -243,10 +243,10 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         selectedPaymentType=intent.getIntExtra("payment_via",-1);
         init();
         toolbar_actionbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
-        toolbar_actionbar.setTitle("GENERATE GC");
+
         /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
-            toolbar_actionbar.setTitle(getResources().getString(R.string.mobiletopup_title));
+            toolbar_actionbar.setTitle("GENERATE GC");
             toolbar_actionbar.setNavigationIcon(R.drawable.icon_back);
             setSupportActionBar(toolbar_actionbar);
 

@@ -407,6 +407,9 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
                     arr.put(jobj);
                 }
                 //todo change service and values
+                jMain.put("UserMobileNo", edUserMobile.getText().toString().trim());
+                jMain.put("UserCountryCode", countryList.get(spGCCountry.getSelectedItemPosition()).CountryCode + "");
+
                 jMain.put("AffiliateID", user.UserID);
                 jMain.put("GiftCode", arr);
                 jMain.put("SenderID", user.UserID);
@@ -441,7 +444,7 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
                                 } else {
 //                                    SnackBar bar = new SnackBar(getActivity(), jobj.getString("ResponseMsg"));
 //                                    bar.show();
-                                    SimpleToast.error(getActivity(),jobj.getString("ResponseMsg"));
+                                    SimpleToast.error(getActivity(),jobj.getString("ResponseMsg")+"error ");
                                 }
 
                                 d.dismiss();
@@ -468,12 +471,12 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
                     MyApplication.getInstance().addToRequestQueue(req);
 
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
 
 
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
 
         }
