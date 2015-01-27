@@ -46,6 +46,10 @@ public class AffilateUser {
     public int UserID;
     @SerializedName("VerificationCode")
     public String VerificationCode;
+    @SerializedName("LocalCurrency")
+    public String LocalCurrency;
+
+
 
     //Mobile Topup Service
     public boolean isMobiletopupServiceAvailable(){
