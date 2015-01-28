@@ -3,6 +3,7 @@ package com.webmyne.paylabasmerchant.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -72,8 +73,13 @@ public class VerificationActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         affilateUser = PrefUtils.getMerchant(VerificationActivity.this);
-        etVerificationCode.setText(affilateUser.VerificationCode.toString().trim());
+        try {
+            etVerificationCode.setText(affilateUser.VerificationCode.toString().trim());
+        }catch(Exception e){
+            Log.e("exception", "in verfication");
+        }
         isVerify=PrefUtils.isVerified(VerificationActivity.this);
         if(isVerify){
             Intent intent =new Intent(VerificationActivity.this,MyDrawerActivity.class);

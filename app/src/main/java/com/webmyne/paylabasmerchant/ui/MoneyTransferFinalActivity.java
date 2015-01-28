@@ -35,8 +35,8 @@ import java.util.ArrayList;
 public class MoneyTransferFinalActivity extends ActionBarActivity {
 
     Toolbar toolbar_actionbar;
-    public static TextView txtSelectRecipient;
-    public static Receipient recObj;
+    public static TextView txtSelectRecipient,txtSelectSender;
+    public static Receipient recObj,senObj;
     private  TextView btnAddRecipient;
 
     Float FinalPayableAmount;
@@ -81,7 +81,16 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
         }
         else {
             Log.e("object", "object is null");
-            txtSelectRecipient.setText("Select Recipient");
+            txtSelectRecipient.setText("Enter Recipient Details");
+        }
+
+        if(senObj!=null){
+            Log.e("object", "object not null");
+            txtSelectSender.setText(senObj.FirstName.toString()+" "+senObj.LastName.toString());
+        }
+        else {
+            Log.e("object", "object is null");
+            txtSelectSender.setText("Enter Sender Details");
         }
 
          user= PrefUtils.getMerchant(MoneyTransferFinalActivity.this);
@@ -118,6 +127,7 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
     private void intView(){
 
     txtSelectRecipient = (TextView)findViewById(R.id.txtSelectRecipient);
+    txtSelectSender= (TextView)findViewById(R.id.txtSelectSender);
 
       txtSendAmount = (TextView)findViewById(R.id.txtSendAmount);
       txtFees = (TextView)findViewById(R.id.txtFees);
@@ -125,16 +135,25 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
       txtamountRecipientGET = (TextView)findViewById(R.id.txtamountRecipientGET);
       txtExchangerate     = (TextView)findViewById(R.id.txtExchangerate);
 
-       btnAddRecipient = (TextView)findViewById(R.id.btnAddRecipient);
+      btnAddRecipient = (TextView)findViewById(R.id.btnAddRecipient);
 
     txtSelectRecipient.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent i = new Intent(MoneyTransferFinalActivity.this,MoneyTransferRecipientActivity.class);
+            i.putExtra("ObjectValue","Recipient");
             startActivity(i);
         }
     });
 
+    txtSelectSender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MoneyTransferFinalActivity.this,MoneyTransferRecipientActivity.class);
+                i.putExtra("ObjectValue","Sender");
+                startActivity(i);
+            }
+        });
 
      btnAddRecipient.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -142,6 +161,9 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
 
              if(recObj==null){
                    SimpleToast.error(MoneyTransferFinalActivity.this, "Please Select Recipient First !!!");
+             }
+             else if(senObj == null){
+                 SimpleToast.error(MoneyTransferFinalActivity.this, "Please Select Sender First !!!");
              }
              else {
                 processMoney();
@@ -179,11 +201,16 @@ private void processMoney(){
 
 
     try{
+        AffilateUser affilateUser= PrefUtils.getMerchant(MoneyTransferFinalActivity.this);
         JSONObject userObject = new JSONObject();
 
+        userObject.put("AffiliateID",user.UserID);
         userObject.put("Amount",String.valueOf(MoneyTransferHomeActivity.bankobj.Amount));
         userObject.put("BankID",String.valueOf(MoneyTransferHomeActivity.bankobj.BankID));
         userObject.put("PayableAmt",String.valueOf(FinalPayableAmount));
+
+        userObject.put("PaymentVia", affilateUser.tempPaymentVia );
+
 
         userObject.put("ReceiverAddress",String.valueOf(recObj.Address));
         userObject.put("ReceiverCity",String.valueOf(recObj.City));
@@ -198,14 +225,27 @@ private void processMoney(){
         userObject.put("ReceiverZip",String.valueOf(recObj.ZipCode));
         //userObject.put("ShortCode",String.valueOf(FinalPayableAmount));
 
+        userObject.put("SenderAddress",String.valueOf(senObj.Address));
+        userObject.put("SenderCityID",String.valueOf(senObj.City));
+        userObject.put("SenderCountryID",String.valueOf(senObj.Country));
+
+        userObject.put("SenderEmailAddress",String.valueOf(senObj.EmailId));
+        userObject.put("SenderFirstName",String.valueOf(senObj.FirstName));
+        userObject.put("SenderLastName",String.valueOf(senObj.LastName));
+
+        userObject.put("SenderMobileCountryCode",String.valueOf(senObj.MobileCountryCode));
 
 
+        userObject.put("SenderMobileNo",String.valueOf(senObj.MobileNo));
+        userObject.put("SenderStateID",String.valueOf(senObj.State));
+        userObject.put("SenderZip",String.valueOf(senObj.ZipCode));
 
-        userObject.put("UserID",user.UserID);
+
+        userObject.put("UserID",0);
 
 
         Log.e("obj of mone transfer--",userObject.toString());
-        JsonObjectRequest req = new JsonObjectRequest(com.android.volley.Request.Method.POST, AppConstants.MoONEY_CASH_PICKUP, userObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(com.android.volley.Request.Method.POST, AppConstants.MONEY_CASH_PICKUP_ADMIN, userObject, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject jobj) {
@@ -218,6 +258,8 @@ private void processMoney(){
                     JSONObject obj = new JSONObject(response);
                     if(obj.getString("ResponseCode").equalsIgnoreCase("1")){
                         SimpleToast.ok(MoneyTransferFinalActivity.this, "MoneyTransfer Done");
+                        recObj=null;
+                        senObj=null;
                     }
 
                     else {

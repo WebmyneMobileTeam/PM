@@ -72,7 +72,7 @@ public class MoneyTransferRecipientActivity extends ActionBarActivity {
         toolbar_actionbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
         /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
-            toolbar_actionbar.setTitle("Recipient");
+            toolbar_actionbar.setTitle("MoneyTransfer");
             toolbar_actionbar.setNavigationIcon(R.drawable.icon_back);
             toolbar_actionbar.setBackgroundColor(getResources().getColor(R.color.theme_primary));
 
@@ -120,13 +120,6 @@ private void intView(){
 
             } else if (isEmptyField(edLastname)) {
                 SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Last Name !!!");
-
-            } else if (isEmptyField(edEmail)) {
-                SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Email Address!!!");
-
-            } else if (!isEmailMatch(edEmail)) {
-                SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Valid Email Address !!!");
-
             } else if (isEmptyField(edAddress)) {
                 SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Street Address !!!");
 
@@ -142,19 +135,42 @@ private void intView(){
 
 
             } else {
-                MoneyTransferFinalActivity.recObj = new Receipient();
-                MoneyTransferFinalActivity.recObj.FirstName = edFirstname.getText().toString();
-                MoneyTransferFinalActivity.recObj.LastName = edLastname.getText().toString();
-                MoneyTransferFinalActivity.recObj.EmailId = edEmail.getText().toString();
-                MoneyTransferFinalActivity.recObj.Address = edAddress.getText().toString();
-                MoneyTransferFinalActivity.recObj.ZipCode = edZipcode.getText().toString();
-                MoneyTransferFinalActivity.recObj.MobileNo = edMobileno.getText().toString();
 
-                MoneyTransferFinalActivity.recObj.Country = countrylist.get(spCountry.getSelectedItemPosition()).CountryID;
-                MoneyTransferFinalActivity.recObj.City = cityList.get(spCity.getSelectedItemPosition()).CityID;
-                MoneyTransferFinalActivity.recObj.State = statelist.get(spState.getSelectedItemPosition()).StateID;
+                if(getIntent().getExtras().get("ObjectValue").toString().equals("Recipient")){
 
-                finish();
+                    MoneyTransferFinalActivity.recObj = new Receipient();
+                    MoneyTransferFinalActivity.recObj.FirstName = edFirstname.getText().toString();
+                    MoneyTransferFinalActivity.recObj.LastName = edLastname.getText().toString();
+                    MoneyTransferFinalActivity.recObj.EmailId = edEmail.getText().toString();
+                    MoneyTransferFinalActivity.recObj.Address = edAddress.getText().toString();
+                    MoneyTransferFinalActivity.recObj.ZipCode = edZipcode.getText().toString();
+                    MoneyTransferFinalActivity.recObj.MobileNo = edMobileno.getText().toString();
+
+                    MoneyTransferFinalActivity.recObj.Country = countrylist.get(spCountry.getSelectedItemPosition()).CountryID;
+                    MoneyTransferFinalActivity.recObj.City = cityList.get(spCity.getSelectedItemPosition()).CityID;
+                    MoneyTransferFinalActivity.recObj.State = statelist.get(spState.getSelectedItemPosition()).StateID;
+
+                    finish();
+                }
+                else{
+                    MoneyTransferFinalActivity.senObj = new Receipient();
+                    MoneyTransferFinalActivity.senObj.FirstName = edFirstname.getText().toString();
+                    MoneyTransferFinalActivity.senObj.LastName = edLastname.getText().toString();
+                    MoneyTransferFinalActivity.senObj.EmailId = edEmail.getText().toString();
+                    MoneyTransferFinalActivity.senObj.Address = edAddress.getText().toString();
+                    MoneyTransferFinalActivity.senObj.ZipCode = edZipcode.getText().toString();
+                    MoneyTransferFinalActivity.senObj.MobileNo = edMobileno.getText().toString();
+                    MoneyTransferFinalActivity.senObj.MobileCountryCode = edCountryCode.getText().toString();
+
+
+                    MoneyTransferFinalActivity.senObj.Country = countrylist.get(spCountry.getSelectedItemPosition()).CountryID;
+                    MoneyTransferFinalActivity.senObj.City = cityList.get(spCity.getSelectedItemPosition()).CityID;
+                    MoneyTransferFinalActivity.senObj.State = statelist.get(spState.getSelectedItemPosition()).StateID;
+
+                    finish();
+                }
+
+
             }
         }
     });

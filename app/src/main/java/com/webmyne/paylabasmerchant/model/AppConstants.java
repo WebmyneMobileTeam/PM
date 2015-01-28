@@ -63,6 +63,9 @@ public class AppConstants {
 
     public static String MONEY_TRANSFER_HISTORY= BASE_URL + "MoneyPolo.svc/json/MoneyCashPickUpHistory/";
 
+    public static String MONEY_CASH_PICKUP_ADMIN = BASE_URL + "Payment.svc/json/MoneyCashPickUp";
+
+
 
     public static String SEND_OTP= BASE_URL + "Payment.svc/json/SendOTP";
 

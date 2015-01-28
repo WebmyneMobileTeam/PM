@@ -73,6 +73,20 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="#cccccc"></View>
+                        <TextView
+                            android:padding="16dp"
+                            android:id="@+id/txtSelectSender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Enter Sender Details"
+                            android:drawableRight="@drawable/ic_hardware_keyboard_arrow_right"
+                            android:textSize="16sp"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#cccccc"></View>
+
                         <LinearLayout
                             android:id="@+id/linearMoneyTransferView"
                             android:layout_width="match_parent"

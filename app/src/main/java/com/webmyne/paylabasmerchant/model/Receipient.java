@@ -31,6 +31,9 @@ public class Receipient {
     @SerializedName("ZipCode")
     public String ZipCode;
 
+   // @SerializedName("ZipCode")
+    public String MobileCountryCode;
+
 
 
 }

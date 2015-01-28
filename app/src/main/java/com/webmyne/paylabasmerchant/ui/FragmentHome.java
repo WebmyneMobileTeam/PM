@@ -342,10 +342,10 @@ public class FragmentHome extends Fragment {
      /*   final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
         pager.setPageMargin(pageMargin);
     */
-        ((MyDrawerActivity)getActivity()).setToolTitle("Hi, User!");
+      /*  ((MyDrawerActivity)getActivity()).setToolTitle("Hi, User!");
         ((MyDrawerActivity)getActivity()).setToolSubTitle("Balance $0.00");
         ((MyDrawerActivity)getActivity()).setToolColor(Color.parseColor("#2977AC"));
-
+*/
 
         getBalanceAndDisplay();
 
