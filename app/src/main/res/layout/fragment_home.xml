@@ -49,111 +49,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-
-                android:gravity="left"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/txtPaymentTypes"
-                    android:layout_marginLeft="4dp"
-                    android:textSize="@dimen/normal_text"
-                    android:textStyle="bold"
-                    android:textColor="#494949"
-                    android:layout_width="wrap_content"
-                    android:text="@string/payment_type_header"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:id="@+id/linearPaymentType"
-                    android:layout_marginTop="8dp"
-
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
-
-
-                    <LinearLayout
-                        android:clickable="true"
-                        android:layout_margin="4dp"
-                        android:background="@drawable/circle_border_focused"
-                        android:padding="16dp"
-                        android:gravity="center"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp">
-                        <ImageView
-                            android:src="@drawable/ic_wallet"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:clickable="true"
-                        android:layout_margin="4dp"
-                        android:background="@drawable/circle_border_focused"
-                        android:padding="16dp"
-                        android:gravity="center"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp">
-                        <ImageView
-                            android:src="@drawable/ic_gift_code"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:clickable="true"
-                        android:layout_margin="4dp"
-                        android:gravity="center"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:background="@drawable/circle_border_focused"
-                        android:padding="16dp"
-                      >
-                        <ImageView
-
-                            android:src="@drawable/ic_euro"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-
-                </LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:text="WALLET"
-
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="GIFT CODE"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:text="CASH"
-        android:layout_height="wrap_content" />
-    </LinearLayout>
-                <!--<Spinner-->
-                    <!--android:spinnerMode="dropdown"-->
-                    <!--android:id="@+id/spPaymentType"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--></Spinner>-->
-
-            </LinearLayout>
-
-
-
+            <!-- 2 -->
             <LinearLayout
 
                 android:gravity="center"
@@ -238,10 +134,10 @@
 
 
                 <!--<Spinner-->
-                    <!--android:spinnerMode="dropdown"-->
-                    <!--android:id="@+id/spServiceType"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"></Spinner>-->
+                <!--android:spinnerMode="dropdown"-->
+                <!--android:id="@+id/spServiceType"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"></Spinner>-->
 
             </LinearLayout>
 
@@ -265,36 +161,148 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
+
+
+            <!-- 1 -->
+
             <LinearLayout
 
-                android:visibility="gone"
-                android:id="@+id/gcLayout"
-                android:gravity="center"
+                android:gravity="left"
+                android:orientation="vertical"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <TextView
+                    android:id="@+id/txtPaymentTypes"
+                    android:layout_marginLeft="4dp"
+                    android:textSize="@dimen/normal_text"
+                    android:textStyle="bold"
+                    android:textColor="#494949"
                     android:layout_width="wrap_content"
-                    android:background="@drawable/ic_giftcard"
+                    android:text="@string/payment_type_header"
                     android:layout_height="wrap_content" />
 
-                <EditText
+                <LinearLayout
+                    android:id="@+id/linearPaymentType"
+                    android:layout_marginTop="8dp"
 
-                    android:layout_marginLeft="4dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:singleLine="true"
-                    android:hint="@string/payment_hint_gc"
-                    android:inputType="number"
-                    android:textSize="@dimen/normal_text"
-                    android:gravity="left|center_vertical"
-                    android:textColor="@android:color/black"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/etGiftCode" />
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:clickable="true"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/circle_border_focused"
+                        android:padding="16dp"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+
+                        <ImageView
+                            android:src="@drawable/ic_wallet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:clickable="true"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/circle_border_focused"
+                        android:padding="16dp"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+                        <ImageView
+                            android:src="@drawable/ic_gift_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:clickable="true"
+                        android:layout_margin="4dp"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/circle_border_focused"
+                        android:padding="16dp"
+                      >
+                        <ImageView
+
+                            android:src="@drawable/ic_euro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="WALLET"
+
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="GIFT CODE"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:text="CASH"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+
+                <LinearLayout
+
+                    android:visibility="gone"
+                    android:id="@+id/gcLayout"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/ic_giftcard"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+
+                        android:layout_marginLeft="4dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:singleLine="true"
+                        android:hint="@string/payment_hint_gc"
+                        android:inputType="number"
+                        android:textSize="@dimen/normal_text"
+                        android:gravity="left|center_vertical"
+                        android:textColor="@android:color/black"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etGiftCode" />
+
+                </LinearLayout>
+                <!--<Spinner-->
+                    <!--android:spinnerMode="dropdown"-->
+                    <!--android:id="@+id/spPaymentType"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--></Spinner>-->
 
             </LinearLayout>
+
+
+
+
             <LinearLayout
 
                 android:gravity="center"

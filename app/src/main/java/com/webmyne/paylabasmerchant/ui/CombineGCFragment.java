@@ -408,6 +408,7 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
                 }
                 //todo change service and values
                 jMain.put("UserMobileNo", edUserMobile.getText().toString().trim());
+                //todo
                 jMain.put("UserCountryCode", countryList.get(spGCCountry.getSelectedItemPosition()).CountryCode + "");
 
                 jMain.put("AffiliateID", user.UserID);

@@ -100,6 +100,7 @@ public class FragmentCashOUT extends Fragment {
     }
 
     private void initView(View convertView){
+
         edMobileNumber = (EditText)convertView.findViewById(R.id.edMobileNumber);
         edFormId= (EditText)convertView.findViewById(R.id.edFormId);
         edCashoutAmount= (EditText)convertView.findViewById(R.id.edCashoutAmount);
@@ -115,7 +116,6 @@ public class FragmentCashOUT extends Fragment {
         super.onResume();
         getLiveCurrencyRate();
         setCountryCode();
-
     }
 
 
@@ -123,11 +123,8 @@ private void getLiveCurrencyRate(){
     try{
         JSONObject userObject = new JSONObject();
         AffilateUser user= PrefUtils.getMerchant(getActivity());
-
-
         userObject.put("FromCurrency","EUR");
         userObject.put("Tocurrency",user.LocalCurrency);
-
         Log.e("live currency object",userObject.toString());
 
         final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
@@ -156,8 +153,6 @@ private void getLiveCurrencyRate(){
                 SimpleToast.error(getActivity(), getResources().getString(R.string.er_network));
             }
         });
-
-
         req.setRetryPolicy(  new DefaultRetryPolicy(0,0,0));
         MyApplication.getInstance().addToRequestQueue(req);
 
@@ -179,8 +174,6 @@ private void processPay(){
             userObject.put("PIN",edPin.getText().toString());
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);
             userObject.put("UserMobileNo",edMobileNumber.getText().toString());
-
-
 
             Log.e("cash out post object",userObject.toString());
 
