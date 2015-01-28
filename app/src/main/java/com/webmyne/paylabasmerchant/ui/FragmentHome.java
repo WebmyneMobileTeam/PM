@@ -16,6 +16,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.model.Country;
 import com.webmyne.paylabasmerchant.model.PaymentStep1;
 import com.webmyne.paylabasmerchant.model.RedeemGC;
+import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.DatabaseWrapper;
@@ -263,7 +265,84 @@ public class FragmentHome extends Fragment {
         setupServiceLinear();
 
 
+     /*   final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
+        pager.setPageMargin(pageMargin);
+    */
+        ((MyDrawerActivity)getActivity()).setToolTitle("Hi, User!");
+        ((MyDrawerActivity)getActivity()).setToolSubTitle("Balance $0.00");
+        ((MyDrawerActivity)getActivity()).setToolColor(Color.parseColor("#2977AC"));
+
+
+        getBalanceAndDisplay();
+
     }
+    private void getBalanceAndDisplay() {
+        affilateUser= PrefUtils.getMerchant(getActivity());
+        new CallWebService(AppConstants.USER_DETAILS+affilateUser.UserID,CallWebService.TYPE_JSONOBJECT) {
+
+            @Override
+            public void response(String jobj) {
+
+                Log.e("response: ", jobj.toString() + "");
+
+                affilateUser = new GsonBuilder().create().fromJson(jobj.toString(), AffilateUser.class);
+
+                AffilateUser user1= PrefUtils.getMerchant(getActivity());
+                try{
+                    ((MyDrawerActivity)getActivity()).setToolTitle("Hi, "+user1.FName);
+
+                    ((MyDrawerActivity)getActivity()).setToolSubTitle("Balance "+getResources().getString(R.string.euro)+" "+user1.LemonwayBal);
+                    ((MyDrawerActivity)getActivity()).hideToolLoading();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void error(VolleyError error) {
+                try{
+                    ((MyDrawerActivity)getActivity()).hideToolLoading();
+                }catch(Exception e){}
+
+            }
+        }.start();
+
+    }
+    public void refreshBalance(){
+
+        ((MyDrawerActivity)getActivity()).setToolTitle("Hi, "+affilateUser.FName);
+
+        new CallWebService(AppConstants.USER_DETAILS+affilateUser.UserID,CallWebService.TYPE_JSONOBJECT) {
+
+            @Override
+            public void response(String response) {
+
+                Log.e("Response User Details ",response);
+
+                try{
+
+                    JSONObject obj = new JSONObject(response);
+                    try{
+                        ((MyDrawerActivity)getActivity()).setToolSubTitle("Balance "+getResources().getString(R.string.euro)+" "+obj.getString("LemonwayBal"));
+                    }catch(Exception e){
+
+                    }
+
+                }catch(Exception e){
+
+                }
+
+            }
+
+            @Override
+            public void error(VolleyError error) {
+
+
+            }
+        }.start();
+
+
+    }
+
 
     public void resetPaymentLinear(){
         selectedPaymentType = -1;

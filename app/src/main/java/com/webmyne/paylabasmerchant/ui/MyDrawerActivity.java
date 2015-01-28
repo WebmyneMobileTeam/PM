@@ -22,13 +22,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 
 import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.ui.widget.DrawShadowFrameLayout;
+import com.webmyne.paylabasmerchant.util.AppUtils;
 
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGD;
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGE;
@@ -49,6 +53,7 @@ public class MyDrawerActivity extends BaseActivity{
     public static final String EXTRA_FILTER_TAG = "com.google.android.iosched.extra.FILTER_TAG";
 
     private int mMode = MODE_EXPLORE;
+    public ProgressBar pb_toolbar;
 
     private final static String SCREEN_LABEL = "Explore";
 
@@ -82,6 +87,19 @@ public class MyDrawerActivity extends BaseActivity{
 
         toolbar = getActionBarToolbar();
         toolbar.setTitle("Merchant");
+
+        Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                Gravity.TOP | Gravity.RIGHT);
+        layoutParams.width = (int) AppUtils.convertDpToPixel(32, MyDrawerActivity.this);
+        layoutParams.height = (int)AppUtils.convertDpToPixel(32,MyDrawerActivity.this);
+        layoutParams.rightMargin = 16;
+        pb_toolbar = new ProgressBar(MyDrawerActivity.this);
+        pb_toolbar.setVisibility(View.GONE);
+        toolbar.addView(pb_toolbar, layoutParams);
+        pb_toolbar.setLayoutParams(layoutParams);
+
 
         overridePendingTransition(0, 0);
         FragmentManager manager = getSupportFragmentManager();
@@ -155,6 +173,28 @@ public class MyDrawerActivity extends BaseActivity{
 //        }
 //        updateFragContentTopClearance();
 //    }
+public void showToolLoading() {
+
+    pb_toolbar.setVisibility(View.VISIBLE);
+}
+
+    public void hideToolLoading() {
+        pb_toolbar.setVisibility(View.GONE);
+    }
+
+
+public void setToolColor(int color) {
+    toolbar.setBackgroundColor(color);
+}
+
+    public void setToolTitle(String title) {
+        toolbar.setTitle(title);
+    }
+
+    public void setToolSubTitle(String subTitle) {
+
+        toolbar.setSubtitle(subTitle);
+    }
 
     @Override
     protected int getSelfNavDrawerItem() {
