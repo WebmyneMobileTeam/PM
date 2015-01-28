@@ -64,6 +64,8 @@ public class AppConstants {
     public static String MONEY_TRANSFER_HISTORY= BASE_URL + "MoneyPolo.svc/json/MoneyCashPickUpHistory/";
 
 
+    public static String SEND_OTP= BASE_URL + "Payment.svc/json/SendOTP";
+
     /*********  FTP IP ***********/
     public static final String ftpPath="192.168.1.4";
 

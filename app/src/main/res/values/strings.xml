@@ -112,6 +112,6 @@
     <string name="err_invalid_user">Invalid User Details !!!</string>
     <string name="err_insufficient_bal">Cash Out Failed !!! Insufficient Balance</string>
     <string name="err_cashout">Cash Out Failed. Please Try again !!!</string>
-    <string name="er_network">Network Error. Please Try Again</string>
+    <string name="er_network">Network Error !!! Please Try Again</string>
     <string name="cash_outdone">Cash out done Sucessfully</string>
 </resources>

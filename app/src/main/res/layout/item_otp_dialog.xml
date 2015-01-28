@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="com.webmyne.paylabas.userapp.registration.EnterPinActivity">
+
+    <LinearLayout
+        android:background="@color/green"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <ImageView
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center"
+            android:id="@+id/btnBack"
+            android:background="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></ImageView>
+
+        <TextView
+
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:text="Enter One Time Password"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnFinishOTP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Proceed"
+        android:layout_alignParentBottom="true"
+        android:background="@color/paylabas_dkgrey"
+        android:textSize="22sp"
+        android:textColor="#fff"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:background="@drawable/header_logo" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:text="Enter One Time Password that sent to your registered mobile or email id(s)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="22sp" />
+
+        <EditText
+
+            android:textColor="#000"
+            android:layout_margin="16dp"
+            android:id="@+id/edOTP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:padding="8dp" />
+
+
+
+
+    </LinearLayout>
+</RelativeLayout>
