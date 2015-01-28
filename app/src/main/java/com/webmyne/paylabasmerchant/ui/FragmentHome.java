@@ -283,15 +283,15 @@ public class FragmentHome extends Fragment {
             @Override
             public void response(String jobj) {
 
-                Log.e("response: ", jobj.toString() + "");
+                Log.e("on resume response k: ", jobj.toString() + "");
 
                 affilateUser = new GsonBuilder().create().fromJson(jobj.toString(), AffilateUser.class);
 
-                AffilateUser user1= PrefUtils.getMerchant(getActivity());
+              //  AffilateUser user1= PrefUtils.getMerchant(getActivity());
                 try{
-                    ((MyDrawerActivity)getActivity()).setToolTitle("Hi, "+user1.FName);
+                    ((MyDrawerActivity)getActivity()).setToolTitle("Hi, "+affilateUser.FName);
 
-                    ((MyDrawerActivity)getActivity()).setToolSubTitle("Balance "+getResources().getString(R.string.euro)+" "+user1.LemonwayBal);
+                    ((MyDrawerActivity)getActivity()).setToolSubTitle("Balance "+getResources().getString(R.string.euro)+" "+affilateUser.LemonwayBal);
                     ((MyDrawerActivity)getActivity()).hideToolLoading();
                 }catch(Exception e){
                     e.printStackTrace();
