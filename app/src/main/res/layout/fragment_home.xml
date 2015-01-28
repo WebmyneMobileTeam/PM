@@ -78,6 +78,7 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/layoutTransfer"
                         android:layout_margin="4dp"
                         android:background="@drawable/circle_border_focused"
                         android:padding="16dp"
@@ -91,6 +92,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layoutTopUp"
                         android:layout_margin="4dp"
                         android:background="@drawable/circle_border_focused"
                         android:padding="16dp"
@@ -104,6 +106,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layoutGenerateGC"
                         android:layout_margin="4dp"
                         android:background="@drawable/circle_border_focused"
                         android:padding="16dp"
@@ -146,15 +149,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/txtTransfer"
                     android:layout_width="wrap_content"
                     android:text="TRANSFER"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/txtTopup"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="TOPUP"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/txtGenerate"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="GENERATE"
@@ -186,13 +192,13 @@
                 <LinearLayout
                     android:id="@+id/linearPaymentType"
                     android:layout_marginTop="8dp"
-
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
                     android:layout_height="wrap_content">
 
 
                     <LinearLayout
+                        android:id="@+id/layoutWallet"
                         android:clickable="true"
                         android:layout_margin="4dp"
                         android:background="@drawable/circle_border_focused"
@@ -209,6 +215,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layoutGC"
                         android:clickable="true"
                         android:layout_margin="4dp"
                         android:background="@drawable/circle_border_focused"
@@ -223,6 +230,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layoutCash"
                         android:clickable="true"
                         android:layout_margin="4dp"
                         android:gravity="center"
@@ -244,17 +252,19 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
     <TextView
+        android:id="@+id/txtWallet"
         android:layout_width="wrap_content"
         android:layout_marginLeft="8dp"
         android:text="WALLET"
-
         android:layout_height="wrap_content" />
     <TextView
+        android:id="@+id/txtGC"
         android:layout_width="wrap_content"
         android:layout_marginLeft="10dp"
         android:text="GIFT CODE"
         android:layout_height="wrap_content" />
     <TextView
+        android:id="@+id/txtCash"
         android:layout_width="wrap_content"
         android:layout_marginLeft="15dp"
         android:text="CASH"

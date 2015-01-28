@@ -93,6 +93,11 @@ public class FragmentHome extends Fragment {
     public int selectedServiceType = -1;
     private ArrayList colors_p;
     private LinearLayout linearServiceType, layoutOthers;
+    private LinearLayout layoutGenerateGC,layoutTopup,layoutTransfer;
+    private LinearLayout layoutCash,layoutGC,layoutWallet;
+
+    private TextView txtTransfer,txtTopup,txtGenerate;
+    private TextView txtWallet,txtGC,txtCash;
 
     public static boolean isFromDetailPage = false;
 
@@ -247,9 +252,27 @@ public class FragmentHome extends Fragment {
         etAmount.setText("");
         etMobileNumber.setText("");
         etGiftCode.setText("");
+
+        layoutTransfer.setVisibility(View.VISIBLE);
+        layoutTopup.setVisibility(View.VISIBLE);
+        layoutGenerateGC.setVisibility(View.VISIBLE);
+        layoutOthers.setVisibility(View.VISIBLE);
+        layoutCash.setVisibility(View.VISIBLE);
+        layoutWallet.setVisibility(View.VISIBLE);
+        layoutGC.setVisibility(View.VISIBLE);
+
+        txtTransfer.setVisibility(View.VISIBLE);
+        txtTopup.setVisibility(View.VISIBLE);
+        txtGenerate.setVisibility(View.VISIBLE);
+        txtWallet.setVisibility(View.VISIBLE);
+        txtCash.setVisibility(View.VISIBLE);
+        txtGC.setVisibility(View.VISIBLE);
+
         resetPaymentLinear();
         resetServiceLinear();
+
         spCountryCode.setSelection(0);
+
     }
 
     private void setCountryCode() {
@@ -278,6 +301,22 @@ public class FragmentHome extends Fragment {
         linearServiceType = (LinearLayout) convertview.findViewById(R.id.linearServiceType);
         layoutOthers = (LinearLayout) convertview.findViewById(R.id.layoutOthers);
         spCountryCode = (Spinner) convertview.findViewById(R.id.spCountryCode);
+
+        layoutCash =(LinearLayout) convertview.findViewById(R.id.layoutCash);
+        layoutGC = (LinearLayout) convertview.findViewById(R.id.layoutGC);
+        layoutGenerateGC = (LinearLayout) convertview.findViewById(R.id.layoutGenerateGC);
+        layoutTopup = (LinearLayout) convertview.findViewById(R.id.layoutTopUp);
+        layoutTransfer = (LinearLayout) convertview.findViewById(R.id.layoutTransfer);
+        layoutWallet = (LinearLayout) convertview.findViewById(R.id.layoutWallet);
+
+        txtCash = (TextView)convertview.findViewById(R.id.txtCash);
+        txtGC = (TextView)convertview.findViewById(R.id.txtGC);
+        txtGenerate = (TextView)convertview.findViewById(R.id.txtGenerate);
+        txtTopup = (TextView)convertview.findViewById(R.id.txtTopup);
+        txtTransfer = (TextView)convertview.findViewById(R.id.txtTransfer);
+        txtWallet = (TextView)convertview.findViewById(R.id.txtWallet);
+
+
     }
 
     @Override
@@ -382,6 +421,7 @@ public class FragmentHome extends Fragment {
     public void resetPaymentLinear() {
         selectedPaymentType = -1;
 
+
         for (int i = 0; i < linearPaymentType.getChildCount(); i++) {
             int k = i;
             LinearLayout linear = (LinearLayout) linearPaymentType.getChildAt(i);
@@ -459,6 +499,67 @@ public class FragmentHome extends Fragment {
                 linear.getBackground().setColorFilter((int) colors_p.get(z), PorterDuff.Mode.SRC_ATOP);
             }
         }
+
+        switch (selectedServiceType){
+
+            case 0:
+
+                // transfer
+
+                layoutWallet.setVisibility(View.VISIBLE);
+                layoutGC.setVisibility(View.GONE);
+                layoutCash.setVisibility(View.VISIBLE);
+
+                txtWallet.setVisibility(View.VISIBLE);
+                txtGC.setVisibility(View.GONE);
+                txtCash.setVisibility(View.VISIBLE);
+
+
+                break;
+
+            case 1:
+
+                //topup
+
+                layoutWallet.setVisibility(View.VISIBLE);
+                layoutGC.setVisibility(View.VISIBLE);
+                layoutCash.setVisibility(View.VISIBLE);
+
+                txtWallet.setVisibility(View.VISIBLE);
+                txtGC.setVisibility(View.VISIBLE);
+                txtCash.setVisibility(View.VISIBLE);
+
+                break;
+
+            case 2:
+
+                //generate
+                layoutWallet.setVisibility(View.VISIBLE);
+                layoutGC.setVisibility(View.GONE);
+                layoutCash.setVisibility(View.VISIBLE);
+
+                txtWallet.setVisibility(View.VISIBLE);
+                txtGC.setVisibility(View.GONE);
+                txtCash.setVisibility(View.VISIBLE);
+
+
+                break;
+
+            case 3:
+
+                layoutWallet.setVisibility(View.GONE);
+                layoutGC.setVisibility(View.VISIBLE);
+                layoutCash.setVisibility(View.GONE);
+
+                txtWallet.setVisibility(View.GONE);
+                txtGC.setVisibility(View.VISIBLE);
+                txtCash.setVisibility(View.GONE);
+
+                break;
+
+        }
+
+
     }
 
     private void setPaymentSelection(int selectedPaymentType) {
@@ -481,11 +582,39 @@ public class FragmentHome extends Fragment {
 
             }
         }
+
+        switch (selectedPaymentType){
+
+            case 0:
+
+                layoutTransfer.setVisibility(View.VISIBLE);
+                layoutTopup.setVisibility(View.VISIBLE);
+                layoutGenerateGC.setVisibility(View.VISIBLE);
+                layoutOthers.setVisibility(View.GONE);
+                txtTransfer.setVisibility(View.VISIBLE);
+                txtTopup.setVisibility(View.VISIBLE);
+                txtGenerate.setVisibility(View.VISIBLE);
+
+                break;
+
+            case 1:
+
+
+
+                break;
+
+            case 2:
+
+                break;
+        }
+
+
         if (selectedPaymentType == 1) {
             gcLayout.setVisibility(View.VISIBLE);
         } else {
             gcLayout.setVisibility(View.GONE);
         }
+
         if (selectedPaymentType == 2) {
             layoutOthers.setVisibility(View.GONE);
         } else {
