@@ -6,6 +6,28 @@
 
 
     tools:context="com.webmyne.paylabas_affiliate.tools.CurrencyCoverterFragment">
+    <LinearLayout
+        android:id="@+id/bottomLinearCombineGC"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/btnConvert"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Convert"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@color/theme_primary"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+
     <ScrollView
         android:layout_alignParentTop="true"
 
@@ -26,19 +48,31 @@
 <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"/>
-    <EditText
-        android:layout_marginLeft="4dp"
-        android:fontFamily="sans-serif-condensed"
-        android:singleLine="true"
-        android:hint="Mobile"
-        android:textSize="@dimen/normal_text"
-        android:gravity="left|center_vertical"
-        android:textColor="@android:color/black"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:inputType="phone"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/etMobileNumber" />
+        android:orientation="horizontal">
+        <Spinner
+            android:spinnerMode="dropdown"
+            android:id="@+id/spCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"></Spinner>
+        <EditText
+            android:fontFamily="sans-serif-condensed"
+            android:singleLine="true"
+            android:hint="Mobile"
+            android:textSize="@dimen/normal_text"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:inputType="phone"
+            android:layout_height="wrap_content"
+            android:id="@+id/etMobileNumber" />
+
+
+    </LinearLayout>
     </LinearLayout>
 
 
@@ -69,6 +103,7 @@
                 <TextView
                     android:layout_marginLeft="8dp"
                     android:text="Amount"
+                    android:id="@+id/Giftamount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -88,10 +123,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:id="@+id/spCurrencyType"
+                android:id="@+id/spGCCountry"
                 />
 
         <LinearLayout
+            android:id="@+id/convertContainer"
             android:layout_marginTop="8dp"
             android:padding="4dp"
             android:background="#dedede"
@@ -121,7 +157,7 @@
                     android:textStyle="bold"
                     android:textColor="#494949"
                     android:layout_width="match_parent"
-
+                    android:id="@+id/FromAmount"
                     android:text="Euro"
 
                     android:textSize="@dimen/normal_text"
@@ -150,7 +186,7 @@
                     android:textStyle="bold"
                     android:textColor="#494949"
                     android:layout_width="match_parent"
-
+                    android:id="@+id/ToAmount"
                     android:gravity="right"
                     android:textSize="@dimen/normal_text"
                     android:text="US Dollar"

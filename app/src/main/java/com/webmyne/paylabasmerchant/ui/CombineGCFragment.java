@@ -36,11 +36,13 @@ import com.google.gson.reflect.TypeToken;
 import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
+import com.webmyne.paylabasmerchant.model.Country;
 import com.webmyne.paylabasmerchant.model.GCCountry;
 import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
+import com.webmyne.paylabasmerchant.util.RegionUtils;
 
 
 import org.json.JSONArray;
@@ -67,7 +69,7 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
 
     private String mParam1;
     private String mParam2;
-
+    private ArrayList<Country> countries;
     private LinearLayout linearCombineGiftCode;
     private TextView btnAddCombineGiftCode;
     private TextView btnCombineGcCombineGc;
@@ -75,7 +77,7 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
     private AffilateUser user;
     private ArrayList<String> combine_giftcode_list;
     private ArrayList<GCCountry> countryList;
-    private Spinner spGCCountry;
+    private Spinner spGCCountry,spCountry;
     private JSONObject responseObject;
     private GCCountryAdapter gcCountryAdapter;
 
@@ -117,6 +119,8 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
         btnCombineGcCombineGc = (TextView) convertView.findViewById(R.id.btnCombineGcCombineGc);
         btnCombineGcCombineGc.setOnClickListener(this);
         spGCCountry = (Spinner) convertView.findViewById(R.id.spGCCountry);
+        spCountry = (Spinner) convertView.findViewById(R.id.spCountry);
+
         edUserMobile=(EditText)convertView.findViewById(R.id.edUserMobile);
         spGCCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -180,6 +184,7 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
     public void onResume() {
         super.onResume();
 
+        fetchCountries();
         getGCCountries();
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getActivity(), "user_pref", 0);
         user = complexPreferences.getObject("current_user", AffilateUser.class);
@@ -194,7 +199,18 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
         addCombineStrip(false);
 
     }
+private void fetchCountries(){
+    new RegionUtils() {
 
+        @Override
+        public void response(ArrayList response) {
+            countries = response;
+
+            CountryCodeAdapter countryAdapter = new CountryCodeAdapter(getActivity(), R.layout.spinner_country, countries);
+            spCountry.setAdapter(countryAdapter);
+        }
+    }.fetchCountry(getActivity());
+}
     private void getGCCountries() {
         final CircleDialog d = new CircleDialog(getActivity(), 0);
         d.setCancelable(true);
@@ -296,8 +312,7 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
             JSONObject generateObject = new JSONObject();
             generateObject.put("GCText", code);
             generateObject.put("SenderID", 0);
-            generateObject.put("UserCountryCode",countryList.get(spGCCountry.getSelectedItemPosition()).CountryCode + "");
-
+            generateObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode + "");
             generateObject.put("UserMobileNo", edUserMobile.getText().toString().trim());
             Log.e(" FetchGC detail GC: ", "" + generateObject);
             JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.GETGCDETAIL, generateObject, new Response.Listener<JSONObject>() {
@@ -408,8 +423,8 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
                 }
                 //todo change service and values
                 jMain.put("UserMobileNo", edUserMobile.getText().toString().trim());
-                //todo
-                jMain.put("UserCountryCode", countryList.get(spGCCountry.getSelectedItemPosition()).CountryCode + "");
+
+                jMain.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode + "");
 
                 jMain.put("AffiliateID", user.UserID);
                 jMain.put("GiftCode", arr);
@@ -733,6 +748,56 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
 //
 //    }
 
+public class CountryCodeAdapter extends ArrayAdapter<Country> {
+    Context context;
+    int layoutResourceId;
+    ArrayList<Country> values;
+
+    // int android.R.Layout.
+    public CountryCodeAdapter(Context context, int resource, ArrayList<Country> objects) {
+        super(context, resource, objects);
+        this.context = context;
+        this.values = objects;
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+
+        TextView txt = new TextView(getActivity());
+        txt.setPadding(16, 16, 16, 16);
+        txt.setGravity(Gravity.CENTER_VERTICAL);
+        txt.setText(values.get(position).CountryName + " +" + String.valueOf(values.get(position).CountryCode));
+
+        txt.setText(values.get(position).CountryName + " +" + String.valueOf(values.get(position).CountryCode));
+        if (values.get(position).ShortCode == null || values.get(position).ShortCode.equalsIgnoreCase("") || values.get(position).ShortCode.equalsIgnoreCase("NULL")) {
+        } else {
+            try {
+                  /*  Class res = R.drawable.class;
+                    Field field = res.getField(values.get(position).ShortCode.toLowerCase().toString()+".png");
+                    int drawableId = field.getInt(null);*/
+                int idd = getResources().getIdentifier("com.webmyne.paylabasmerchant:drawable/" + values.get(position).ShortCode.toString().trim().toLowerCase(), null, null);
+                txt.setCompoundDrawablesWithIntrinsicBounds(idd, 0, 0, 0);
+            } catch (Exception e) {
+                Log.e("MyTag", "Failure to get drawable id.", e);
+            }
+
+
+        }
+        return txt;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        TextView txt = new TextView(getActivity());
+        txt.setGravity(Gravity.CENTER_VERTICAL);
+        txt.setPadding(16, 16, 16, 16);
+        txt.setText("+" + String.valueOf(values.get(position).CountryCode));
+
+
+        return txt;
+    }
+}
 
     private Bitmap getBitmapFromAsset(String strName) {
         AssetManager assetManager = getActivity().getAssets();
