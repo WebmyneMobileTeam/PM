@@ -41,6 +41,7 @@ import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.RegionUtils;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class FragmentCurrencyCoverter extends Fragment {
     private AffilateUser user;
     private ArrayList<String> combine_giftcode_list;
     private ArrayList<GCCountry> countryList;
-    private TextView Giftamount,FromAmount,ToAmount;
+    private TextView Giftamount,FromAmount,ToAmount,FinalPrice;
     private Spinner spGCCountry,spCountry;
     private JSONObject responseObject;
     private GCCountryAdapter gcCountryAdapter;
@@ -94,6 +95,8 @@ public class FragmentCurrencyCoverter extends Fragment {
         FromAmount = (TextView)convertView.findViewById(R.id.FromAmount);
         ToAmount = (TextView)convertView.findViewById(R.id.ToAmount);
         convertContainer = (LinearLayout)convertView.findViewById(R.id.convertContainer);
+        FinalPrice= (TextView)convertView.findViewById(R.id.FinalPrice);
+
 
 
         edEnterGiftCode.addTextChangedListener(new TextWatcher() {
@@ -134,6 +137,7 @@ public class FragmentCurrencyCoverter extends Fragment {
                 }else {
                     convertContainer.setVisibility(View.VISIBLE);
                     ToAmount.setText(countryList.get(position).CurrencyName);
+
                 }
             }
 
@@ -143,7 +147,13 @@ public class FragmentCurrencyCoverter extends Fragment {
             }
         });
 
-
+btnConvert.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Log.e("on btn","click");
+        processCombine();
+    }
+});
         return convertView;
    }
 
@@ -158,6 +168,138 @@ public class FragmentCurrencyCoverter extends Fragment {
 
 
     }
+
+    private void processCombine() {
+
+        if (isPassedFromValidationProcess()) {
+
+            try {
+
+                JSONObject jMain = new JSONObject();
+                JSONArray arr = new JSONArray();
+                double newLocalValue= 0.0d;
+
+
+                    //newLocalValue = newLocalValue + Double.parseDouble(newText.getText().toString().split(" ")[0]);
+                    JSONObject jobj = new JSONObject();
+                    jobj.put("GiftCode", edEnterGiftCode.getText().toString());
+                    arr.put(jobj);
+
+                //todo change service and values
+                jMain.put("UserMobileNo", edUserMobile.getText().toString().trim());
+
+                jMain.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode + "");
+
+                jMain.put("AffiliateID", user.UserID);
+                jMain.put("GiftCode", arr);
+                jMain.put("SenderID", user.UserID);
+                DecimalFormat df = new DecimalFormat("#.##");
+                newLocalValue = Double.valueOf(df.format(newLocalValue));
+                jMain.put("NewLocalValueReceived", newLocalValue + "");
+                jMain.put("NewLocalValueReceivedCurrancy", countryList.get(spGCCountry.getSelectedItemPosition()).CurrencyName + "");
+                Log.e("----------------- jMAIN ", "" + jMain.toString());
+
+                try {
+
+                    final CircleDialog d = new CircleDialog(getActivity(), 0);
+                    d.setCancelable(true);
+                    d.show();
+
+                    JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.COMBINE_GC, jMain, new Response.Listener<JSONObject>() {
+
+                        @Override
+                        public void onResponse(JSONObject jobj) {
+
+                            try {
+                                String response = jobj.toString();
+                                Log.e("Response : ", "" + response);
+                                if (jobj.getString("ResponseCode").equalsIgnoreCase("1")) {
+//                                    SnackBar bar = new SnackBar(getActivity(), "Gift Code Combined");
+//                                    bar.show();
+                                    SimpleToast.ok(getActivity(),"Gift Code Converted");
+                                    clearAll();
+
+                                    getActivity().finish();
+
+                                } else {
+//                                    SnackBar bar = new SnackBar(getActivity(), jobj.getString("ResponseMsg"));
+//                                    bar.show();
+                                    SimpleToast.error(getActivity(),jobj.getString("ResponseMsg")+"error ");
+                                    clearAll();
+                                }
+
+                                d.dismiss();
+
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                            d.dismiss();
+                            Log.e("error responsegg: ", error + "");
+//                            SnackBar bar = new SnackBar(getActivity(), error.getMessage());
+//                            bar.show();
+                            SimpleToast.error(getActivity(),error.getMessage());
+
+                        }
+                    });
+                    req.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
+
+                    MyApplication.getInstance().addToRequestQueue(req);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+
+
+    public boolean isPassedFromValidationProcess() {
+
+        boolean isPassed = false;
+            if (edEnterGiftCode.getText().toString().equalsIgnoreCase("")) {
+                edEnterGiftCode.setError("Enter GC");
+                isPassed = false;
+                return isPassed;
+
+            }  else {
+
+                if (edEnterGiftCode.getText().toString().length() == 9) {
+                    isPassed = true;
+
+                } else {
+                    edEnterGiftCode.setError("Enter Valid GC");
+                    isPassed = false;
+                    return isPassed;
+                }
+            }
+
+        return isPassed;
+    }
+
+
+    private void clearAll() {
+    edEnterGiftCode.setText("");
+        FinalPrice.setText("Amount");
+
+    }
+
+
+
+
+
+
 
 
 
@@ -251,13 +393,15 @@ public class FragmentCurrencyCoverter extends Fragment {
                             }
                             DecimalFormat df = new DecimalFormat("#.##");
                             newValue = Double.valueOf(df.format(newValue));
-                            //newText.setText("" + newValue + " " + selectedCountry.CurrencyName);
+
+                            ToAmount.setText(selectedCountry.CurrencyName);
+                            FinalPrice.setText("" + newValue + " " + selectedCountry.CurrencyName);
 
 
                         } else {
 
-                          //  ed.setText("");
-                          //  ed.setError(jobj.getString("ResponseMsg"));
+                            edEnterGiftCode.setText("");
+                            edEnterGiftCode.setError(jobj.getString("ResponseMsg"));
                           /*  SnackBar bar = new SnackBar(getActivity(),jobj.getString("ResponseMsg"));
                             bar.show();*/
 

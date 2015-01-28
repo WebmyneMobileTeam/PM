@@ -2,10 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/currency_covert_main"
-
-
-
     tools:context="com.webmyne.paylabas_affiliate.tools.CurrencyCoverterFragment">
+
     <LinearLayout
         android:id="@+id/bottomLinearCombineGC"
         android:layout_alignParentBottom="true"
@@ -30,7 +28,7 @@
 
     <ScrollView
         android:layout_alignParentTop="true"
-
+android:layout_above="@+id/bottomLinearCombineGC"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -38,6 +36,27 @@
             android:padding="@dimen/activity_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:text="Select Currency Type"
+                    android:textSize="@dimen/normal_text"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:layout_marginTop="8dp"
+                    android:spinnerMode="dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/spGCCountry"
+                    />
+            </LinearLayout>
 
 
 <LinearLayout
@@ -48,6 +67,7 @@
 <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -109,22 +129,7 @@
 
             </LinearLayout>
 
-            <TextView
-                android:textColor="@android:color/black"
-                android:layout_marginTop="8dp"
-                android:layout_width="match_parent"
-                android:gravity="center"
-                android:text="Select Currency Type"
-                android:textSize="@dimen/normal_text"
-                android:layout_height="wrap_content" />
-            <Spinner
-                android:layout_marginTop="8dp"
-                android:spinnerMode="dialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/spGCCountry"
-                />
+
 
         <LinearLayout
             android:id="@+id/convertContainer"
@@ -197,13 +202,13 @@
     </LinearLayout>
             <TextView
                 android:textStyle="bold"
-
+                android:id="@+id/FinalPrice"
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="@dimen/large_text"
-                android:text="$200"
+                android:text="Amount"
                 android:layout_height="wrap_content" />
         </LinearLayout>
             </LinearLayout>
