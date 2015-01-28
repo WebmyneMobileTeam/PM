@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 import com.webmyne.paylabasmerchant.R;
@@ -34,6 +35,7 @@ import com.webmyne.paylabasmerchant.model.Country;
 import com.webmyne.paylabasmerchant.model.MobileTopUpProducts;
 import com.webmyne.paylabasmerchant.model.MobileTopupMain;
 import com.webmyne.paylabasmerchant.model.MobileTopupRechargeService;
+import com.webmyne.paylabasmerchant.model.OTPDialog;
 import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
@@ -94,13 +96,82 @@ public class FragmentCashIN extends Fragment {
                 }
 
                 else{
-                    processPay();
+                    processOTP();
                 }
             }
         });
         return convertView;
     }
+    private void processOTP(){
+        try{
+            AffilateUser user= PrefUtils.getMerchant(getActivity());
+            JSONObject userObject = new JSONObject();
 
+            userObject.put("Amount",edCashInAmount.getText().toString());
+            userObject.put("UserCountryCode",String.valueOf(user.MobileCountryCode));
+            userObject.put("UserID",String.valueOf(user.UserID));
+            userObject.put("UserMobileNo", user.MobileNo);
+
+
+            Log.e("cash in  object",userObject.toString());
+
+            final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
+            circleDialog.setCancelable(true);
+            circleDialog.show();
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.SEND_OTP, userObject, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject jobj) {
+                    circleDialog.dismiss();
+                    String response = jobj.toString();
+                    Log.e("cash in   Response", "" + response);
+                    OTP otpobj= new GsonBuilder().create().fromJson(jobj.toString(), OTP.class);
+
+                    try{
+                        JSONObject obj = new JSONObject(response);
+                        if(obj.getString("ResponseCode").equalsIgnoreCase("1")){
+
+                            OTPDialog otpDialog = new OTPDialog(getActivity(),0,otpobj.VerificationCode);
+                            otpDialog.setOnConfirmListner(new OTPDialog.OnConfirmListner() {
+                                @Override
+                                public void onComplete() {
+                                    processPay();
+                                }
+                            });
+
+
+                        }
+
+                        else {
+                            SimpleToast.error(getActivity(),obj.getString("ResponseMsg"));
+                        }
+
+                    } catch (Exception e) {
+                        Log.e("error response recharge1: ", e.toString() + "");
+                    }
+
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    circleDialog.dismiss();
+                    Log.e("error response live curreency: ", error + "");
+                    SimpleToast.error(getActivity(),getResources().getString(R.string.er_network));
+
+                }
+            });
+
+
+            req.setRetryPolicy(  new DefaultRetryPolicy(0,0,0));
+            MyApplication.getInstance().addToRequestQueue(req);
+        }catch(Exception e){
+            Log.e("exception",e.toString());
+        }
+
+    }
     private void initView(View convertView){
         edMobileNumber = (EditText)convertView.findViewById(R.id.edMobileNumber);
         edFormId= (EditText)convertView.findViewById(R.id.edFormId);
@@ -292,7 +363,10 @@ private void processPay(){
         }
         return isEmpty;
     }
-
+    private class OTP{
+        @SerializedName("VerificationCode")
+        public String VerificationCode;
+    }
 
 
 
