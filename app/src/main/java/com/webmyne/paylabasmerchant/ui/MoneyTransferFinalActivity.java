@@ -275,8 +275,6 @@ private void processMoney(){
 
 
 
-
-
                 } catch (Exception e) {
                     Log.e("error responsegg1: ", e.toString() + "");
                 }
