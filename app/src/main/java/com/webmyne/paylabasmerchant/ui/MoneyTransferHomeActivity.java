@@ -70,13 +70,14 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
     private CheckedTextView txtTitlePickUp;
     private TextView txtTitlePickUpSubTitle;
     private TextView txtWeekend;
-    private View include_item_pickup;
+   // private View include_item_pickup;
     private TextView btnNextMoneyTransfer;
 
     private ArrayList<MONEYPOLO_COUNTRY> countries;
     private ArrayList<CITY_LIST> cities;
     public static ArrayList<BANK_LIST> bank;
 
+    private boolean isCountryLoad = false;
     private boolean isCityLoad = false;
     private boolean isBankLoad = false;
 
@@ -85,6 +86,8 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
 
     public static BANK_WEB_SERVICE bankobj;
     public static MONEYPOLO_BANK obj;
+
+    private View include_item_pickup;
 
 
     @Override
@@ -131,8 +134,10 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 0){
-
+                    isCountryLoad=false;
                 }else{
+                    spinner_city.setVisibility(View.VISIBLE);
+                    isCountryLoad=true;
                     fetchCityAndDisplay(position);
                 }
             }
@@ -146,7 +151,11 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         spinner_city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                    if(position==0){
+                        isCityLoad=false;
+                    }else{
+                        isCityLoad=true;
+                    }
 
             }
 
@@ -164,6 +173,9 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         clearAll();
         isCityLoad = false;
         isBankLoad = false;
+        edAmountTransfer.setText("");
+        include_item_pickup.setVisibility(View.GONE);
+        spinner_city.setVisibility(View.GONE);
         fetchCountryAndDisplay();
     }
     private void clearAll(){
@@ -180,10 +192,18 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
                 SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select City and State !!!");
 
             }
+            else if(!isCountryLoad){
+                SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select Country !!!");
+
+            }
+            else if(!isCityLoad){
+                SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select City !!!");
+            }
             else if(edAmountTransfer.getText().length()==0){
                 SimpleToast.error(MoneyTransferHomeActivity.this, "Please enter amount for money transfer !!!");
 
             }
+
             else if (Integer.valueOf(edAmountTransfer.getText().toString())<10){
                 edAmountTransfer.setError("Minimum Amount is € 10 For This Service");
             }
@@ -218,10 +238,18 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
                 startActivity(i);
 
             }
-            else {
-                SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select Bank Details , Country and State !!!");
+            else if(!isCountryLoad)
+            {
+                SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select Country !!!");
 
             }
+            else if(!isCityLoad){
+                SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select City !!!");
+            }
+            else if(!isBankLoad){
+                SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select Bank !!!");
+            }
+
 
 
         }
@@ -377,7 +405,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
 
                         cities = obj.CityList;
                         CITY_LIST c1 = new CITY_LIST();
-                        c1.Description = "Select City";
+                        c1.Description = "From City";
                         cities.add(0,c1);
 
                         MobileCityAdapter adapter = new MobileCityAdapter(MoneyTransferHomeActivity.this,
@@ -439,7 +467,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
                         countries =  new GsonBuilder().create().fromJson(jArray.toString(),listType);
 
                         MONEYPOLO_COUNTRY c1 = new MONEYPOLO_COUNTRY();
-                        c1.CountryCodeName = "Select Country";
+                        c1.CountryCodeName = "From Country";
                         countries.add(0,c1);
 
                         MobileCountryAdapter adapter = new MobileCountryAdapter(MoneyTransferHomeActivity.this,
