@@ -45,11 +45,11 @@ public class FragmentCashOUT extends Fragment {
 
     private EditText edMobileNumber,edCashoutAmount,edFormId,edPin;
     private TextView btnNext,LiveRate;
-    private Spinner spCountry;
+    private Spinner spCountry,spIdentityProof;
     private Cashout cashoutobj;
     private ArrayList<Country> countries;
     private AffilateUser affilateUser;
-
+    ArrayList<String> identityProofTypesList;
 
     public static FragmentCashOUT newInstance(String param1, String param2) {
         FragmentCashOUT fragment = new FragmentCashOUT();
@@ -113,7 +113,7 @@ public class FragmentCashOUT extends Fragment {
         LiveRate= (TextView)convertView.findViewById(R.id.LiveRate);
         btnNext = (TextView)convertView.findViewById(R.id.btnNext);
         spCountry= (Spinner)convertView.findViewById(R.id.spCountry);
-
+        spIdentityProof= (Spinner)convertView.findViewById(R.id.spIdentityProof);
     }
 
     @Override
@@ -121,6 +121,12 @@ public class FragmentCashOUT extends Fragment {
         super.onResume();
         getLiveCurrencyRate();
         setCountryCode();
+        identityProofTypesList=new ArrayList<String>();
+        identityProofTypesList.add("National Id");
+        identityProofTypesList.add("Passport");
+        identityProofTypesList.add("Driving Licence");
+        identityProofTypesList.add("Social Security No");
+        spIdentityProof.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,identityProofTypesList));
     }
 
 
@@ -176,6 +182,7 @@ private void processPay(){
             userObject.put("Amount",edCashoutAmount.getText().toString());
            // userObject.put("Currency","EUR");
             userObject.put("FormDetail",edFormId.getText().toString());
+            userObject.put("FormDetailValue",spIdentityProof.getSelectedItemPosition()+1);
             userObject.put("PIN",edPin.getText().toString());
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);
             userObject.put("UserMobileNo",edMobileNumber.getText().toString());

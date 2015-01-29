@@ -93,6 +93,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Select Identity Proof Type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="@dimen/medium_text" />
+
+        <Spinner
+
+            android:spinnerMode="dialog"
+            android:id="@+id/spIdentityProof"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"></Spinner>
+
         <EditText
             android:layout_marginTop="10dp"
             android:inputType="text"

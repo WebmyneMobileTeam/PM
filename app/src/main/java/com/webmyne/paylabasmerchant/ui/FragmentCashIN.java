@@ -32,6 +32,7 @@ import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.model.Country;
+import com.webmyne.paylabasmerchant.model.FormDetail;
 import com.webmyne.paylabasmerchant.model.MobileTopUpProducts;
 import com.webmyne.paylabasmerchant.model.MobileTopupMain;
 import com.webmyne.paylabasmerchant.model.MobileTopupRechargeService;
@@ -55,7 +56,7 @@ public class FragmentCashIN extends Fragment {
     private TextView btnPay;
     private Spinner spCountry,spIdentityProof;
     private ArrayList<Country> countries;
-
+    ArrayList<String> identityProofTypesList;
 
     public static FragmentCashIN newInstance(String param1, String param2) {
         FragmentCashIN fragment = new FragmentCashIN();
@@ -203,7 +204,8 @@ public class FragmentCashIN extends Fragment {
         setCountryCode();
 
 
-        ArrayList<String> identityProofTypesList=new ArrayList<String>();
+        identityProofTypesList=new ArrayList<String>();
+
         identityProofTypesList.add("National Id");
         identityProofTypesList.add("Passport");
         identityProofTypesList.add("Driving Licence");
@@ -223,7 +225,7 @@ private void processPay(){
             userObject.put("Amount",edCashInAmount.getText().toString());
             userObject.put("Currency","EUR");
             userObject.put("FormDetail",edFormId.getText().toString());
-
+            userObject.put("FormDetailType",spIdentityProof.getSelectedItemPosition()+1);
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);
             userObject.put("UserMobileNo",edMobileNumber.getText().toString());
 

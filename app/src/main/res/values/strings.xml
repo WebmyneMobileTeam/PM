@@ -101,7 +101,7 @@
 
     <string name="enter_mobile">Enter mobile no.</string>
     <string name="enter_cashout_amount">Enter cash out amount</string>
-    <string name="enter_form_id">Enter Form Id</string>
+    <string name="enter_form_id">Enter Identity Proof Value</string>
     <string name="enter_pin">Enter PIN</string>
     <string name="select_country">Select Country</string>
     <string name="btn_next">NEXT</string>
