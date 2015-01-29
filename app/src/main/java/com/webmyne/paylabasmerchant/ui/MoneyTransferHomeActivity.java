@@ -171,6 +171,8 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         clearAll();
+        MoneyTransferFinalActivity.recObj=null;
+        MoneyTransferFinalActivity.senObj=null;
         isCityLoad = false;
         isBankLoad = false;
         edAmountTransfer.setText("");

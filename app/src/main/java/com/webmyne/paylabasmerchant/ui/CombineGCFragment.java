@@ -6,6 +6,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -478,6 +479,7 @@ private void fetchCountries(){
 
                                 d.dismiss();
 
+
                             } catch (Exception e) {
 
                             }
@@ -510,6 +512,8 @@ private void fetchCountries(){
 
         }
     }
+
+
 
     public boolean isPassedFromValidationProcess() {
 

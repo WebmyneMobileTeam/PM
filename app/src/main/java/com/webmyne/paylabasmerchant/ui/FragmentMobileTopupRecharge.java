@@ -290,9 +290,6 @@ public class FragmentMobileTopupRecharge extends Fragment {
 //                                   SnackBar bar = new SnackBar(getActivity(),"Recharge Done");
 //                                   bar.show();
                                     SimpleToast.ok(getActivity(), "Recharge Done");
-                                    CountDownTimer countDownTimer;
-                                    countDownTimer = new MyCountDownTimer(3000, 1000); // 1000 = 1s
-                                    countDownTimer.start();
                                 }
 
                                 else {
@@ -307,6 +304,10 @@ public class FragmentMobileTopupRecharge extends Fragment {
                                         SimpleToast.error(getActivity(), "Recharge Failed. Please Try again !!!");
                                     }
                                 }
+
+                                CountDownTimer countDownTimer;
+                                countDownTimer = new MyCountDownTimer(3000, 1000); // 1000 = 1s
+                                countDownTimer.start();
 
                             } catch (Exception e) {
                                 Log.e("error response recharge1: ", e.toString() + "");

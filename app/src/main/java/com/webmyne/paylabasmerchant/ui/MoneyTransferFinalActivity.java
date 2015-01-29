@@ -265,6 +265,7 @@ private void processMoney(){
                         SimpleToast.ok(MoneyTransferFinalActivity.this, "MoneyTransfer Done");
                         recObj=null;
                         senObj=null;
+
                     }
 
                     else {
@@ -273,7 +274,12 @@ private void processMoney(){
                         senObj=null;
                     }
 
+                    CountDownTimer countDownTimer;
+                    countDownTimer = new MyCountDownTimer(3000, 1000); // 1000 = 1s
+                    countDownTimer.start();
 
+//                    Intent i = new Intent(MoneyTransferFinalActivity.this,MyDrawerActivity.class);
+//                    startActivity(i);
 
                 } catch (Exception e) {
                     Log.e("error responsegg1: ", e.toString() + "");
@@ -301,7 +307,25 @@ private void processMoney(){
         Log.e("Exception in money transfer",e.toString());
     }
 }
+    public class MyCountDownTimer extends CountDownTimer {
 
+        public MyCountDownTimer(long startTime, long interval) {
+            super(startTime, interval);
+        }
+        @Override
+        public void onFinish() {
+            Log.e("counter","Time's up!");
+            FragmentHome.isFromDetailPage=true;
+             finish();
+
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+        }
+
+    }
 
 
 //end of main class

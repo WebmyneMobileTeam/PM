@@ -182,7 +182,7 @@ private void processPay(){
             userObject.put("Amount",edCashoutAmount.getText().toString());
            // userObject.put("Currency","EUR");
             userObject.put("FormDetail",edFormId.getText().toString());
-            userObject.put("FormDetailValue",spIdentityProof.getSelectedItemPosition()+1);
+           // userObject.put("FormDetailValue",spIdentityProof.getSelectedItemPosition()+1);
             userObject.put("PIN",edPin.getText().toString());
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);
             userObject.put("UserMobileNo",edMobileNumber.getText().toString());
@@ -280,7 +280,7 @@ private void processPay2(final String Vfcode){
                         JSONObject obj = new JSONObject(response);
                         if(obj.getString("ResponseCode").equalsIgnoreCase("1")){
                             SimpleToast.ok(getActivity(), getResources().getString(R.string.cash_outdone));
-
+                            getActivity().finish();
                         }
                         else {
                            if(obj.getString("ResponseCode").equalsIgnoreCase("2")) {

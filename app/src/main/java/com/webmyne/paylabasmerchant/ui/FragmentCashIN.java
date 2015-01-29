@@ -225,7 +225,7 @@ private void processPay(){
             userObject.put("Amount",edCashInAmount.getText().toString());
             userObject.put("Currency","EUR");
             userObject.put("FormDetail",edFormId.getText().toString());
-            userObject.put("FormDetailType",spIdentityProof.getSelectedItemPosition()+1);
+          //  userObject.put("FormDetailType",spIdentityProof.getSelectedItemPosition()+1);
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);
             userObject.put("UserMobileNo",edMobileNumber.getText().toString());
 
@@ -247,10 +247,7 @@ private void processPay(){
                         JSONObject obj = new JSONObject(response);
                         if(obj.getString("ResponseCode").equalsIgnoreCase("1")){
                             SimpleToast.ok(getActivity(), "Cash In Done");
-
-                            CountDownTimer countDownTimer;
-                            countDownTimer = new MyCountDownTimer(3000, 1000); // 1000 = 1s
-                            countDownTimer.start();
+                            getActivity().finish();
                         }
                         else {
                             if(obj.getString("ResponseCode").equalsIgnoreCase("2")) {
@@ -306,25 +303,7 @@ private void processPay(){
         }.fetchCountry(getActivity());
     }
 
-    public class MyCountDownTimer extends CountDownTimer {
 
-        public MyCountDownTimer(long startTime, long interval) {
-            super(startTime, interval);
-        }
-        @Override
-        public void onFinish() {
-            Log.e("counter","Time's up!");
-            FragmentHome.isFromDetailPage=true;
-                getActivity().finish();
-
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-
-        }
-
-    }
 
     public class CountryCodeAdapter extends ArrayAdapter<Country> {
         Context context;
