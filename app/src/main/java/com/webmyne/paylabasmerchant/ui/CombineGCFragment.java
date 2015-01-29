@@ -332,7 +332,6 @@ private void fetchCountries(){
 
                         // todo
                         JSONObject obj = new JSONObject(response);
-
                         String responseCode = obj.getString("ResponseCode");
 
                         if (responseCode.equalsIgnoreCase("1")) {
@@ -341,9 +340,10 @@ private void fetchCountries(){
 
                             GCCountry selectedCountry = countryList.get(spGCCountry.getSelectedItemPosition());
                             double oldValue = Double.parseDouble(jobj.getString("GCAmount"));
+                            double localoldvalue =  Double.parseDouble(jobj.getString("LocalValueReceived"));
                             double newValue=0.0d;
                             if(selectedCountry.CurrencyName.toString().equalsIgnoreCase(jobj.getString("LocalValueReceivedCurrancy"))){
-                                newValue = oldValue ;
+                                newValue = localoldvalue ;
                             } else {
 
                                 Log.e("old value",oldValue+"");
