@@ -45,6 +45,7 @@ import com.webmyne.paylabasmerchant.model.PaymentStep1;
 import com.webmyne.paylabasmerchant.model.RedeemGC;
 import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
+import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.DatabaseWrapper;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
@@ -172,7 +173,11 @@ public class FragmentHome extends Fragment {
                 if (isMobileNumberEmpty()) {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_mobile_number));
 //                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_mobile_number), Toast.LENGTH_SHORT).show();
-                } else if (selectedPaymentType == -1) {
+                } else if(InternationalNumberValidation.isPossibleNumber(etMobileNumber.getText().toString().toString(), countries.get(spCountryCode.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                }else if(InternationalNumberValidation.isValidNumber(etMobileNumber.getText().toString().toString(), countries.get(spCountryCode.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                }else if (selectedPaymentType == -1) {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_payment_type_selection));
 //                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_payment_type_selection), Toast.LENGTH_SHORT).show();
                 } else if (selectedPaymentType == 1 && isGiftCodeEmpty()) {

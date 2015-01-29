@@ -114,4 +114,6 @@
     <string name="err_cashout">Cash Out Failed. Please Try again !!!</string>
     <string name="er_network">Network Error !!! Please Try Again</string>
     <string name="cash_outdone">Cash out done Sucessfully</string>
+
+
 </resources>

@@ -38,6 +38,7 @@ import com.webmyne.paylabasmerchant.model.MobileTopupRechargeService;
 import com.webmyne.paylabasmerchant.model.OTPDialog;
 import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
+import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 import com.webmyne.paylabasmerchant.util.RegionUtils;
@@ -50,9 +51,9 @@ import java.util.List;
 
 public class FragmentCashIN extends Fragment {
 
-    private EditText edMobileNumber,edCashInAmount,edFormId;
+    private EditText edMobileNumber,edCashInAmount,edFormId,edMobileNumberConfirm;
     private TextView btnPay;
-    private Spinner spCountry;
+    private Spinner spCountry,spIdentityProof;
     private ArrayList<Country> countries;
 
 
@@ -87,6 +88,18 @@ public class FragmentCashIN extends Fragment {
 
                 if(isEmptyField(edMobileNumber)){
                    SimpleToast.error(getActivity(), "Please Enter Mobile Number");
+                }else if(InternationalNumberValidation.isPossibleNumber(edMobileNumber.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                }else if(InternationalNumberValidation.isValidNumber(edMobileNumber.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                } else   if(isEmptyField(edMobileNumberConfirm)){
+                    SimpleToast.error(getActivity(), "Please Enter Confirm Mobile Number");
+                }else if(InternationalNumberValidation.isPossibleNumber(edMobileNumberConfirm.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+                    SimpleToast.error(getActivity(), "Please Enter Valid Confirm Mobile Number");
+                }else if(InternationalNumberValidation.isValidNumber(edMobileNumberConfirm.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+                    SimpleToast.error(getActivity(), "Please Enter Valid Confirm Mobile Number");
+                }else   if(!edMobileNumberConfirm.getText().toString().equalsIgnoreCase(edMobileNumber.getText().toString())){
+                    SimpleToast.error(getActivity(), "Please Enter Correct Confirm Mobile Number");
                 }
                 else if(isEmptyField(edCashInAmount)){
                     SimpleToast.error(getActivity(), "Please Enter Cash In Amount");
@@ -174,11 +187,13 @@ public class FragmentCashIN extends Fragment {
     }
     private void initView(View convertView){
         edMobileNumber = (EditText)convertView.findViewById(R.id.edMobileNumber);
+        edMobileNumberConfirm= (EditText)convertView.findViewById(R.id.edMobileNumberConfirm);
         edFormId= (EditText)convertView.findViewById(R.id.edFormId);
         edCashInAmount= (EditText)convertView.findViewById(R.id.edCashInAmount);
 
         btnPay = (TextView)convertView.findViewById(R.id.btnPay);
         spCountry= (Spinner)convertView.findViewById(R.id.spCountry);
+        spIdentityProof= (Spinner)convertView.findViewById(R.id.spIdentityProof);
 
     }
 
@@ -186,6 +201,14 @@ public class FragmentCashIN extends Fragment {
     public void onResume() {
         super.onResume();
         setCountryCode();
+
+
+        ArrayList<String> identityProofTypesList=new ArrayList<String>();
+        identityProofTypesList.add("National Id");
+        identityProofTypesList.add("Passport");
+        identityProofTypesList.add("Driving Licence");
+        identityProofTypesList.add("Social Security No");
+        spIdentityProof.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,identityProofTypesList));
 
     }
 
@@ -276,6 +299,7 @@ private void processPay(){
 
                 CountryCodeAdapter countryAdapter = new CountryCodeAdapter(getActivity(),R.layout.spinner_country, countries);
                 spCountry.setAdapter(countryAdapter);
+
             }
         }.fetchCountry(getActivity());
     }

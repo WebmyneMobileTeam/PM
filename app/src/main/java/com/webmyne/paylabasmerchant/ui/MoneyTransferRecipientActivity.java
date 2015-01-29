@@ -28,6 +28,7 @@ import com.webmyne.paylabasmerchant.model.Receipient;
 import com.webmyne.paylabasmerchant.model.State;
 import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
+import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.DatabaseWrapper;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
@@ -134,7 +135,14 @@ private void intView(){
                 SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Valid Mobile Number !!!");
 
 
-            } else {
+            }else if(InternationalNumberValidation.isPossibleNumber(edMobileno.getText().toString().toString(), countrylist.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+                SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Valid Mobile Number");
+            }else if(InternationalNumberValidation.isValidNumber(edMobileno.getText().toString().toString(), countrylist.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+                SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Valid Mobile Number");
+            }
+
+            else {
+
 
                 if(getIntent().getExtras().get("ObjectValue").toString().equals("Recipient")){
 

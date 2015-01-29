@@ -41,6 +41,7 @@ import com.webmyne.paylabasmerchant.model.GCCountry;
 import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
+import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.RegionUtils;
 
@@ -229,6 +230,7 @@ private void fetchCountries(){
 
                 for (int i = 0; i < countryList.size(); i++) {
                     Log.e("", countryList.get(i).CountryName + "");
+                    Log.e("", countryList.get(i).LiveRate + "");
                 }
 
                 gcCountryAdapter = new GCCountryAdapter(getActivity(), R.layout.spinner_country, countryList);
@@ -276,7 +278,7 @@ private void fetchCountries(){
                     LinearLayout first = (LinearLayout) edEnterGiftCode.getParent().getParent();
                     TextView ed = (TextView) first.findViewById(R.id.txtAmountGCCombineGC);
                     TextView txtNewAmountGCCombineGC = (TextView) first.findViewById(R.id.txtNewAmountGCCombineGC);
-                    if(edUserMobile.getText().toString().trim().length()==0 || edUserMobile.getText().toString().trim().length()<9){
+                    if(edUserMobile.getText().toString().trim().length()==0){
                         edEnterGiftCode.setText("");
                         edUserMobile.setError("Please Enter Mobile");
                         edUserMobile.requestFocus();
@@ -337,16 +339,21 @@ private void fetchCountries(){
                             index.setText(jobj.getString("LocalValueReceived") + " " + jobj.getString("LocalValueReceivedCurrancy"));
 
                             GCCountry selectedCountry = countryList.get(spGCCountry.getSelectedItemPosition());
-                            double oldValue = Double.parseDouble(jobj.getString("LocalValueReceived"));
+                            double oldValue = Double.parseDouble(jobj.getString("GCAmount"));
                             double newValue=0.0d;
                             if(selectedCountry.CurrencyName.toString().equalsIgnoreCase(jobj.getString("LocalValueReceivedCurrancy"))){
                                 newValue = oldValue ;
                             } else {
+
+                                Log.e("old value",oldValue+"");
+                                Log.e("live rate",selectedCountry.LiveRate+"");
+
                                 newValue = oldValue * selectedCountry.LiveRate;
+                                Log.e("new value",newValue+"");
                             }
                             DecimalFormat df = new DecimalFormat("#.##");
                             newValue = Double.valueOf(df.format(newValue));
-                            newText.setText("" + newValue + " " + selectedCountry.CurrencyName);
+                            newText.setText("" + Double.valueOf(df.format(newValue)) + " " + selectedCountry.CurrencyName);
 
 
                         } else {
@@ -397,7 +404,13 @@ private void fetchCountries(){
                 processAddCombineStrips();
                 break;
             case R.id.btnCombineGcCombineGc:
-                processCombine();
+                if(InternationalNumberValidation.isPossibleNumber(edUserMobile.getText().toString().toString(), countryList.get(spGCCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+                SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+            }else if(InternationalNumberValidation.isValidNumber(edUserMobile.getText().toString().toString(), countryList.get(spGCCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+                SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+            } else {
+                    processCombine();
+                }
                 break;
 
         }

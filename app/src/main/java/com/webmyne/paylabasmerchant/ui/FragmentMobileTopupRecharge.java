@@ -38,6 +38,7 @@ import com.webmyne.paylabasmerchant.model.MobileTopupRechargeService;
 import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
+import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 
@@ -131,15 +132,18 @@ public class FragmentMobileTopupRecharge extends Fragment {
         btnRecharge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AffilateUser user= PrefUtils.getMerchant(getActivity());
 
                 if(isEmptyField(edRechargeMobileNumber)){
 //                    SnackBar bar = new SnackBar(getActivity(),"Please Enter Mobile Number");
 //                    bar.show();
                     SimpleToast.error(getActivity(), "Please Enter Mobile Number");
 
-                }
-
-                else{
+                }   else if(InternationalNumberValidation.isPossibleNumber(edRechargeMobileNumber.getText().toString().toString(), mobileTopupList.get(spCountry.getSelectedItemPosition()).shortCode.toString().trim())==false){
+                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                }else if(InternationalNumberValidation.isValidNumber(edRechargeMobileNumber.getText().toString().toString(), mobileTopupList.get(spCountry.getSelectedItemPosition()).shortCode.toString().trim())==false){
+                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                } else {
                     processRecharge();
                 }
             }

@@ -46,6 +46,7 @@ import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
 import com.webmyne.paylabasmerchant.ui.widget.FormValidator;
+import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.DatabaseWrapper;
 
@@ -147,7 +148,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
                 }
 
             }
-            spinnerCountryGenerateGc.setSelection(toSelection);
+            processCountrySelection(toSelection);
         }catch(Exception e){
 
         }
@@ -430,8 +431,13 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
                     processGenerate();
 
                 }else{
-
-                    checkProcess();
+                    if(InternationalNumberValidation.isPossibleNumber(edMobileNumberGenerateGC.getText().toString().toString(), arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+                        SimpleToast.error(NewGenerateGCActivity.this,"Enter valid number");
+                    }else if(InternationalNumberValidation.isValidNumber(edMobileNumberGenerateGC.getText().toString().toString(), arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+                        SimpleToast.error(NewGenerateGCActivity.this, "Please Enter Valid Mobile Number");
+                    } else {
+                        checkProcess();
+                    }
 
                   /*  int indexCountry = spinnerCountryGenerateGc.getSelectedItemPosition();
 
@@ -467,7 +473,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
             @Override
             public void complete() {
 
-                if(edMobileNumberGenerateGC.getText().length() == 9 || edMobileNumberGenerateGC.getText().length() == 10 ){
+
 
                     final CircleDialog circleDialog=new CircleDialog(NewGenerateGCActivity.this,0);
                     circleDialog.setCancelable(true);
@@ -504,12 +510,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
                         }
                     }.start();
 
-                }else{
-//                                SnackBar bar = new SnackBar(getActivity(),"Enter valid number");
-//                                bar.show();
-                    SimpleToast.error(NewGenerateGCActivity.this,"Enter valid number");
 
-                }
 
             }
 
@@ -993,7 +994,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
             }catch(Exception e){
 
             }
-
+            processCountrySelection(position);
             layout.addView(img,params_image);
             layout.addView(txt,params);
             return  layout;

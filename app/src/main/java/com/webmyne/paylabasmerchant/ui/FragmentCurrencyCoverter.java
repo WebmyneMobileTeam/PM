@@ -38,6 +38,7 @@ import com.webmyne.paylabasmerchant.model.GCCountry;
 import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
+import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.RegionUtils;
 
@@ -115,7 +116,7 @@ public class FragmentCurrencyCoverter extends Fragment {
 
                 if (s.toString().length() == 9) {
 
-                     if(edUserMobile.getText().toString().trim().length()==0 || edUserMobile.getText().toString().trim().length()<9){
+                     if(edUserMobile.getText().toString().trim().length()==0 ){
                         edEnterGiftCode.setText("");
                         edUserMobile.setError("Please Enter Mobile");
                         edUserMobile.requestFocus();
@@ -151,7 +152,13 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         Log.e("on btn","click");
-        processCombine();
+       if(InternationalNumberValidation.isPossibleNumber(edUserMobile.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+            SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+        }else if(InternationalNumberValidation.isValidNumber(edUserMobile.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
+            SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+        } else {
+           processCombine();
+       }
     }
 });
         return convertView;
@@ -165,7 +172,6 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
         getGCCountries();
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getActivity(), "user_pref", 0);
         user = complexPreferences.getObject("current_user", AffilateUser.class);
-
 
     }
 
