@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -48,6 +49,12 @@ public class MoneyTransferRecipientActivity extends ActionBarActivity {
     Spinner spCountry,spState,spCity;
     EditText edFirstname,edLastname,edEmail,edAddress,edZipcode,edCountryCode,edMobileno;
 
+
+    ArrayList<String> identityProofTypesList;
+    private LinearLayout linearSelectIdentity;
+    private Spinner spIdentityProof;
+    private EditText edFormId;
+
     private ArrayList<Receipient> receipients;
 
     private AffilateUser user;
@@ -62,6 +69,7 @@ public class MoneyTransferRecipientActivity extends ActionBarActivity {
     int getCountryID;
     int RecipientId;
     private DatabaseWrapper db_wrapper;
+    private boolean isIdentityProofLoad=false;
 
 
 
@@ -109,7 +117,25 @@ private void intView(){
     spCity = (Spinner)findViewById(R.id.spCity);
 
 
+    linearSelectIdentity = (LinearLayout)findViewById(R.id.linearSelectIdentity);
+    spIdentityProof= (Spinner)findViewById(R.id.spIdentityProof);
+    edFormId=(EditText)findViewById(R.id.edFormId);
 
+    spIdentityProof.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(position==0){
+                isIdentityProofLoad = false;
+            }else {
+                isIdentityProofLoad = true;
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    });
 
 
     btnAddRecipient.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +165,58 @@ private void intView(){
                 SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Valid Mobile Number");
             }else if(InternationalNumberValidation.isValidNumber(edMobileno.getText().toString().toString(), countrylist.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
                 SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Valid Mobile Number");
+            } else if(getIntent().getExtras().get("ObjectValue").toString().equals("Sender")) {
+                 if(user.tempPaymentVia.equals("Cash")){
+                    if(!isIdentityProofLoad) {
+                        SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Select Identity Proof !!!");
+                    }
+                    else if(edFormId.getText().length()==0){
+                        SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Proof Id!!!");
+                    }
+                    else{
+                        MoneyTransferFinalActivity.senObj = new Receipient();
+                        MoneyTransferFinalActivity.senObj.FirstName = edFirstname.getText().toString();
+                        MoneyTransferFinalActivity.senObj.LastName = edLastname.getText().toString();
+                        MoneyTransferFinalActivity.senObj.EmailId = edEmail.getText().toString();
+                        MoneyTransferFinalActivity.senObj.Address = edAddress.getText().toString();
+                        MoneyTransferFinalActivity.senObj.ZipCode = edZipcode.getText().toString();
+                        MoneyTransferFinalActivity.senObj.MobileNo = edMobileno.getText().toString();
+                        MoneyTransferFinalActivity.senObj.MobileCountryCode = edCountryCode.getText().toString();
+
+
+                            MoneyTransferFinalActivity.senObj.SelectIDType = identityProofTypesList.get(spIdentityProof.getSelectedItemPosition()).toString();
+                            MoneyTransferFinalActivity.senObj.FormID = edFormId.getText().toString();
+
+
+                        MoneyTransferFinalActivity.senObj.Country = countrylist.get(spCountry.getSelectedItemPosition()).CountryID;
+                        MoneyTransferFinalActivity.senObj.City = cityList.get(spCity.getSelectedItemPosition()).CityID;
+                        MoneyTransferFinalActivity.senObj.State = statelist.get(spState.getSelectedItemPosition()).StateID;
+
+                        finish();
+                    }
+                }
+                else{
+                     MoneyTransferFinalActivity.senObj = new Receipient();
+                     MoneyTransferFinalActivity.senObj.FirstName = edFirstname.getText().toString();
+                     MoneyTransferFinalActivity.senObj.LastName = edLastname.getText().toString();
+                     MoneyTransferFinalActivity.senObj.EmailId = edEmail.getText().toString();
+                     MoneyTransferFinalActivity.senObj.Address = edAddress.getText().toString();
+                     MoneyTransferFinalActivity.senObj.ZipCode = edZipcode.getText().toString();
+                     MoneyTransferFinalActivity.senObj.MobileNo = edMobileno.getText().toString();
+                     MoneyTransferFinalActivity.senObj.MobileCountryCode = edCountryCode.getText().toString();
+
+                     MoneyTransferFinalActivity.senObj.SelectIDType =null;
+                     MoneyTransferFinalActivity.senObj.FormID = null;
+
+
+                     MoneyTransferFinalActivity.senObj.Country = countrylist.get(spCountry.getSelectedItemPosition()).CountryID;
+                     MoneyTransferFinalActivity.senObj.City = cityList.get(spCity.getSelectedItemPosition()).CityID;
+                     MoneyTransferFinalActivity.senObj.State = statelist.get(spState.getSelectedItemPosition()).StateID;
+
+                     finish();
+                 }
             }
+
 
             else {
 
@@ -160,23 +237,7 @@ private void intView(){
 
                     finish();
                 }
-                else{
-                    MoneyTransferFinalActivity.senObj = new Receipient();
-                    MoneyTransferFinalActivity.senObj.FirstName = edFirstname.getText().toString();
-                    MoneyTransferFinalActivity.senObj.LastName = edLastname.getText().toString();
-                    MoneyTransferFinalActivity.senObj.EmailId = edEmail.getText().toString();
-                    MoneyTransferFinalActivity.senObj.Address = edAddress.getText().toString();
-                    MoneyTransferFinalActivity.senObj.ZipCode = edZipcode.getText().toString();
-                    MoneyTransferFinalActivity.senObj.MobileNo = edMobileno.getText().toString();
-                    MoneyTransferFinalActivity.senObj.MobileCountryCode = edCountryCode.getText().toString();
 
-
-                    MoneyTransferFinalActivity.senObj.Country = countrylist.get(spCountry.getSelectedItemPosition()).CountryID;
-                    MoneyTransferFinalActivity.senObj.City = cityList.get(spCity.getSelectedItemPosition()).CityID;
-                    MoneyTransferFinalActivity.senObj.State = statelist.get(spState.getSelectedItemPosition()).StateID;
-
-                    finish();
-                }
 
 
             }
@@ -217,6 +278,28 @@ private void intView(){
     @Override
     protected void onResume() {
         super.onResume();
+        user= PrefUtils.getMerchant(MoneyTransferRecipientActivity.this);
+
+        if(getIntent().getExtras().get("ObjectValue").toString().equals("Sender")) {
+            if (user.tempPaymentVia.equals("Cash")) {
+                linearSelectIdentity.setVisibility(View.VISIBLE);
+            } else {
+                linearSelectIdentity.setVisibility(View.GONE);
+            }
+        }
+        else{
+            linearSelectIdentity.setVisibility(View.GONE);
+        }
+
+        isIdentityProofLoad=false;
+        identityProofTypesList=new ArrayList<String>();
+        identityProofTypesList.add("Select Id");
+        identityProofTypesList.add("National Id");
+        identityProofTypesList.add("Passport");
+        identityProofTypesList.add("Driving Licence");
+        identityProofTypesList.add("Social Security No");
+        spIdentityProof.setAdapter(new ArrayAdapter<String>(MoneyTransferRecipientActivity.this,android.R.layout.simple_list_item_1,identityProofTypesList));
+
         fetchCountryAndDisplay();
 
     }

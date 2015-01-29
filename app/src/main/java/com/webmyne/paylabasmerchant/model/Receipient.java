@@ -34,6 +34,11 @@ public class Receipient {
    // @SerializedName("ZipCode")
     public String MobileCountryCode;
 
+    // @SerializedName("SelectIDType")
+    public String SelectIDType;
+
+    // @SerializedName("FormID")
+    public String FormID;
 
 
 }

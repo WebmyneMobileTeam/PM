@@ -244,7 +244,15 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
 
             }
             else if(!isCityLoad){
-                SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select City !!!");
+                    SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select City !!!");
+                }
+                else if(edAmountTransfer.getText().length()==0){
+                    SimpleToast.error(MoneyTransferHomeActivity.this, "Please enter amount for money transfer !!!");
+
+            }
+
+            else if (Integer.valueOf(edAmountTransfer.getText().toString())<10){
+                edAmountTransfer.setError("Minimum Amount is € 10 For This Service");
             }
             else if(!isBankLoad){
                 SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select Bank !!!");

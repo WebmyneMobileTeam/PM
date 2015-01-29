@@ -241,6 +241,11 @@ private void processMoney(){
         userObject.put("SenderZip",String.valueOf(senObj.ZipCode));
 
 
+        if(user.tempPaymentVia.equals("Cash")) {
+            userObject.put("SenderIdentityProofType",String.valueOf(senObj.SelectIDType));
+            userObject.put("SenderFormID",String.valueOf(senObj.FormID));
+        }
+
         userObject.put("UserID",0);
 
 
@@ -264,6 +269,8 @@ private void processMoney(){
 
                     else {
                         SimpleToast.error(MoneyTransferFinalActivity.this, "MoneyTransfer Fail, Your Money is refunded !!!");
+                        recObj=null;
+                        senObj=null;
                     }
 
 
@@ -287,10 +294,10 @@ private void processMoney(){
         });
 
 
-        req.setRetryPolicy(  new DefaultRetryPolicy(0,0,0));
+        /*req.setRetryPolicy(  new DefaultRetryPolicy(0,0,0));
         MyApplication.getInstance().addToRequestQueue(req);
 
-
+*/
 
 
     }catch (Exception e){
