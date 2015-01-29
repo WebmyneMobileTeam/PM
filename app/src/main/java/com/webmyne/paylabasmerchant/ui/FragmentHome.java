@@ -527,11 +527,11 @@ public class FragmentHome extends Fragment {
                 //topup
 
                 layoutWallet.setVisibility(View.VISIBLE);
-                layoutGC.setVisibility(View.VISIBLE);
+                layoutGC.setVisibility(View.GONE);
                 layoutCash.setVisibility(View.VISIBLE);
 
                 txtWallet.setVisibility(View.VISIBLE);
-                txtGC.setVisibility(View.VISIBLE);
+                txtGC.setVisibility(View.GONE);
                 txtCash.setVisibility(View.VISIBLE);
 
                 break;

@@ -102,7 +102,7 @@ private class ToolsPagerAdapter extends FragmentPagerAdapter {
         public Fragment getItem(int position) {
 
          if(position==0) {
-             FragmentCurrencyCoverter frag = new FragmentCurrencyCoverter();
+             FragmentGCCoverter frag = new FragmentGCCoverter();
            /*  Bundle args = new Bundle();
              args.putInt(ARG_CONFERENCE_DAY_INDEX, position);
              frag.setArguments(args);*/

@@ -44,7 +44,7 @@
     <string name="reports_title">Reports</string>
     <!-- Tools -->
     <string name="tools_title">Tools</string>
-    <string name="tabstrip_item1">Currency</string>
+    <string name="tabstrip_item1">Convert GC</string>
     <string name="tabstrip_item2">Combine GC</string>
     <string name="button_combinegc">Combine</string>
     <string name="button_add">Add</string>

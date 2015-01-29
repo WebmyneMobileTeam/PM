@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -53,7 +52,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FragmentCurrencyCoverter extends Fragment {
+public class FragmentGCCoverter extends Fragment {
 
    TextView btnConvert;
     private ArrayList<Country> countries;
@@ -66,13 +65,13 @@ public class FragmentCurrencyCoverter extends Fragment {
     private JSONObject responseObject;
     private GCCountryAdapter gcCountryAdapter;
     private LinearLayout convertContainer;
-    public static FragmentCurrencyCoverter newInstance(String param1, String param2) {
-        FragmentCurrencyCoverter fragment = new FragmentCurrencyCoverter();
+    public static FragmentGCCoverter newInstance(String param1, String param2) {
+        FragmentGCCoverter fragment = new FragmentGCCoverter();
 
         return fragment;
     }
 
-    public FragmentCurrencyCoverter() {
+    public FragmentGCCoverter() {
         // Required empty public constructor
     }
 
@@ -86,7 +85,7 @@ public class FragmentCurrencyCoverter extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View convertView= inflater.inflate(R.layout.fragment_currency_coverter, container, false);
+        View convertView= inflater.inflate(R.layout.fragment_gc_coverter, container, false);
         btnConvert = (TextView)convertView.findViewById(R.id.btnConvert);
         spCountry = (Spinner) convertView.findViewById(R.id.spCountry);
         spGCCountry = (Spinner) convertView.findViewById(R.id.spGCCountry);
