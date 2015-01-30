@@ -121,7 +121,9 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
 
         txtSendAmount.setText("€ "+String.valueOf(MoneyTransferHomeActivity.bankobj.Amount));
 
-        txtFees.setText("Fees:  € "+String.valueOf(FinalFeesAmount));
+        Float Fees = FinalPayableAmount - MoneyTransferHomeActivity.bankobj.Amount;
+
+        txtFees.setText("Fees:  € "+String.valueOf(Fees));
 
 
         txtamountPayable.setText("Total Payable Amount: € "+String.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt));
