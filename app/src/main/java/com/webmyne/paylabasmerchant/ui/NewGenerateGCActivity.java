@@ -85,7 +85,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
     private int selected_country_id = 0;
     int temp_posCountrySpinner;
     ArrayList<GCCountry> arrCheckCountries;
-    ArrayList<Country> finalCountries;
+//    ArrayList<Country> finalCountries;
     double selected_amount = 0;
     Toolbar toolbar_actionbar;
     int selectedPaymentType;
@@ -138,9 +138,9 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
             int toSelection = 0;
 
-            for(int i=0;i<finalCountries.size();i++){
+            for(int i=0;i<arrCheckCountries.size();i++){
 
-                if(finalCountries.get(i).CountryID == resp.Country){
+                if(arrCheckCountries.get(i).CountryId == resp.Country){
                     toSelection = i;
                     break;
                 }else{
@@ -148,7 +148,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
                 }
 
             }
-            processCountrySelection(toSelection);
+            spinnerCountryGenerateGc.setSelection(toSelection);
         }catch(Exception e){
 
         }
@@ -201,7 +201,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 //    }
 
     private void fetchReceipientsAndDisplay() {
-
+        Log.e("webservice...",AppConstants.GETRECEIPIENTS +user.UserID+"");
         new CallWebService(AppConstants.GETRECEIPIENTS +user.UserID,CallWebService.TYPE_JSONARRAY) {
 
             @Override
@@ -277,67 +277,9 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         btnGenerateGCGenerateGC = (TextView)findViewById(R.id.btnGenerateGCGenerateGC);
         btnGenerateGCGenerateGC.setOnClickListener(this);
         btnResetGenerateGC.setOnClickListener(this);
-        spinnerRecipientContactGenerateGc = (Spinner)findViewById(R.id.spinnerRecipientContactGenerateGc);
+        spinnerRecipientContactGenerateGc = (Spinner)findViewById(R.id.spinnerRecipientContactGenerateGcNew);
         spinnerCountryGenerateGc = (Spinner)findViewById(R.id.spinnerCountryGenerateGc);
         txtCCGenerateGC = (TextView)findViewById(R.id.txtCCGenerateGC);
-/*
-        edAmountGenerateGC.addTextChangedListener(new TextWatcher() {
-
-            private String current = "";
-
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
-             */
-/*  if(!s.toString().equals(current)){
-
-                    edAmountGenerateGC.removeTextChangedListener(this);
-                    String cleanString = s.toString().replaceAll("[,.]", "");
-                    NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.FRANCE);
-                    String currencySymbol = formatter.getCurrency().getSymbol();
-                    cleanString = cleanString.replace(currencySymbol,"");
-                    double parsed = Double.parseDouble(cleanString);
-                    String formatted = NumberFormat.getCurrencyInstance(Locale.FRANCE).format((parsed/100));
-
-                    current = formatted;
-                    edAmountGenerateGC.setText(formatted);
-
-                    edAmountGenerateGC.setSelection(formatted.length());
-                    edAmountGenerateGC.addTextChangedListener(this);
-                }*//*
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-*/
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        getGCCountries();
-
-        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(this, "user_pref", 0);
-        user = complexPreferences.getObject("current_user", AffilateUser.class);
-        edAmountGenerateGC.setText(user.tempAmount);
-        receipients = new ArrayList<Receipient>();
-        countries = new ArrayList<Country>();
-
-        fetchReceipientsAndDisplay();
-//        fetchCountryAndDisplay();
-
 
         spinnerCountryGenerateGc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -363,7 +305,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         spinnerRecipientContactGenerateGc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                Log.e("click............","click");
                 if(position == 0){
 
                 }else{
@@ -381,6 +323,25 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
             }
         });
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getGCCountries();
+
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(this, "user_pref", 0);
+        user = complexPreferences.getObject("current_user", AffilateUser.class);
+        edAmountGenerateGC.setText(user.tempAmount);
+        receipients = new ArrayList<Receipient>();
+        countries = new ArrayList<Country>();
+
+        fetchReceipientsAndDisplay();
+//        fetchCountryAndDisplay();
+
+
+
     }
 
     @Override
