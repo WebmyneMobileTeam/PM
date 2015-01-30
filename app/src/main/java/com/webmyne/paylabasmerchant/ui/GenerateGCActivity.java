@@ -90,13 +90,8 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
     private int selected_country_id = 0;
     int temp_posCountrySpinner;
     ArrayList<GCCountry> arrCheckCountries;
-    ArrayList<Country> finalCountries;
+   // ArrayList<Country> finalCountries;
     double selected_amount = 0;
-
-
-
-
-
 
     @Override
     public void onResume() {
@@ -154,9 +149,9 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
 
             int toSelection = 0;
 
-            for(int i=0;i<finalCountries.size();i++){
+            for(int i=0;i<arrCheckCountries.size();i++){
 
-                if(finalCountries.get(i).CountryID == resp.Country){
+                if(arrCheckCountries.get(i).CountryId == resp.Country){
                     toSelection = i;
                     break;
                 }else{
