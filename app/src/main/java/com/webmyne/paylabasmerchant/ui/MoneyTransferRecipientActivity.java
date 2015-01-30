@@ -184,7 +184,7 @@ private void intView(){
                         MoneyTransferFinalActivity.senObj.MobileCountryCode = edCountryCode.getText().toString();
 
 
-                            MoneyTransferFinalActivity.senObj.SelectIDType = identityProofTypesList.get(spIdentityProof.getSelectedItemPosition()).toString();
+                            MoneyTransferFinalActivity.senObj.SelectIDType = spIdentityProof.getSelectedItemPosition()+1;
                             MoneyTransferFinalActivity.senObj.FormID = edFormId.getText().toString();
 
 
@@ -205,7 +205,7 @@ private void intView(){
                      MoneyTransferFinalActivity.senObj.MobileNo = edMobileno.getText().toString();
                      MoneyTransferFinalActivity.senObj.MobileCountryCode = edCountryCode.getText().toString();
 
-                     MoneyTransferFinalActivity.senObj.SelectIDType =null;
+                     MoneyTransferFinalActivity.senObj.SelectIDType =0;
                      MoneyTransferFinalActivity.senObj.FormID = null;
 
 

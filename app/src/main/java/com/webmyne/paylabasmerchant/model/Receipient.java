@@ -35,7 +35,7 @@ public class Receipient {
     public String MobileCountryCode;
 
     // @SerializedName("SelectIDType")
-    public String SelectIDType;
+    public int SelectIDType;
 
     // @SerializedName("FormID")
     public String FormID;

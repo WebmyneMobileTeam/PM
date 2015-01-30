@@ -224,7 +224,7 @@ private void processPay(){
             userObject.put("Amount",edCashInAmount.getText().toString());
             userObject.put("Currency","EUR");
             userObject.put("FormDetail",edFormId.getText().toString());
-          //  userObject.put("FormDetailType",spIdentityProof.getSelectedItemPosition()+1);
+            userObject.put("FormDetailType",spIdentityProof.getSelectedItemPosition()+1);
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);
             userObject.put("UserMobileNo",edMobileNumber.getText().toString());
 

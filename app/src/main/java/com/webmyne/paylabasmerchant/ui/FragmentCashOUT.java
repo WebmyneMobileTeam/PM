@@ -186,7 +186,7 @@ private void processPay(){
             userObject.put("Amount",edCashoutAmount.getText().toString());
            // userObject.put("Currency","EUR");
             userObject.put("FormDetail",edFormId.getText().toString());
-           // userObject.put("FormDetailValue",spIdentityProof.getSelectedItemPosition()+1);
+            userObject.put("FormDetailValue",spIdentityProof.getSelectedItemPosition()+1);
             userObject.put("PIN",edPin.getText().toString());
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);
             userObject.put("UserMobileNo",edMobileNumber.getText().toString());
@@ -259,6 +259,7 @@ private void processPay2(final String Vfcode){
             userObject.put("AffiliateID",user.UserID+"");
             userObject.put("Amount",edCashoutAmount.getText().toString());
             // userObject.put("Currency","EUR");
+
             userObject.put("FormDetail",edFormId.getText().toString());
             userObject.put("PIN",edPin.getText().toString());
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);

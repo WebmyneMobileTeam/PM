@@ -207,6 +207,7 @@ public class FragmentHome extends Fragment {
 
                             PrefUtils.setMerchant(getActivity(), affilateUser);
                             Intent intent = new Intent(getActivity(), MoneyTransferHomeActivity.class);
+                            intent.putExtra("edamount",etAmount.getText().toString());
                             startActivity(intent);
 
                         } else if (selectedServiceType == 1) {
@@ -754,6 +755,7 @@ public class FragmentHome extends Fragment {
                         }
                         PrefUtils.setMerchant(getActivity(), affilateUser);
                         Intent intent = new Intent(getActivity(), MoneyTransferHomeActivity.class);
+                        intent.putExtra("edamount",etAmount.getText().toString());
                         startActivity(intent);
 
                     } else if (selectedServiceType == 1) { // Mobile Topup

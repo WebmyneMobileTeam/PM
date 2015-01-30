@@ -175,7 +175,9 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         MoneyTransferFinalActivity.senObj=null;
         isCityLoad = false;
         isBankLoad = false;
-        edAmountTransfer.setText("");
+
+        edAmountTransfer.setText(getIntent().getStringExtra("edamount"));
+
         include_item_pickup.setVisibility(View.GONE);
         spinner_city.setVisibility(View.GONE);
         MoneyTransferFinalActivity.recObj = null;

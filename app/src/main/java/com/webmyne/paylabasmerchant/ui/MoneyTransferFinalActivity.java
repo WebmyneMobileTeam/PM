@@ -240,12 +240,13 @@ private void processMoney(){
         userObject.put("SenderZip",String.valueOf(senObj.ZipCode));
 
 
-       /* if(user.tempPaymentVia.equals("Cash")) {
-            userObject.put("SenderIdentityProofType",String.valueOf(senObj.SelectIDType));
-            userObject.put("SenderFormID",String.valueOf(senObj.FormID));
-        }*/
+        if(user.tempPaymentVia.equals("Cash")) {
+            userObject.put("FormDetailType",senObj.SelectIDType);
+            userObject.put("FormDetail",String.valueOf(senObj.FormID));
+        }
 
-        userObject.put("UserID",0);
+
+         userObject.put("UserID", 0);
 
 
         Log.e("obj of mone transfer--",userObject.toString());
