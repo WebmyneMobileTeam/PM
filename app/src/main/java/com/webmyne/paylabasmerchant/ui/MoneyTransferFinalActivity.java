@@ -115,12 +115,16 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
 
         Float FinalFeesAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.ApproxComm)+amount1+Float.valueOf(fixedprice);
 
-        FinalPayableAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.Amount)+FinalFeesAmount;
+      //  FinalPayableAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.Amount)+FinalFeesAmount;
+
+         FinalPayableAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt);
 
         txtSendAmount.setText("€ "+String.valueOf(MoneyTransferHomeActivity.bankobj.Amount));
 
         txtFees.setText("Fees:  € "+String.valueOf(FinalFeesAmount));
-        txtamountPayable.setText("Total Payable Amount: € "+String.valueOf(FinalPayableAmount));
+
+
+        txtamountPayable.setText("Total Payable Amount: € "+String.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt));
 
         txtamountRecipientGET.setText("Recipient Gets: "+String.valueOf(MoneyTransferHomeActivity.bankobj.RecipientGet)+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
         txtExchangerate.setText("Exchnage Rate:  € 1 = "+String.valueOf(MoneyTransferHomeActivity.bankobj.ConvRate)+" "+ MoneyTransferHomeActivity.bankobj.Currencies);

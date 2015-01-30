@@ -226,22 +226,8 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
 
             if(isBankLoad && spinner_city.getSelectedItemPosition()!=0&& spinner_country.getSelectedItemPosition()!=0) {
                 fetchBankdetailsandDisplay(BankID);
-                bankobj = new BANK_WEB_SERVICE();
 
-                bankobj.BankID = BankID;
-                bankobj.Amount = Float.valueOf(edAmountTransfer.getText().toString());
 
-                bankobj.ApproxComm = bank.get(SelectBankPosition).ApproxComm;
-                bankobj.Currencies = obj.ToCurrencyCode;
-
-                bankobj.Fixedcharge = obj.Fixedcharge;
-                bankobj.Perccharge = obj.Perccharge;
-
-                bankobj.RecipientGet = obj.RecipientGet;
-                bankobj.ConvRate = obj.ConvRate;
-
-                Intent i = new Intent(MoneyTransferHomeActivity.this,MoneyTransferFinalActivity.class);
-                startActivity(i);
 
             }
             else if(!isCountryLoad)
@@ -299,7 +285,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
             userObject.put("FrmCurrencyCode","EUR");
 
 
-            Log.e("obj of bank",userObject.toString());
+            Log.e("obj of bankkkkk",userObject.toString());
             JsonObjectRequest req = new JsonObjectRequest(com.android.volley.Request.Method.POST, AppConstants.GET_MONERPOLO_BANKLIST, userObject, new Response.Listener<JSONObject>() {
 
                 @Override
@@ -307,7 +293,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
 
                     circleDialog.dismiss();
                     String response = jobj.toString();
-                    Log.e("Response bank : ", "" + response);
+                    Log.e("Response bankkkkkk : ", "" + response);
                     try {
 
                         final Dialog dialog = new Dialog(MoneyTransferHomeActivity.this,android.R.style.Theme_Black_NoTitleBar);
@@ -317,7 +303,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
                         obj =  new GsonBuilder().create().fromJson(response.toString(),MONEYPOLO_BANK.class);
 
                         bank = obj.BankList;
-
+                        Log.e("payable amount",obj.PayableAmt);
                         ArrayList points = new ArrayList();
                         PickUpPoint point = new PickUpPoint();
 
@@ -356,6 +342,31 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
 
                             }
                         });
+
+
+if(bankID!=0) {
+    bankobj = new BANK_WEB_SERVICE();
+
+    bankobj.BankID = BankID;
+    bankobj.Amount = Float.valueOf(edAmountTransfer.getText().toString());
+
+    Log.e("payable amountkkkk", obj.PayableAmt);
+    bankobj.PayableAmt = obj.PayableAmt;
+
+    bankobj.ApproxComm = bank.get(SelectBankPosition).ApproxComm;
+    bankobj.Currencies = obj.ToCurrencyCode;
+
+    bankobj.Fixedcharge = obj.Fixedcharge;
+    bankobj.Perccharge = obj.Perccharge;
+
+    bankobj.RecipientGet = obj.RecipientGet;
+    bankobj.ConvRate = obj.ConvRate;
+
+
+    Intent i = new Intent(MoneyTransferHomeActivity.this, MoneyTransferFinalActivity.class);
+    startActivity(i);
+
+}
 
 
                     } catch (Exception e) {
