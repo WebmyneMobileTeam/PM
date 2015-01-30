@@ -101,151 +101,9 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
 
     }
 
-    private void getGCCountries() {
-        final CircleDialog d = new CircleDialog(this, 0);
-        d.setCancelable(true);
-        d.show();
 
-        new CallWebService(AppConstants.GET_GC_COUNTRY, CallWebService.TYPE_JSONARRAY) {
 
-            @Override
-            public void response(String response) {
 
-                d.dismiss();
-
-                Type listType = new TypeToken<List<GCCountry>>() {
-                }.getType();
-                arrCheckCountries = new GsonBuilder().create().fromJson(response, listType);
-
-                for (int i = 0; i < arrCheckCountries.size(); i++) {
-                    Log.e("", arrCheckCountries.get(i).CountryName + "");
-                }
-
-                CountryAdapter countryAdapter = new CountryAdapter(GenerateGCActivity.this, R.layout.spinner_country, arrCheckCountries);
-                spinnerCountryGenerateGc.setAdapter(countryAdapter);
-
-            }
-
-            @Override
-            public void error(VolleyError error) {
-
-                d.dismiss();
-            }
-        }.start();
-    }
-
-    private void processCountrySelection(int position) {
-
-        selected_country_id = position;
-        temp_posCountrySpinner=position;
-
-        txtCCGenerateGC.setText(String.format("+%s",arrCheckCountries.get(position).CountryCode));
-
-    }
-
-    private void processSelectionWholeReceipient(int position) {
-
-        Receipient resp = receipients.get(position);
-        try{
-
-            int toSelection = 0;
-
-            for(int i=0;i<arrCheckCountries.size();i++){
-
-                if(arrCheckCountries.get(i).CountryId == resp.Country){
-                    toSelection = i;
-                    break;
-                }else{
-                    continue;
-                }
-
-            }
-            spinnerCountryGenerateGc.setSelection(toSelection);
-        }catch(Exception e){
-                e.printStackTrace();
-        }
-        edMobileNumberGenerateGC.setText(resp.MobileNo);
-
-    }
-
-//    private void fetchCountryAndDisplay() {
-//
-//
-//        new AsyncTask<Void,Void,Void>() {
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//
-//                db_wrapper = new DatabaseWrapper(getActivity());
-//                try {
-//                    db_wrapper.openDataBase();
-//                    countries= db_wrapper.getCountryData();
-//                    db_wrapper.close();
-//
-//
-//
-//
-//                }catch(Exception e){e.printStackTrace();}
-//
-//
-//                return null;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(Void aVoid) {
-//                super.onPostExecute(aVoid);
-//                finalCountries = new ArrayList<Country>();
-//
-//               for(Country country : countries){
-//
-//                    if(arrCheckCountries.contains(country.CountryName.toString().trim())){
-//                        finalCountries.add(country);
-//                    }
-//
-//                }
-//
-//
-//                CountryAdapter countryAdapter = new CountryAdapter(getActivity(),R.layout.spinner_country, finalCountries);
-//                spinnerCountryGenerateGc.setAdapter(countryAdapter);
-//
-//            }
-//        }.execute();
-//
-//    }
-
-    private void fetchReceipientsAndDisplay() {
-
-        new CallWebService(AppConstants.GETRECEIPIENTS +user.UserID,CallWebService.TYPE_JSONARRAY) {
-
-            @Override
-            public void response(String response) {
-
-                Log.e("Receipients List",response);
-                if(response == null){
-
-                }else{
-
-                    Type listType=new TypeToken<List<Receipient>>(){
-                    }.getType();
-                    receipients =  new GsonBuilder().create().fromJson(response, listType);
-
-                    Receipient receipient = new Receipient();
-                    receipient.FirstName = "Select";
-                    receipient.LastName = "Receipient";
-                    receipients.add(0,receipient);
-
-                    ReceipientAdapter countryAdapter = new ReceipientAdapter(GenerateGCActivity.this,R.layout.spinner_country, receipients);
-                    spinnerRecipientContactGenerateGc.setAdapter(countryAdapter);
-                }
-
-            }
-
-            @Override
-            public void error(VolleyError error) {
-
-            }
-        }.start();
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
@@ -288,16 +146,13 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
         spinnerRecipientContactGenerateGc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                Log.e("recipient","clicked");
                 if(position == 0){
 
                 }else{
 
                     processSelectionWholeReceipient(position);
-
-
                 }
-
 
             }
 
@@ -445,6 +300,76 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
                 break;
         }
     }
+
+
+    private void getGCCountries() {
+        final CircleDialog d = new CircleDialog(this, 0);
+        d.setCancelable(true);
+        d.show();
+
+        new CallWebService(AppConstants.GET_GC_COUNTRY, CallWebService.TYPE_JSONARRAY) {
+
+            @Override
+            public void response(String response) {
+
+                d.dismiss();
+
+                Type listType = new TypeToken<List<GCCountry>>() {
+                }.getType();
+                arrCheckCountries = new GsonBuilder().create().fromJson(response, listType);
+
+                for (int i = 0; i < arrCheckCountries.size(); i++) {
+                    Log.e("", arrCheckCountries.get(i).CountryName + "");
+                }
+
+                CountryAdapter countryAdapter = new CountryAdapter(GenerateGCActivity.this, R.layout.spinner_country, arrCheckCountries);
+                spinnerCountryGenerateGc.setAdapter(countryAdapter);
+
+            }
+
+            @Override
+            public void error(VolleyError error) {
+
+                d.dismiss();
+            }
+        }.start();
+    }
+
+    private void processCountrySelection(int position) {
+
+        selected_country_id = position;
+        temp_posCountrySpinner=position;
+
+        txtCCGenerateGC.setText(String.format("+%s",arrCheckCountries.get(position).CountryCode));
+
+    }
+
+    private void processSelectionWholeReceipient(int position) {
+
+        Receipient resp = receipients.get(position);
+        Log.e("resp mobile country code",resp.MobileCountryCode+"");
+        try{
+
+            int toSelection = 0;
+
+            for(int i=0;i<arrCheckCountries.size();i++){
+
+                if(arrCheckCountries.get(i).CountryId == resp.Country){
+                    toSelection = i;
+                    break;
+                }else{
+                    continue;
+                }
+
+            }
+            spinnerCountryGenerateGc.setSelection(toSelection);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        edMobileNumberGenerateGC.setText(resp.MobileNo);
+
+    }
+
 
     private void checkProcess() {
 
@@ -1000,5 +925,40 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
 
     }
 
+
+    private void fetchReceipientsAndDisplay() {
+
+        new CallWebService(AppConstants.GETRECEIPIENTS +user.UserID,CallWebService.TYPE_JSONARRAY) {
+
+            @Override
+            public void response(String response) {
+
+                Log.e("Receipients List",response);
+                if(response == null){
+
+                }else{
+
+                    Type listType=new TypeToken<List<Receipient>>(){
+                    }.getType();
+                    receipients =  new GsonBuilder().create().fromJson(response, listType);
+
+                    Receipient receipient = new Receipient();
+                    receipient.FirstName = "Select";
+                    receipient.LastName = "Receipient";
+                    receipients.add(0,receipient);
+
+                    ReceipientAdapter countryAdapter = new ReceipientAdapter(GenerateGCActivity.this,R.layout.spinner_country, receipients);
+                    spinnerRecipientContactGenerateGc.setAdapter(countryAdapter);
+                }
+
+            }
+
+            @Override
+            public void error(VolleyError error) {
+
+            }
+        }.start();
+
+    }
 
 }
