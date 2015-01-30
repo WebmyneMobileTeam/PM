@@ -8,11 +8,11 @@ import com.google.gson.annotations.SerializedName;
 public class AffilateServices {
 
     @SerializedName("RemainingBal")
-    public int RemainingBal;
+    public double RemainingBal;
     @SerializedName("ServiceName")
     public String ServiceName;
     @SerializedName("SetLimit")
-    public int SetLimit;
+    public double SetLimit;
     @SerializedName("ServiceID")
     public int ServiceID ;
     @SerializedName("IsActive")

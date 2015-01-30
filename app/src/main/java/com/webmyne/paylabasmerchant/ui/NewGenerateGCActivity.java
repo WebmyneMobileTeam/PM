@@ -232,7 +232,6 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
             }
         }.start();
-
     }
 
     @Override
@@ -260,10 +259,6 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
             }
         });
     }
-
-
-
-
     private void init() {
 
         mainLinear = (LinearLayout)findViewById(R.id.mainlineargenerategc);
@@ -289,11 +284,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
                 }else{
                     processCountrySelection(position);
-
-
                 }
-
-
             }
 
             @Override
@@ -307,12 +298,8 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("click............","click");
                 if(position == 0){
-
                 }else{
-
                     processSelectionWholeReceipient(position);
-
-
                 }
 
 
