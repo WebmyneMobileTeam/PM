@@ -100,6 +100,7 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
     }
 
 
+
      private void fillDestails(){
 
         float commision = MoneyTransferHomeActivity.bankobj.ApproxComm;
