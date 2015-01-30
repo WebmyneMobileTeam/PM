@@ -280,7 +280,6 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         spinnerRecipientContactGenerateGc = (Spinner)findViewById(R.id.spinnerRecipientContactGenerateGc);
         spinnerCountryGenerateGc = (Spinner)findViewById(R.id.spinnerCountryGenerateGc);
         txtCCGenerateGC = (TextView)findViewById(R.id.txtCCGenerateGC);
-
 /*
         edAmountGenerateGC.addTextChangedListener(new TextWatcher() {
 
@@ -320,25 +319,19 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
             @Override
             public void afterTextChanged(Editable s) {
-
-
             }
         });
-
 */
-
-
-
     }
-
-
     @Override
     protected void onResume() {
         super.onResume();
+
         getGCCountries();
+
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(this, "user_pref", 0);
         user = complexPreferences.getObject("current_user", AffilateUser.class);
-
+        edAmountGenerateGC.setText(user.tempAmount);
         receipients = new ArrayList<Receipient>();
         countries = new ArrayList<Country>();
 
