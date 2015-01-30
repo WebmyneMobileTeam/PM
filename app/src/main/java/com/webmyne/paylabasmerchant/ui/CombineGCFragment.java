@@ -426,6 +426,7 @@ private void fetchCountries(){
                 JSONObject jMain = new JSONObject();
                 JSONArray arr = new JSONArray();
                 double newLocalValue= 0.0d;
+
                 for (int i = 0; i < linearCombineGiftCode.getChildCount(); i++) {
                     LinearLayout layout = (LinearLayout) linearCombineGiftCode.getChildAt(i);
                     EditText ed = (EditText) layout.findViewById(R.id.entergiftcode_combinegiftcode);
@@ -435,6 +436,7 @@ private void fetchCountries(){
                     jobj.put("GiftCode", ed.getText().toString());
                     arr.put(jobj);
                 }
+
                 //todo change service and values
                 jMain.put("UserMobileNo", edUserMobile.getText().toString().trim());
 

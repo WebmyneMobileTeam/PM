@@ -100,6 +100,8 @@ public class FragmentHome extends Fragment {
     private TextView txtTransfer,txtTopup,txtGenerate;
     private TextView txtWallet,txtGC,txtCash;
 
+    private LinearLayout linearMobileHome;
+
     public static boolean isFromDetailPage = false;
 
     public static FragmentHome newInstance(String param1, String param2) {
@@ -213,12 +215,13 @@ public class FragmentHome extends Fragment {
                             Country countryObject = (Country) spCountryCode.getSelectedItem();
                             affilateUser.tempCountryCode = countryObject.CountryCode + "";
                             affilateUser.tempMobileNumber = etMobileNumber.getText().toString();
-
                             affilateUser.tempPaymentVia = "Cash";
-
                             PrefUtils.setMerchant(getActivity(), affilateUser);
                             Intent intent = new Intent(getActivity(), MobileTopupActivity.class);
                             startActivity(intent);
+
+
+
                         } else if (selectedServiceType == 2) {
                             //TODO
                             affilateUser.tempAmount = etAmount.getText().toString().trim();
@@ -320,6 +323,8 @@ public class FragmentHome extends Fragment {
         txtTopup = (TextView)convertview.findViewById(R.id.txtTopup);
         txtTransfer = (TextView)convertview.findViewById(R.id.txtTransfer);
         txtWallet = (TextView)convertview.findViewById(R.id.txtWallet);
+
+        linearMobileHome = (LinearLayout)convertview.findViewById(R.id.linearMobileHome);
 
 
     }
@@ -518,7 +523,7 @@ public class FragmentHome extends Fragment {
                 txtWallet.setVisibility(View.VISIBLE);
                 txtGC.setVisibility(View.GONE);
                 txtCash.setVisibility(View.VISIBLE);
-
+                linearMobileHome.setVisibility(View.VISIBLE);
 
                 break;
 
@@ -534,6 +539,8 @@ public class FragmentHome extends Fragment {
                 txtGC.setVisibility(View.GONE);
                 txtCash.setVisibility(View.VISIBLE);
 
+                linearMobileHome.setVisibility(View.GONE);
+
                 break;
 
             case 2:
@@ -546,7 +553,7 @@ public class FragmentHome extends Fragment {
                 txtWallet.setVisibility(View.VISIBLE);
                 txtGC.setVisibility(View.GONE);
                 txtCash.setVisibility(View.VISIBLE);
-
+                linearMobileHome.setVisibility(View.VISIBLE);
 
                 break;
 
@@ -559,7 +566,7 @@ public class FragmentHome extends Fragment {
                 txtWallet.setVisibility(View.GONE);
                 txtGC.setVisibility(View.VISIBLE);
                 txtCash.setVisibility(View.GONE);
-
+                linearMobileHome.setVisibility(View.VISIBLE);
                 break;
 
         }
@@ -921,9 +928,16 @@ public class FragmentHome extends Fragment {
 
         boolean isEmpty = false;
 
-        if (etAmount.getText() == null || etAmount.getText().toString().equalsIgnoreCase("")) {
-            isEmpty = true;
+        if(selectedServiceType == 1){
+            isEmpty = false;
+            return isEmpty;
+        }else{
+            if (etAmount.getText() == null || etAmount.getText().toString().equalsIgnoreCase("")) {
+                isEmpty = true;
+            }
         }
+
+
         return isEmpty;
     }
 

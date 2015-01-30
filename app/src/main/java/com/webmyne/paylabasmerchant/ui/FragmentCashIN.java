@@ -126,7 +126,6 @@ public class FragmentCashIN extends Fragment {
             userObject.put("UserID",String.valueOf(user.UserID));
             userObject.put("UserMobileNo", user.MobileNo);
 
-
             Log.e("cash in  object",userObject.toString());
 
             final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);

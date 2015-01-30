@@ -133,19 +133,19 @@ public class FragmentMobileTopupRecharge extends Fragment {
             @Override
             public void onClick(View v) {
                 AffilateUser user= PrefUtils.getMerchant(getActivity());
-
-                if(isEmptyField(edRechargeMobileNumber)){
-//                    SnackBar bar = new SnackBar(getActivity(),"Please Enter Mobile Number");
-//                    bar.show();
-                    SimpleToast.error(getActivity(), "Please Enter Mobile Number");
-
-                }   else if(InternationalNumberValidation.isPossibleNumber(edRechargeMobileNumber.getText().toString().toString(), mobileTopupList.get(spCountry.getSelectedItemPosition()).shortCode.toString().trim())==false){
-                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
-                }else if(InternationalNumberValidation.isValidNumber(edRechargeMobileNumber.getText().toString().toString(), mobileTopupList.get(spCountry.getSelectedItemPosition()).shortCode.toString().trim())==false){
-                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
-                } else {
-                    processRecharge();
-                }
+                processRecharge();
+//                if(isEmptyField(edRechargeMobileNumber)){
+////                    SnackBar bar = new SnackBar(getActivity(),"Please Enter Mobile Number");
+////                    bar.show();
+//                    SimpleToast.error(getActivity(), "Please Enter Mobile Number");
+//
+//                }   else if(InternationalNumberValidation.isPossibleNumber(edRechargeMobileNumber.getText().toString().toString(), mobileTopupList.get(spCountry.getSelectedItemPosition()).shortCode.toString().trim())==false){
+//                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+//                }else if(InternationalNumberValidation.isValidNumber(edRechargeMobileNumber.getText().toString().toString(), mobileTopupList.get(spCountry.getSelectedItemPosition()).shortCode.toString().trim())==false){
+//                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+//                } else {
+//
+//                }
             }
         });
         return convertView;
@@ -255,18 +255,21 @@ public class FragmentMobileTopupRecharge extends Fragment {
                     AffilateUser user= PrefUtils.getMerchant(getActivity());
 
                     userObject.put("AffiliateID",user.UserID+"");
-                    userObject.put("UserCountryCode",user.tempCountryCode+"");
-                    userObject.put("UserMobileNo",user.tempMobileNumber+"");
+                    userObject.put("UserCountryCode",user.MobileCountryCode+"");
+                    // user only for GC
+                    userObject.put("UserMobileNo",user.MobileNo+"");
                     userObject.put("PaymentVia",user.tempPaymentVia+"");
                     userObject.put("Amount",String.valueOf(roundup_total)+"");
+                    
                     if(user.tempPaymentVia.equalsIgnoreCase("GC")){
                         userObject.put("GiftCode",user.tempGiftCode+"");
                     }
+
                     userObject.put("topupCode",mobileTopUpProductsArrayList.get(spServiceProvider.getSelectedItemPosition()).carrierCode+"");
                     userObject.put("countryCode",mobileTopupList.get(spCountry.getSelectedItemPosition()).shortCode.trim()+"");//IN
                     userObject.put("LiveConAmt", mobileTopupList.get(spServiceProvider.getSelectedItemPosition()).USDtoEuro+"");
                     userObject.put("rechargeAmount",mobileTopupRechargeServiceList.get(spRechargeAmount.getSelectedItemPosition()).rechargePrice+"");
-                    userObject.put("mobileNo",edRechargeMobileNumber.getText().toString().trim());
+                    userObject.put("mobileNo",user.tempMobileNumber+"");
 
                     Log.e("recharge post object",userObject.toString());
 

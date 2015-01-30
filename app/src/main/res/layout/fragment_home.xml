@@ -314,7 +314,7 @@
 
 
             <LinearLayout
-
+                android:id="@+id/linearMobileHome"
                 android:gravity="center"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
