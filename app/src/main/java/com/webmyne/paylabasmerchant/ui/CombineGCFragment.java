@@ -82,6 +82,7 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
     private Spinner spGCCountry,spCountry;
     private JSONObject responseObject;
     private GCCountryAdapter gcCountryAdapter;
+    private double localOldtextValue;
 
     public static CombineGCFragment newInstance(String param1, String param2) {
         CombineGCFragment fragment = new CombineGCFragment();
@@ -154,8 +155,8 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
 //                double newValue = oldValue * countryList.get(position).LiveRate;
                 GCCountry selectedCountry = countryList.get(spGCCountry.getSelectedItemPosition());
                 double newValue=0.0d;
-                if(selectedCountry.CurrencyName.toString().equalsIgnoreCase(responseObject.getString("LocalValueReceivedCurrancy"))){
-                    newValue = oldValue ;
+                if(selectedCountry.CurrencyName.toString().trim().equalsIgnoreCase(responseObject.getString("LocalValueReceivedCurrancy").trim())){
+                    newValue = localOldtextValue ;
                 } else {
                     newValue = oldValue * selectedCountry.LiveRate;
                 }
@@ -342,7 +343,8 @@ private void fetchCountries(){
                             double oldValue = Double.parseDouble(jobj.getString("GCAmount"));
                             double localoldvalue =  Double.parseDouble(jobj.getString("LocalValueReceived"));
                             double newValue=0.0d;
-                            if(selectedCountry.CurrencyName.toString().equalsIgnoreCase(jobj.getString("LocalValueReceivedCurrancy"))){
+                            localOldtextValue=localoldvalue;
+                            if(selectedCountry.CurrencyName.toString().trim().equalsIgnoreCase(jobj.getString("LocalValueReceivedCurrancy").trim())){
                                 newValue = localoldvalue ;
                             } else {
 

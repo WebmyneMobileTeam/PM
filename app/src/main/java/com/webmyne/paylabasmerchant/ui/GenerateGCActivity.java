@@ -69,8 +69,8 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
     private EditText edMobileNumberGenerateGC;
     private EditText edAmountGenerateGC;
 
-    private Spinner spRecipients;
-    private Spinner spCountry;
+//    private Spinner spRecipients;
+//    private Spinner spCountry;
 
     private TextView btnResetGenerateGC;
     private TextView btnGenerateGCGenerateGC;
@@ -90,6 +90,7 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
     private int selected_country_id = 0;
     int temp_posCountrySpinner;
     ArrayList<GCCountry> arrCheckCountries;
+//    ArrayList<Country> finalCountries;
    // ArrayList<Country> finalCountries;
     double selected_amount = 0;
 
@@ -161,7 +162,7 @@ public class GenerateGCActivity extends ActionBarActivity implements View.OnClic
             }
             spinnerCountryGenerateGc.setSelection(toSelection);
         }catch(Exception e){
-
+                e.printStackTrace();
         }
         edMobileNumberGenerateGC.setText(resp.MobileNo);
 
