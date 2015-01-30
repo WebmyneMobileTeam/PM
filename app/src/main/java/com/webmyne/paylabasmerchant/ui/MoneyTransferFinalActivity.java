@@ -98,7 +98,9 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
         user = complexPreferences.getObject("current_user", User.class);
 */
     }
-    private void fillDestails(){
+
+
+     private void fillDestails(){
 
         float commision = MoneyTransferHomeActivity.bankobj.ApproxComm;
 
