@@ -235,7 +235,6 @@ private void processMoney(){
 
         userObject.put("SenderMobileCountryCode",String.valueOf(senObj.MobileCountryCode));
 
-
         userObject.put("SenderMobileNo",String.valueOf(senObj.MobileNo));
         userObject.put("SenderStateID",String.valueOf(senObj.State));
         userObject.put("SenderZip",String.valueOf(senObj.ZipCode));
