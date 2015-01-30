@@ -588,10 +588,11 @@ private void fetchCountries(){
     private View.OnClickListener deleteListner = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FrameLayout fp = (FrameLayout) v.getParent();
+            LinearLayout fp = (LinearLayout) v.getParent();
             LinearLayout second = (LinearLayout) fp.getParent();
             LinearLayout first = (LinearLayout) second.getParent();
-            linearCombineGiftCode.removeViewAt(linearCombineGiftCode.indexOfChild(first));
+            LinearLayout third = (LinearLayout) first.getParent();
+            linearCombineGiftCode.removeViewAt(linearCombineGiftCode.indexOfChild(third));
             linearCombineGiftCode.invalidate();
         }
     };
