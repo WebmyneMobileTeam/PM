@@ -135,7 +135,11 @@ private void getLiveCurrencyRate(){
         JSONObject userObject = new JSONObject();
         AffilateUser user= PrefUtils.getMerchant(getActivity());
         userObject.put("FromCurrency","EUR");
+
+       // Log.e("user local currency",user.LocalCurrency);
+
         userObject.put("Tocurrency",user.LocalCurrency);
+
         Log.e("live currency object",userObject.toString());
 
         final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);

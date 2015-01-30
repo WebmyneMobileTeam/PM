@@ -178,6 +178,8 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         edAmountTransfer.setText("");
         include_item_pickup.setVisibility(View.GONE);
         spinner_city.setVisibility(View.GONE);
+        MoneyTransferFinalActivity.recObj = null;
+        MoneyTransferFinalActivity.senObj = null;
         fetchCountryAndDisplay();
     }
     private void clearAll(){

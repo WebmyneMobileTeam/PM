@@ -274,9 +274,10 @@ private void processMoney(){
                         senObj=null;
                     }
 
-                    CountDownTimer countDownTimer;
+                    finish();
+              /*      CountDownTimer countDownTimer;
                     countDownTimer = new MyCountDownTimer(3000, 1000); // 1000 = 1s
-                    countDownTimer.start();
+                    countDownTimer.start();*/
 
 //                    Intent i = new Intent(MoneyTransferFinalActivity.this,MyDrawerActivity.class);
 //                    startActivity(i);
@@ -293,7 +294,7 @@ private void processMoney(){
 
                 circleDialog.dismiss();
                 Log.e("error responsegg: ", error + "");
-                SimpleToast.error(MoneyTransferFinalActivity.this, error.getMessage());
+               // SimpleToast.error(MoneyTransferFinalActivity.this, error.getMessage());
             }
         });
 
