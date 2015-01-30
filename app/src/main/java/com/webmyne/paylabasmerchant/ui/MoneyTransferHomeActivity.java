@@ -343,7 +343,6 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
                             }
                         });
 
-
 if(bankID!=0) {
     bankobj = new BANK_WEB_SERVICE();
 
