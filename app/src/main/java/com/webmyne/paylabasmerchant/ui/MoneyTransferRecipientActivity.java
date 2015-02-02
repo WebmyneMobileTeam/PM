@@ -283,8 +283,17 @@ private void intView(){
         if(getIntent().getExtras().get("ObjectValue").toString().equals("Sender")) {
             if (user.tempPaymentVia.equals("Cash")) {
                 linearSelectIdentity.setVisibility(View.VISIBLE);
+              /*  spCountry.setFocusable(true);
+                spCountry.setFocusableInTouchMode(true);
+             */   spCountry.setEnabled(false);
+
             } else {
                 linearSelectIdentity.setVisibility(View.GONE);
+              /*  spCountry.setFocusable(false);
+                spCountry.setFocusableInTouchMode(false);
+*/
+                spCountry.setEnabled(true);
+
             }
         }
         else{
@@ -375,9 +384,29 @@ private void fetchCountryAndDisplay() {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
 
+                int posCountry = 0;
+                try {
+                    for (int i = 0; i < countrylist.size(); i++) {
+                        if (countrylist.get(i).CountryName.toString().trim().equalsIgnoreCase(MoneyTransferHomeActivity.CountryName)) {
+                            posCountry = i;
+                            break;
+                        }
+                    }
+                }catch (Exception e){
+                    Log.e("error ","recipient-prof is not loaded");
+                }
                 CountryAdapter countryAdapter = new CountryAdapter(MoneyTransferRecipientActivity.this,R.layout.spinner_country, countrylist);
                 spCountry.setAdapter(countryAdapter);
-                spCountry.setSelection(getCountryID-1);
+
+
+                if(getIntent().getExtras().get("ObjectValue").toString().equals("Sender")) {
+                    spCountry.setSelection(0);
+                }
+                else{
+                    spCountry.setSelection(posCountry);
+                }
+
+                 // spCountry.setSelection(getCountryID-1);
             }
         }.execute();
 
@@ -407,9 +436,6 @@ private void fetchCountryAndDisplay() {
                 super.onPostExecute(aVoid);
                 StateAdapter stateAdapter = new StateAdapter(MoneyTransferRecipientActivity.this,R.layout.spinner_state, statelist);
                 spState.setAdapter(stateAdapter);
-
-
-
                 spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

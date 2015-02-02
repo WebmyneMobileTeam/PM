@@ -88,7 +88,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
     public static MONEYPOLO_BANK obj;
 
     private View include_item_pickup;
-
+    public static String CountryName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +136,9 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
                 if(position == 0){
                     isCountryLoad=false;
                 }else{
+                    Log.e("selected country",String.valueOf(countries.get(position).CountryID));
+
+                    CountryName = String.valueOf(countries.get(position).CountryCodeName);
                     spinner_city.setVisibility(View.VISIBLE);
                     isCountryLoad=true;
                     fetchCityAndDisplay(position);
