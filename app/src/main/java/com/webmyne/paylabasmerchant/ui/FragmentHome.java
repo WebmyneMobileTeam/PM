@@ -901,7 +901,6 @@ public class FragmentHome extends Fragment {
         req.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
         MyApplication.getInstance().addToRequestQueue(req);
     }
-
     private boolean isRedeemGC() {
         boolean isAvailable = false;
         if (selectedPaymentType == 1 && selectedServiceType == 3) {
