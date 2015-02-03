@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/theme_primary"
+    tools:context="com.webmyne.paylabasmerchant.ui.InvoiceRequestMain">
+    <include layout="@layout/toolbar_actionbar" />
+
+    <TextView
+        android:textSize="@dimen/normal_text"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:background="@android:color/white"
+        android:padding="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:text="Invoice Request"
+        android:id="@+id/txtInvoiceRequest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textSize="@dimen/normal_text"
+
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:background="@android:color/white"
+        android:padding="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="Commission Clain"
+        android:id="@+id/txtClashClaim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
