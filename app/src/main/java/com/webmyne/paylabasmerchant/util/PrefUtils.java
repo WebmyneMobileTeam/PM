@@ -21,11 +21,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 
-import com.webmyne.paylabasmerchant.Config;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
 
-import java.util.TimeZone;
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGD;
 import static com.webmyne.paylabasmerchant.util.LogUtils.makeLogTag;
 
@@ -80,11 +78,21 @@ public class PrefUtils  {
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
         return complexPreferences.getObject("current_user", AffilateUser.class);
     }
-
     public static void setMerchant(final Context context, final AffilateUser affilateUser) {
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
         complexPreferences.putObject("current_user", affilateUser);
         complexPreferences.commit();
+    }
+
+
+    public static String getAffilateCurrency(final Context context){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getString("AffilateCurrency", "");
+    }
+
+    public static void setAffilateCurrency(final Context context,String Value) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        sp.edit().putString("AffilateCurrency", Value).commit();
     }
 
 }

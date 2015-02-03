@@ -81,7 +81,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
     private boolean isCityLoad = false;
     private boolean isBankLoad = false;
 
-    private EditText edAmountTransfer;
+   // private EditText edAmountTransfer;
     private int BankID,SelectBankPosition;
 
     public static BANK_WEB_SERVICE bankobj;
@@ -89,6 +89,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
 
     private View include_item_pickup;
     public static String CountryName;
+    private String etAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         });
 
 
-        edAmountTransfer = (EditText)findViewById(R.id.edAmountTransfer);
+        //edAmountTransfer = (EditText)findViewById(R.id.edAmountTransfer);
         spinner_country = (Spinner)findViewById(R.id.spinner_country);
         spinner_city = (Spinner)findViewById(R.id.spinner_city);
         btnSelectCashPickUp = (TextView)findViewById(R.id.btnSelectCashPickUp);
@@ -179,7 +180,8 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         isCityLoad = false;
         isBankLoad = false;
 
-        edAmountTransfer.setText(getIntent().getStringExtra("edamount"));
+        etAmount = getIntent().getStringExtra("edamount");
+        //edAmountTransfer.setText(getIntent().getStringExtra("edamount"));
 
         include_item_pickup.setVisibility(View.GONE);
         spinner_city.setVisibility(View.GONE);
@@ -208,14 +210,14 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
             else if(!isCityLoad){
                 SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select City !!!");
             }
-            else if(edAmountTransfer.getText().length()==0){
+           /* else if(edAmountTransfer.getText().length()==0){
                 SimpleToast.error(MoneyTransferHomeActivity.this, "Please enter amount for money transfer !!!");
 
-            }
+            }*/
 
-            else if (Integer.valueOf(edAmountTransfer.getText().toString())<10){
+           /* else if (Integer.valueOf(edAmountTransfer.getText().toString())<10){
                 edAmountTransfer.setError("Minimum Amount is € 10 For This Service");
-            }
+            }*/
             else {
                 fetchBankdetailsandDisplay(0);
             }
@@ -241,14 +243,14 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
             else if(!isCityLoad){
                     SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select City !!!");
                 }
-                else if(edAmountTransfer.getText().length()==0){
+                /*else if(edAmountTransfer.getText().length()==0){
                     SimpleToast.error(MoneyTransferHomeActivity.this, "Please enter amount for money transfer !!!");
 
-            }
+            }*/
 
-            else if (Integer.valueOf(edAmountTransfer.getText().toString())<10){
+          /*  else if (Integer.valueOf(edAmountTransfer.getText().toString())<10){
                 edAmountTransfer.setError("Minimum Amount is € 10 For This Service");
-            }
+            }*/
             else if(!isBankLoad){
                 SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select Bank !!!");
             }
@@ -279,8 +281,8 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
 
         try{
             JSONObject userObject = new JSONObject();
-
-            userObject.put("Amount",edAmountTransfer.getText().toString());
+            userObject.put("Amount",etAmount);
+           // userObject.put("Amount",edAmountTransfer.getText().toString());
             userObject.put("BankID", bankID);
             userObject.put("CityID", cities.get(spinner_city.getSelectedItemPosition()).CityID);
             userObject.put("Description",cities.get(spinner_city.getSelectedItemPosition()).Description);
@@ -350,7 +352,8 @@ if(bankID!=0) {
     bankobj = new BANK_WEB_SERVICE();
 
     bankobj.BankID = BankID;
-    bankobj.Amount = Float.valueOf(edAmountTransfer.getText().toString());
+    //bankobj.Amount = Float.valueOf(edAmountTransfer.getText().toString());
+    bankobj.Amount = Float.valueOf(etAmount);
 
     Log.e("payable amountkkkk", obj.PayableAmt);
     bankobj.PayableAmt = obj.PayableAmt;

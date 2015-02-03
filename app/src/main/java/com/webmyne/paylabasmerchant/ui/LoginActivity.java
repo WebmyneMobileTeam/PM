@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -23,10 +23,8 @@ import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
-import com.webmyne.paylabasmerchant.util.CountryUtils;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
-import com.webmyne.paylabasmerchant.util.RegionUtils;
 
 import static com.webmyne.paylabasmerchant.util.PrefUtils.isEnglishSelected;
 import static com.webmyne.paylabasmerchant.util.PrefUtils.isLoggedIn;
@@ -36,7 +34,6 @@ import static com.webmyne.paylabasmerchant.util.PrefUtils.setMerchant;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -49,6 +46,7 @@ public class LoginActivity extends ActionBarActivity {
     private boolean isLogin=false;
     private ImageView imgUS,imgFrance;
     private boolean isEnglisSelected=false;
+
 
 
     @Override
@@ -268,6 +266,9 @@ public class LoginActivity extends ActionBarActivity {
                     //store current user and domain in shared preferences
                     setMerchant(LoginActivity.this,affilateUser);
 
+                    // setting the Local currency
+                    PrefUtils.setAffilateCurrency(LoginActivity.this, affilateUser.LocalCurrency);
+
                     // set login true
                     setLoggedIn(LoginActivity.this, true);
 
@@ -276,7 +277,7 @@ public class LoginActivity extends ActionBarActivity {
                     finish();
 
                     } else {
-                    SimpleToast.error(LoginActivity.this, getString(R.string.network_error_message) +"Please try again");
+                    SimpleToast.error(LoginActivity.this, "Invalid Mobile No or Password !!!");
 //                    Toast.makeText(LoginActivity.this,"Network Error\n" +"Please try again",Toast.LENGTH_SHORT).show();
                     }
             }

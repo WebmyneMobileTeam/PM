@@ -33,6 +33,7 @@ import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.model.Country;
 import com.webmyne.paylabasmerchant.model.FormDetail;
+import com.webmyne.paylabasmerchant.model.LiveCurrency;
 import com.webmyne.paylabasmerchant.model.MobileTopUpProducts;
 import com.webmyne.paylabasmerchant.model.MobileTopupMain;
 import com.webmyne.paylabasmerchant.model.MobileTopupRechargeService;
@@ -53,11 +54,11 @@ import java.util.List;
 public class FragmentCashIN extends Fragment {
 
     private EditText edMobileNumber,edCashInAmount,edFormId,edMobileNumberConfirm;
-    private TextView btnPay;
+    private TextView btnPay,txtCurrency;
     private Spinner spCountry,spIdentityProof;
     private ArrayList<Country> countries;
     ArrayList<String> identityProofTypesList;
-
+    private LiveCurrency livCurencyObj;
     public static FragmentCashIN newInstance(String param1, String param2) {
         FragmentCashIN fragment = new FragmentCashIN();
         return fragment;
@@ -190,7 +191,7 @@ public class FragmentCashIN extends Fragment {
         edMobileNumberConfirm= (EditText)convertView.findViewById(R.id.edMobileNumberConfirm);
         edFormId= (EditText)convertView.findViewById(R.id.edFormId);
         edCashInAmount= (EditText)convertView.findViewById(R.id.edCashInAmount);
-
+        txtCurrency= (TextView)convertView.findViewById(R.id.txtCurrency);
         btnPay = (TextView)convertView.findViewById(R.id.btnPay);
         spCountry= (Spinner)convertView.findViewById(R.id.spCountry);
         spIdentityProof= (Spinner)convertView.findViewById(R.id.spIdentityProof);
@@ -201,6 +202,9 @@ public class FragmentCashIN extends Fragment {
     public void onResume() {
         super.onResume();
         setCountryCode();
+
+        String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
+        txtCurrency.setText(LocalCurrency);
 
 
         identityProofTypesList=new ArrayList<String>();

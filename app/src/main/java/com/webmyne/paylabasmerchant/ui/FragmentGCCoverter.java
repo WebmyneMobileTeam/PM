@@ -384,7 +384,7 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
                             Giftamount.setText(jobj.getString("LocalValueReceived") + " " + jobj.getString("LocalValueReceivedCurrancy"));
                             FromAmount.setText(jobj.getString("LocalValueReceivedCurrancy"));
                             GCCountry selectedCountry = countryList.get(spGCCountry.getSelectedItemPosition());
-                            double oldValue = Double.parseDouble(jobj.getString("LocalValueReceived"));
+                            double oldValue = Double.parseDouble(jobj.getString("GCAmount"));
                             double newValue=0.0d;
                             if(selectedCountry.CurrencyName.toString().equalsIgnoreCase(jobj.getString("LocalValueReceivedCurrancy"))){
                                 newValue = oldValue ;

@@ -9,19 +9,16 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -41,6 +38,7 @@ import com.webmyne.paylabasmerchant.model.AffilateServices;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.model.Country;
+import com.webmyne.paylabasmerchant.model.LiveCurrency;
 import com.webmyne.paylabasmerchant.model.PaymentStep1;
 import com.webmyne.paylabasmerchant.model.RedeemGC;
 import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
@@ -55,7 +53,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGE;
@@ -69,7 +67,7 @@ public class FragmentHome extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     //    private Spinner spPaymentType;
     private LinearLayout gcLayout;
-    private TextView btnNext, btnReset;
+    private TextView btnNext, btnReset,txtCurrency;
     private String mParam1;
     private String mParam2;
     FrameLayout linearTools;
@@ -98,9 +96,10 @@ public class FragmentHome extends Fragment {
     private LinearLayout layoutCash,layoutGC,layoutWallet;
 
     private TextView txtTransfer,txtTopup,txtGenerate;
-    private TextView txtWallet,txtGC,txtCash;
+    private TextView txtWallet,txtGC,txtCash,txtConvRate;
 
     private LinearLayout linearMobileHome;
+    private LiveCurrency livCurencyObj;
 
     public static boolean isFromDetailPage = false;
 
@@ -324,9 +323,33 @@ public class FragmentHome extends Fragment {
         txtTopup = (TextView)convertview.findViewById(R.id.txtTopup);
         txtTransfer = (TextView)convertview.findViewById(R.id.txtTransfer);
         txtWallet = (TextView)convertview.findViewById(R.id.txtWallet);
-
+        txtCurrency= (TextView)convertview.findViewById(R.id.txtCurrency);
+        txtConvRate= (TextView)convertview.findViewById(R.id.txtConvRate);
         linearMobileHome = (LinearLayout)convertview.findViewById(R.id.linearMobileHome);
 
+
+        etAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (s.toString().length() == 1) {
+                    etAmount.setError("Minimum amount for this Service is 10");
+                    etAmount.requestFocus();
+                    }else {
+                      getLiveCurrencyRate();
+                    }
+            }
+        });
 
     }
 
@@ -337,10 +360,11 @@ public class FragmentHome extends Fragment {
         if (isFromDetailPage == true) {
             resetAll();
         }
-        affilateUser = PrefUtils.getMerchant(getActivity());
 
-      //  Log.e("user currency",affilateUser.LocalCurrency);
-
+        txtConvRate.setVisibility(View.GONE);
+        //getting the currency object
+        String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
+        txtCurrency.setText(LocalCurrency);
 
 
         paymentTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, paymentTypeList);
@@ -394,6 +418,60 @@ public class FragmentHome extends Fragment {
 
             }
         }.start();
+
+    }
+
+
+
+    private void getLiveCurrencyRate(){
+        try{
+            JSONObject userObject = new JSONObject();
+            AffilateUser user= PrefUtils.getMerchant(getActivity());
+            userObject.put("FromCurrency","EUR");
+
+            // Log.e("user local currency",user.LocalCurrency);
+            final String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
+            userObject.put("Tocurrency",LocalCurrency);
+
+            final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
+            circleDialog.setCancelable(true);
+            circleDialog.show();
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.GET_LIVE_CURRENCY, userObject, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject jobj) {
+                    circleDialog.dismiss();
+                    String response = jobj.toString();
+                    Log.e("live currency  Response", "" + response);
+                    livCurencyObj = new GsonBuilder().create().fromJson(jobj.toString(), LiveCurrency.class);
+                    float finalamt = Float.valueOf(etAmount.getText().toString())* Float.valueOf(livCurencyObj.LiveRate.toString());
+
+                    double newValue=0.0d;
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    newValue = Double.valueOf(df.format(finalamt));
+                    txtConvRate.setVisibility(View.VISIBLE);
+                    txtConvRate.setText(etAmount.getText().toString()+" "+LocalCurrency+" = "+ String.valueOf(newValue)+" "+livCurencyObj.Tocurrency);
+                   // LiveRate.setText("1 EUR = "+cashoutobj.LiveRate+" "+cashoutobj.Tocurrency);
+
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    circleDialog.dismiss();
+                    Log.e("error response live curreency: ", error + "");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.er_network));
+                }
+            });
+            req.setRetryPolicy(  new DefaultRetryPolicy(0,0,0));
+            MyApplication.getInstance().addToRequestQueue(req);
+
+        }
+        catch(Exception e){
+            Log.e("error in getlive currency out ",e.toString());
+        }
 
     }
     public void refreshBalance(){

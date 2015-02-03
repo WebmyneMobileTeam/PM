@@ -94,15 +94,34 @@
             android:layout_height="wrap_content"
             android:textColor="#000"/>
 
-        <EditText
-            android:layout_marginTop="10dp"
-            android:inputType="numberDecimal"
-            android:hint="Enter cash in amount"
-            android:fontFamily="sans-serif-condensed"
-            android:id="@+id/edCashInAmount"
+        <LinearLayout
+            android:id="@+id/linearMobileHome"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#000"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+
+                android:id="@+id/txtCurrency"
+
+                android:textSize="@dimen/normal_text"
+                android:layout_width="wrap_content"
+                android:text="@string/euro_symbol"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:inputType="numberDecimal"
+                android:hint="Enter cash in amount"
+                android:fontFamily="sans-serif-condensed"
+                android:id="@+id/edCashInAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+
         <TextView
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-condensed"

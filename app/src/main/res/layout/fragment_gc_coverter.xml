@@ -57,6 +57,11 @@ android:layout_above="@+id/bottomLinearCombineGC"
                     android:id="@+id/spGCCountry"
                     />
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter Mobile Details"
+                android:textSize="16sp"/>
 
 
 <LinearLayout
