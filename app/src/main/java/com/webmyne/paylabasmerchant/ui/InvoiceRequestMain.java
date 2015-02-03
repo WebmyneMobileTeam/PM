@@ -1,5 +1,6 @@
 package com.webmyne.paylabasmerchant.ui;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,13 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.util.AppUtils;
 
-public class InvoiceRequestMain extends ActionBarActivity {
+public class InvoiceRequestMain extends ActionBarActivity implements View.OnClickListener{
     Toolbar toolbar_actionbar;
     FrameLayout frame_container;
+    private TextView txtInvoiceRequest,txtClashClaim;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +26,10 @@ public class InvoiceRequestMain extends ActionBarActivity {
 
         toolbar_actionbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
 
+        txtInvoiceRequest= (TextView)findViewById(R.id.txtInvoiceRequest);
+        txtClashClaim= (TextView)findViewById(R.id.txtClashClaim);
+        txtInvoiceRequest.setOnClickListener(this);
+        txtClashClaim.setOnClickListener(this);
         /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
             toolbar_actionbar.setTitle("Invoice Request");
@@ -56,4 +63,25 @@ public class InvoiceRequestMain extends ActionBarActivity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+
+      switch (v.getId()){
+
+          case R.id.txtInvoiceRequest:
+
+              Intent intent=new Intent(InvoiceRequestMain.this,InvoiceRequestActivity.class);
+              startActivity(intent);
+
+              break;
+
+          case R.id.txtClashClaim:
+
+              Intent intentClaim=new Intent(InvoiceRequestMain.this,CommissionClaimActivity.class);
+              startActivity(intentClaim);
+              break;
+      }
+
+
+    }
 }
