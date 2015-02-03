@@ -909,6 +909,7 @@ public class FragmentHome extends Fragment {
         return isAvailable;
     }
 
+
     public boolean isMobileNumberEmpty() {
 
         boolean isEmpty = false;
