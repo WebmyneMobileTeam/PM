@@ -90,6 +90,18 @@
             android:name=".ui.NewGenerateGCActivity"
             android:label="@string/title_activity_new_generate_gc" >
         </activity>
+        <activity
+            android:name=".ui.InvoiceRequestMain"
+            android:label="@string/title_activity_invoice_request_main" >
+        </activity>
+        <activity
+            android:name=".ui.InvoiceRequestActivity"
+            android:label="@string/title_activity_invoice_request" >
+        </activity>
+        <activity
+            android:name=".ui.CommissionClaimActivity"
+            android:label="@string/title_activity_cash_claim" >
+        </activity>
     </application>
 
 </manifest>

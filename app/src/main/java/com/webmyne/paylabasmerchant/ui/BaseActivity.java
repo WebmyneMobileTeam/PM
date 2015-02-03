@@ -548,6 +548,15 @@ public abstract class BaseActivity extends ActionBarActivity implements
 //                startActivity(intent);
                 break;
 
+            case NAVDRAWER_ITEM_INVOICE:
+
+                intent = new Intent(this, InvoiceRequestMain.class);
+                startActivity(intent);
+
+                break;
+
+
+
         }
     }
 
