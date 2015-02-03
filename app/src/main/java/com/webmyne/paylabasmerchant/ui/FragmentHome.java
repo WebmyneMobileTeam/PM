@@ -339,6 +339,10 @@ public class FragmentHome extends Fragment {
         }
         affilateUser = PrefUtils.getMerchant(getActivity());
 
+      //  Log.e("user currency",affilateUser.LocalCurrency);
+
+
+
         paymentTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, paymentTypeList);
 //      spPaymentType.setAdapter(paymentTypeAdapter);
         serviceTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, affilateServiceNames);
@@ -897,7 +901,6 @@ public class FragmentHome extends Fragment {
         req.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
         MyApplication.getInstance().addToRequestQueue(req);
     }
-
     private boolean isRedeemGC() {
         boolean isAvailable = false;
         if (selectedPaymentType == 1 && selectedServiceType == 3) {
@@ -905,6 +908,7 @@ public class FragmentHome extends Fragment {
         }
         return isAvailable;
     }
+
 
     public boolean isMobileNumberEmpty() {
 
@@ -965,6 +969,7 @@ public class FragmentHome extends Fragment {
             txt.setText(values.get(position).CountryName + " +" + String.valueOf(values.get(position).CountryCode));
 
             txt.setText(values.get(position).CountryName + " +" + String.valueOf(values.get(position).CountryCode));
+
             if (values.get(position).ShortCode == null || values.get(position).ShortCode.equalsIgnoreCase("") || values.get(position).ShortCode.equalsIgnoreCase("NULL")) {
             } else {
                 try {
