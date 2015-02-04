@@ -29,7 +29,4 @@ public class CommissionClaimActivity extends ActionBarActivity {
             }
         });
     }
-
-
-
 }

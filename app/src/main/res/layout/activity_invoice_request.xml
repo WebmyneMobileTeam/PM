@@ -1,8 +1,194 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="top"
     tools:context="com.webmyne.paylabasmerchant.ui.CommissionClaimActivity">
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+
     <include layout="@layout/toolbar_actionbar" />
 
+    <LinearLayout
 
+        android:layout_alignParentTop="true"
+        android:background="@color/theme_primary"
+        android:gravity="center"
+        android:padding="@dimen/activity_margin"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/amber"
+                android:textSize="@dimen/normal_text"
+                android:gravity="center"
+                android:text="MARCH"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/amber"
+                android:textSize="@dimen/large_text"
+                android:gravity="center"
+                android:text="15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+
+                android:textColor="@color/amber"
+                android:textSize="@dimen/small_text"
+                android:gravity="center"
+                android:text="2015"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        <TextView
+
+            android:textSize="@dimen/normal_text"
+            android:id="@+id/txtDivided"
+            android:textColor="@color/amber"
+            android:text="To"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/amber"
+                android:textSize="@dimen/normal_text"
+                android:gravity="center"
+                android:text="MARCH"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/amber"
+                android:textSize="@dimen/large_text"
+                android:gravity="center"
+                android:text="18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+
+                android:textColor="@color/amber"
+                android:textSize="@dimen/small_text"
+                android:gravity="center"
+                android:text="2015"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        </LinearLayout>
+
+    <LinearLayout
+
+        android:background="#eee"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:paddingLeft="16dp"
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:textSize="@dimen/normal_text"
+            android:textColor="#494949"
+            android:text="Total Amount:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"
+            android:textSize="@dimen/large_text"
+            android:textColor="#4CAF50"
+            android:text="$ 50,000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#bbb"></View>
+
+       <LinearLayout
+
+            android:paddingLeft="@dimen/activity_margin"
+           android:paddingTop="8dp"
+           android:paddingBottom="8dp"
+
+           android:gravity="center_vertical"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <LinearLayout
+               android:orientation="vertical"
+               android:layout_width="0dp"
+                android:layout_weight="1"
+
+               android:layout_height="wrap_content">
+
+               <TextView
+                   android:textSize="@dimen/normal_text"
+                   android:textColor="#494949"
+
+                   android:text="Redeem Gift Code"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+               <TextView
+
+                   android:textSize="@dimen/small_text"
+                   android:textColor="#4CAF50"
+
+                   android:text="$ 50,000"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+               </LinearLayout>
+
+           <ImageView
+                android:layout_marginLeft="8dp"
+               android:background="@drawable/ic_action_view_list"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+       </LinearLayout>
+       <View
+
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="#bbb"></View>
+   </LinearLayout>
+
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:textSize="@dimen/normal_text"
+        android:textColor="@android:color/white"
+        android:padding="10dp"
+        android:background="@color/theme_primary"
+        android:text="Request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

@@ -18,7 +18,7 @@ public class InvoiceRequestActivity extends ActionBarActivity {
         toolbar_actionbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
                 /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
-            toolbar_actionbar.setTitle("Invoice Request");
+            toolbar_actionbar.setTitle("Generated Invoice");
             toolbar_actionbar.setNavigationIcon(R.drawable.icon_back);
             setSupportActionBar(toolbar_actionbar);
 
