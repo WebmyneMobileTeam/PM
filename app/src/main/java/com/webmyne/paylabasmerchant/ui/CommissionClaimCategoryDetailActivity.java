@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,16 +20,16 @@ import com.webmyne.paylabasmerchant.R;
 
 import java.util.ArrayList;
 
-public class CommissionClaimActivity extends ActionBarActivity {
-    Toolbar toolbar_actionbar;
+public class CommissionClaimCategoryDetailActivity extends ActionBarActivity {
+
     private ListView commossionClainList;
     private CommissionClaimAdapter commissionClaimAdapter;
-
+    private Toolbar toolbar_actionbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_commission_claim);
-        commossionClainList = (ListView)findViewById(R.id.commossionClainList);
+        setContentView(R.layout.activity_commission_claim_category_detail);
+        commossionClainList = (ListView)findViewById(R.id.commossionClainDetailList);
         toolbar_actionbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
                 /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
@@ -58,9 +60,7 @@ public class CommissionClaimActivity extends ActionBarActivity {
         tempList.add("");
         tempList.add("");
 
-
-
-        commissionClaimAdapter=new CommissionClaimAdapter(CommissionClaimActivity.this,tempList);
+        commissionClaimAdapter=new CommissionClaimAdapter(CommissionClaimCategoryDetailActivity.this,tempList);
         commossionClainList.setAdapter(commissionClaimAdapter);
     }
 
@@ -93,7 +93,7 @@ public class CommissionClaimActivity extends ActionBarActivity {
         }
 
         private class ViewHolder {
-        private ImageView detailList;
+
         }
 
         @Override
@@ -104,22 +104,16 @@ public class CommissionClaimActivity extends ActionBarActivity {
 
             if (convertView == null) {
 
-                convertView = mInflater.inflate(R.layout.item_commission_category, parent, false);
+                convertView = mInflater.inflate(R.layout.item_category_detail_view, parent, false);
 
                 holder = new ViewHolder();
-                holder.detailList= (ImageView) convertView.findViewById(R.id.detailList);
+
                 convertView.setTag(holder);
 
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.detailList.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                Intent intent=new Intent(CommissionClaimActivity.this,CommissionClaimCategoryDetailActivity.class);
-                    startActivity(intent);
-                }
-            });
+
             return convertView;
         }
 

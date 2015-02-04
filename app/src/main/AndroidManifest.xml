@@ -102,6 +102,10 @@
             android:name=".ui.CommissionClaimActivity"
             android:label="@string/title_activity_cash_claim" >
         </activity>
+        <activity
+            android:name=".ui.CommissionClaimCategoryDetailActivity"
+            android:label="@string/title_activity_commission_claim_category_detail" >
+        </activity>
     </application>
 
 </manifest>

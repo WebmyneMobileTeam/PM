@@ -117,5 +117,6 @@
     <string name="title_activity_invoice_request_main">InvoiceRequestMain</string>
     <string name="title_activity_invoice_request">InvoiceRequestActivity</string>
     <string name="title_activity_cash_claim">CAshClaimActivity</string>
+    <string name="title_activity_commission_claim_category_detail">CommissionClaimCategoryDetailActivity</string>
 
 </resources>
