@@ -342,11 +342,16 @@ public class FragmentHome extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
 
-                if (s.toString().length() == 1) {
+                if (s.toString().length()==0) {
+
+                    }
+                else if(s.toString().length() == 1){
                     etAmount.setError("Minimum amount for this Service is 10");
                     etAmount.requestFocus();
-                    }else {
-                      getLiveCurrencyRate();
+                }
+                else {
+                    MyApplication.getInstance().cancelAll();
+                    getLiveCurrencyRate();
                     }
             }
         });
