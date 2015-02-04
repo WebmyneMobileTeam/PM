@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/calenter_item"
+        android:layout_width="100dp"
+        android:orientation="vertical"
+        android:layout_height="100dp">
+
+        <TextView
+            android:background="@drawable/calenter_first_item"
+            android:textStyle="bold"
+            android:textColor="@color/amber"
+            android:textSize="@dimen/normal_text"
+            android:gravity="center"
+            android:text="MARCH"
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:fontFamily="sans-serif"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textColor="#494949"
+            android:textSize="34sp"
+            android:gravity="center"
+            android:text="15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginBottom="8dp"
+            android:textStyle="bold"
+            android:layout_gravity="bottom"
+            android:textColor="#FD9F1B"
+            android:textSize="@dimen/small_text"
+            android:gravity="center"
+            android:text="2015"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>

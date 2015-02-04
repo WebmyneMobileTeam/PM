@@ -14,7 +14,7 @@
   limitations under the License.
   -->
 <resources>
-    <color name="amber">#3F51B5</color>
+    <color name="amber">#ffffff</color>
     <!--<color name="amber">#FFC107</color>-->
     <color name="paylabas_grey">#d1d1d1</color>
     <color name="paylabas_dkgrey">#494949</color>

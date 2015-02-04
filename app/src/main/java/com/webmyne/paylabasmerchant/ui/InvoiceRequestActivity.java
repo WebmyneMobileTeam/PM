@@ -23,7 +23,6 @@ public class InvoiceRequestActivity extends ActionBarActivity {
             setSupportActionBar(toolbar_actionbar);
 
         }
-
         toolbar_actionbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
