@@ -58,11 +58,11 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     private void initView(){
+
         etMerchantId= (EditText) findViewById(R.id.etMerchantId);
         etSecretId= (EditText) findViewById(R.id.etSecretId);
         btnLoginNext= (TextView) findViewById(R.id.btnLoginNext);
         imgUS= (ImageView) findViewById(R.id.imgUS);
-
         imgFrance= (ImageView) findViewById(R.id.imgFrance);
     }
 
@@ -207,8 +207,6 @@ public class LoginActivity extends ActionBarActivity {
             btnLoginNext.setText("NEXT");
         }
 
-
-
     }
 
     public boolean isMerchantEmpty(){
@@ -271,12 +269,13 @@ public class LoginActivity extends ActionBarActivity {
 
                     // set login true
                     setLoggedIn(LoginActivity.this, true);
-
                     Intent intent =new Intent(LoginActivity.this,VerificationActivity.class);
                     startActivity(intent);
                     finish();
 
                     } else {
+                    SimpleToast.error(LoginActivity.this, getString(R.string.network_error_message) +"Please try again");
+                    // Toast.makeText(LoginActivity.this,"Network Error\n" +"Please try again",Toast.LENGTH_SHORT).show();
                     SimpleToast.error(LoginActivity.this, "Invalid Mobile No or Password !!!");
 //                    Toast.makeText(LoginActivity.this,"Network Error\n" +"Please try again",Toast.LENGTH_SHORT).show();
                     }
@@ -285,11 +284,7 @@ public class LoginActivity extends ActionBarActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 circleDialog.dismiss();
-
-
-
             }
         });
 

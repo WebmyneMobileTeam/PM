@@ -190,8 +190,6 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 //                    }
 //
 //                }
-//
-//
 //                CountryAdapter countryAdapter = new CountryAdapter(getActivity(),R.layout.spinner_country, finalCountries);
 //                spinnerCountryGenerateGc.setAdapter(countryAdapter);
 //
@@ -301,8 +299,6 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
                 }else{
                     processSelectionWholeReceipient(position);
                 }
-
-
             }
 
             @Override

@@ -17,4 +17,5 @@ public class AffilateServices {
     public int ServiceID ;
     @SerializedName("IsActive")
     public boolean IsActive;
+
 }
