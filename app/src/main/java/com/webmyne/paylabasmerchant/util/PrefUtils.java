@@ -19,6 +19,7 @@ package com.webmyne.paylabasmerchant.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 
 import com.webmyne.paylabasmerchant.model.AffilateUser;
@@ -93,6 +94,23 @@ public class PrefUtils  {
     public static void setAffilateCurrency(final Context context,String Value) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         sp.edit().putString("AffilateCurrency", Value).commit();
+    }
+
+
+    public static String getLiveRate(final Context context){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        Log.e("get live rate",sp.getString("LiveRate", ""));
+        return sp.getString("LiveRate", "");
+    }
+
+    public static void settLiveRate(final Context context,String Value) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        Log.e("set live rate",Value);
+        sp.edit().putString("LiveRate", Value).commit();
+    }
+    public static void ClearLiveRate(final Context context){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        sp.edit().remove("LiveRate").commit();
     }
 
 }

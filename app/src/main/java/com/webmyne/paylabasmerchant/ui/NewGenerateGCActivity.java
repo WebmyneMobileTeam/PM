@@ -49,6 +49,7 @@ import com.webmyne.paylabasmerchant.ui.widget.FormValidator;
 import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.DatabaseWrapper;
+import com.webmyne.paylabasmerchant.util.PrefUtils;
 
 import org.json.JSONObject;
 
@@ -69,10 +70,10 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
     private EditText edAmountGenerateGC;
     private Spinner spRecipients;
     private Spinner spCountry;
-    private TextView btnResetGenerateGC;
+    private TextView btnResetGenerateGC,txtCurrency;
     private TextView btnGenerateGCGenerateGC;
     private AffilateUser user;
-    private Spinner spinnerRecipientContactGenerateGc;
+  //  private Spinner spinnerRecipientContactGenerateGc;
     private Spinner spinnerCountryGenerateGc;
     private ArrayList<Receipient> receipients;
     private ArrayList<Country> countries;
@@ -198,7 +199,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 //
 //    }
 
-    private void fetchReceipientsAndDisplay() {
+   /* private void fetchReceipientsAndDisplay() {
         Log.e("webservice...",AppConstants.GETRECEIPIENTS +user.UserID+"");
         new CallWebService(AppConstants.GETRECEIPIENTS +user.UserID,CallWebService.TYPE_JSONARRAY) {
 
@@ -230,7 +231,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
             }
         }.start();
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -270,7 +271,9 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         btnGenerateGCGenerateGC = (TextView)findViewById(R.id.btnGenerateGCGenerateGC);
         btnGenerateGCGenerateGC.setOnClickListener(this);
         btnResetGenerateGC.setOnClickListener(this);
-        spinnerRecipientContactGenerateGc = (Spinner)findViewById(R.id.spinnerRecipientContactGenerateGcNew);
+        txtCurrency= (TextView)findViewById(R.id.txtCurrency);
+
+       // spinnerRecipientContactGenerateGc = (Spinner)findViewById(R.id.spinnerRecipientContactGenerateGcNew);
         spinnerCountryGenerateGc = (Spinner)findViewById(R.id.spinnerCountryGenerateGc);
         txtCCGenerateGC = (TextView)findViewById(R.id.txtCCGenerateGC);
 
@@ -291,7 +294,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
             }
         });
 
-        spinnerRecipientContactGenerateGc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      /*  spinnerRecipientContactGenerateGc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("click............","click");
@@ -306,7 +309,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
             }
         });
-
+*/
     }
     @Override
     protected void onResume() {
@@ -314,13 +317,20 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
         getGCCountries();
 
+        String LocalCurrency = PrefUtils.getAffilateCurrency(NewGenerateGCActivity.this);
+        txtCurrency.setText(LocalCurrency);
+
+
+
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(this, "user_pref", 0);
         user = complexPreferences.getObject("current_user", AffilateUser.class);
+
         edAmountGenerateGC.setText(user.tempAmount);
+
         receipients = new ArrayList<Receipient>();
         countries = new ArrayList<Country>();
 
-        fetchReceipientsAndDisplay();
+  //      fetchReceipientsAndDisplay();
 //        fetchCountryAndDisplay();
 
 
@@ -482,15 +492,24 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         double value = Double.parseDouble(edAmountGenerateGC.getText().toString());
         double user_value = Double.parseDouble(user.LemonwayBal);
 
-        if(value<charge.MinLimit){
+        String LocalCurrency= PrefUtils.getAffilateCurrency(NewGenerateGCActivity.this);
+        String LiveRate = PrefUtils.getLiveRate(NewGenerateGCActivity.this);
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        if(value<charge.MinLimit*Double.parseDouble(LiveRate)){
 
             isComplete = false;
-            edAmountGenerateGC.setError("Minimum Amount is € "+charge.MinLimit+" For This Service");
+            double db = charge.MinLimit*Double.parseDouble(LiveRate);
+            edAmountGenerateGC.setError("Minimum Amount is "+LocalCurrency +" "+String.valueOf(df.format(db))+" For This Service");
 
-        }else if(value > charge.MaxLimit){
+        }else if(value > charge.MaxLimit*Double.parseDouble(LiveRate)){
 
             isComplete = false;
-            edAmountGenerateGC.setError("Maximum Amount is € "+charge.MaxLimit+" For This Service");
+
+            DecimalFormat df2 = new DecimalFormat("#.##");
+            double db = charge.MaxLimit*Double.parseDouble(LiveRate);
+            edAmountGenerateGC.setError("Maximum Amount is "+LocalCurrency +" "+String.valueOf(df2.format(db))+" For This Service");
+          //  edAmountGenerateGC.setError("Maximum Amount is € "+charge.MaxLimit+" For This Service");
 
 
         }else if(value>user_value){
@@ -567,29 +586,42 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         TextView txtTransactionChargeGenerateGCService = (TextView)viewService.findViewById(R.id.txtTransactionChargeGenerateGCService);
 
         TextView txtReceipientGets = (TextView)viewService.findViewById(R.id.txtReceipientGets);
-        TextView txtExchangeRate = (TextView)viewService.findViewById(R.id.txtExchangeRate);
+     //   TextView txtExchangeRate = (TextView)viewService.findViewById(R.id.txtExchangeRate);
+        TextView txtMerchentAmt = (TextView)viewService.findViewById(R.id.txtMerchentAmt);
+
+        String LocalCurrency = PrefUtils.getAffilateCurrency(NewGenerateGCActivity.this);
+        String LiveRate = PrefUtils.getLiveRate(NewGenerateGCActivity.this);
+
 
         double percentageCharge = charge.PercentageCharge;
         double amount = Double.parseDouble(edAmountGenerateGC.getText().toString());
         double displayPercentageCharge = (amount*percentageCharge)/100;
         DecimalFormat df = new DecimalFormat("#.##");
-        txtTransactionChargeGenerateGCService.setText(getResources().getString(R.string.euro)+" "+String.format("%1$.2f",displayPercentageCharge));
-        txtMobileGenerateGCService.setText(edMobileNumberGenerateGC.getText().toString());
-        txtAmountGenerateGCService.setText(getResources().getString(R.string.euro)+" "+edAmountGenerateGC.getText().toString());
 
-        txtPayableAmountGenerateGCService.setText(getResources().getString(R.string.euro)+" "+charge.PayableAmount);
+        txtTransactionChargeGenerateGCService.setText(LocalCurrency+" "+String.format("%1$.2f",displayPercentageCharge));
+        txtMobileGenerateGCService.setText(txtCCGenerateGC.getText().toString().trim() + " " + edMobileNumberGenerateGC.getText().toString());
+        txtAmountGenerateGCService.setText(LocalCurrency+" "+edAmountGenerateGC.getText().toString());
 
-        txtPaylabasChargeGenerateGCService.setText(getResources().getString(R.string.euro)+" "+charge.FixCharge);
+        txtPayableAmountGenerateGCService.setText(LocalCurrency+" "+charge.PayableAmount);
+
+        txtPaylabasChargeGenerateGCService.setText(LocalCurrency+" "+charge.FixCharge);
 
 
-        txtExchangeRate.setText(String.format("Exchange rate :\n1 EUR = %s",charge.LiveRate));
+     //   txtExchangeRate.setText(String.format("Exchange rate :\n1 EUR = %s",LiveRate)+" "+LocalCurrency);
 
-        double totalreceipientget = Double.parseDouble(edAmountGenerateGC.getText().toString()) * Double.parseDouble(charge.LiveRate.split(" ")[0].toString());
+
+        double finalamt = charge.PayableAmount/ Float.valueOf(LiveRate);
+        double newValue=0.0d;
+        newValue = Double.valueOf(df.format(finalamt));
+
+        txtMerchentAmt.setText(String.format("Merchent Payable Amount :\n EUR ")+String.valueOf(newValue));
+
+        double  totalreceipientget = Double.parseDouble(edAmountGenerateGC.getText().toString());
 
         double x= Double.parseDouble(charge.LiveRate.split(" ")[0].toString());
         String dx=df.format(totalreceipientget);
         totalreceipientget=Double.valueOf(dx);
-        txtReceipientGets.setText(""+totalreceipientget+" "+charge.LiveRate.split(" ")[1].toString());
+        txtReceipientGets.setText(""+totalreceipientget+" "+LocalCurrency);
     }
 
     private Bitmap getBitmapFromAsset(String strName)
@@ -629,15 +661,23 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
             generateObject.put("ReceiverMobileNo",edMobileNumberGenerateGC.getText().toString().trim());
             generateObject.put("ReceiverCountryCode",arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).CountryCode);
             generateObject.put("UserCountryCode", user.tempCountryCode);
-            generateObject.put("GCAmount",edAmountGenerateGC.getText().toString().trim());
-            generateObject.put("Amount",edAmountGenerateGC.getText().toString().trim());
+
+            DecimalFormat df = new DecimalFormat("#.##");
+            String LiveRate = PrefUtils.getLiveRate(NewGenerateGCActivity.this);
+            double finalamt = Double.parseDouble(edAmountGenerateGC.getText().toString().trim())/ Float.valueOf(LiveRate);
+            double newAmount=0.0d;
+            newAmount = Double.valueOf(df.format(finalamt));
+
+            generateObject.put("GCAmount",String.valueOf(newAmount));
+
+            generateObject.put("Amount",String.valueOf(newAmount));
+
             generateObject.put("UserMobileNo",user.tempMobileNumber);
             generateObject.put("ResponseCode","");
             generateObject.put("ResponseMsg","");
             generateObject.put("SenderID",user.UserID);
             generateObject.put("CountryID",arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).CountryId);
             double newLocalValue=arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).LiveRate*Double.parseDouble(edAmountGenerateGC.getText().toString().trim());
-            DecimalFormat df = new DecimalFormat("#.##");
             newLocalValue = Double.valueOf(df.format(newLocalValue));
             generateObject.put("LocalValueReceived",newLocalValue);
             generateObject.put("LocalValueReceivedCurrancy",arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).CurrencyName);
@@ -815,7 +855,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         edAmountGenerateGC.setText("");
         edMobileNumberGenerateGC.setText("");
         spinnerCountryGenerateGc.setSelection(0);
-        spinnerRecipientContactGenerateGc.setSelection(0);
+        //spinnerRecipientContactGenerateGc.setSelection(0);
         passiveReset();
 
     }

@@ -59,7 +59,7 @@
     <string name="hint_verification_code">Verification Code</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="payment_service_type">Select Service Type</string>
-    <string name="payment_service_amount">Amount</string>
+    <string name="payment_service_amount">Enter Amount</string>
     <string name="payment_finish">PAY NOW</string>
     <string name="euro_symbol">€</string>
     <string name="menu_cashinout">Cash In/Out</string>
@@ -89,6 +89,7 @@
     <string name="RedeemGC1_m3">Lower amount GC</string>
     <string name="RedeemGC1_m4">GC is Used</string>
     <string name="RedeemGC1_m5">Invalid GC</string>
+
     <string name="network_error_message">Network Error\n</string>
     <string name="login_merchant_and_password_message">Please enter merchant id and Password</string>
     <string name="verification_activity_empty_verification_msg">Please enter verification code</string>

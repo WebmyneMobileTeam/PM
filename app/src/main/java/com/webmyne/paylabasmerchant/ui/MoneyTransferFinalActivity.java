@@ -29,6 +29,7 @@ import com.webmyne.paylabasmerchant.util.PrefUtils;
 
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -209,13 +210,24 @@ private void processMoney(){
 
 
     try{
+        String LiveRate=PrefUtils.getLiveRate(MoneyTransferFinalActivity.this);
+        Log.e("using live rate",LiveRate);
+        float finalamt = FinalPayableAmount * Float.valueOf(LiveRate);
+        double newPayableAMount=0.0d;
+        DecimalFormat df = new DecimalFormat("#.##");
+        newPayableAMount = Double.valueOf(df.format(finalamt));
+
+
+
         AffilateUser affilateUser= PrefUtils.getMerchant(MoneyTransferFinalActivity.this);
         JSONObject userObject = new JSONObject();
 
         userObject.put("AffiliateID",user.UserID);
         userObject.put("Amount",String.valueOf(MoneyTransferHomeActivity.bankobj.Amount));
         userObject.put("BankID",String.valueOf(MoneyTransferHomeActivity.bankobj.BankID));
-        userObject.put("PayableAmt",String.valueOf(FinalPayableAmount));
+
+        // userObject.put("PayableAmt",String.valueOf(FinalPayableAmount));
+        userObject.put("PayableAmt",String.valueOf(newPayableAMount));
 
         userObject.put("PaymentVia", affilateUser.tempPaymentVia );
 

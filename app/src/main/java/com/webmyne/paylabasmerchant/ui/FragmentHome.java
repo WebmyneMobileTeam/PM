@@ -343,16 +343,24 @@ public class FragmentHome extends Fragment {
             public void afterTextChanged(Editable s) {
 
                 if (s.toString().length()==0) {
-
+                    txtConvRate.setText("");
+                    txtConvRate.setVisibility(View.GONE);
                     }
                 else if(s.toString().length() == 1){
                     etAmount.setError("Minimum amount for this Service is 10");
                     etAmount.requestFocus();
                 }
                 else {
-                    MyApplication.getInstance().cancelAll();
-                    getLiveCurrencyRate();
+
+                    if(selectedServiceType == 3){
+                        // for reddem gc no live conversion rate is not display
                     }
+                    else {
+                        MyApplication.getInstance().cancelAll();
+                        getLiveCurrencyRate();
+                    }
+
+                }
             }
         });
 
@@ -432,10 +440,10 @@ public class FragmentHome extends Fragment {
         try{
             JSONObject userObject = new JSONObject();
             AffilateUser user= PrefUtils.getMerchant(getActivity());
-            userObject.put("FromCurrency","EUR");
 
             // Log.e("user local currency",user.LocalCurrency);
             final String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
+            userObject.put("FromCurrency","EUR");
             userObject.put("Tocurrency",LocalCurrency);
 
             final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
@@ -449,13 +457,18 @@ public class FragmentHome extends Fragment {
                     String response = jobj.toString();
                     Log.e("live currency  Response", "" + response);
                     livCurencyObj = new GsonBuilder().create().fromJson(jobj.toString(), LiveCurrency.class);
-                    float finalamt = Float.valueOf(etAmount.getText().toString())* Float.valueOf(livCurencyObj.LiveRate.toString());
+                    float finalamt = Float.valueOf(etAmount.getText().toString())/ Float.valueOf(livCurencyObj.LiveRate.toString());
+
+                    PrefUtils.settLiveRate(getActivity(),livCurencyObj.LiveRate.toString());
 
                     double newValue=0.0d;
                     DecimalFormat df = new DecimalFormat("#.##");
                     newValue = Double.valueOf(df.format(finalamt));
                     txtConvRate.setVisibility(View.VISIBLE);
-                    txtConvRate.setText(etAmount.getText().toString()+" "+LocalCurrency+" = "+ String.valueOf(newValue)+" "+livCurencyObj.Tocurrency);
+                    txtConvRate.setText(etAmount.getText().toString()+" "+ livCurencyObj.Tocurrency +" = "+ String.valueOf(newValue)+" EUR");
+
+
+                //    txtConvRate.setText(etAmount.getText().toString()+" EUR"+" = "+ String.valueOf(newValue)+" "+livCurencyObj.Tocurrency);
                    // LiveRate.setText("1 EUR = "+cashoutobj.LiveRate+" "+cashoutobj.Tocurrency);
 
 
@@ -613,6 +626,9 @@ public class FragmentHome extends Fragment {
                 txtCash.setVisibility(View.VISIBLE);
                 linearMobileHome.setVisibility(View.VISIBLE);
 
+                etAmount.setText("");
+
+
                 break;
 
             case 1:
@@ -629,6 +645,8 @@ public class FragmentHome extends Fragment {
 
                 linearMobileHome.setVisibility(View.GONE);
 
+                etAmount.setText("");
+
                 break;
 
             case 2:
@@ -643,6 +661,8 @@ public class FragmentHome extends Fragment {
                 txtCash.setVisibility(View.VISIBLE);
                 linearMobileHome.setVisibility(View.VISIBLE);
 
+                etAmount.setText("");
+
                 break;
 
             case 3:
@@ -655,6 +675,8 @@ public class FragmentHome extends Fragment {
                 txtGC.setVisibility(View.VISIBLE);
                 txtCash.setVisibility(View.GONE);
                 linearMobileHome.setVisibility(View.VISIBLE);
+
+                etAmount.setText("");
                 break;
 
         }
@@ -695,6 +717,7 @@ public class FragmentHome extends Fragment {
                 txtTopup.setVisibility(View.VISIBLE);
                 txtGenerate.setVisibility(View.VISIBLE);
 
+
                 break;
 
             case 1:
@@ -706,6 +729,7 @@ public class FragmentHome extends Fragment {
             case 2:
 
                 break;
+
         }
 
 
@@ -929,6 +953,16 @@ public class FragmentHome extends Fragment {
 
         JSONObject requestObject = new JSONObject();
         try {
+
+          //  String LiveRate=PrefUtils.getLiveRate(getActivity());
+           // Log.e("using live rate",LiveRate);
+           // float finalamt = Float.valueOf(etAmount.getText().toString().trim()) * Float.valueOf(LiveRate);
+           // double newPayableAMount=0.0d;
+           // DecimalFormat df = new DecimalFormat("#.##");
+           // newPayableAMount = Double.valueOf(df.format(finalamt));
+
+       //     requestObject.put("Amount", String.valueOf(newPayableAMount));
+
             requestObject.put("AffiliateID", affilateUser.UserID + "");
             requestObject.put("Amount", etAmount.getText().toString().trim() + "");
             requestObject.put("ServiceUse", getServiceName(selectedServiceType) + "");
@@ -949,6 +983,9 @@ public class FragmentHome extends Fragment {
                 LOGE("response: ", jobj.toString() + "");
                 Log.e("response: ", jobj.toString() + "");
                 RedeemGC redeemGC = new GsonBuilder().create().fromJson(jobj.toString(), RedeemGC.class);
+
+                PrefUtils.ClearLiveRate(getActivity());
+
                 if (redeemGC.ResponseCode.equalsIgnoreCase("1")) {
                     SimpleToast.ok(getActivity(), getResources().getString(R.string.RedeemGC1_1));
                 } else if (redeemGC.ResponseCode.equalsIgnoreCase("2")) {
@@ -966,7 +1003,11 @@ public class FragmentHome extends Fragment {
                 } else if (redeemGC.ResponseCode.equalsIgnoreCase("-4")) {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m4));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else if (redeemGC.ResponseCode.equalsIgnoreCase("-6")) {
+                    SimpleToast.error(getActivity(), redeemGC.ResponseMsg.toString());
+//                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
+                }else {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m5));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m5), Toast.LENGTH_SHORT).show();
                 }

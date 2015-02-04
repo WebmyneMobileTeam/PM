@@ -329,7 +329,6 @@
                     android:layout_height="wrap_content" />
 
                 <EditText
-                    android:text="10"
                     android:layout_marginLeft="5dp"
                     android:fontFamily="sans-serif-condensed"
                     android:singleLine="true"
