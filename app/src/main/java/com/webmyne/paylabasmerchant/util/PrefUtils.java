@@ -110,6 +110,7 @@ public class PrefUtils  {
     }
     public static void ClearLiveRate(final Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        Log.e("clear live rate","done");
         sp.edit().remove("LiveRate").commit();
     }
 

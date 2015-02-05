@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -48,13 +50,14 @@ import com.webmyne.paylabasmerchant.util.RegionUtils;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentCashIN extends Fragment {
 
     private EditText edMobileNumber,edCashInAmount,edFormId,edMobileNumberConfirm;
-    private TextView btnPay,txtCurrency;
+    private TextView btnPay,txtCurrency,txtConvRate;
     private Spinner spCountry,spIdentityProof;
     private ArrayList<Country> countries;
     ArrayList<String> identityProofTypesList;
@@ -195,8 +198,106 @@ public class FragmentCashIN extends Fragment {
         btnPay = (TextView)convertView.findViewById(R.id.btnPay);
         spCountry= (Spinner)convertView.findViewById(R.id.spCountry);
         spIdentityProof= (Spinner)convertView.findViewById(R.id.spIdentityProof);
+        txtConvRate= (TextView)convertView.findViewById(R.id.txtConvRate);
+
+        edCashInAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (s.toString().length()==0) {
+                    txtConvRate.setText("");
+                    txtConvRate.setVisibility(View.GONE);
+                }
+                else if(s.toString().length() == 1){
+                    txtConvRate.setVisibility(View.GONE);
+
+                    String LocalCurrency= PrefUtils.getAffilateCurrency(getActivity());
+                    String LiveRate = PrefUtils.getLiveRate(getActivity());
+                    DecimalFormat df = new DecimalFormat("#.##");
+
+                    double db = Double.parseDouble(s.toString())*Double.parseDouble(LiveRate);
+                    edCashInAmount.setError("Minimum Amount is "+LocalCurrency +" "+String.valueOf(df.format(db))+" For This Service");
+
+                    edCashInAmount.requestFocus();
+                }
+                else {
+                        MyApplication.getInstance().cancelAll();
+                        getLiveCurrencyRate();
+                }
+            }
+        });
+
+
 
     }
+    private void getLiveCurrencyRate(){
+        try{
+            JSONObject userObject = new JSONObject();
+
+            // Log.e("user local currency",user.LocalCurrency);
+            final String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
+            userObject.put("FromCurrency","EUR");
+            userObject.put("Tocurrency",LocalCurrency);
+
+            final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
+            circleDialog.setCancelable(true);
+            circleDialog.show();
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.GET_LIVE_CURRENCY, userObject, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject jobj) {
+                    circleDialog.dismiss();
+                    String response = jobj.toString();
+                    Log.e("live currency  Response", "" + response);
+                    livCurencyObj = new GsonBuilder().create().fromJson(jobj.toString(), LiveCurrency.class);
+                    float finalamt = Float.valueOf(edCashInAmount.getText().toString())/ Float.valueOf(livCurencyObj.LiveRate.toString());
+
+                    PrefUtils.settLiveRate(getActivity(),livCurencyObj.LiveRate.toString());
+
+                    double newValue=0.0d;
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    newValue = Double.valueOf(df.format(finalamt));
+                    txtConvRate.setVisibility(View.VISIBLE);
+                    txtConvRate.setText(edCashInAmount.getText().toString()+" "+ livCurencyObj.Tocurrency +" = "+ String.valueOf(newValue)+" EUR");
+
+
+                    //    txtConvRate.setText(etAmount.getText().toString()+" EUR"+" = "+ String.valueOf(newValue)+" "+livCurencyObj.Tocurrency);
+                    // LiveRate.setText("1 EUR = "+cashoutobj.LiveRate+" "+cashoutobj.Tocurrency);
+
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    circleDialog.dismiss();
+                    Log.e("error response live curreency: ", error + "");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.er_network));
+                }
+            });
+            req.setRetryPolicy(  new DefaultRetryPolicy(0,0,0));
+            MyApplication.getInstance().addToRequestQueue(req);
+
+        }
+        catch(Exception e){
+            Log.e("error in getlive currency out ",e.toString());
+        }
+
+    }
+
+
+
 
     @Override
     public void onResume() {
@@ -206,6 +307,8 @@ public class FragmentCashIN extends Fragment {
         String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
         txtCurrency.setText(LocalCurrency);
 
+        txtConvRate.setVisibility(View.GONE);
+        edCashInAmount.setText("");
 
         identityProofTypesList=new ArrayList<String>();
 
@@ -224,8 +327,18 @@ private void processPay(){
             JSONObject userObject = new JSONObject();
             AffilateUser user= PrefUtils.getMerchant(getActivity());
 
+
+            DecimalFormat df = new DecimalFormat("#.##");
+            String LiveRate = PrefUtils.getLiveRate(getActivity());
+            double finalamt = Double.parseDouble(edCashInAmount.getText().toString().trim())/ Float.valueOf(LiveRate);
+            double newAmount=0.0d;
+            newAmount = Double.valueOf(df.format(finalamt));
+
+            userObject.put("Amount",String.valueOf(newAmount));
+
+
             userObject.put("AffiliateID",user.UserID+"");
-            userObject.put("Amount",edCashInAmount.getText().toString());
+          //  userObject.put("Amount",edCashInAmount.getText().toString());
             userObject.put("Currency","EUR");
             userObject.put("FormDetail",edFormId.getText().toString());
             userObject.put("FormDetailType",spIdentityProof.getSelectedItemPosition()+1);
@@ -245,6 +358,7 @@ private void processPay(){
                     String response = jobj.toString();
                     Log.e("cash in  Response", "" + response);
 
+                    PrefUtils.ClearLiveRate(getActivity());
 
                     try{
                         JSONObject obj = new JSONObject(response);

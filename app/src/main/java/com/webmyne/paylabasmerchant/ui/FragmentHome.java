@@ -346,10 +346,7 @@ public class FragmentHome extends Fragment {
                     txtConvRate.setText("");
                     txtConvRate.setVisibility(View.GONE);
                     }
-                else if(s.toString().length() == 1){
-                    etAmount.setError("Minimum amount for this Service is 10");
-                    etAmount.requestFocus();
-                }
+
                 else {
 
                     if(selectedServiceType == 3){
@@ -373,7 +370,7 @@ public class FragmentHome extends Fragment {
         if (isFromDetailPage == true) {
             resetAll();
         }
-
+        PrefUtils.ClearLiveRate(getActivity());
         txtConvRate.setVisibility(View.GONE);
         //getting the currency object
         String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
@@ -756,8 +753,23 @@ public class FragmentHome extends Fragment {
 
         JSONObject requestObject = new JSONObject();
         try {
+
+
+
+
             requestObject.put("AffiliateID", affilateUser.UserID + "");
+
+
+            //  String LiveRate=PrefUtils.getLiveRate(getActivity());
+            // Log.e("using live rate",LiveRate);
+            // float finalamt = Float.valueOf(etAmount.getText().toString().trim()) * Float.valueOf(LiveRate);
+            // double newPayableAMount=0.0d;
+            // DecimalFormat df = new DecimalFormat("#.##");
+            // newPayableAMount = Double.valueOf(df.format(finalamt));
+
+            //     requestObject.put("Amount", String.valueOf(newPayableAMount));
             requestObject.put("Amount", etAmount.getText().toString().trim() + "");
+
             if (selectedPaymentType == 1) {
                 requestObject.put("GiftCode", etGiftCode.getText().toString()); //add if gift code select
             }
@@ -804,7 +816,12 @@ public class FragmentHome extends Fragment {
                     } else if (paymentStep1.ResponseCode.equalsIgnoreCase("-4")) {
                         SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m4));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
-                    } else {
+                    }
+                    else if (paymentStep1.ResponseCode.equalsIgnoreCase("-6")) {
+                        SimpleToast.error(getActivity(), paymentStep1.ResponseMsg);
+//                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
                         SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m5));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m5), Toast.LENGTH_SHORT).show();
                     }
@@ -981,7 +998,7 @@ public class FragmentHome extends Fragment {
             public void onResponse(JSONObject jobj) {
                 circleDialog.dismiss();
                 LOGE("response: ", jobj.toString() + "");
-                Log.e("response: ", jobj.toString() + "");
+                Log.e("response redeem gc: ", jobj.toString() + "");
                 RedeemGC redeemGC = new GsonBuilder().create().fromJson(jobj.toString(), RedeemGC.class);
 
                 PrefUtils.ClearLiveRate(getActivity());
@@ -1001,11 +1018,13 @@ public class FragmentHome extends Fragment {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m3));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m3), Toast.LENGTH_SHORT).show();
                 } else if (redeemGC.ResponseCode.equalsIgnoreCase("-4")) {
+                    Log.e("inside","-4");
                     SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m4));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
                 }
                 else if (redeemGC.ResponseCode.equalsIgnoreCase("-6")) {
-                    SimpleToast.error(getActivity(), redeemGC.ResponseMsg.toString());
+                    Log.e("inside","-6");
+                    SimpleToast.error(getActivity(), redeemGC.ResponseMsg);
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
                 }else {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m5));

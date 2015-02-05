@@ -320,8 +320,6 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         String LocalCurrency = PrefUtils.getAffilateCurrency(NewGenerateGCActivity.this);
         txtCurrency.setText(LocalCurrency);
 
-
-
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(this, "user_pref", 0);
         user = complexPreferences.getObject("current_user", AffilateUser.class);
 
@@ -420,8 +418,6 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
             @Override
             public void complete() {
 
-
-
                     final CircleDialog circleDialog=new CircleDialog(NewGenerateGCActivity.this,0);
                     circleDialog.setCancelable(true);
                     circleDialog.show();
@@ -496,7 +492,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         String LiveRate = PrefUtils.getLiveRate(NewGenerateGCActivity.this);
         DecimalFormat df = new DecimalFormat("#.##");
 
-        if(value<charge.MinLimit*Double.parseDouble(LiveRate)){
+        if(value <(charge.MinLimit*Double.parseDouble(LiveRate))){
 
             isComplete = false;
             double db = charge.MinLimit*Double.parseDouble(LiveRate);
@@ -512,7 +508,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
           //  edAmountGenerateGC.setError("Maximum Amount is € "+charge.MaxLimit+" For This Service");
 
 
-        }else if(value>user_value){
+        }else if(value>user_value*Double.parseDouble(LiveRate)){
 
             isComplete = false;
             edAmountGenerateGC.setError("Insufficient balance");
@@ -663,6 +659,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
             generateObject.put("UserCountryCode", user.tempCountryCode);
 
             DecimalFormat df = new DecimalFormat("#.##");
+
             String LiveRate = PrefUtils.getLiveRate(NewGenerateGCActivity.this);
             double finalamt = Double.parseDouble(edAmountGenerateGC.getText().toString().trim())/ Float.valueOf(LiveRate);
             double newAmount=0.0d;
@@ -699,6 +696,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
                     try{
                         JSONObject obj = new JSONObject(response);
                         String responsecode = obj.getString("ResponseCode");
+                        PrefUtils.ClearLiveRate(NewGenerateGCActivity.this);
 
                         if(responsecode.equalsIgnoreCase("1")){
                             //TODO
