@@ -274,7 +274,7 @@ public class LoginActivity extends ActionBarActivity {
                     finish();
 
                     } else {
-                    SimpleToast.error(LoginActivity.this, getString(R.string.network_error_message) +"Please try again");
+//                    SimpleToast.error(LoginActivity.this, getString(R.string.network_error_message) +"Please try again");
                     // Toast.makeText(LoginActivity.this,"Network Error\n" +"Please try again",Toast.LENGTH_SHORT).show();
                     SimpleToast.error(LoginActivity.this, "Invalid Mobile No or Password !!!");
 //                    Toast.makeText(LoginActivity.this,"Network Error\n" +"Please try again",Toast.LENGTH_SHORT).show();

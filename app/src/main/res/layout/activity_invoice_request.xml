@@ -193,7 +193,7 @@
         android:textColor="@android:color/white"
         android:padding="10dp"
         android:background="@color/theme_primary"
-        android:text="Request"
+        android:text="REQUEST"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </RelativeLayout>
