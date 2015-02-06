@@ -8,6 +8,16 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_SMS" />
+    //GCM
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.webmyne.paylabasmerchant.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.webmyne.paylabasmerchant.permission.C2D_MESSAGE" />
 
     <application
         android:name=".ui.MyApplication"
@@ -74,18 +84,7 @@
             android:name=".ui.MoneyTransferRecipientActivity"
             android:label="@string/title_activity_money" >
         </activity>
-        <activity
-            android:name=".ui.GenerateGCActivity"
-            android:label="@string/title_activity_reports" >
-        </activity>
-        <activity
-            android:name=".ui.AddRecipientActivity"
-            android:label="@string/title_activity_reports" >
-        </activity>
-        <activity
-            android:name=".ui.ConfirmRecipientActivity"
-            android:label="@string/title_activity_reports" >
-        </activity>
+
         <activity
             android:name=".ui.NewGenerateGCActivity"
             android:label="@string/title_activity_new_generate_gc" >
@@ -106,6 +105,19 @@
             android:name=".ui.CommissionClaimCategoryDetailActivity"
             android:label="@string/title_activity_commission_claim_category_detail" >
         </activity>
+
+        <receiver
+            android:name="com.webmyne.paylabasmerchant.GCM.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.webmyne.rightway" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.webmyne.paylabasmerchant.GCM.GcmMessageHandler" />
+
     </application>
 
 </manifest>

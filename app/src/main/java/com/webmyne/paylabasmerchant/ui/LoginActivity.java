@@ -3,8 +3,10 @@ package com.webmyne.paylabasmerchant.ui;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -18,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.GsonBuilder;
 import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
@@ -34,6 +37,7 @@ import static com.webmyne.paylabasmerchant.util.PrefUtils.setMerchant;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Locale;
 
 
@@ -46,7 +50,9 @@ public class LoginActivity extends ActionBarActivity {
     private boolean isLogin=false;
     private ImageView imgUS,imgFrance;
     private boolean isEnglisSelected=false;
-
+    private GoogleCloudMessaging gcm;
+    private String regid;
+    private String PROJECT_NUMBER = "92884720384";
 
 
     @Override
@@ -84,7 +90,10 @@ public class LoginActivity extends ActionBarActivity {
                     SimpleToast.error(LoginActivity.this,getString(R.string.login_merchant_and_password_message));
 //                    Toast.makeText(LoginActivity.this,"Please enter merchant id and Password",Toast.LENGTH_SHORT).show();
                 } else {
-                    checkMerchentLogin();
+                    circleDialog = new CircleDialog(LoginActivity.this, 0);
+                    circleDialog.setCancelable(true);
+                    circleDialog.show();
+                    getRegId();
                 }
 
             }
@@ -239,9 +248,7 @@ public class LoginActivity extends ActionBarActivity {
 
     private void checkMerchentLogin() {
 
-        circleDialog = new CircleDialog(LoginActivity.this, 0);
-        circleDialog.setCancelable(true);
-        circleDialog.show();
+
 
         JSONObject requestObject = new JSONObject();
         try {
@@ -293,5 +300,54 @@ public class LoginActivity extends ActionBarActivity {
         MyApplication.getInstance().addToRequestQueue(req);
 
     }
+
+    public void getRegId(){
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(LoginActivity.this);
+                    }
+                    regid = gcm.register(PROJECT_NUMBER);
+                    Log.e("GCM ID :", regid);
+                    if(regid==null || regid==""){
+                        AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+                        alert.setTitle("Error");
+                        alert.setMessage("Internal Server Error");
+                        alert.setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                getRegId();
+                                dialog.dismiss();
+                            }
+                        });
+                        alert.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                finish();
+                            }
+                        });
+                        alert.show();
+                    } else {
+                        // Store GCM ID in sharedpreference
+                        SharedPreferences sharedPreferences=getSharedPreferences("GCM",MODE_PRIVATE);
+                        SharedPreferences.Editor editor=sharedPreferences.edit();
+                        editor.putString("GCM_ID",regid);
+                        editor.commit();
+
+                        checkMerchentLogin();
+
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+        }.execute();
+
+    } // end of getRegId
 
 }
