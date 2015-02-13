@@ -296,7 +296,6 @@ public class LoginActivity extends ActionBarActivity {
         });
 
         req.setRetryPolicy(new DefaultRetryPolicy(0,0,0));
-
         MyApplication.getInstance().addToRequestQueue(req);
 
     }

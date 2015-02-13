@@ -20,12 +20,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -67,7 +69,7 @@ public class FragmentHome extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     //    private Spinner spPaymentType;
     private LinearLayout gcLayout;
-    private TextView btnNext, btnReset,txtCurrency;
+    private TextView btnNext, btnReset,txtCurrency,txtOther;
     private String mParam1;
     private String mParam2;
     FrameLayout linearTools;
@@ -102,6 +104,10 @@ public class FragmentHome extends Fragment {
     private LiveCurrency livCurencyObj;
 
     public static boolean isFromDetailPage = false;
+
+    final CharSequence[] items = {
+            "Electricity Bill", "Gas Bill"
+    };
 
     public static FragmentHome newInstance(String param1, String param2) {
         FragmentHome fragment = new FragmentHome();
@@ -317,6 +323,8 @@ public class FragmentHome extends Fragment {
         layoutTransfer = (LinearLayout) convertview.findViewById(R.id.layoutTransfer);
         layoutWallet = (LinearLayout) convertview.findViewById(R.id.layoutWallet);
 
+
+        txtOther = (TextView)convertview.findViewById(R.id.txtOther);
         txtCash = (TextView)convertview.findViewById(R.id.txtCash);
         txtGC = (TextView)convertview.findViewById(R.id.txtGC);
         txtGenerate = (TextView)convertview.findViewById(R.id.txtGenerate);
@@ -372,6 +380,7 @@ public class FragmentHome extends Fragment {
         }
         PrefUtils.ClearLiveRate(getActivity());
         txtConvRate.setVisibility(View.GONE);
+        txtOther.setText("Other Services");
         //getting the currency object
         String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
         txtCurrency.setText(LocalCurrency);
@@ -624,7 +633,7 @@ public class FragmentHome extends Fragment {
                 linearMobileHome.setVisibility(View.VISIBLE);
 
                 etAmount.setText("");
-
+                txtOther.setText("Other Services");
 
                 break;
 
@@ -643,7 +652,7 @@ public class FragmentHome extends Fragment {
                 linearMobileHome.setVisibility(View.GONE);
 
                 etAmount.setText("");
-
+                txtOther.setText("Other Services");
                 break;
 
             case 2:
@@ -659,10 +668,23 @@ public class FragmentHome extends Fragment {
                 linearMobileHome.setVisibility(View.VISIBLE);
 
                 etAmount.setText("");
-
+                txtOther.setText("Other Services");
                 break;
 
             case 3:
+                //others
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Select Other Service");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        // Do something with the selection
+                        //   mDoneButton.setText(items[item]);
+                        txtOther.setText(items[item]);
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
 
                 layoutWallet.setVisibility(View.GONE);
                 layoutGC.setVisibility(View.VISIBLE);
@@ -754,12 +776,7 @@ public class FragmentHome extends Fragment {
         JSONObject requestObject = new JSONObject();
         try {
 
-
-
-
             requestObject.put("AffiliateID", affilateUser.UserID + "");
-
-
             //  String LiveRate=PrefUtils.getLiveRate(getActivity());
             // Log.e("using live rate",LiveRate);
             // float finalamt = Float.valueOf(etAmount.getText().toString().trim()) * Float.valueOf(LiveRate);
@@ -768,11 +785,24 @@ public class FragmentHome extends Fragment {
             // newPayableAMount = Double.valueOf(df.format(finalamt));
 
             //     requestObject.put("Amount", String.valueOf(newPayableAMount));
-            requestObject.put("Amount", etAmount.getText().toString().trim() + "");
+
+
+            if (selectedServiceType == 1) {
+                requestObject.put("Amount", "1");
+            }
+            else{
+                requestObject.put("Amount", etAmount.getText().toString().trim() + "");
+            }
+
+
 
             if (selectedPaymentType == 1) {
                 requestObject.put("GiftCode", etGiftCode.getText().toString()); //add if gift code select
             }
+
+
+
+
             if (selectedPaymentType == 1) {
                 requestObject.put("PaymentVia", "GC"); //GC or Wallet
             } else if (selectedPaymentType == 0) {
@@ -784,13 +814,13 @@ public class FragmentHome extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("object request", requestObject.toString() + "");
+        Log.e("object request payment 1", requestObject.toString() + "");
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.PAYMENT_STEP_1, requestObject, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject jobj) {
                 circleDialog.dismiss();
-                LOGE("response: ", jobj.toString() + "");
+
                 Log.e("response: ", jobj.toString() + "");
                 paymentStep1 = new GsonBuilder().create().fromJson(jobj.toString(), PaymentStep1.class);
                 try {

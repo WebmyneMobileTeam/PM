@@ -165,6 +165,12 @@
                     android:layout_marginLeft="15dp"
                     android:text="GENERATE"
                     android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/txtOther"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Other Services"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 

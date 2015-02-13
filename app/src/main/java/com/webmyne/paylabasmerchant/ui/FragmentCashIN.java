@@ -218,18 +218,7 @@ public class FragmentCashIN extends Fragment {
                     txtConvRate.setText("");
                     txtConvRate.setVisibility(View.GONE);
                 }
-                else if(s.toString().length() == 1){
-                    txtConvRate.setVisibility(View.GONE);
 
-                    String LocalCurrency= PrefUtils.getAffilateCurrency(getActivity());
-                    String LiveRate = PrefUtils.getLiveRate(getActivity());
-                    DecimalFormat df = new DecimalFormat("#.##");
-
-                    double db = Double.parseDouble(s.toString())*Double.parseDouble(LiveRate);
-                    edCashInAmount.setError("Minimum Amount is "+LocalCurrency +" "+String.valueOf(df.format(db))+" For This Service");
-
-                    edCashInAmount.requestFocus();
-                }
                 else {
                         MyApplication.getInstance().cancelAll();
                         getLiveCurrencyRate();

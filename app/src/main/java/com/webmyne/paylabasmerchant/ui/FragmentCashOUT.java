@@ -110,7 +110,7 @@ public class FragmentCashOUT extends Fragment {
         edFormId= (EditText)convertView.findViewById(R.id.edFormId);
         edCashoutAmount= (EditText)convertView.findViewById(R.id.edCashoutAmount);
         edPin= (EditText)convertView.findViewById(R.id.edPin);
-        LiveRate= (TextView)convertView.findViewById(R.id.LiveRate);
+       // LiveRate= (TextView)convertView.findViewById(R.id.LiveRate);
         btnNext = (TextView)convertView.findViewById(R.id.btnNext);
         spCountry= (Spinner)convertView.findViewById(R.id.spCountry);
         spIdentityProof= (Spinner)convertView.findViewById(R.id.spIdentityProof);
@@ -154,7 +154,7 @@ private void getLiveCurrencyRate(){
                 Log.e("cash out  Response", "" + response);
                 cashoutobj = new GsonBuilder().create().fromJson(jobj.toString(), Cashout.class);
 
-                LiveRate.setText("1 EUR = "+cashoutobj.LiveRate+" "+cashoutobj.Tocurrency);
+          //      LiveRate.setText("1 EUR = "+cashoutobj.LiveRate+" "+cashoutobj.Tocurrency);
 
 
             }

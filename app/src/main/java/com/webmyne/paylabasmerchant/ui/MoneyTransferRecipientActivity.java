@@ -285,14 +285,15 @@ private void intView(){
                 linearSelectIdentity.setVisibility(View.VISIBLE);
               /*  spCountry.setFocusable(true);
                 spCountry.setFocusableInTouchMode(true);
-             */   spCountry.setEnabled(false);
+             */
+                //spCountry.setEnabled(false);
 
             } else {
                 linearSelectIdentity.setVisibility(View.GONE);
               /*  spCountry.setFocusable(false);
                 spCountry.setFocusableInTouchMode(false);
 */
-                spCountry.setEnabled(true);
+             //   spCountry.setEnabled(true);
 
             }
         }
