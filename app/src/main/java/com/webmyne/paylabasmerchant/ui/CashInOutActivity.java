@@ -8,15 +8,20 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.webmyne.paylabasmerchant.R;
+import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.ui.widget.SlidingTabLayout;
 import com.webmyne.paylabasmerchant.util.AppUtils;
+import com.webmyne.paylabasmerchant.util.PrefUtils;
 
 public class CashInOutActivity extends ActionBarActivity {
     private static final String ARG_CONFERENCE_DAY_INDEX
@@ -26,6 +31,8 @@ public class CashInOutActivity extends ActionBarActivity {
     SlidingTabLayout mSlidingTabLayout = null;
     ToolsPagerAdapter mViewPagerAdapter = null;
     Toolbar toolbar_actionbar;
+    private AffilateUser affilateUser;
+    Boolean isActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +66,17 @@ public class CashInOutActivity extends ActionBarActivity {
         layoutParams.rightMargin = 16;
         /* setting up the toolbar ends*/
 
+        affilateUser= PrefUtils.getMerchant(CashInOutActivity.this);
+        // String str = affilateUser.affilateServicesArrayList.get(0).ServiceName.toString();
+        // position 2 is for Cash in service, 0 - for generate gidt code, 1 - fro mobile top only
+        isActive = affilateUser.affilateServicesArrayList.get(2).IsActive;
+
         intView();
+
+
+
+
+
     }
 
     private void intView(){
@@ -79,6 +96,8 @@ public class CashInOutActivity extends ActionBarActivity {
     }
 
     private void setSlidingTabLayoutContentDescriptions() {
+
+
         for (int i = 0; i < 2; i++) {
             mSlidingTabLayout.setContentDescription(i,getString(R.string.my_schedule_tab_desc_a11y, getTittle(i)));
         }
@@ -91,7 +110,6 @@ public class CashInOutActivity extends ActionBarActivity {
     }
 
     private class ToolsPagerAdapter extends FragmentPagerAdapter {
-
         public ToolsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -99,31 +117,56 @@ public class CashInOutActivity extends ActionBarActivity {
         @Override
         public Fragment getItem(int position) {
 
-            if(position==0) {
-                FragmentCashIN frag = new FragmentCashIN();
-
-                return frag;
+            if(!isActive) {
+                    FragmentCashOUT frag = new FragmentCashOUT();
+                    return frag;
             }
-            else if(position==1) {
-                FragmentCashOUT frag = new FragmentCashOUT();
 
-                return frag;
-            }
             else{
-                FragmentCashIN frag = new FragmentCashIN();
+                    if(position==0) {
+                        FragmentCashIN frag = new FragmentCashIN();
 
-                return frag;
+                        return frag;
+                    }
+                    else if(position==1) {
+                        FragmentCashOUT frag = new FragmentCashOUT();
+
+                        return frag;
+                    }
+                    else{
+                        FragmentCashIN frag = new FragmentCashIN();
+                        return frag;
+                    }
             }
+
         }
 
         @Override
         public int getCount() {
-            return 2;
+
+            int positionStart;
+            Log.e("value of isactive - ",""+isActive);
+
+            if(!isActive) {
+                Log.e("inside if","return 1");
+                return 1;
+            }
+            else {
+                return 2;
+            }
+
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return getTittle(position);
+
+            if(!isActive) {
+               return getTittle(1);
+            }
+            else {
+                return getTittle(position);
+            }
+
         }
     }
 

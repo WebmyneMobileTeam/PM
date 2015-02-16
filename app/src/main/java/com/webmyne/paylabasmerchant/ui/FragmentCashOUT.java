@@ -373,9 +373,7 @@ private void showVerificationAlert() {
             @Override
             public void response(ArrayList response) {
                 countries=response;
-                for(int i=0;i<countries.size();i++){
-                    Log.e("country names:",countries.get(i).CountryCode+"");
-                }
+
 
                 CountryCodeAdapter countryAdapter = new CountryCodeAdapter(getActivity(),R.layout.spinner_country, countries);
                 spCountry.setAdapter(countryAdapter);
