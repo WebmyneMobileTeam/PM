@@ -106,6 +106,8 @@ public class FragmentHome extends Fragment {
 
     public static boolean isFromDetailPage = false;
 
+    boolean isok = false;
+
     final CharSequence[] items = {
             "Electricity Bill", "Gas Bill"
     };
@@ -525,41 +527,6 @@ public class FragmentHome extends Fragment {
         catch(Exception e){
             Log.e("error currency out ",e.toString());
         }
-
-    }
-    public void refreshBalance(){
-
-        ((MyDrawerActivity)getActivity()).setToolTitle("Hi, "+affilateUser.FName);
-
-        new CallWebService(AppConstants.USER_DETAILS+affilateUser.UserID,CallWebService.TYPE_JSONOBJECT) {
-
-            @Override
-            public void response(String response) {
-
-                Log.e("Response User Details ",response);
-
-                try{
-
-                    JSONObject obj = new JSONObject(response);
-                    try{
-                        ((MyDrawerActivity)getActivity()).setToolSubTitle("Balance "+getResources().getString(R.string.euro)+" "+obj.getString("LemonwayBal"));
-                    }catch(Exception e){
-
-                    }
-
-                }catch(Exception e){
-
-                }
-
-            }
-
-            @Override
-            public void error(VolleyError error) {
-
-
-            }
-        }.start();
-
 
     }
 
@@ -1019,12 +986,99 @@ public class FragmentHome extends Fragment {
 
     }
 
-    private void showVerificationAlert() {
+    private boolean checkOTPTimeout(String OTP) {
+
+        try{
+            JSONObject userObject = new JSONObject();
+            AffilateUser user= PrefUtils.getMerchant(getActivity());
+
+            // Log.e("user local currency",user.LocalCurrency);
+            final String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
+            userObject.put("OPT",OTP);
+            userObject.put("UserID",paymentStep1.UserID);
+
+
+            Log.e("chk otp obj", "" + userObject.toString());
+            final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
+            circleDialog.setCancelable(true);
+            circleDialog.show();
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.OTP_TIME_OUT, userObject, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject jobj) {
+                    circleDialog.dismiss();
+                    String response = jobj.toString();
+                    Log.e("chk otp Response", "" + response);
+
+                    try {
+                        JSONObject obj = new JSONObject(response);
+
+                        if (obj.getString("ResponseCode").equalsIgnoreCase("1")) {
+                            isok = true;
+                            Log.e("isok",""+isok);
+
+                        } else {
+                            Log.e("inside else ","else otp");
+
+                            isok = false;
+                            Log.e("isok",""+isok);
+                            SimpleToast.error(getActivity(), obj.getString("ResponseMsg"));
+                        }
+                    }catch (Exception e){
+                        Log.e("error response exc otp: ",""+e);
+                    }
+
+
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    circleDialog.dismiss();
+                    Log.e("error chckotp: ", error + "");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.er_network));
+                }
+            });
+            req.setRetryPolicy(  new DefaultRetryPolicy(0,0,0));
+            MyApplication.getInstance().addToRequestQueue(req);
+
+        }
+        catch(Exception e){
+            Log.e("error chckotp ",e.toString());
+        }
+
+
+        return isok;
+    }
+
+
+
+private void  showResenVerificationCodealertboc(){
+
+        LayoutInflater li = LayoutInflater.from(getActivity());
+        View promptsView = li.inflate(R.layout.custom_resend_alert_dialog, null);
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setView(promptsView);
+
+        alert.setNeutralButton("Resend",new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               // showVerificationAlert();
+                  postPaymentRequest();
+            }
+        });
+        alert.show();
+    }
+
+private void showVerificationAlert() {
 
         LayoutInflater li = LayoutInflater.from(getActivity());
         View promptsView = li.inflate(R.layout.custom_alert_dialog, null);
         final EditText etVerificationCode = (EditText) promptsView.findViewById(R.id.etVerificationCode);
         etVerificationCode.setText(paymentStep1.VerificationCode + "");
+
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setView(promptsView);
 
@@ -1035,73 +1089,80 @@ public class FragmentHome extends Fragment {
 
                 if (paymentStep1.VerificationCode.equalsIgnoreCase(etVerificationCode.getText().toString().trim())) {
                     // TODO goto next screen
-
-//                  Intent i =  new Intent(getActivity(),MobileTopupActivity.class);
-//                  startActivity(i);
-
                     dialog.dismiss();
-                    if (isRedeemGC()) { // Redeem GC
-                        processRedeemGC();
 
-                    } else if (selectedServiceType == 0) { // Money Transfer
-                        //TODO
-                        affilateUser.tempAmount = etAmount.getText().toString().trim();
-                        Country countryObject = (Country) spCountryCode.getSelectedItem();
-                        affilateUser.tempCountryCode = countryObject.CountryCode + "";
-                        affilateUser.tempMobileNumber = etMobileNumber.getText().toString();
-                        if (selectedPaymentType == 1) {
-                            affilateUser.tempPaymentVia = "GC";
-                            affilateUser.tempGiftCode = etGiftCode.getText().toString().trim();
-                        } else {
-                            affilateUser.tempPaymentVia = "Wallet";
-                        }
-                        PrefUtils.setMerchant(getActivity(), affilateUser);
-                        Intent intent = new Intent(getActivity(), MoneyTransferHomeActivity.class);
-                        intent.putExtra("edamount",etAmount.getText().toString());
-                        startActivity(intent);
+                    if(checkOTPTimeout(etVerificationCode.getText().toString().trim())){
 
-                    } else if (selectedServiceType == 1) { // Mobile Topup
-                        //TODO
-                        affilateUser.tempAmount = etAmount.getText().toString().trim();
-                        Country countryObject = (Country) spCountryCode.getSelectedItem();
-                        affilateUser.tempCountryCode = countryObject.CountryCode + "";
-                        affilateUser.tempMobileNumber = etMobileNumber.getText().toString();
-                        if (selectedPaymentType == 1) {
-                            affilateUser.tempPaymentVia = "GC";
-                            affilateUser.tempGiftCode = etGiftCode.getText().toString().trim();
-                        } else if (selectedPaymentType == 0) {
-                            affilateUser.tempPaymentVia = "Wallet";
-                        } else if (selectedPaymentType == 2) {
-                            affilateUser.tempPaymentVia = "Cash";
+                        if (isRedeemGC()) { // Redeem GC
+                            processRedeemGC();  }
+                        else if (selectedServiceType == 0) { // Money Transfer
+                            //TODO
+                            affilateUser.tempAmount = etAmount.getText().toString().trim();
+                            Country countryObject = (Country) spCountryCode.getSelectedItem();
+                            affilateUser.tempCountryCode = countryObject.CountryCode + "";
+                            affilateUser.tempMobileNumber = etMobileNumber.getText().toString();
+                            if (selectedPaymentType == 1) {
+                                affilateUser.tempPaymentVia = "GC";
+                                affilateUser.tempGiftCode = etGiftCode.getText().toString().trim();
+                            } else {
+                                affilateUser.tempPaymentVia = "Wallet";
+                            }
+                            PrefUtils.setMerchant(getActivity(), affilateUser);
+                            Intent intent = new Intent(getActivity(), MoneyTransferHomeActivity.class);
+                            intent.putExtra("edamount",etAmount.getText().toString());
+                            startActivity(intent);
+
+                        } else if (selectedServiceType == 1) { // Mobile Topup
+                            //TODO
+                            affilateUser.tempAmount = etAmount.getText().toString().trim();
+                            Country countryObject = (Country) spCountryCode.getSelectedItem();
+                            affilateUser.tempCountryCode = countryObject.CountryCode + "";
+                            affilateUser.tempMobileNumber = etMobileNumber.getText().toString();
+                            if (selectedPaymentType == 1) {
+                                affilateUser.tempPaymentVia = "GC";
+                                affilateUser.tempGiftCode = etGiftCode.getText().toString().trim();
+                            } else if (selectedPaymentType == 0) {
+                                affilateUser.tempPaymentVia = "Wallet";
+                            } else if (selectedPaymentType == 2) {
+                                affilateUser.tempPaymentVia = "Cash";
+                            }
+                            PrefUtils.setMerchant(getActivity(), affilateUser);
+                            Intent intent = new Intent(getActivity(), MobileTopupActivity.class);
+                            startActivity(intent);
+                        } else if (selectedServiceType == 2) { //Generate GC
+                            //TODO
+                            affilateUser.tempAmount = etAmount.getText().toString().trim();
+                            Country countryObject = (Country) spCountryCode.getSelectedItem();
+                            affilateUser.tempCountryCode = countryObject.CountryCode + "";
+                            affilateUser.tempMobileNumber = etMobileNumber.getText().toString();
+                            if (selectedPaymentType == 1) {
+                                affilateUser.tempPaymentVia = "GC";
+                                affilateUser.tempGiftCode = etGiftCode.getText().toString().trim();
+                            } else if (selectedPaymentType == 0) {
+                                affilateUser.tempPaymentVia = "Wallet";
+                            } else if (selectedPaymentType == 2) {
+                                affilateUser.tempPaymentVia = "Cash";
+                            }
+                            PrefUtils.setMerchant(getActivity(), affilateUser);
+                            Intent intent = new Intent(getActivity(), NewGenerateGCActivity.class);
+                            intent.putExtra("payment_via", selectedPaymentType);
+                            startActivity(intent);
+
                         }
-                        PrefUtils.setMerchant(getActivity(), affilateUser);
-                        Intent intent = new Intent(getActivity(), MobileTopupActivity.class);
-                        startActivity(intent);
-                    } else if (selectedServiceType == 2) { //Generate GC
-                        //TODO
-                        affilateUser.tempAmount = etAmount.getText().toString().trim();
-                        Country countryObject = (Country) spCountryCode.getSelectedItem();
-                        affilateUser.tempCountryCode = countryObject.CountryCode + "";
-                        affilateUser.tempMobileNumber = etMobileNumber.getText().toString();
-                        if (selectedPaymentType == 1) {
-                            affilateUser.tempPaymentVia = "GC";
-                            affilateUser.tempGiftCode = etGiftCode.getText().toString().trim();
-                        } else if (selectedPaymentType == 0) {
-                            affilateUser.tempPaymentVia = "Wallet";
-                        } else if (selectedPaymentType == 2) {
-                            affilateUser.tempPaymentVia = "Cash";
-                        }
-                        PrefUtils.setMerchant(getActivity(), affilateUser);
-                        Intent intent = new Intent(getActivity(), NewGenerateGCActivity.class);
-                        intent.putExtra("payment_via", selectedPaymentType);
-                        startActivity(intent);
+                    }
+                    // OTP checking else
+                    else{
+
+                        showResenVerificationCodealertboc();
 
                     }
 
 
-                } else {
+                }
+
+
+                else {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_verification_code));
-//                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_verification_code), Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -1118,6 +1179,7 @@ public class FragmentHome extends Fragment {
         });
 
         alert.show();
+
     }
 
 

@@ -68,6 +68,8 @@ public class AppConstants {
     public static String MONEY_CASH_PICKUP_ADMIN = BASE_URL + "Payment.svc/json/MoneyCashPickUp";
 
 
+    public static String OTP_TIME_OUT = BASE_URL + "Payment.svc/json/CheckOTP";
+
 
     public static String SEND_OTP= BASE_URL + "Payment.svc/json/SendOTP";
 
