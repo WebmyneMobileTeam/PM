@@ -169,7 +169,9 @@ public class FragmentHome extends Fragment {
 
             if (affilateServices.IsActive == true) {
                 affilateServiceNames.add(affilateServices.ServiceName.toString().trim());
+
             }
+
 
         }
 
@@ -591,6 +593,13 @@ public class FragmentHome extends Fragment {
             layoutTopup.setVisibility(View.GONE);
             txtTopup.setVisibility(View.GONE);
         }
+        if(isGenerateGCActive == false){
+            layoutGenerateGC.setVisibility(View.GONE);
+            txtGenerate.setVisibility(View.GONE);
+        }
+
+        txtOther.setText("Other Services");
+        txtOther.setVisibility(View.VISIBLE);
     }
 
     private void setupPaymentLinear() {
@@ -599,6 +608,8 @@ public class FragmentHome extends Fragment {
             LinearLayout linearChild = (LinearLayout) linearPaymentType.getChildAt(i);
             linearChild.setOnClickListener(linearPaymentListner);
         }
+
+
     }
 
     private void setupServiceLinear() {
@@ -611,6 +622,11 @@ public class FragmentHome extends Fragment {
         if(isMobileTopupActive == false){
             layoutTopup.setVisibility(View.GONE);
             txtTopup.setVisibility(View.GONE);
+        }
+
+        if(isGenerateGCActive == false){
+            layoutGenerateGC.setVisibility(View.GONE);
+            txtGenerate.setVisibility(View.GONE);
         }
           
         
@@ -743,6 +759,8 @@ public class FragmentHome extends Fragment {
 
     private void setPaymentSelection(int selectedPaymentType) {
 
+
+
         for (int i = 0; i < linearPaymentType.getChildCount(); i++) {
 
             LinearLayout linear = (LinearLayout) linearPaymentType.getChildAt(i);
@@ -762,32 +780,104 @@ public class FragmentHome extends Fragment {
             }
         }
 
+
         switch (selectedPaymentType){
 
             case 0:
-
+                    // for wallet
                 layoutTransfer.setVisibility(View.VISIBLE);
-                layoutTopup.setVisibility(View.VISIBLE);
-                layoutGenerateGC.setVisibility(View.VISIBLE);
-                layoutOthers.setVisibility(View.GONE);
                 txtTransfer.setVisibility(View.VISIBLE);
-                txtTopup.setVisibility(View.VISIBLE);
-                txtGenerate.setVisibility(View.VISIBLE);
 
+                if(isMobileTopupActive == false){
+                    layoutTopup.setVisibility(View.GONE);
+                    txtTopup.setVisibility(View.GONE);
+                }
+                else{
+                    layoutTopup.setVisibility(View.VISIBLE);
+                    txtTopup.setVisibility(View.VISIBLE);
+                }
+
+                if(isGenerateGCActive == false){
+                    layoutGenerateGC.setVisibility(View.GONE);
+                    txtGenerate.setVisibility(View.GONE);
+                }
+                else{
+                    layoutGenerateGC.setVisibility(View.VISIBLE);
+                    txtGenerate.setVisibility(View.VISIBLE);
+                }
+                layoutTransfer.setVisibility(View.VISIBLE);
+                txtTransfer.setVisibility(View.VISIBLE);
+
+                //hide
+                layoutOthers.setVisibility(View.GONE);
+                txtOther.setVisibility(View.GONE);
 
                 break;
 
             case 1:
+                // for Giftcode
+                //display
+                layoutOthers.setVisibility(View.VISIBLE);
+                txtOther.setVisibility(View.VISIBLE);
 
-
+                //hide
+                layoutTopup.setVisibility(View.GONE);
+                txtTopup.setVisibility(View.GONE);
+                layoutGenerateGC.setVisibility(View.GONE);
+                txtGenerate.setVisibility(View.GONE);
+                layoutTransfer.setVisibility(View.GONE);
+                txtTransfer.setVisibility(View.GONE);
 
                 break;
 
             case 2:
+            // for Cash
+                layoutTransfer.setVisibility(View.VISIBLE);
+                txtTransfer.setVisibility(View.VISIBLE);
 
-                break;
+            if(isMobileTopupActive == false){
+                layoutTopup.setVisibility(View.GONE);
+                txtTopup.setVisibility(View.GONE);
+            }
+            else{
+                layoutTopup.setVisibility(View.VISIBLE);
+                txtTopup.setVisibility(View.VISIBLE);
+            }
+
+            if(isGenerateGCActive == false){
+                layoutGenerateGC.setVisibility(View.GONE);
+                txtGenerate.setVisibility(View.GONE);
+            }
+
+            else{
+                layoutGenerateGC.setVisibility(View.VISIBLE);
+                txtGenerate.setVisibility(View.VISIBLE);
+            }
+
+            //hide
+            layoutOthers.setVisibility(View.GONE);
+            txtOther.setVisibility(View.GONE);
+
 
         }
+
+      /*  if(isMobileTopupActive == false){
+            layoutTopup.setVisibility(View.GONE);
+            txtTopup.setVisibility(View.GONE);
+        }
+        if(isGenerateGCActive == false){
+            layoutGenerateGC.setVisibility(View.GONE);
+            txtGenerate.setVisibility(View.GONE);
+        }*/
+
+/*
+        if (selectedPaymentType == 0) {
+            gcLayout.setVisibility(View.VISIBLE);
+        } else {
+            gcLayout.setVisibility(View.GONE);
+        }
+
+
 
 
         if (selectedPaymentType == 1) {
@@ -798,9 +888,10 @@ public class FragmentHome extends Fragment {
 
         if (selectedPaymentType == 2) {
             layoutOthers.setVisibility(View.GONE);
+            txtOther.setVisibility(View.GONE);
         } else {
             layoutOthers.setVisibility(View.VISIBLE);
-        }
+        }*/
 
     }
 
