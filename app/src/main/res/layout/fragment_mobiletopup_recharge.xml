@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#EAEAEA"
     tools:context="com.webmyne.paylabas.userapp.mobile_topup.MobileTopupRechargeFragment">
 
     <!--Bottom Linear-->
     <RelativeLayout
-        android:background="@android:color/white"
+        android:background="#EAEAEA"
         android:layout_marginTop="8dp"
         android:id="@+id/registrationView"
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
     <LinearLayout
-        android:background="@android:color/white"
+        android:background="#EAEAEA"
         android:id="@+id/bottomLinearGenerateGC"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

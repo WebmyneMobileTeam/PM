@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="top"
+    android:background="#EAEAEA"
     tools:context="com.webmyne.paylabasmerchant.ui.CommissionClaimActivity">
 
     <LinearLayout

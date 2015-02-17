@@ -32,7 +32,7 @@ public class CashInOutActivity extends ActionBarActivity {
     ToolsPagerAdapter mViewPagerAdapter = null;
     Toolbar toolbar_actionbar;
     private AffilateUser affilateUser;
-    Boolean isActive;
+    Boolean isCashInActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class CashInOutActivity extends ActionBarActivity {
         affilateUser= PrefUtils.getMerchant(CashInOutActivity.this);
         // String str = affilateUser.affilateServicesArrayList.get(0).ServiceName.toString();
         // position 2 is for Cash in service, 0 - for generate gidt code, 1 - fro mobile top only
-        isActive = affilateUser.affilateServicesArrayList.get(2).IsActive;
+        isCashInActive = affilateUser.affilateServicesArrayList.get(2).IsActive;
 
         intView();
 
@@ -117,7 +117,7 @@ public class CashInOutActivity extends ActionBarActivity {
         @Override
         public Fragment getItem(int position) {
 
-            if(!isActive) {
+            if(!isCashInActive) {
                     FragmentCashOUT frag = new FragmentCashOUT();
                     return frag;
             }
@@ -145,9 +145,9 @@ public class CashInOutActivity extends ActionBarActivity {
         public int getCount() {
 
             int positionStart;
-            Log.e("value of isactive - ",""+isActive);
+            Log.e("value of isactive - ",""+isCashInActive);
 
-            if(!isActive) {
+            if(!isCashInActive) {
                 Log.e("inside if","return 1");
                 return 1;
             }
@@ -160,7 +160,7 @@ public class CashInOutActivity extends ActionBarActivity {
         @Override
         public CharSequence getPageTitle(int position) {
 
-            if(!isActive) {
+            if(!isCashInActive) {
                return getTittle(1);
             }
             else {

@@ -109,6 +109,8 @@ public class FragmentHome extends Fragment {
             "Electricity Bill", "Gas Bill"
     };
 
+    private Boolean isGenerateGCActive,isMobileTopupActive;
+
     public static FragmentHome newInstance(String param1, String param2) {
         FragmentHome fragment = new FragmentHome();
         Bundle args = new Bundle();
@@ -159,10 +161,24 @@ public class FragmentHome extends Fragment {
         affilateServicesArrayList = PrefUtils.getMerchant(getActivity()).affilateServicesArrayList;
         affilateServiceNames = new ArrayList<String>();
         affilateServiceNames.add("Select Service Type");
+
+
+
         for (AffilateServices affilateServices : affilateServicesArrayList) {
+            Log.e("service name",""+affilateServices.ServiceName);
+            Log.e("sis active",""+affilateServices.IsActive);
+
             if (affilateServices.IsActive == true) {
                 affilateServiceNames.add(affilateServices.ServiceName.toString().trim());
             }
+
+        }
+
+        Log.e("service name size",""+affilateServiceNames.size());
+        for(int i=0;i<affilateServiceNames.size();i++)
+        {
+            Log.e("service name",affilateServiceNames.get(i));
+
         }
     }
 
@@ -375,6 +391,16 @@ public class FragmentHome extends Fragment {
     public void onResume() {
         super.onResume();
 
+        affilateUser= PrefUtils.getMerchant(getActivity());
+        // String str = affilateUser.affilateServicesArrayList.get(0).ServiceName.toString();
+        // position 2 is for Cash in service, 0 - for generate gidt code, 1 - fro mobile top only
+
+        isGenerateGCActive = affilateUser.affilateServicesArrayList.get(0).IsActive;
+        isMobileTopupActive= affilateUser.affilateServicesArrayList.get(1).IsActive;
+
+
+
+
         if (isFromDetailPage == true) {
             resetAll();
         }
@@ -570,8 +596,7 @@ public class FragmentHome extends Fragment {
     }
 
     private void setupServiceLinear() {
-
-        for (int i = 0; i < linearServiceType.getChildCount(); i++) {
+        for (int i = 0; i <2; i++) {
             LinearLayout linearChild = (LinearLayout) linearServiceType.getChildAt(i);
             linearChild.setOnClickListener(linearServiceListner);
         }
@@ -601,7 +626,7 @@ public class FragmentHome extends Fragment {
 
     private void setServiceSelection(int selectedServiceType) {
 
-        for (int i = 0; i < linearServiceType.getChildCount(); i++) {
+        for (int i = 0; i < 2; i++) {
 
             LinearLayout linear = (LinearLayout) linearServiceType.getChildAt(i);
             ImageView iv = (ImageView) linear.getChildAt(0);
@@ -622,7 +647,6 @@ public class FragmentHome extends Fragment {
             case 0:
 
                 // transfer
-
                 layoutWallet.setVisibility(View.VISIBLE);
                 layoutGC.setVisibility(View.GONE);
                 layoutCash.setVisibility(View.VISIBLE);
