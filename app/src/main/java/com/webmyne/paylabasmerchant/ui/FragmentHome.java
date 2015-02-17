@@ -688,7 +688,7 @@ public class FragmentHome extends Fragment {
 
                 etAmount.setText("");
                 txtOther.setText("Other Services");
-
+                gcLayout.setVisibility(View.GONE);
                 break;
 
             case 1:
@@ -707,6 +707,7 @@ public class FragmentHome extends Fragment {
 
                 etAmount.setText("");
                 txtOther.setText("Other Services");
+                gcLayout.setVisibility(View.GONE);
                 break;
 
             case 2:
@@ -723,6 +724,7 @@ public class FragmentHome extends Fragment {
 
                 etAmount.setText("");
                 txtOther.setText("Other Services");
+                gcLayout.setVisibility(View.GONE);
                 break;
 
             case 3:
@@ -743,7 +745,7 @@ public class FragmentHome extends Fragment {
                 layoutWallet.setVisibility(View.GONE);
                 layoutGC.setVisibility(View.VISIBLE);
                 layoutCash.setVisibility(View.GONE);
-
+                gcLayout.setVisibility(View.VISIBLE);
                 txtWallet.setVisibility(View.GONE);
                 txtGC.setVisibility(View.VISIBLE);
                 txtCash.setVisibility(View.GONE);
@@ -811,6 +813,7 @@ public class FragmentHome extends Fragment {
                 //hide
                 layoutOthers.setVisibility(View.GONE);
                 txtOther.setVisibility(View.GONE);
+                gcLayout.setVisibility(View.GONE);
 
                 break;
 
@@ -819,6 +822,8 @@ public class FragmentHome extends Fragment {
                 //display
                 layoutOthers.setVisibility(View.VISIBLE);
                 txtOther.setVisibility(View.VISIBLE);
+
+                gcLayout.setVisibility(View.VISIBLE);
 
                 //hide
                 layoutTopup.setVisibility(View.GONE);
@@ -857,6 +862,7 @@ public class FragmentHome extends Fragment {
             //hide
             layoutOthers.setVisibility(View.GONE);
             txtOther.setVisibility(View.GONE);
+                gcLayout.setVisibility(View.GONE);
 
 
         }
