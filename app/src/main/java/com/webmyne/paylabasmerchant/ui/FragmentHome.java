@@ -791,7 +791,7 @@ public class FragmentHome extends Fragment {
         }
 
 
-        switch (selectedPaymentType){
+      /*  switch (selectedPaymentType){
 
             case 0:
                     // for wallet
@@ -873,7 +873,7 @@ public class FragmentHome extends Fragment {
                 gcLayout.setVisibility(View.GONE);
 
 
-        }
+        }*/
 
       /*  if(isMobileTopupActive == false){
             layoutTopup.setVisibility(View.GONE);
