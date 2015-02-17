@@ -94,8 +94,6 @@ public abstract class BaseActivity extends ActionBarActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener,
         MultiSwipeRefreshLayout.CanChildScrollUpCallback {
     private static final String TAG = makeLogTag(BaseActivity.class);
-
-
     // Navigation drawer:
     private DrawerLayout mDrawerLayout;
 

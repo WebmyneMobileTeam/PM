@@ -162,7 +162,7 @@ public class InvoiceRequestActivity extends ActionBarActivity {
                 public void onResponse(JSONObject jobj) {
                     circleDialog.dismiss();
                     String response = jobj.toString();
-                    Log.e(" Response unclaimedGCDetail List", "" + response);
+                    Log.e(" Response  List", "" + response);
                     unclaimedGCDetail=new GsonBuilder().create().fromJson(jobj.toString(), UnclaimedGCDetail.class);
                     txtTotalAmount.setText(unclaimedGCDetail.claimAmount+"");
                     setFromAndToDate();

@@ -83,6 +83,7 @@ public class FragmentHome extends Fragment {
     private CircleDialog circleDialog;
     private PaymentStep1 paymentStep1;
     private AffilateUser affilateUser;
+    private AffilateUser affilateUserBalance;
     private EditText etMobileNumber, etAmount, etGiftCode;
     private String paymentType;
     private int paymentTypePosition, serviceTypePosition;
@@ -161,8 +162,6 @@ public class FragmentHome extends Fragment {
         affilateServicesArrayList = PrefUtils.getMerchant(getActivity()).affilateServicesArrayList;
         affilateServiceNames = new ArrayList<String>();
         affilateServiceNames.add("Select Service Type");
-
-
 
         for (AffilateServices affilateServices : affilateServicesArrayList) {
             Log.e("service name",""+affilateServices.ServiceName);
@@ -321,6 +320,7 @@ public class FragmentHome extends Fragment {
     }
 
     private void initView(View convertview) {
+        
         gcLayout = (LinearLayout) convertview.findViewById(R.id.gcLayout);
         btnNext = (TextView) convertview.findViewById(R.id.btnNext);
         btnReset = (TextView) convertview.findViewById(R.id.btnReset);
@@ -386,18 +386,19 @@ public class FragmentHome extends Fragment {
         });
 
     }
+    
+
 
     @Override
     public void onResume() {
         super.onResume();
-
+        getBalanceAndDisplay();
         affilateUser= PrefUtils.getMerchant(getActivity());
         // String str = affilateUser.affilateServicesArrayList.get(0).ServiceName.toString();
         // position 2 is for Cash in service, 0 - for generate gidt code, 1 - fro mobile top only
 
         isGenerateGCActive = affilateUser.affilateServicesArrayList.get(0).IsActive;
         isMobileTopupActive= affilateUser.affilateServicesArrayList.get(1).IsActive;
-
 
 
 
@@ -431,25 +432,25 @@ public class FragmentHome extends Fragment {
         ((MyDrawerActivity)getActivity()).setToolColor(Color.parseColor("#2977AC"));
 */
 
-        getBalanceAndDisplay();
+     
 
     }
     private void getBalanceAndDisplay() {
-        affilateUser= PrefUtils.getMerchant(getActivity());
-        new CallWebService(AppConstants.USER_DETAILS+affilateUser.UserID,CallWebService.TYPE_JSONOBJECT) {
+        affilateUserBalance= PrefUtils.getMerchant(getActivity());
+        new CallWebService(AppConstants.USER_DETAILS+affilateUserBalance.UserID,CallWebService.TYPE_JSONOBJECT) {
 
             @Override
             public void response(String jobj) {
 
                 Log.e("on resume response k: ", jobj.toString() + "");
 
-                affilateUser = new GsonBuilder().create().fromJson(jobj.toString(), AffilateUser.class);
+                affilateUserBalance = new GsonBuilder().create().fromJson(jobj.toString(), AffilateUser.class);
 
               //  AffilateUser user1= PrefUtils.getMerchant(getActivity());
                 try{
-                    ((MyDrawerActivity)getActivity()).setToolTitle("Hi, "+affilateUser.FName);
+                    ((MyDrawerActivity)getActivity()).setToolTitle("Hi, "+affilateUserBalance.FName);
 
-                    ((MyDrawerActivity)getActivity()).setToolSubTitle("Balance "+getResources().getString(R.string.euro)+" "+affilateUser.LemonwayBal);
+                    ((MyDrawerActivity)getActivity()).setToolSubTitle("Balance "+getResources().getString(R.string.euro)+" "+affilateUserBalance.LemonwayBal);
                     ((MyDrawerActivity)getActivity()).hideToolLoading();
                 }catch(Exception e){
                     e.printStackTrace();
@@ -511,7 +512,7 @@ public class FragmentHome extends Fragment {
                 public void onErrorResponse(VolleyError error) {
 
                     circleDialog.dismiss();
-                    Log.e("error response live curreency: ", error + "");
+                    Log.e("error curreency: ", error + "");
                     SimpleToast.error(getActivity(), getResources().getString(R.string.er_network));
                 }
             });
@@ -520,7 +521,7 @@ public class FragmentHome extends Fragment {
 
         }
         catch(Exception e){
-            Log.e("error in getlive currency out ",e.toString());
+            Log.e("error currency out ",e.toString());
         }
 
     }
@@ -585,6 +586,11 @@ public class FragmentHome extends Fragment {
             linear.getBackground().setColorFilter((int) colors_p.get(k), PorterDuff.Mode.SRC_ATOP);
             img.setColorFilter((int) colors_p.get(k), PorterDuff.Mode.SRC_ATOP);
         }
+
+        if(isMobileTopupActive == false){
+            layoutTopup.setVisibility(View.GONE);
+            txtTopup.setVisibility(View.GONE);
+        }
     }
 
     private void setupPaymentLinear() {
@@ -596,10 +602,18 @@ public class FragmentHome extends Fragment {
     }
 
     private void setupServiceLinear() {
-        for (int i = 0; i <2; i++) {
+        
+        for (int i = 0; i <4; i++) {
             LinearLayout linearChild = (LinearLayout) linearServiceType.getChildAt(i);
             linearChild.setOnClickListener(linearServiceListner);
         }
+
+        if(isMobileTopupActive == false){
+            layoutTopup.setVisibility(View.GONE);
+            txtTopup.setVisibility(View.GONE);
+        }
+          
+        
     }
 
     View.OnClickListener linearPaymentListner = new View.OnClickListener() {
@@ -626,7 +640,7 @@ public class FragmentHome extends Fragment {
 
     private void setServiceSelection(int selectedServiceType) {
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 4; i++) {
 
             LinearLayout linear = (LinearLayout) linearServiceType.getChildAt(i);
             ImageView iv = (ImageView) linear.getChildAt(0);
@@ -838,7 +852,7 @@ public class FragmentHome extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("object request payment 1", requestObject.toString() + "");
+        Log.e("object payment 1", requestObject.toString() + "");
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.PAYMENT_STEP_1, requestObject, new Response.Listener<JSONObject>() {
 
             @Override
