@@ -635,10 +635,16 @@ public class FragmentHome extends Fragment {
     View.OnClickListener linearPaymentListner = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            
+            if(selectedServiceType == -1){
+                Toast.makeText(getActivity(), "Select Service First", Toast.LENGTH_SHORT).show();
+            }else{
+                LinearLayout linearChild = (LinearLayout) v;
+                selectedPaymentType = linearPaymentType.indexOfChild(linearChild);
+                setPaymentSelection(selectedPaymentType);
+            }
 
-            LinearLayout linearChild = (LinearLayout) v;
-            selectedPaymentType = linearPaymentType.indexOfChild(linearChild);
-            setPaymentSelection(selectedPaymentType);
+
 
         }
     };
@@ -647,6 +653,8 @@ public class FragmentHome extends Fragment {
         @Override
         public void onClick(View v) {
 
+            resetAll();
+            
             LinearLayout linearChild = (LinearLayout) v;
             selectedServiceType = linearServiceType.indexOfChild(linearChild);
             setServiceSelection(selectedServiceType);
