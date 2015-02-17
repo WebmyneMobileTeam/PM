@@ -653,7 +653,7 @@ public class FragmentHome extends Fragment {
         @Override
         public void onClick(View v) {
 
-            resetAll();
+         //   resetAll();
             
             LinearLayout linearChild = (LinearLayout) v;
             selectedServiceType = linearServiceType.indexOfChild(linearChild);
@@ -711,7 +711,7 @@ public class FragmentHome extends Fragment {
                 txtGC.setVisibility(View.GONE);
                 txtCash.setVisibility(View.VISIBLE);
 
-                linearMobileHome.setVisibility(View.GONE);
+                linearMobileHome.setVisibility(View.VISIBLE);
 
                 etAmount.setText("");
                 txtOther.setText("Other Services");
@@ -753,12 +753,13 @@ public class FragmentHome extends Fragment {
                 layoutWallet.setVisibility(View.GONE);
                 layoutGC.setVisibility(View.VISIBLE);
                 layoutCash.setVisibility(View.GONE);
-                gcLayout.setVisibility(View.VISIBLE);
+
                 txtWallet.setVisibility(View.GONE);
                 txtGC.setVisibility(View.VISIBLE);
                 txtCash.setVisibility(View.GONE);
-                linearMobileHome.setVisibility(View.VISIBLE);
 
+                linearMobileHome.setVisibility(View.VISIBLE);
+                gcLayout.setVisibility(View.VISIBLE);
                 etAmount.setText("");
                 break;
 
