@@ -78,6 +78,12 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/linearTransfer1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <LinearLayout
                         android:id="@+id/layoutTransfer"
                         android:layout_margin="4dp"
                         android:background="@drawable/circle_border_focused"
@@ -90,9 +96,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         
-                        
-                    </LinearLayout>
+                         </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtTransfer"
+                            android:layout_width="wrap_content"
+                            android:text="TRANSFER"
+                            android:layout_height="wrap_content" />
 
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/layoutTopUp1"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
                     <LinearLayout
                         android:id="@+id/layoutTopUp"
                         android:layout_margin="4dp"
@@ -105,7 +122,20 @@
                             android:src="@drawable/ic_mobile_topup"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
-                    </LinearLayout>
+                               </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtTopup"
+                            android:layout_width="wrap_content"
+                            android:text="TOPUP"
+                            android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/layoutGenerateGC1"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/layoutGenerateGC"
@@ -121,6 +151,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtGenerate"
+                            android:layout_width="wrap_content"
+                            android:text="GENERATE"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutOthers1"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/layoutOthers"
@@ -135,6 +179,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
+                        <TextView
+                            android:gravity="center"
+                            android:id="@+id/txtOther"
+                            android:layout_width="wrap_content"
+                            android:text="OTHER\nSERVICES"
+                            android:layout_height="wrap_content" />
+
+                 </LinearLayout>
+
                 </LinearLayout>
 
 
@@ -143,36 +196,6 @@
                 <!--android:id="@+id/spServiceType"-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"></Spinner>-->
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/txtTransfer"
-                    android:layout_width="wrap_content"
-                    android:text="TRANSFER"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/txtTopup"
-                    android:layout_width="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="TOPUP"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/txtGenerate"
-                    android:layout_width="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="GENERATE"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/txtOther"
-                    android:layout_width="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Other Services"
-                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
