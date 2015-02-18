@@ -550,6 +550,7 @@ public class FragmentHome extends Fragment {
         for (int i = 0; i < linearPaymentType.getChildCount(); i++) {
             int k = i;
             LinearLayout linear = (LinearLayout) linearPaymentType.getChildAt(i);
+            
             ImageView img = (ImageView) linear.getChildAt(0);
             linear.setBackgroundResource(R.drawable.circle_border_focused);
             linear.getBackground().setColorFilter((int) colors_p.get(k), PorterDuff.Mode.SRC_ATOP);
@@ -562,13 +563,13 @@ public class FragmentHome extends Fragment {
 
         for (int i = 0; i < linearServiceType.getChildCount(); i++) {
             int k = i;
-            SCS
-            LinearLayout linear = (LinearLayout) linearServiceType.getChildAt(i);
-            LinearLayout linear2 = (LinearLayout) linearServiceType.getChildAt(i);
 
-            ImageView img = (ImageView) linear.getChildAt(0);
-            linear.setBackgroundResource(R.drawable.circle_border_focused);
-            linear.getBackground().setColorFilter((int) colors_p.get(k), PorterDuff.Mode.SRC_ATOP);
+            LinearLayout linear = (LinearLayout) linearServiceType.getChildAt(i);
+            LinearLayout linear2 = (LinearLayout) linear.getChildAt(0);
+
+            ImageView img = (ImageView) linear2.getChildAt(0);
+            linear2.setBackgroundResource(R.drawable.circle_border_focused);
+            linear2.getBackground().setColorFilter((int) colors_p.get(k), PorterDuff.Mode.SRC_ATOP);
             img.setColorFilter((int) colors_p.get(k), PorterDuff.Mode.SRC_ATOP);
         }
 
