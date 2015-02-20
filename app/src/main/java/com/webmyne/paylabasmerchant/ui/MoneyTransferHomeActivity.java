@@ -363,10 +363,15 @@ if(bankID!=0) {
 
     bankobj.Fixedcharge = obj.Fixedcharge;
 
-    if(obj.Perccharge.equals("")){
-        bankobj.Perccharge = "1";
-    }else {
-        bankobj.Perccharge = obj.Perccharge;
+    try {
+
+        if (obj.Perccharge.equals("")) {
+            bankobj.Perccharge = "1";
+        } else {
+            bankobj.Perccharge = obj.Perccharge;
+        }
+    }catch (Exception e){
+        Log.e("exce ", ""+e);
     }
 
     bankobj.RecipientGet = obj.RecipientGet;

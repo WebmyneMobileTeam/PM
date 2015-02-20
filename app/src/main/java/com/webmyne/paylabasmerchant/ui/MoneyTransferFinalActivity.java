@@ -114,7 +114,7 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
         Float amount1 = MoneyTransferHomeActivity.bankobj.Amount * Percentage ;
         Log.e("amount1",String.valueOf(amount1));
 
-        Float FinalFeesAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.ApproxComm)+amount1+Float.valueOf(fixedprice);
+//        Float FinalFeesAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.ApproxComm)+amount1+Float.valueOf(fixedprice);
 
       //  FinalPayableAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.Amount)+FinalFeesAmount;
 

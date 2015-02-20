@@ -113,7 +113,7 @@ public class FragmentHome extends Fragment {
     boolean isok;
 
     final CharSequence[] items = {
-            "ELECTRICITY\nBILL", "GAS\nBILL"
+            "ELECTRICITY BILL", "GAS BILL"
     };
 
     private Boolean isGenerateGCActive,isMobileTopupActive;
@@ -600,6 +600,7 @@ public class FragmentHome extends Fragment {
         
         for (int i = 0; i <4; i++) {
             LinearLayout linearChild = (LinearLayout) linearServiceType.getChildAt(i);
+
             linearChild.setOnClickListener(linearServiceListner);
         }
 
@@ -636,11 +637,11 @@ public class FragmentHome extends Fragment {
     View.OnClickListener linearServiceListner = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-         //   resetAll();
             
             LinearLayout linearChild = (LinearLayout) v;
+
             selectedServiceType = linearServiceType.indexOfChild(linearChild);
+
             setServiceSelection(selectedServiceType);
 
         }
@@ -651,16 +652,17 @@ public class FragmentHome extends Fragment {
         for (int i = 0; i < 4; i++) {
 
             LinearLayout linear = (LinearLayout) linearServiceType.getChildAt(i);
-            ImageView iv = (ImageView) linear.getChildAt(0);
+            LinearLayout linear2 = (LinearLayout) linear.getChildAt(0);
+            ImageView iv = (ImageView) linear2.getChildAt(0);
             int z = i;
             if (z == selectedServiceType) {
                 iv.setColorFilter(Color.WHITE);
-                linear.setBackgroundResource(R.drawable.circle_mask);
-                linear.getBackground().setColorFilter((int) colors_p.get(selectedServiceType), PorterDuff.Mode.SRC_ATOP);
+                linear2.setBackgroundResource(R.drawable.circle_mask);
+                linear2.getBackground().setColorFilter((int) colors_p.get(selectedServiceType), PorterDuff.Mode.SRC_ATOP);
             } else {
                 iv.setColorFilter((int) colors_p.get(z), PorterDuff.Mode.SRC_ATOP);
-                linear.setBackgroundResource(R.drawable.circle_border_focused);
-                linear.getBackground().setColorFilter((int) colors_p.get(z), PorterDuff.Mode.SRC_ATOP);
+                linear2.setBackgroundResource(R.drawable.circle_border_focused);
+                linear2.getBackground().setColorFilter((int) colors_p.get(z), PorterDuff.Mode.SRC_ATOP);
             }
         }
 

@@ -98,6 +98,7 @@
                         
                          </LinearLayout>
                         <TextView
+                            android:clickable="false"
                             android:id="@+id/txtTransfer"
                             android:layout_width="wrap_content"
                             android:text="TRANSFER"
@@ -124,6 +125,7 @@
                             android:layout_height="wrap_content" />
                                </LinearLayout>
                         <TextView
+                            android:clickable="false"
                             android:id="@+id/txtTopup"
                             android:layout_width="wrap_content"
                             android:text="TOPUP"
@@ -152,6 +154,7 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                         <TextView
+                            android:clickable="false"
                             android:id="@+id/txtGenerate"
                             android:layout_width="wrap_content"
                             android:text="GENERATE"
@@ -182,6 +185,8 @@
                         <TextView
                             android:gravity="center"
                             android:id="@+id/txtOther"
+                            android:clickable="false"
+                            android:maxLines="2"
                             android:layout_width="wrap_content"
                             android:text="OTHER\nSERVICES"
                             android:layout_height="wrap_content" />
