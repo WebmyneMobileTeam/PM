@@ -29,7 +29,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="PAY"
+            android:text="@string/fragment_cash_in_PAY"
             android:background="@drawable/button_selector"
             android:layout_weight="1" />
 
@@ -61,7 +61,7 @@
 
     <TextView
         android:fontFamily="sans-serif-condensed"
-        android:text="Select Country"
+        android:text="@string/fragment_cash_in_SELECTCOUNTRYY"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000"
@@ -139,7 +139,7 @@
         <TextView
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Select Identity Proof Type"
+            android:text="@string/fragment_cash_in_SELECTIDENTITYPROOFTYPE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000"

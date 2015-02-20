@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:layout_width="wrap_content"
-            android:text="Enter One Time Password"
+            android:text="@string/item_otp_dialog_ENTEROTP"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -37,7 +37,7 @@
         android:id="@+id/btnFinishOTP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Proceed"
+        android:text="@string/item_otp_dialog_PROCEED"
         android:layout_alignParentBottom="true"
         android:background="@color/paylabas_dkgrey"
         android:textSize="22sp"
@@ -61,7 +61,7 @@
             android:gravity="center"
             android:layout_marginTop="16dp"
             android:layout_gravity="center"
-            android:text="Enter One Time Password that sent to your registered mobile or email id(s)"
+            android:text="@string/item_otp_dialog_ENTERONETIMEPASSWORD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000"

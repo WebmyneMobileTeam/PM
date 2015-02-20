@@ -36,7 +36,7 @@
                     android:id="@+id/btnAddRecipient"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TRANSFER"
+                    android:text="@string/activity_moneytransfer_final_TRANSFER"
                     android:textColor="#fff"
                     android:textSize="22sp"
                     android:background="@color/theme_primary"
@@ -66,7 +66,7 @@
                             android:id="@+id/txtSelectRecipient"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Enter Recipient Details"
+                            android:text="@string/activity_moneytransfer_final_ENTERRECIPIENTSDETAILS"
                             android:drawableRight="@drawable/ic_hardware_keyboard_arrow_right"
                             android:textSize="16sp"/>
 
@@ -79,7 +79,7 @@
                             android:id="@+id/txtSelectSender"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Enter Sender Details"
+                            android:text="@string/activity_moneytransfer_final_ENTERSENDERDETAILS"
                             android:drawableRight="@drawable/ic_hardware_keyboard_arrow_right"
                             android:textSize="16sp"/>
 
@@ -97,7 +97,7 @@
                             android:padding="16dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Amount Send"
+                            android:text="@string/activity_moneytransfer_final_AMOUNTSEND"
                             android:textStyle="bold"
                             android:gravity="center"
                             android:textColor="#494949"
@@ -108,7 +108,7 @@
                                 android:textStyle="bold"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="€ 10"
+                                android:text="@string/activity_moneytransfer_final_EURO10"
                                 android:gravity="center"
                                 android:textSize="24sp"/>
 
@@ -119,7 +119,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Fees:  € 10 "
+                                android:text="@string/activity_moneytransfer_final_FEES"
                                 android:textSize="15sp"
                                 android:textColor="#494949" />
 
@@ -139,7 +139,7 @@
                                     android:gravity="center"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Total Payable Amount:  € 10 "
+                                    android:text="@string/activity_moneytransfer_final_TOTALPAYABLEAMOUNT"
                                     android:textColor="#fff"  />
 
                             </LinearLayout>
@@ -159,7 +159,7 @@
                                     android:gravity="center"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Recipient Gets:  10 INR "
+                                    android:text="@string/activity_moneytransfer_final_RECIPIENTSGETS"
                                     android:textColor="#fff"  />
 
                             </LinearLayout>
@@ -171,7 +171,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Exchnage Rate:  € 1 = 71.46 INR "
+                                android:text="@string/activity_moneytransfer_final_EXCHANGERATE"
                                 android:textSize="18sp"
                                 android:textColor="@color/theme_primary" />
 

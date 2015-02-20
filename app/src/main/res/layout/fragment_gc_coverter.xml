@@ -17,7 +17,7 @@
             android:id="@+id/btnConvert"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Convert"
+            android:text="@string/fragment_gc_coverter_CONVERT"
             android:textColor="@android:color/white"
             android:layout_gravity="center"
             android:gravity="center"
@@ -46,7 +46,7 @@ android:layout_above="@+id/bottomLinearCombineGC"
                     android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
                     android:gravity="center"
-                    android:text="Select Currency Type"
+                    android:text="@string/fragment_gc_coverter_SELECTCURRENCYTYPE"
                     android:textSize="@dimen/normal_text"
                     android:layout_height="wrap_content" />
                 <Spinner
@@ -61,7 +61,7 @@ android:layout_above="@+id/bottomLinearCombineGC"
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Enter Mobile Details"
+                android:text="@string/fragment_gc_coverter_ENTERMOBILEDETAILS"
                 android:textSize="16sp"/>
 
 
@@ -128,7 +128,7 @@ android:layout_above="@+id/bottomLinearCombineGC"
 
                 <TextView
                     android:layout_marginLeft="8dp"
-                    android:text="Amount"
+                    android:text="@string/fragment_gc_coverter_AMMT"
                     android:id="@+id/Giftamount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -161,7 +161,7 @@ android:layout_above="@+id/bottomLinearCombineGC"
                 <TextView
                     android:layout_width="match_parent"
 
-                    android:text="From"
+                    android:text="@string/fragment_gc_coverter_FROM"
                     android:gravity="left"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -169,7 +169,7 @@ android:layout_above="@+id/bottomLinearCombineGC"
                     android:textColor="#494949"
                     android:layout_width="match_parent"
                     android:id="@+id/FromAmount"
-                    android:text="Euro"
+                    android:text="@string/fragment_gc_coverter_EEUR"
 
                     android:textSize="@dimen/normal_text"
                     android:gravity="left"
@@ -190,7 +190,7 @@ android:layout_above="@+id/bottomLinearCombineGC"
                     android:layout_width="match_parent"
 
                     android:gravity="right"
-                    android:text="To"
+                    android:text="@string/fragment_gc_coverter_TO"
                     android:layout_height="wrap_content" />
 
                 <TextView
@@ -200,7 +200,7 @@ android:layout_above="@+id/bottomLinearCombineGC"
                     android:id="@+id/ToAmount"
                     android:gravity="right"
                     android:textSize="@dimen/normal_text"
-                    android:text="US Dollar"
+                    android:text="@string/fragment_gc_coverter_USDOLLAR"
                     android:layout_height="wrap_content" />
 
 
@@ -214,7 +214,7 @@ android:layout_above="@+id/bottomLinearCombineGC"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="@dimen/large_text"
-                android:text="Amount"
+                android:text="@string/fragment_gc_coverter_AMMT"
                 android:layout_height="wrap_content" />
         </LinearLayout>
             </LinearLayout>

@@ -30,7 +30,7 @@
                 android:layout_gravity="center"
                 android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
-                android:text="SELECT PICKUP POINT"
+                android:text="@string/item_dialog_pickup_SELECTPICKUPPOINT"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>

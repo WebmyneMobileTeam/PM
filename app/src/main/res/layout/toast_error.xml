@@ -28,7 +28,7 @@
         android:paddingLeft="10sp"
         android:paddingRight="10sp"
         android:paddingTop="10dp"
-        android:text="Texto"
+        android:text="@string/toast_error_TO"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
 

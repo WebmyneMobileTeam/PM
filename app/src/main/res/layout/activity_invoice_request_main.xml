@@ -29,7 +29,7 @@
         android:layout_marginLeft="@dimen/activity_margin"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:text="How do you want to claim your money?"
+        android:text="@string/act_invoice_request_main_HOWDOYOUWANTTOCLAIMMONEY"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -47,7 +47,7 @@
         android:background="@color/theme_primary"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:text="Generate Invoice"
+        android:text="@string/act_invoice_request_main_GENERATEINVOICE"
         android:id="@+id/txtInvoiceRequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -64,7 +64,7 @@
         android:padding="8dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:text="Claim Commission"
+        android:text="@string/act_invoice_request_main_CLAIMINVOICE"
         android:id="@+id/txtClashClaim"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

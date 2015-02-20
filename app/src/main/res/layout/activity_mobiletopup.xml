@@ -80,7 +80,7 @@
 
                         <TextView
                             android:fontFamily="sans-serif-condensed"
-                            android:text="Select Country"
+                            android:text="@string/activity_mobiletopup_SELECTCOUNTRY"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
@@ -98,7 +98,7 @@
                         <TextView
                             android:fontFamily="sans-serif-condensed"
                             android:layout_marginTop="8dp"
-                            android:text="Service Provider"
+                            android:text="@string/activity_mobiletopup_SERVICEPROVIDER"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
@@ -133,7 +133,7 @@
                         <TextView
                             android:fontFamily="sans-serif-condensed"
                             android:layout_marginTop="8dp"
-                            android:text="Select Recharge Amount"
+                            android:text="@string/activity_mobiletopup_SELECTRECHARGEAMOUNT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
@@ -152,7 +152,7 @@
                             android:id="@+id/amountPay"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="N/A"
+                            android:text="@string/activity_mobiletopup_NA"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/theme_primary"
                             android:layout_weight="1" />

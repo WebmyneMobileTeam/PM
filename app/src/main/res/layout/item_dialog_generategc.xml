@@ -53,7 +53,7 @@
                     android:gravity="right"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mobile :"
+                    android:text="@string/item_dialog_generategc_MOBILE"
                     android:layout_weight="1" />
 
                 <TextView
@@ -63,7 +63,7 @@
                     android:paddingLeft="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mobile"
+                    android:text="@string/item_dialog_generategc_MOBILE1"
                     android:layout_weight="1" />
             </LinearLayout>
 
@@ -78,7 +78,7 @@
                     android:gravity="right"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Amount :"
+                    android:text="@string/item_dialog_generategc_AMOUNT"
                     android:layout_weight="1" />
                 <TextView
                     android:id="@+id/txtAmountGenerateGCService"
@@ -87,7 +87,7 @@
                     android:paddingLeft="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Amount"
+                    android:text="@string/item_dialog_generategc_AMOUNT"
                     android:layout_weight="1" />
             </LinearLayout>
 
@@ -108,7 +108,7 @@
                     android:gravity="right"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Percentage Charge :"
+                    android:text="@string/item_dialog_generategc_PERCENTAGECHARGE"
                     android:layout_weight="1" />
                 <TextView
                     android:id="@+id/txtTransactionChargeGenerateGCService"
@@ -117,7 +117,7 @@
                     android:paddingLeft="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Amount"
+                    android:text="@string/item_dialog_generategc_AMOUNT"
                     android:layout_weight="1" />
             </LinearLayout>
 
@@ -132,7 +132,7 @@
                     android:gravity="right"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Fixed Charge :"
+                    android:text="@string/item_dialog_generategc_FIXEDCHARGE"
                     android:layout_weight="1" />
                 <TextView
                     android:id="@+id/txtPaylabasChargeGenerateGCService"
@@ -141,7 +141,7 @@
                     android:paddingLeft="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Amount"
+                    android:text="@string/item_dialog_generategc_AMOUNT"
                     android:layout_weight="1" />
             </LinearLayout>
 
@@ -169,7 +169,7 @@
                     android:gravity="right"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Payable Amount :"
+                    android:text="@string/item_dialog_generategc_PAYABLEAMOUNT"
                     android:layout_weight="1" />
                 <TextView
                     android:textStyle="bold"
@@ -179,7 +179,7 @@
                     android:paddingLeft="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Payable Amount"
+                    android:text="@string/item_dialog_generategc_PAYABLEAMOUNT"
                     android:layout_weight="1" />
 
 
@@ -205,7 +205,7 @@
                     android:gravity="right"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Recipient Gets :"
+                    android:text="@string/item_dialog_generategc_RECIPIENTSGETS"
                     android:layout_weight="1" />
 
                 <TextView

@@ -41,7 +41,7 @@
                 android:textSize="@dimen/normal_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount"
+                android:text="@string/item_combinegiftcode_AMOUNT"
                 />
 
             <LinearLayout
@@ -57,7 +57,7 @@
                     android:textSize="@dimen/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="New Amount"
+                    android:text="@string/item_combinegiftcode_NEWAMOUNT"
                     />
 
                 <TextView
@@ -70,7 +70,7 @@
                     android:textColor="@color/theme_primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="X"></TextView>
+                    android:text="@string/item_combinegiftcode_X"></TextView>
                 </LinearLayout>
 
 

@@ -19,7 +19,7 @@
             android:id="@+id/btnAddCombineGiftCode"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Add"
+            android:text="@string/fragment_combine_gc_ADD"
             android:textColor="@android:color/white"
             android:layout_gravity="center"
             android:gravity="center"
@@ -34,7 +34,7 @@
             android:fontFamily="sans-serif-condensed"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Combine"
+            android:text="@string/fragment_combine_gc_COMBINE"
             android:background="@color/theme_primary"
             android:layout_weight="1" />
 
@@ -60,7 +60,7 @@
                 android:textSize="@dimen/normal_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="GiftCode"
+                android:text="@string/fragment_combine_gc_GIFTCODE"
                 android:layout_weight="1" />
 
             <TextView
@@ -70,7 +70,7 @@
                 android:textSize="@dimen/normal_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Amount"
+                android:text="@string/fragment_combine_gc_AMT"
                 android:layout_weight="1"/>
 
         </LinearLayout>
@@ -84,7 +84,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter Mobile Details"
+            android:text="@string/fragment_combine_gc_ENTERMOBILEDETAILS"
             android:textSize="16sp"/>
 
 <LinearLayout

@@ -57,7 +57,7 @@
                     android:id="@+id/txt_MobileNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Title"
+                    android:text="@string/item_my_mobiletopup_list_TITLE"
                     android:layout_weight="1"
                     android:textSize="15sp"
                     />
@@ -74,7 +74,7 @@
                     android:id="@+id/txt_AmountIndolla"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Title"
+                    android:text="@string/item_my_mobiletopup_list_TITLE"
                     android:textSize="15sp"
                     />
                     </LinearLayout>
@@ -88,7 +88,7 @@
                     android:id="@+id/txt_rechardedate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Title"
+                    android:text="@string/item_my_mobiletopup_list_TITLE"
                     android:layout_weight="1"
                     android:textSize="15sp"
                     />

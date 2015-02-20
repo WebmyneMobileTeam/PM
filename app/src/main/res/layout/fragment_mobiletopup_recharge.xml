@@ -28,7 +28,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="RECHARGE"
+            android:text="@string/fragment_home_RECHARGE"
             android:background="@drawable/button_selector"
             android:layout_weight="1" />
 
@@ -60,7 +60,7 @@
 
     <TextView
         android:fontFamily="sans-serif-condensed"
-        android:text="Select Country"
+        android:text="@string/fragment_home_SELECTCOUNTRY"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000"
@@ -78,7 +78,7 @@
         <TextView
             android:fontFamily="sans-serif-condensed"
             android:layout_marginTop="8dp"
-            android:text="Service Provider"
+            android:text="@string/fragment_home_SERVICEPROVIDER"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000"
@@ -113,7 +113,7 @@
         <TextView
             android:fontFamily="sans-serif-condensed"
             android:layout_marginTop="8dp"
-            android:text="Select Recharge Amount"
+            android:text="@string/fragment_home_SELECTRECHARGEAMOUNT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000"
@@ -141,7 +141,7 @@
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="N/A"
+                android:text="@string/fragment_home_NA"
                 android:textColor="#fff"  />
 
             </LinearLayout>
@@ -159,7 +159,7 @@
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="N/A"
+                android:text="@string/fragment_home_NA"
                 android:textColor="#fff"  />
 
         </LinearLayout>

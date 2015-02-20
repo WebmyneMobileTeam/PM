@@ -23,7 +23,6 @@
             cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
             cube_ptr:ptr_resistance="1.7">
             <ListView
-
                 android:layout_marginTop="8dp"
                 android:id="@+id/listMobileTopup"
                 android:layout_width="match_parent"
@@ -52,7 +51,7 @@
         <TextView
             android:textColor="@android:color/black"
             android:textSize="@dimen/normal_text"
-            android:text="No MobileTopUP done"
+            android:text="@string/fragment_home_NOMOBILETOPUPDONE"
             android:fontFamily="sans-serif-condensed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

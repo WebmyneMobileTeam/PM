@@ -101,7 +101,7 @@
                             android:clickable="false"
                             android:id="@+id/txtTransfer"
                             android:layout_width="wrap_content"
-                            android:text="TRANSFER"
+                            android:text="@string/fragment_home_TRANSFER"
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
@@ -128,7 +128,7 @@
                             android:clickable="false"
                             android:id="@+id/txtTopup"
                             android:layout_width="wrap_content"
-                            android:text="TOPUP"
+                            android:text="@string/fragment_home_TOPUP"
                             android:layout_height="wrap_content" />
 
                 </LinearLayout>
@@ -157,7 +157,7 @@
                             android:clickable="false"
                             android:id="@+id/txtGenerate"
                             android:layout_width="wrap_content"
-                            android:text="GENERATE"
+                            android:text="@string/fragment_home_GENERATE"
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
@@ -188,7 +188,7 @@
                             android:clickable="false"
                             android:maxLines="2"
                             android:layout_width="wrap_content"
-                            android:text="OTHER\nSERVICES"
+                            android:text="@string/fragment_home_OTHERSERVICES"
                             android:layout_height="wrap_content" />
 
                  </LinearLayout>
@@ -291,19 +291,19 @@
         android:id="@+id/txtWallet"
         android:layout_width="wrap_content"
         android:layout_marginLeft="8dp"
-        android:text="WALLET"
+        android:text="@string/fragment_home_WALLET"
         android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/txtGC"
         android:layout_width="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="GIFT CODE"
+        android:text="@string/fragment_home_GIFTCODE"
         android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/txtCash"
         android:layout_width="wrap_content"
         android:layout_marginLeft="15dp"
-        android:text="CASH"
+        android:text="@string/fragment_home_CASH"
         android:layout_height="wrap_content" />
     </LinearLayout>
 

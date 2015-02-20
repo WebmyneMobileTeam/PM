@@ -28,7 +28,7 @@
                 android:id="@+id/btnResetGenerateGC"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="Reset"
+                android:text="@string/fragment_generate_gc_RESET"
                 android:background="@color/theme_primary"
                 android:layout_weight="1" />
 
@@ -39,7 +39,7 @@
                 android:id="@+id/btnGenerateGCGenerateGC"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="Check Price"
+                android:text="@string/fragment_generate_gc_CHECKPRICE"
                 android:background="@color/theme_primary"
                 android:layout_weight="1" />
 
@@ -63,7 +63,7 @@
 
                 <TextView
                     android:fontFamily="sans-serif-condensed"
-                    android:text="Receipient Contact"
+                    android:text="@string/fragment_generate_gc_RECIPIENTCONTACT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000"
@@ -82,7 +82,7 @@
                 <TextView
                     android:fontFamily="sans-serif-condensed"
                     android:layout_marginTop="8dp"
-                    android:text="Country"
+                    android:text="@string/fragment_generate_gc_COUNTRY"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000"
@@ -99,7 +99,7 @@
                 <TextView
                     android:fontFamily="sans-serif-condensed"
                     android:layout_marginTop="8dp"
-                    android:text="Mobile Number"
+                    android:text="@string/fragment_generate_gc_MOBILENUMBER"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000"
@@ -117,7 +117,7 @@
                         android:gravity="right|center_vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="000"
+                        android:text="@string/activity_new_generate_gc_ZERO1"
                         android:layout_weight="4" />
 
                     <EditText
@@ -137,7 +137,7 @@
                 <TextView
                     android:fontFamily="sans-serif-condensed"
                     android:layout_marginTop="8dp"
-                    android:text="Amount"
+                    android:text="@string/activity_new_generate_gc_AMOUNT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000"

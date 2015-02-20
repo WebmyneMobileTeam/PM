@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Merchant ID"
-                android:text="We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n"
+                android:text="@string/fragment_currency_covert_verification_WEHAVESENTYOUSMS"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:textColor="#000"
@@ -60,9 +60,7 @@
         android:textSize="18sp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
-
-
-        android:text="VERIFY">
+        android:text="@string/verify">
 
     </com.gc.materialdesign.views.ButtonRectangle>
 

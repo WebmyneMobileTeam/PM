@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:textColor="@android:color/black"
 
-            android:text="Gift Code"
+            android:text="@string/fragment_payment_services_GIFTCODE"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:textColor="@android:color/black"
 
-            android:text="Amount"
+            android:text="@string/fragment_payment_services_AMOUNT"
             android:layout_height="wrap_content" />
 
         </LinearLayout>

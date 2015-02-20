@@ -35,7 +35,7 @@
                     android:id="@+id/btnAddRecipient"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="NEXT"
+                    android:text="@string/activity_moneytransfer_recipients_NEXT"
                     android:textColor="#fff"
                     android:textSize="22sp"
                     android:background="@color/theme_primary"
@@ -118,7 +118,7 @@
                             android:spinnerMode="dialog"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="One"
+                            android:text="@string/activity_moneytransfer_final_ONE"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:id="@+id/spCountry"
@@ -128,7 +128,7 @@
                             android:spinnerMode="dialog"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="One"
+                            android:text="@string/activity_moneytransfer_final_ONE1"
                             android:id="@+id/spState"
                             android:layout_weight="1" />
 
@@ -139,7 +139,7 @@
                         android:id="@+id/spCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="One"
+                        android:text="@string/activity_moneytransfer_final_ONE11"
                         android:layout_weight="1" />
                     <EditText
                         android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
                         <TextView
                             android:layout_marginTop="10dp"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="Select Identity Proof Type"
+                            android:text="@string/activity_moneytransfer_final_SELECTIDPROOFTYPE"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
@@ -200,7 +200,7 @@
                             android:focusableInTouchMode="false"
                             android:background="@android:color/transparent"
                             android:id="@+id/edCountryCode"
-                            android:text="00"/>
+                            android:text="@string/activity_moneytransfer_final_ZERO"/>
                         <EditText android:layout_width="match_parent"
                             android:fontFamily="sans-serif-condensed"
                             android:layout_height="wrap_content"
