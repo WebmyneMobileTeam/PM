@@ -65,7 +65,7 @@ public class InvoiceRequestActivity extends ActionBarActivity {
         init();
                 /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
-            toolbar_actionbar.setTitle("Generated Invoice");
+            toolbar_actionbar.setTitle(getString(R.string.GENERATEDINVOICE));
             toolbar_actionbar.setNavigationIcon(R.drawable.icon_back);
             setSupportActionBar(toolbar_actionbar);
 
@@ -85,7 +85,7 @@ public class InvoiceRequestActivity extends ActionBarActivity {
                if(unclaimedGCDetail.isAbleToClaim==true) {
                    claimInvoice();
                } else {
-                   SimpleToast.error(InvoiceRequestActivity.this,"You are not able to claim this invoice");
+                   SimpleToast.error(InvoiceRequestActivity.this,getString(R.string.YOUARENOTABLETOCLAIMINVOICE));
                }
 
 

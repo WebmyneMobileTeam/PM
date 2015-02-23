@@ -210,7 +210,7 @@ public class FragmentMobileTopupRecharge extends Fragment {
             public void error(VolleyError error) {
 //            SnackBar bar = new SnackBar(getActivity(),"Server Error. Please Try Again");
 //            bar.show();
-                SimpleToast.error(getActivity(), "Server Error. Please Try Again");
+                SimpleToast.error(getActivity(), getResources().getString(R.string.SERVERERROR));
                 circleDialog.dismiss();
             }
         }.start();
@@ -239,9 +239,9 @@ public class FragmentMobileTopupRecharge extends Fragment {
     public void processRecharge(){
 
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-        alert.setTitle("Recharge");
-        alert.setMessage("Are sure to Continue ?");
-        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        alert.setTitle(getResources().getString(R.string.RECHARGE));
+        alert.setMessage(getResources().getString(R.string.AREUSURETOCONTOINUE));
+        alert.setPositiveButton(getResources().getString(R.string.YES), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -292,19 +292,19 @@ public class FragmentMobileTopupRecharge extends Fragment {
 
 //                                   SnackBar bar = new SnackBar(getActivity(),"Recharge Done");
 //                                   bar.show();
-                                    SimpleToast.ok(getActivity(), "Recharge Done");
+                                    SimpleToast.ok(getActivity(), getResources().getString(R.string.RECHRAGEDONE));
                                 }
 
                                 else {
                                     if(obj.getString("ResponseCode").equalsIgnoreCase("-2")) {
 //                                       SnackBar bar112 = new SnackBar(getActivity(), "Payment deduction Fail");
 //                                       bar112.show();
-                                        SimpleToast.error(getActivity(), "Payment deduction Fail");
+                                        SimpleToast.error(getActivity(), getResources().getString(R.string.PAYMENTDEDUCTIONFAIL));
                                     }
                                     else {
 //                                       SnackBar bar112 = new SnackBar(getActivity(), "Recharge Failed. Please Try again !!!");
 //                                       bar112.show();
-                                        SimpleToast.error(getActivity(), "Recharge Failed. Please Try again !!!");
+                                        SimpleToast.error(getActivity(), getResources().getString(R.string.RECHRGEFAILED));
                                     }
                                 }
 
@@ -325,7 +325,7 @@ public class FragmentMobileTopupRecharge extends Fragment {
 
                             circleDialog.dismiss();
                             Log.e("error response recharge2: ", error + "");
-                            SimpleToast.error(getActivity(), "Network Error. Please Try Again");
+                            SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragmentcashiin_NWERROR));
 //                           SnackBar bar = new SnackBar(getActivity(),"Network Error. Please Try Again");
 //                           bar.show();
 
@@ -343,7 +343,7 @@ public class FragmentMobileTopupRecharge extends Fragment {
             }
         });
 
-        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(getResources().getString(R.string.NO), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {

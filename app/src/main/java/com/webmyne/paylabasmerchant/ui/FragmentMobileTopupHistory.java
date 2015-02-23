@@ -134,7 +134,7 @@ public class FragmentMobileTopupHistory extends Fragment {
                 circleDialog.dismiss();
 //            SnackBar bar = new SnackBar(getActivity(), "Sync Error. Please Try again");
 //            bar.show();
-                SimpleToast.error(getActivity(),"Sync Error. Please Try again");
+                SimpleToast.error(getActivity(), getResources().getString(R.string.SYNCERROR));
             }
         }.start();
     }

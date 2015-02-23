@@ -33,7 +33,7 @@ public class CommissionClaimCategoryDetailActivity extends ActionBarActivity {
         toolbar_actionbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
                 /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
-            toolbar_actionbar.setTitle("Commission Clain");
+            toolbar_actionbar.setTitle(getString(R.string.code_commisionclaimactivity_TITLECOMISSIONCLIAM));
             toolbar_actionbar.setNavigationIcon(R.drawable.icon_back);
             setSupportActionBar(toolbar_actionbar);
 

@@ -81,7 +81,7 @@ public class MoneyTransferRecipientActivity extends ActionBarActivity {
         toolbar_actionbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
         /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
-            toolbar_actionbar.setTitle("MoneyTransfer");
+            toolbar_actionbar.setTitle(getString(R.string.MONEYTRANSFERTITLE));
             toolbar_actionbar.setNavigationIcon(R.drawable.icon_back);
             toolbar_actionbar.setBackgroundColor(getResources().getColor(R.color.theme_primary));
 
@@ -143,35 +143,35 @@ private void intView(){
         public void onClick(View v) {
 
             if (isEmptyField(edFirstname)) {
-                SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter First Name !!!");
+                SimpleToast.error(MoneyTransferRecipientActivity.this, getString(R.string.ENTERFIRSTNAME));
 
             } else if (isEmptyField(edLastname)) {
-                SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Last Name !!!");
+                SimpleToast.error(MoneyTransferRecipientActivity.this, getString(R.string.ENTERLASTNAEM));
             } else if (isEmptyField(edAddress)) {
-                SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Street Address !!!");
+                SimpleToast.error(MoneyTransferRecipientActivity.this, getString(R.string.ENTERADDRESS));
 
             } else if (isEmptyField(edZipcode)) {
-                SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Zipcode !!!");
+                SimpleToast.error(MoneyTransferRecipientActivity.this, getString(R.string.ENTERZIPCODE));
 
             } else if (!isZipcodeMatch(edZipcode)) {
-                SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Valid Zipcode !!!");
+                SimpleToast.error(MoneyTransferRecipientActivity.this, getString(R.string.ENTERVALIDZIPCODE));
 
 
             } else if (isMobileMatch(edMobileno)) {
-                SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Valid Mobile Number !!!");
+                SimpleToast.error(MoneyTransferRecipientActivity.this, getString(R.string.ENTERVALIDMOBILENO));
 
 
             }else if(InternationalNumberValidation.isPossibleNumber(edMobileno.getText().toString().toString(), countrylist.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Valid Mobile Number");
+                SimpleToast.error(MoneyTransferRecipientActivity.this, getString(R.string.ENTERVALIDMOBILENOO));
             }else if(InternationalNumberValidation.isValidNumber(edMobileno.getText().toString().toString(), countrylist.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Valid Mobile Number");
+                SimpleToast.error(MoneyTransferRecipientActivity.this, getString(R.string.ENTERVALIDMOBILENOO));
             } else if(getIntent().getExtras().get("ObjectValue").toString().equals("Sender")) {
                  if(user.tempPaymentVia.equals("Cash")){
                     if(!isIdentityProofLoad) {
-                        SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Select Identity Proof !!!");
+                        SimpleToast.error(MoneyTransferRecipientActivity.this, getString(R.string.SELECTIDENTITYPRROOF));
                     }
                     else if(edFormId.getText().length()==0){
-                        SimpleToast.error(MoneyTransferRecipientActivity.this, "Please Enter Proof Id!!!");
+                        SimpleToast.error(MoneyTransferRecipientActivity.this, getString(R.string.ENTERPROOFID));
                     }
                     else{
                         MoneyTransferFinalActivity.senObj = new Receipient();
@@ -300,14 +300,13 @@ private void intView(){
         else{
             linearSelectIdentity.setVisibility(View.GONE);
         }
-
         isIdentityProofLoad=false;
         identityProofTypesList=new ArrayList<String>();
-        identityProofTypesList.add("Select Id");
-        identityProofTypesList.add("National Id");
-        identityProofTypesList.add("Passport");
-        identityProofTypesList.add("Driving Licence");
-        identityProofTypesList.add("Social Security No");
+        identityProofTypesList.add(getString(R.string.SELECTID));
+        identityProofTypesList.add(getString(R.string.NATIONAID));
+        identityProofTypesList.add(getString(R.string.PASSPORT));
+        identityProofTypesList.add(getString(R.string.DRIVINGLICENSE));
+        identityProofTypesList.add(getString(R.string.SOCIALSECURITYNO));
         spIdentityProof.setAdapter(new ArrayAdapter<String>(MoneyTransferRecipientActivity.this,android.R.layout.simple_list_item_1,identityProofTypesList));
 
         fetchCountryAndDisplay();

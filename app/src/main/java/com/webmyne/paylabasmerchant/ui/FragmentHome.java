@@ -113,7 +113,7 @@ public class FragmentHome extends Fragment {
     boolean isok;
 
     final CharSequence[] items = {
-            "ELECTRICITY BILL", "GAS BILL"
+            getResources().getString(R.string.ELECTICITYBILL), getResources().getString(R.string.GASBILL)
     };
 
     private Boolean isGenerateGCActive,isMobileTopupActive;
@@ -155,7 +155,7 @@ public class FragmentHome extends Fragment {
     private void paymentTypeList() {
 
         paymentTypeList = new ArrayList<String>();
-        paymentTypeList.add("Select Payment Type");
+        paymentTypeList.add(getResources().getString(R.string.SELECTPAYMENTTYPE));
         paymentTypeList.add(AppConstants.wallet);
         paymentTypeList.add(AppConstants.gc);
         paymentTypeList.add(AppConstants.cash);
@@ -167,7 +167,7 @@ public class FragmentHome extends Fragment {
         affilateServicesArrayList = new ArrayList<AffilateServices>();
         affilateServicesArrayList = PrefUtils.getMerchant(getActivity()).affilateServicesArrayList;
         affilateServiceNames = new ArrayList<String>();
-        affilateServiceNames.add("Select Service Type");
+        affilateServiceNames.add(getResources().getString(R.string.SELECTSERVICETYPE));
 
         for (AffilateServices affilateServices : affilateServicesArrayList) {
             Log.e("service name",""+affilateServices.ServiceName);
@@ -204,9 +204,9 @@ public class FragmentHome extends Fragment {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_mobile_number));
 //                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_mobile_number), Toast.LENGTH_SHORT).show();
                 } else if(InternationalNumberValidation.isPossibleNumber(etMobileNumber.getText().toString().toString(), countries.get(spCountryCode.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.code_combinegcfragment_ERROENTERVALIDMONILENUMBER));
                 }else if(InternationalNumberValidation.isValidNumber(etMobileNumber.getText().toString().toString(), countries.get(spCountryCode.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.code_combinegcfragment_ERROENTERVALIDMONILENUMBER));
                 }else if (selectedPaymentType == -1) {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_payment_type_selection));
 //                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_payment_type_selection), Toast.LENGTH_SHORT).show();
@@ -423,7 +423,7 @@ public class FragmentHome extends Fragment {
         }
         PrefUtils.ClearLiveRate(getActivity());
         txtConvRate.setVisibility(View.GONE);
-        txtOther.setText("OTHER\nSERVICES");
+        txtOther.setText(getResources().getString(R.string.OTHERSERVICES));
         //getting the currency object
         String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
         txtCurrency.setText(LocalCurrency);
@@ -582,7 +582,7 @@ public class FragmentHome extends Fragment {
             txtGenerate.setVisibility(View.GONE);
         }
 
-        txtOther.setText("OTHER\nSERVICES");
+        txtOther.setText(getResources().getString(R.string.OTHERSERVICES));
         txtOther.setVisibility(View.VISIBLE);
     }
 
@@ -622,7 +622,7 @@ public class FragmentHome extends Fragment {
         public void onClick(View v) {
             
             if(selectedServiceType == -1){
-                Toast.makeText(getActivity(), "Select Service First", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getResources().getString(R.string.SELECTSERVICEFIIRST), Toast.LENGTH_SHORT).show();
             }else{
                 LinearLayout linearChild = (LinearLayout) v;
                 selectedPaymentType = linearPaymentType.indexOfChild(linearChild);
@@ -681,7 +681,7 @@ public class FragmentHome extends Fragment {
                 linearMobileHome.setVisibility(View.VISIBLE);
 
                 etAmount.setText("");
-                txtOther.setText("OTHER\nSERVICES");
+                txtOther.setText(getResources().getString(R.string.OTHERSERVICES));
                 gcLayout.setVisibility(View.GONE);
                 break;
 
@@ -700,7 +700,7 @@ public class FragmentHome extends Fragment {
                 linearMobileHome.setVisibility(View.VISIBLE);
 
                 etAmount.setText("");
-                txtOther.setText("OTHER\nSERVICES");
+                txtOther.setText(getResources().getString(R.string.OTHERSERVICES));
                 gcLayout.setVisibility(View.GONE);
                 break;
 
@@ -717,7 +717,7 @@ public class FragmentHome extends Fragment {
                 linearMobileHome.setVisibility(View.VISIBLE);
 
                 etAmount.setText("");
-                txtOther.setText("OTHER\nSERVICES");
+                txtOther.setText(getResources().getString(R.string.OTHERSERVICES));
                 gcLayout.setVisibility(View.GONE);
                 break;
 
@@ -725,7 +725,7 @@ public class FragmentHome extends Fragment {
                 //others
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Select Other Service");
+                builder.setTitle(getResources().getString(R.string.SELECTOTHERSERVICES));
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         // Do something with the selection
@@ -1144,7 +1144,7 @@ private void  showResenVerificationCodealertboc(){
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setView(promptsView);
 
-        alert.setNeutralButton("Resend",new DialogInterface.OnClickListener(){
+        alert.setNeutralButton(getResources().getString(R.string.RESEND),new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
                // showVerificationAlert();
@@ -1164,7 +1164,7 @@ private void showVerificationAlert() {
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setView(promptsView);
 
-        alert.setPositiveButton("VERIFY", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(getResources().getString(R.string.VERIFY), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -1184,7 +1184,7 @@ private void showVerificationAlert() {
             }
         });
 
-        alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(getResources().getString(R.string.code_fragmentcashout_CANCELBUTON), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -1269,12 +1269,12 @@ private void showVerificationAlert() {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m3));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m3), Toast.LENGTH_SHORT).show();
                 } else if (redeemGC.ResponseCode.equalsIgnoreCase("-4")) {
-                    Log.e("inside","-4");
+
                     SimpleToast.error(getActivity(), getResources().getString(R.string.RedeemGC1_m4));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
                 }
                 else if (redeemGC.ResponseCode.equalsIgnoreCase("-6")) {
-                    Log.e("inside","-6");
+
                     SimpleToast.error(getActivity(), redeemGC.ResponseMsg);
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
                 }else {

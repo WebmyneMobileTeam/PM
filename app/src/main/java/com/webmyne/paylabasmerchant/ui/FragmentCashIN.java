@@ -92,25 +92,25 @@ public class FragmentCashIN extends Fragment {
             public void onClick(View v) {
 
                 if(isEmptyField(edMobileNumber)){
-                   SimpleToast.error(getActivity(), "Please Enter Mobile Number");
+                   SimpleToast.error(getActivity(), getResources().getString(R.string.code_combinegcfragment_PLEASEENTERMOBILE));
                 }else if(InternationalNumberValidation.isPossibleNumber(edMobileNumber.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.code_combinegcfragment_ERROENTERVALIDMONILENUMBER));
                 }else if(InternationalNumberValidation.isValidNumber(edMobileNumber.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.code_combinegcfragment_ERROENTERVALIDMONILENUMBER));
                 } else   if(isEmptyField(edMobileNumberConfirm)){
-                    SimpleToast.error(getActivity(), "Please Enter Confirm Mobile Number");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragment_cashiin_ENTERCONIFRMMOBILBENO));
                 }else if(InternationalNumberValidation.isPossibleNumber(edMobileNumberConfirm.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                    SimpleToast.error(getActivity(), "Please Enter Valid Confirm Mobile Number");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragment_cashiin_ENTERVALIDCONIFRMMOBILBENO));
                 }else if(InternationalNumberValidation.isValidNumber(edMobileNumberConfirm.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                    SimpleToast.error(getActivity(), "Please Enter Valid Confirm Mobile Number");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragment_cashiin_ENTERVALIDCONIFRMMOBILBENO));
                 }else   if(!edMobileNumberConfirm.getText().toString().equalsIgnoreCase(edMobileNumber.getText().toString())){
-                    SimpleToast.error(getActivity(), "Please Enter Correct Confirm Mobile Number");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragment_cashiin_ENTERCORRECTCONIFRMMOBILBENO));
                 }
                 else if(isEmptyField(edCashInAmount)){
-                    SimpleToast.error(getActivity(), "Please Enter Cash In Amount");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragment_cashiin_ENTERCASHINAMOUNT));
                 }
                 else if(isEmptyField(edFormId)){
-                    SimpleToast.error(getActivity(), "Please Enter FormID");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragment_cashiin_ENTERFORMID));
                 }
 
                 else{
@@ -301,10 +301,10 @@ public class FragmentCashIN extends Fragment {
 
         identityProofTypesList=new ArrayList<String>();
 
-        identityProofTypesList.add("National Id");
-        identityProofTypesList.add("Passport");
-        identityProofTypesList.add("Driving Licence");
-        identityProofTypesList.add("Social Security No");
+        identityProofTypesList.add(getResources().getString(R.string.NATIONAID));
+        identityProofTypesList.add(getResources().getString(R.string.PASSPORT));
+        identityProofTypesList.add(getResources().getString(R.string.DRIVINGLICENSE));
+        identityProofTypesList.add(getResources().getString(R.string.SOCIALSECURITYNO));
         spIdentityProof.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,identityProofTypesList));
 
     }
@@ -352,18 +352,18 @@ private void processPay(){
                     try{
                         JSONObject obj = new JSONObject(response);
                         if(obj.getString("ResponseCode").equalsIgnoreCase("1")){
-                            SimpleToast.ok(getActivity(), "Cash In Done");
+                            SimpleToast.ok(getActivity(), getResources().getString(R.string.code_fragmentcashiin_CASHINDONE));
                             getActivity().finish();
                         }
                         else {
                             if(obj.getString("ResponseCode").equalsIgnoreCase("2")) {
-                                SimpleToast.error(getActivity(), "Invalid User Details !!!");
+                                SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragmentcashiin_INVALIDUSERDETAILS));
                             }
                             else if(obj.getString("ResponseCode").equalsIgnoreCase("4")) {
-                                SimpleToast.error(getActivity(), "Cash In Failed !!! Insufficient Balance");
+                                SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragmentcashiin_CASHINFAILED));
                             }
                             else {
-                            SimpleToast.error(getActivity(), "Cash In Failed. Please Try again !!!");
+                            SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragmentcashiin_CASHINFALIEDTRYAGAIN));
                             }
                         }
 
@@ -380,7 +380,7 @@ private void processPay(){
 
                     circleDialog.dismiss();
                     Log.e("error response cash in2: ", error + "");
-                    SimpleToast.error(getActivity(), "Network Error. Please Try Again");
+                    SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragmentcashiin_NWERROR));
                 }
             });
 

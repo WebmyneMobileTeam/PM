@@ -53,7 +53,7 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
         toolbar_actionbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
         /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
-            toolbar_actionbar.setTitle("Money Transfer");
+            toolbar_actionbar.setTitle(getString(R.string.MONEYTRANSFERTITLE));
             toolbar_actionbar.setNavigationIcon(R.drawable.icon_back);
             toolbar_actionbar.setBackgroundColor(getResources().getColor(R.color.theme_primary));
 
@@ -82,7 +82,7 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
         }
         else {
             Log.e("object", "object is null");
-            txtSelectRecipient.setText("Enter Recipient Details");
+            txtSelectRecipient.setText(getString(R.string.ENETERRECIPIENTSDETAILS));
         }
 
         if(senObj!=null){
@@ -91,7 +91,7 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
         }
         else {
             Log.e("object", "object is null");
-            txtSelectSender.setText("Enter Sender Details");
+            txtSelectSender.setText(getString(R.string.ENTERSENDERDETAILS));
         }
 
          user= PrefUtils.getMerchant(MoneyTransferFinalActivity.this);
@@ -169,10 +169,10 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
          public void onClick(View v) {
 
              if(recObj==null){
-                   SimpleToast.error(MoneyTransferFinalActivity.this, "Please Select Recipient First !!!");
+                   SimpleToast.error(MoneyTransferFinalActivity.this, getString(R.string.PLEASESELECTRECIPIENTFIRST));
              }
              else if(senObj == null){
-                 SimpleToast.error(MoneyTransferFinalActivity.this, "Please Select Sender First !!!");
+                 SimpleToast.error(MoneyTransferFinalActivity.this, getString(R.string.PLZSELECTSENDERFIRST));
              }
              else {
                 processMoney();
@@ -281,14 +281,14 @@ private void processMoney(){
 
                     JSONObject obj = new JSONObject(response);
                     if(obj.getString("ResponseCode").equalsIgnoreCase("1")){
-                        SimpleToast.ok(MoneyTransferFinalActivity.this, "MoneyTransfer Done");
+                        SimpleToast.ok(MoneyTransferFinalActivity.this, getString(R.string.MONEYTRANSFERDOEN));
                         recObj=null;
                         senObj=null;
 
                     }
 
                     else {
-                        SimpleToast.error(MoneyTransferFinalActivity.this, "MoneyTransfer Fail, Your Money is refunded !!!");
+                        SimpleToast.error(MoneyTransferFinalActivity.this, getString(R.string.MONEYTRANSFERFAIL));
                         recObj=null;
                         senObj=null;
                     }

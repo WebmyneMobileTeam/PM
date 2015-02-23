@@ -118,7 +118,7 @@ public class FragmentGCCoverter extends Fragment {
 
                      if(edUserMobile.getText().toString().trim().length()==0 ){
                         edEnterGiftCode.setText("");
-                        edUserMobile.setError("Please Enter Mobile");
+                        edUserMobile.setError(getResources().getString(R.string.code_combinegcfragment_PLEASEENTERMOBILE));
                         edUserMobile.requestFocus();
                     }else {
                         processFetchValue(edEnterGiftCode.getText().toString());
@@ -153,9 +153,9 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
     public void onClick(View v) {
         Log.e("on btn","click");
        if(InternationalNumberValidation.isPossibleNumber(edUserMobile.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-            SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+            SimpleToast.error(getActivity(),getResources().getString(R.string.code_combinegcfragment_ERROENTERVALIDMONILENUMBER));
         }else if(InternationalNumberValidation.isValidNumber(edUserMobile.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-            SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+            SimpleToast.error(getActivity(), getResources().getString(R.string.code_combinegcfragment_ERROENTERVALIDMONILENUMBER));
         } else {
            processCombine();
        }
@@ -222,7 +222,7 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
                                 if (jobj.getString("ResponseCode").equalsIgnoreCase("1")) {
 //                                    SnackBar bar = new SnackBar(getActivity(), "Gift Code Combined");
 //                                    bar.show();
-                                    SimpleToast.ok(getActivity(),"Gift Code Converted");
+                                    SimpleToast.ok(getActivity(), getResources().getString(R.string.fragmentgcconverter_GIFTCODECONVERTED));
                                     clearAll();
 
                                     getActivity().finish();
@@ -275,7 +275,7 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
 
         boolean isPassed = false;
             if (edEnterGiftCode.getText().toString().equalsIgnoreCase("")) {
-                edEnterGiftCode.setError("Enter GC");
+                edEnterGiftCode.setError(getResources().getString(R.string.fragmentgcconverter_ENTERGC));
                 isPassed = false;
                 return isPassed;
 
@@ -285,7 +285,7 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
                     isPassed = true;
 
                 } else {
-                    edEnterGiftCode.setError("Enter Valid GC");
+                    edEnterGiftCode.setError(getResources().getString(R.string.fragmentgcconverter_ENTERVALIDGC));
                     isPassed = false;
                     return isPassed;
                 }
@@ -297,7 +297,7 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
 
     private void clearAll() {
     edEnterGiftCode.setText("");
-        FinalPrice.setText("Amount");
+        FinalPrice.setText(getResources().getString(R.string.fragmentgcconverter_AMOUNT));
 
     }
 
@@ -319,7 +319,7 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
                 }.getType();
                 countryList = new GsonBuilder().create().fromJson(response, listType);
                 GCCountry newobj =  new GCCountry();
-                newobj.CountryName="Select Country";
+                newobj.CountryName=getResources().getString(R.string.fragmentgcconverter_SELECTCOUNTRY);
                 countryList.add(0,newobj);
                 for (int i = 0; i < countryList.size(); i++) {
                     Log.e("", countryList.get(i).CountryName + "");

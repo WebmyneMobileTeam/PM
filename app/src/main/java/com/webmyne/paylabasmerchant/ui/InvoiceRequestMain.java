@@ -32,7 +32,7 @@ public class InvoiceRequestMain extends ActionBarActivity implements View.OnClic
         txtClashClaim.setOnClickListener(this);
         /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
-            toolbar_actionbar.setTitle("Invoice Request");
+            toolbar_actionbar.setTitle(getString(R.string.INVOICEREQUEST));
             toolbar_actionbar.setNavigationIcon(R.drawable.icon_back);
             setSupportActionBar(toolbar_actionbar);
 

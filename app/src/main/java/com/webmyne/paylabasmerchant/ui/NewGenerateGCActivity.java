@@ -245,7 +245,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
         /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
-            toolbar_actionbar.setTitle("GENERATE GC");
+            toolbar_actionbar.setTitle(getString(R.string.GENERATEGCTITLE));
             toolbar_actionbar.setNavigationIcon(R.drawable.icon_back);
             setSupportActionBar(toolbar_actionbar);
 
@@ -377,9 +377,9 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
                 }else{
                     if(InternationalNumberValidation.isPossibleNumber(edMobileNumberGenerateGC.getText().toString().toString(), arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                        SimpleToast.error(NewGenerateGCActivity.this,"Enter valid number");
+                        SimpleToast.error(NewGenerateGCActivity.this,getString(R.string.ENTERVALIDNO));
                     }else if(InternationalNumberValidation.isValidNumber(edMobileNumberGenerateGC.getText().toString().toString(), arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                        SimpleToast.error(NewGenerateGCActivity.this, "Please Enter Valid Mobile Number");
+                        SimpleToast.error(NewGenerateGCActivity.this, getString(R.string.ENTERVVALIDNOO));
                     } else {
                         checkProcess();
                     }
@@ -511,7 +511,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         }else if(value>user_value*Double.parseDouble(LiveRate)){
 
             isComplete = false;
-            edAmountGenerateGC.setError("Insufficient balance");
+            edAmountGenerateGC.setError(getString(R.string.INSUFFICICENTBALANCE));
 
         }else{
             isComplete = true;
@@ -525,8 +525,8 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
         mainLinear.setVisibility(View.VISIBLE);
         viewService.setVisibility(View.GONE);
-        btnResetGenerateGC.setText("Reset");
-        btnGenerateGCGenerateGC.setText("Check Price");
+        btnResetGenerateGC.setText(getString(R.string.RESET));
+        btnGenerateGCGenerateGC.setText(getString(R.string.CHECKPRICE));
         refreshBalance();
     }
 
@@ -571,8 +571,8 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
         mainLinear.setVisibility(View.GONE);
         viewService.setVisibility(View.VISIBLE);
-        btnResetGenerateGC.setText("Back");
-        btnGenerateGCGenerateGC.setText("Generate GC");
+        btnResetGenerateGC.setText(getString(R.string.BACK));
+        btnGenerateGCGenerateGC.setText(getString(R.string.GENERATEGC));
 
         TextView txtMobileGenerateGCService = (TextView)viewService.findViewById(R.id.txtMobileGenerateGCService);
         TextView txtAmountGenerateGCService = (TextView)viewService.findViewById(R.id.txtAmountGenerateGCService);
@@ -702,7 +702,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
                             //TODO
 //                            SnackBar bar = new SnackBar(getActivity(),"Gift code generated Successfully");
 //                            bar.show();
-                            SimpleToast.ok(NewGenerateGCActivity.this,"Gift code generated Successfully");
+                            SimpleToast.ok(NewGenerateGCActivity.this,getString(R.string.GIFTCODEGENERATEDSUCCESS));
 //                            processCheckMobileExists();
                             //resetAll();
 //                            FragmentManager manager = getActivity().getSupportFragmentManager();
@@ -730,20 +730,20 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
                             String errorMSG = "";
                             if(responsecode.equalsIgnoreCase("-2")){
-                                errorMSG = "Error In While Generating GiftCode";
+                                errorMSG = getString(R.string.ERRORINGERNERATING);
                             }else if(responsecode.equalsIgnoreCase("-1")){
-                                errorMSG = "Error";
+                                errorMSG = getString(R.string.ERRORS);
                             }else if(responsecode.equalsIgnoreCase("2")){
                                 processCheckMobileExists();
-                                errorMSG = "You cannot send money to yourself";
+                                errorMSG = getString(R.string.YOUCANNOTSENDMONEYYOUSELF);
                             }else if(responsecode.equalsIgnoreCase("3")){
-                                errorMSG = "User will blocked for next 24 hours";
+                                errorMSG = getString(R.string.USERWILLBLOCK);
                             }else if(responsecode.equalsIgnoreCase("4")){
-                                errorMSG = "User Deleted";
+                                errorMSG = getString(R.string.USERDELEETD);
                             }else if(responsecode.equalsIgnoreCase("5")){
-                                errorMSG = "User is not verified";
+                                errorMSG = getString(R.string.USERISNOTVERIFIED);
                             }else{
-                                errorMSG = "Network Error\nPlease try again";
+                                errorMSG = getString(R.string.NWERR);
                             }
 //                            SnackBar bar = new SnackBar(getActivity(),errorMSG);
 //                            bar.show();
@@ -767,7 +767,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
 //                    SnackBar bar = new SnackBar(getActivity(),"Network Error");
 //                    bar.show();
-                    SimpleToast.error(NewGenerateGCActivity.this,"Network Error");
+                    SimpleToast.error(NewGenerateGCActivity.this,getString(R.string.NWWNE));
 
 
                 }
@@ -791,9 +791,9 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
 
             AlertDialog.Builder alert = new AlertDialog.Builder(NewGenerateGCActivity.this);
-            alert.setTitle("Add Recipient");
-            alert.setMessage("Would you like to add this contact as your Recipient ?");
-            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            alert.setTitle(getString(R.string.ADDRECIPIENT));
+            alert.setMessage(getString(R.string.WOULDYOULIKETOADD));
+            alert.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

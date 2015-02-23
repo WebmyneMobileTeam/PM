@@ -86,7 +86,7 @@ public class MyDrawerActivity extends BaseActivity{
         setContentView(R.layout.activity_browse_sessions);
 
         toolbar = getActionBarToolbar();
-        toolbar.setTitle("Merchant");
+        toolbar.setTitle(getString(R.string.MERCHENT));
 
         Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,

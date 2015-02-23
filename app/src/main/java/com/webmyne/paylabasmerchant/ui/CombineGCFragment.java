@@ -282,7 +282,7 @@ private void fetchCountries(){
                     TextView txtNewAmountGCCombineGC = (TextView) first.findViewById(R.id.txtNewAmountGCCombineGC);
                     if(edUserMobile.getText().toString().trim().length()==0){
                         edEnterGiftCode.setText("");
-                        edUserMobile.setError("Please Enter Mobile");
+                        edUserMobile.setError(getResources().getString(R.string.code_combinegcfragment_PLEASEENTERMOBILE));
                         edUserMobile.requestFocus();
                     }else {
                         processFetchValue(edEnterGiftCode.getText().toString(), ed, edEnterGiftCode, txtNewAmountGCCombineGC);
@@ -408,9 +408,9 @@ private void fetchCountries(){
                 break;
             case R.id.btnCombineGcCombineGc:
                 if(InternationalNumberValidation.isPossibleNumber(edUserMobile.getText().toString().toString(), countryList.get(spGCCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                SimpleToast.error(getActivity(), getResources().getString(R.string.code_combinegcfragment_ERRORENTERMOBILENO));
             }else if(InternationalNumberValidation.isValidNumber(edUserMobile.getText().toString().toString(), countryList.get(spGCCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                SimpleToast.error(getActivity(), getResources().getString(R.string.code_combinegcfragment_ERROENTERVALIDMONILENUMBER));
             } else {
                     processCombine();
                 }
@@ -470,7 +470,7 @@ private void fetchCountries(){
                                 if (jobj.getString("ResponseCode").equalsIgnoreCase("1")) {
 //                                    SnackBar bar = new SnackBar(getActivity(), "Gift Code Combined");
 //                                    bar.show();
-                                    SimpleToast.ok(getActivity(),"Gift Code Combined");
+                                    SimpleToast.ok(getActivity(), getResources().getString(R.string.code_combinegcfragment_GIFTCODECOMBINED));
                                     clearAll();
 
                                     getActivity().finish();
@@ -531,7 +531,7 @@ private void fetchCountries(){
             gcs.add(ed.getText().toString());
 
             if (ed.getText().toString().equalsIgnoreCase("")) {
-                ed.setError("Enter GC");
+                ed.setError(getResources().getString(R.string.code_combinegcfragment_ENTERGC));
                 isPassed = false;
                 return isPassed;
 
@@ -539,7 +539,7 @@ private void fetchCountries(){
 
 //                SnackBar bar = new SnackBar(getActivity(), "Can not combine same gift codes");
 //                bar.show();
-                SimpleToast.error(getActivity(),"Can not combine same gift codes");
+                SimpleToast.error(getActivity(), getResources().getString(R.string.code_combinegcfragment_CANNOTCOMBINESAMEGIFTCODES));
                 isPassed = false;
                 return isPassed;
 
@@ -550,7 +550,7 @@ private void fetchCountries(){
                     continue;
 
                 } else {
-                    ed.setError("Enter Valid GC");
+                    ed.setError(getResources().getString(R.string.code_combinegcfragment_ENTERVALIDGC));
                     isPassed = false;
                     return isPassed;
                 }

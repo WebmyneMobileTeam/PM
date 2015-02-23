@@ -160,7 +160,7 @@ public class LoginActivity extends ActionBarActivity {
         if(languageType.equalsIgnoreCase("en")){
             alert.setMessage("Are you sure, you want to change language to English");
         } else {
-            alert.setMessage("Are you sure, yo want to change language to French");
+            alert.setMessage("Are you sure, you want to change language to French");
         }
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
@@ -283,7 +283,7 @@ public class LoginActivity extends ActionBarActivity {
                     } else {
 //                    SimpleToast.error(LoginActivity.this, getString(R.string.network_error_message) +"Please try again");
                     // Toast.makeText(LoginActivity.this,"Network Error\n" +"Please try again",Toast.LENGTH_SHORT).show();
-                    SimpleToast.error(LoginActivity.this, "Invalid Mobile No or Password !!!");
+                    SimpleToast.error(LoginActivity.this, getString(R.string.INVALIDMOBILEORPASSWORD));
 //                    Toast.makeText(LoginActivity.this,"Network Error\n" +"Please try again",Toast.LENGTH_SHORT).show();
                     }
             }
@@ -313,16 +313,16 @@ public class LoginActivity extends ActionBarActivity {
                     Log.e("GCM ID :", regid);
                     if(regid==null || regid==""){
                         AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
-                        alert.setTitle("Error");
-                        alert.setMessage("Internal Server Error");
-                        alert.setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
+                        alert.setTitle(getString(R.string.ERROR));
+                        alert.setMessage(getString(R.string.INTERNALSERVERERROR));
+                        alert.setPositiveButton(getString(R.string.TRYAGIN), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 getRegId();
                                 dialog.dismiss();
                             }
                         });
-                        alert.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                        alert.setNegativeButton(getString(R.string.EXIT), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();

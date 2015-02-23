@@ -83,9 +83,9 @@ public class FragmentCashOUT extends Fragment {
                 if(isEmptyField(edMobileNumber)){
                    SimpleToast.error(getActivity(), getResources().getString(R.string.err_mobile));
                 }else if(InternationalNumberValidation.isPossibleNumber(edMobileNumber.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                    SimpleToast.error(getActivity(),getResources().getString(R.string.code_combinegcfragment_ERRORENTERMOBILENO));
                 }else if(InternationalNumberValidation.isValidNumber(edMobileNumber.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
-                    SimpleToast.error(getActivity(), "Please Enter Valid Mobile Number");
+                    SimpleToast.error(getActivity(),getResources().getString(R.string.code_combinegcfragment_ERRORENTERMOBILENO));
                 }
                 else if(isEmptyField(edCashoutAmount)){
                     SimpleToast.error(getActivity(), getResources().getString(R.string.err_entercashout));
@@ -122,10 +122,10 @@ public class FragmentCashOUT extends Fragment {
         getLiveCurrencyRate();
         setCountryCode();
         identityProofTypesList=new ArrayList<String>();
-        identityProofTypesList.add("National Id");
-        identityProofTypesList.add("Passport");
-        identityProofTypesList.add("Driving Licence");
-        identityProofTypesList.add("Social Security No");
+        identityProofTypesList.add(getResources().getString(R.string.NATIONAID));
+        identityProofTypesList.add(getResources().getString(R.string.PASSPORT));
+        identityProofTypesList.add(getResources().getString(R.string.DRIVINGLICENSE));
+        identityProofTypesList.add(getResources().getString(R.string.SOCIALSECURITYNO));
         spIdentityProof.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,identityProofTypesList));
     }
 
@@ -354,7 +354,7 @@ private void showVerificationAlert() {
             }
         });
 
-        alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(getResources().getString(R.string.code_fragmentcashout_CANCELBUTON), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -200,15 +200,15 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         public void onClick(View v) {
 
             if(!isCityLoad && spinner_city.getSelectedItemPosition()==0&& spinner_country.getSelectedItemPosition()==0) {
-                SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select City and State !!!");
+                SimpleToast.error(MoneyTransferHomeActivity.this, getString(R.string.SELECTCITYANDSTATE));
 
             }
             else if(!isCountryLoad){
-                SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select Country !!!");
+                SimpleToast.error(MoneyTransferHomeActivity.this, getString(R.string.SELECTCOUNTRY));
 
             }
             else if(!isCityLoad){
-                SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select City !!!");
+                SimpleToast.error(MoneyTransferHomeActivity.this, getString(R.string.SELECTCITY));
             }
            /* else if(edAmountTransfer.getText().length()==0){
                 SimpleToast.error(MoneyTransferHomeActivity.this, "Please enter amount for money transfer !!!");
@@ -237,11 +237,11 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
             }
             else if(!isCountryLoad)
             {
-                SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select Country !!!");
+                SimpleToast.error(MoneyTransferHomeActivity.this, getString(R.string.SELECTCOUNTRY));
 
             }
             else if(!isCityLoad){
-                    SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select City !!!");
+                    SimpleToast.error(MoneyTransferHomeActivity.this, getString(R.string.SELECTCITY));
                 }
                 /*else if(edAmountTransfer.getText().length()==0){
                     SimpleToast.error(MoneyTransferHomeActivity.this, "Please enter amount for money transfer !!!");
@@ -252,7 +252,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
                 edAmountTransfer.setError("Minimum Amount is € 10 For This Service");
             }*/
             else if(!isBankLoad){
-                SimpleToast.error(MoneyTransferHomeActivity.this, "Please Select Bank !!!");
+                SimpleToast.error(MoneyTransferHomeActivity.this, getString(R.string.SELECTBANK));
             }
 
 
@@ -302,7 +302,7 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
                     try {
 
                         final Dialog dialog = new Dialog(MoneyTransferHomeActivity.this,android.R.style.Theme_Black_NoTitleBar);
-                        dialog.setTitle("SELECT PICKUP POINT");
+                        dialog.setTitle(getString(R.string.SELECTPICKUPPOINT));
                         dialog.setCancelable(true);
 
                         obj =  new GsonBuilder().create().fromJson(response.toString(),MONEYPOLO_BANK.class);
@@ -445,7 +445,7 @@ if(bankID!=0) {
 
                         cities = obj.CityList;
                         CITY_LIST c1 = new CITY_LIST();
-                        c1.Description = "From City";
+                        c1.Description = getString(R.string.FROMCITY);
                         cities.add(0,c1);
 
                         MobileCityAdapter adapter = new MobileCityAdapter(MoneyTransferHomeActivity.this,
@@ -507,7 +507,7 @@ if(bankID!=0) {
                         countries =  new GsonBuilder().create().fromJson(jArray.toString(),listType);
 
                         MONEYPOLO_COUNTRY c1 = new MONEYPOLO_COUNTRY();
-                        c1.CountryCodeName = "From Country";
+                        c1.CountryCodeName = getString(R.string.FROMCOUNTRY);
                         countries.add(0,c1);
 
                         MobileCountryAdapter adapter = new MobileCountryAdapter(MoneyTransferHomeActivity.this,
