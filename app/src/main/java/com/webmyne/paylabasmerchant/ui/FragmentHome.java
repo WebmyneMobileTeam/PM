@@ -112,8 +112,12 @@ public class FragmentHome extends Fragment {
 
     boolean isok;
 
-    final CharSequence[] items = {
+   /* final CharSequence[] items = {
             getResources().getString(R.string.ELECTICITYBILL), getResources().getString(R.string.GASBILL)
+    };*/
+
+    final CharSequence[] items = {
+            "ELECTRICITY BILL", "GAS BILL"
     };
 
     private Boolean isGenerateGCActive,isMobileTopupActive;
