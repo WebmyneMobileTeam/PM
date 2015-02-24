@@ -59,6 +59,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -68,6 +69,7 @@ import android.widget.Toast;
 
 import com.webmyne.paylabasmerchant.Config;
 import com.webmyne.paylabasmerchant.R;
+import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.ui.widget.MultiSwipeRefreshLayout;
 import com.webmyne.paylabasmerchant.ui.widget.ScrimInsetsScrollView;
 import com.webmyne.paylabasmerchant.util.LUtils;
@@ -550,6 +552,19 @@ public abstract class BaseActivity extends ActionBarActivity implements
 
                 intent = new Intent(this, InvoiceRequestMain.class);
                 startActivity(intent);
+
+                break;
+            case NAVDRAWER_ITEM_LOGOUT:
+
+                AffilateUser affilateUser = PrefUtils.getMerchant(BaseActivity.this);
+                PrefUtils.setVerified(BaseActivity.this, false);
+                PrefUtils.setLoggedIn(BaseActivity.this, false);
+
+              /*  SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
+                preferences.edit().remove("isUserLogin").commit();
+             */   Intent in = new Intent(BaseActivity.this, LoginActivity.class);
+                startActivity(in);
+                finish();
 
                 break;
 
