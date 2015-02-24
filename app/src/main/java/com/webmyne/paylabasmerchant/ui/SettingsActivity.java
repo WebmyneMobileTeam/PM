@@ -2,6 +2,7 @@ package com.webmyne.paylabasmerchant.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -51,6 +52,8 @@ public class SettingsActivity extends ActionBarActivity {
         toolbar_actionbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, MyDrawerActivity.class);
+                startActivity(intent);
              finish();
             }
         });

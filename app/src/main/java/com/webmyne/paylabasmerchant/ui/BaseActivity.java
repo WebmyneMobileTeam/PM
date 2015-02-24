@@ -546,6 +546,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
 
                 intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
+                finish();
                 break;
 
             case NAVDRAWER_ITEM_INVOICE:
