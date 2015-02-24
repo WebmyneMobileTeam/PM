@@ -317,4 +317,5 @@
     <string name="WOULDYOULIKETOADD">Would you like to add this contact as your Recipient ?</string>
     <string name="OK">OK</string>
     <string name="code_TITLESETTINGS">Settings</string>
+    <string name="xml_CHANGELANG">Change Language</string>
 </resources>

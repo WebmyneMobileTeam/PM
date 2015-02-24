@@ -1,8 +1,13 @@
 package com.webmyne.paylabasmerchant.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +17,9 @@ import android.widget.TextView;
 
 import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.util.AppUtils;
+import com.webmyne.paylabasmerchant.util.PrefUtils;
+
+import java.util.Locale;
 
 
 public class SettingsActivity extends ActionBarActivity {
@@ -23,6 +31,7 @@ public class SettingsActivity extends ActionBarActivity {
     FrameLayout frame_container;
     TextView txtchangelanguagae;
     ImageView imgUS,imgFrance;
+   boolean isEnglisSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +74,164 @@ public class SettingsActivity extends ActionBarActivity {
         imgUS= (ImageView)findViewById(R.id.imgUS);
         imgFrance= (ImageView)findViewById(R.id.imgFrance);
 
+        imgUS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                isEnglisSelected= PrefUtils.isEnglishSelected(SettingsActivity.this);
+                if(isEnglisSelected){
+                    showLanguageAlert("en");
+                }
+
+            }
+        });
+
+        imgFrance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                isEnglisSelected= PrefUtils.isEnglishSelected(SettingsActivity.this);
+                if(!isEnglisSelected){
+                    showLanguageAlert("fr");
+                }
+
+            }
+        });
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLanguage();
+        imgUS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                isEnglisSelected= PrefUtils.isEnglishSelected(SettingsActivity.this);
+                if(isEnglisSelected){
+                    showLanguageAlert("en");
+                }
+
+            }
+        });
+
+        imgFrance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                isEnglisSelected= PrefUtils.isEnglishSelected(SettingsActivity.this);
+                if(!isEnglisSelected){
+                    showLanguageAlert("fr");
+                }
+
+            }
+        });
+    }
+
+    private void setLanguage() {
+
+        isEnglisSelected= PrefUtils.isEnglishSelected(SettingsActivity.this);
+        if(PrefUtils.isEnglishSelected(SettingsActivity.this)){
+            imgUS.setColorFilter(Color.argb(128, 0, 0, 0));
+            Configuration config = new Configuration();
+            config.locale = Locale.FRANCE;
+            getResources().updateConfiguration(config, null);
+           /* etMerchantId.setHint("Merchant ID");
+            etSecretId.setHint("Password");
+            btnLoginNext.setText("NEXT");*/
+            txtchangelanguagae.setText("Changer de langue");
+
+        } else {
+            imgFrance.setColorFilter(Color.argb(128, 0, 0, 0));
+            Configuration config = new Configuration();
+            config.locale = Locale.ENGLISH;
+            getResources().updateConfiguration(config, null);
+            /*etMerchantId.setHint("Merchant ID");
+            etSecretId.setHint("Password");
+            btnLoginNext.setText("NEXT");*/
+
+            txtchangelanguagae.setText("Change Language");
+
+
+        }
+
+
+       /* if(isLoggedIn(LoginActivity.this)){
+            Intent intent =new Intent(LoginActivity.this,VerificationActivity.class);
+            startActivity(intent);
+            finish();
+        }*/
+    }
+
+    private void showLanguageAlert(final String languageType){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Change Language");
+        if(languageType.equalsIgnoreCase("en")){
+            alert.setMessage("Are you sure, you want to change language to English");
+        } else {
+            alert.setMessage("Are you sure, yo want to change language to French");
+        }
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                if(languageType.equalsIgnoreCase("en")){
+
+                    PrefUtils.setEnglishSelected(SettingsActivity.this, false);
+                    imgUS.clearColorFilter();
+                    imgFrance.setColorFilter(Color.argb(128, 0, 0, 0));
+
+
+                } else {
+                    PrefUtils.setEnglishSelected(SettingsActivity.this,true);
+                    imgFrance.clearColorFilter();
+                    imgUS.setColorFilter(Color.argb(128, 0, 0, 0));
+
+
+                }
+                changeLanguage(languageType);
+                dialog.dismiss();
+
+            }
+        });
+
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
+
+    }
+
+    private void changeLanguage(String languageType){
+
+        if(languageType.equalsIgnoreCase("en")){
+            Log.e("eng", "eng");
+            Configuration config = new Configuration();
+            config.locale = Locale.ENGLISH;
+            getResources().updateConfiguration(config, null);
+
+            txtchangelanguagae.setText("Change Language");
+
+        } else {
+            Log.e("french","french");
+            Configuration config = new Configuration();
+            config.locale = Locale.FRANCE;
+            getResources().updateConfiguration(config, null);
+
+            txtchangelanguagae.setText("Changer de langue");
+        }
+
+    }
+    
+    
+    //end of main classs
 }

@@ -52,8 +52,8 @@
     <!-- Payment -->
     <string name="payment_hint_mobile">Mobile</string>
     <string name="payment_hint_gc">Gift Code</string>
-    <string name="payment_next">NEXT</string>
-    <string name="payment_reset">RESET</string>
+    <string name="payment_next">SUIVANT</string>
+    <string name="payment_reset">RAZ</string>
     <string name="payment_type_header">Select Payment Type</string>
     <string name="verification_code_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n</string>
     <string name="verification_resend_code_message">OTP is Expired or Invalid\n\n Do you want to resend OTP once agin?</string>
@@ -316,4 +316,5 @@
     <string name="ADDRECIPIENT">Add Recipient</string>
     <string name="WOULDYOULIKETOADD">Would you like to add this contact as your Recipient ?</string>
     <string name="OK">OK</string>
+    <string name="xml_CHANGELANG">Changer de langue</string>
 </resources>
