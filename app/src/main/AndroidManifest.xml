@@ -84,6 +84,10 @@
             android:name=".ui.MoneyTransferRecipientActivity"
             android:label="@string/title_activity_money" >
         </activity>
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:label="@string/code_TITLESETTINGS" >
+        </activity>
 
         <activity
             android:name=".ui.NewGenerateGCActivity"

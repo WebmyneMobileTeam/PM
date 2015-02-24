@@ -30,9 +30,9 @@
     <string name="verify_message">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n</string>
 
     <!-- CashInOut -->
-    <string name="cashinout_title">Cash IN/OUT</string>
-    <string name="cashinout_tabstrip1">CASH IN</string>
-    <string name="cashinout_tabstrip2">CASH OUT</string>
+    <string name="cashinout_title">fCash IN/OUT</string>
+    <string name="cashinout_tabstrip1">fCASH IN</string>
+    <string name="cashinout_tabstrip2">fCASH OUT</string>
 
     <!-- Mobile Topup -->
     <string name="money_transfer_title">Money Transfer</string>
@@ -316,5 +316,4 @@
     <string name="ADDRECIPIENT">Add Recipient</string>
     <string name="WOULDYOULIKETOADD">Would you like to add this contact as your Recipient ?</string>
     <string name="OK">OK</string>
-    <string name="code_TITLESETTINGS">Settings</string>
 </resources>

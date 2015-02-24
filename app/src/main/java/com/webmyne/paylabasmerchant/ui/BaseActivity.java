@@ -542,8 +542,8 @@ public abstract class BaseActivity extends ActionBarActivity implements
                 break;
             case NAVDRAWER_ITEM_SETTINGS:
 
-//                intent = new Intent(this, SettingsActivity.class);
-//                startActivity(intent);
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 break;
 
             case NAVDRAWER_ITEM_INVOICE:

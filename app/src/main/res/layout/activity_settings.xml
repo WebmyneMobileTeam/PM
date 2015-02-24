@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EAEAEA"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.webmyne.paylabasmerchant.ui.ToolsActivity">
+    <LinearLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+    <LinearLayout style="@style/HeaderBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <include layout="@layout/toolbar_actionbar" />
+
+        </LinearLayout>
+<TextView
+    android:id="@+id/txtchangelanguagae"
+    android:layout_marginTop="20dp"
+    android:textStyle="bold"
+    android:textSize="22sp"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Change Language"/>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imgUS"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_united_states"/>
+            <ImageView
+                android:id="@+id/imgFrance"
+                android:layout_marginLeft="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_france"/>
+        </LinearLayout>
+
+</LinearLayout>
+
+
+
+</RelativeLayout>
