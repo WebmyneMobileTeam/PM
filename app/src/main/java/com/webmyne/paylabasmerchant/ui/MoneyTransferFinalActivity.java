@@ -25,6 +25,7 @@ import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.model.Receipient;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
+import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 
 import org.json.JSONObject;
@@ -118,19 +119,19 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
 
       //  FinalPayableAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.Amount)+FinalFeesAmount;
 
-         FinalPayableAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt);
+        FinalPayableAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt);
 
-        txtSendAmount.setText("€ "+String.valueOf(MoneyTransferHomeActivity.bankobj.Amount));
+        txtSendAmount.setText("€ "+ LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.Amount)));
 
         Float Fees = FinalPayableAmount - MoneyTransferHomeActivity.bankobj.Amount;
 
-        txtFees.setText("Fees:  € "+String.valueOf(Fees));
+        txtFees.setText("Fees:  € "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(Fees)));
 
 
-        txtamountPayable.setText("Total Payable Amount: € "+String.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt));
+        txtamountPayable.setText("Total Payable Amount: € "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(String.format("%.2f",Float.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt)))));
 
-        txtamountRecipientGET.setText("Recipient Gets: "+String.valueOf(MoneyTransferHomeActivity.bankobj.RecipientGet)+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
-        txtExchangerate.setText("Exchnage Rate:  € 1 = "+String.valueOf(MoneyTransferHomeActivity.bankobj.ConvRate)+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
+        txtamountRecipientGET.setText("Recipient Gets: "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(String.format("%.2f",Float.valueOf(MoneyTransferHomeActivity.bankobj.RecipientGet))))+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
+        txtExchangerate.setText("Exchnage Rate:  € 1 = "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.ConvRate))+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
 
     }
     private void intView(){
@@ -223,7 +224,12 @@ private void processMoney(){
         JSONObject userObject = new JSONObject();
 
         userObject.put("AffiliateID",user.UserID);
-        userObject.put("Amount",String.valueOf(MoneyTransferHomeActivity.bankobj.Amount));
+
+        String newvalue= String.valueOf(MoneyTransferHomeActivity.bankobj.Amount);
+        newvalue = newvalue.replaceAll("\\,", ".");
+
+        userObject.put("Amount",newvalue.trim());
+
         userObject.put("BankID",String.valueOf(MoneyTransferHomeActivity.bankobj.BankID));
 
         // userObject.put("PayableAmt",String.valueOf(FinalPayableAmount));

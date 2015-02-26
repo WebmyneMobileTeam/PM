@@ -110,7 +110,7 @@
                     <EditText
 
                         android:inputType="phone"
-                        android:hint="mobile"
+                        android:hint="@string/xml_MMOB"
                         android:fontFamily="sans-serif-condensed"
                         android:id="@+id/edMobileNumberGenerateGC"
                         android:layout_width="match_parent"
@@ -148,13 +148,14 @@
 
 
                     <EditText
-                        android:hint="amount"
+                        android:hint="@string/xml_AMOUNTT"
                         android:fontFamily="sans-serif-condensed"
                         android:id="@+id/edAmountGenerateGC"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="#000"
-                        android:inputType="number"
+                        android:maxLength="9"
+                        android:inputType="numberDecimal"
                         android:layout_weight="1"/>
 
                 </LinearLayout>

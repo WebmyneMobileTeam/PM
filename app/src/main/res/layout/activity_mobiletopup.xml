@@ -161,7 +161,7 @@
                         <EditText
                             android:layout_marginTop="10dp"
                             android:inputType="phone"
-                            android:hint="Enter mobile no."
+                            android:hint="@string/xml_ENTERMOBILENO"
                             android:fontFamily="sans-serif-condensed"
                             android:id="@+id/edRechargeMobileNumber"
 

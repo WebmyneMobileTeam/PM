@@ -170,7 +170,7 @@
         <EditText
             android:layout_marginTop="10dp"
             android:inputType="phone"
-            android:hint="Enter mobile no."
+            android:hint="@string/xml_ENTERMOBNOo"
             android:fontFamily="sans-serif-condensed"
             android:id="@+id/edRechargeMobileNumber"
             android:visibility="gone"

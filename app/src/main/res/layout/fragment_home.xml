@@ -368,14 +368,14 @@
                     android:layout_marginLeft="5dp"
                     android:fontFamily="sans-serif-condensed"
                     android:singleLine="true"
-                    android:digits="0123456789."
                     android:hint="@string/payment_service_amount"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textSize="@dimen/normal_text"
                     android:gravity="left|center_vertical"
                     android:textColor="@android:color/black"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:maxLines="9"
                     android:layout_height="wrap_content"
                     android:id="@+id/etAmount" />
 

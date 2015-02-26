@@ -123,7 +123,7 @@
                     <EditText
 
                         android:inputType="phone"
-                        android:hint="mobile"
+                        android:hint="@string/xml_M"
                         android:fontFamily="sans-serif-condensed"
                         android:id="@+id/edMobileNumberGenerateGC"
                         android:layout_width="match_parent"
@@ -160,7 +160,7 @@
 
 
                     <EditText
-                        android:hint="amount"
+                        android:hint="@string/xml_A"
                         android:fontFamily="sans-serif-condensed"
                         android:id="@+id/edAmountGenerateGC"
                         android:layout_width="match_parent"

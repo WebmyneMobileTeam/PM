@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -50,7 +53,8 @@ public class FragmentCashOUT extends Fragment {
     private ArrayList<Country> countries;
     private AffilateUser affilateUser;
     ArrayList<String> identityProofTypesList;
-
+    boolean isEnglisSelected;
+    CharSequence ch=".";
     public static FragmentCashOUT newInstance(String param1, String param2) {
         FragmentCashOUT fragment = new FragmentCashOUT();
         return fragment;
@@ -87,7 +91,7 @@ public class FragmentCashOUT extends Fragment {
                 }else if(InternationalNumberValidation.isValidNumber(edMobileNumber.getText().toString().toString(), countries.get(spCountry.getSelectedItemPosition()).ShortCode.toString().trim())==false){
                     SimpleToast.error(getActivity(),getResources().getString(R.string.code_combinegcfragment_ERRORENTERMOBILENO));
                 }
-                else if(isEmptyField(edCashoutAmount)){
+                else if(edCashoutAmount.length()<6){
                     SimpleToast.error(getActivity(), getResources().getString(R.string.err_entercashout));
                 }
                 else if(isEmptyField(edFormId)){
@@ -114,12 +118,61 @@ public class FragmentCashOUT extends Fragment {
         btnNext = (TextView)convertView.findViewById(R.id.btnNext);
         spCountry= (Spinner)convertView.findViewById(R.id.spCountry);
         spIdentityProof= (Spinner)convertView.findViewById(R.id.spIdentityProof);
+
+        edCashoutAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//original pattern
+//if(!s.toString().matches("^\\ (\\d{1,3}(\\,\\d{3})*|(\\d+))(\\.\\d{2})?$"))
+                if(!s.toString().matches("^\\ (\\d{1,3}(\\d{3})*|(\\d+))(\\"+ch+"\\d{2})?$"))
+                {
+                    //original pattern
+                    //String userInput= ""+s.toString().replaceAll("[^\\d]", "");
+                    String userInput= ""+s.toString().replaceAll("[^\\d]+", "");
+
+                    StringBuilder cashAmountBuilder = new StringBuilder(userInput);
+
+                    while (cashAmountBuilder.length() > 3 && cashAmountBuilder.charAt(0) == '0') {
+                        cashAmountBuilder.deleteCharAt(0);
+                    }
+                    while (cashAmountBuilder.length() < 3) {
+                        cashAmountBuilder.insert(0, '0');
+                    }
+                    cashAmountBuilder.insert(cashAmountBuilder.length()-2, ch);
+                    cashAmountBuilder.insert(0, ' ');
+
+                    edCashoutAmount.setText(cashAmountBuilder.toString());
+                    // keeps the cursor always to the right
+                    Selection.setSelection(edCashoutAmount.getText(), cashAmountBuilder.toString().length());
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         getLiveCurrencyRate();
+
+        isEnglisSelected= PrefUtils.isEnglishSelected(getActivity());
+
+        if(isEnglisSelected)
+            ch=",";
+        else
+            ch=".";
+
         setCountryCode();
         identityProofTypesList=new ArrayList<String>();
         identityProofTypesList.add(getResources().getString(R.string.NATIONAID));
@@ -183,7 +236,11 @@ private void processPay(){
             AffilateUser user= PrefUtils.getMerchant(getActivity());
 
             userObject.put("AffiliateID",user.UserID+"");
-            userObject.put("Amount",edCashoutAmount.getText().toString());
+
+            String newvalue= edCashoutAmount.getText().toString().trim();
+            newvalue = newvalue.replaceAll("\\,", ".");
+            userObject.put("Amount",newvalue);
+
            // userObject.put("Currency","EUR");
             userObject.put("FormDetail",edFormId.getText().toString());
             userObject.put("FormDetailValue",spIdentityProof.getSelectedItemPosition()+1);
@@ -257,7 +314,10 @@ private void processPay2(final String Vfcode){
             AffilateUser user= PrefUtils.getMerchant(getActivity());
 
             userObject.put("AffiliateID",user.UserID+"");
-            userObject.put("Amount",edCashoutAmount.getText().toString());
+
+            String newvalue= edCashoutAmount.getText().toString().trim();
+            newvalue = newvalue.replaceAll("\\,", ".");
+            userObject.put("Amount",newvalue);
             // userObject.put("Currency","EUR");
 
             userObject.put("FormDetail",edFormId.getText().toString());

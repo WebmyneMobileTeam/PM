@@ -33,7 +33,7 @@
                 android:paddingBottom="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Merchant ID"
+                android:hint="@string/xml_MERCHENTIID"
                 android:text="@string/verify_message"
                 android:textSize="18sp"
                 android:gravity="center"

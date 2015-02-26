@@ -78,7 +78,7 @@
         <EditText
             android:layout_marginTop="10dp"
             android:inputType="phone"
-            android:hint="Enter mobile no."
+            android:hint="@string/xml_ENTERMOBNO"
             android:fontFamily="sans-serif-condensed"
             android:id="@+id/edMobileNumber"
             android:layout_width="match_parent"
@@ -88,7 +88,7 @@
         <EditText
             android:layout_marginTop="10dp"
             android:inputType="phone"
-            android:hint="Confirm mobile no."
+            android:hint="@string/xml_CNFRMMOBNO"
             android:fontFamily="sans-serif-condensed"
             android:id="@+id/edMobileNumberConfirm"
             android:layout_width="match_parent"
@@ -113,9 +113,10 @@
 
             <EditText
                 android:inputType="numberDecimal"
-                android:hint="Enter cash in amount"
+                android:hint="@string/xml_ENTERCASHINAMOUNT"
                 android:fontFamily="sans-serif-condensed"
                 android:id="@+id/edCashInAmount"
+                android:maxLength="9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#000"/>
@@ -156,7 +157,7 @@
         <EditText
             android:layout_marginTop="10dp"
             android:inputType="text"
-            android:hint="Enter Identity Proof Value"
+            android:hint="@string/xml_ENTERIDENTITY"
             android:fontFamily="sans-serif-condensed"
             android:id="@+id/edFormId"
             android:layout_width="match_parent"

@@ -40,6 +40,7 @@ import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
 import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
+import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 
 import org.json.JSONObject;
@@ -231,8 +232,8 @@ public class FragmentMobileTopupRecharge extends Fragment {
         roundup_total = String.format("%.2f", Total);
 
         Log.e("Total",String.valueOf(roundup_total));
-        amountPay.setText("You have to Pay € " + String.valueOf(roundup_total));
-        recipeintAmountGET.setText("Your recipient gets "+ mobileTopupRechargeServiceList.get(rechargeAmountPosition).currency+" "+String.valueOf(mobileTopupRechargeServiceList.get(rechargeAmountPosition).LocalPrice));
+        amountPay.setText("You have to Pay € " + LanguageStringUtil.languageString(getActivity(),String.valueOf(roundup_total)));
+        recipeintAmountGET.setText("Your recipient gets "+ mobileTopupRechargeServiceList.get(rechargeAmountPosition).currency+" "+LanguageStringUtil.languageString(getActivity(),String.valueOf(mobileTopupRechargeServiceList.get(rechargeAmountPosition).LocalPrice)));
 
     }
 
@@ -254,12 +255,16 @@ public class FragmentMobileTopupRecharge extends Fragment {
                     JSONObject userObject = new JSONObject();
                     AffilateUser user= PrefUtils.getMerchant(getActivity());
 
+                    String newrounduotot= roundup_total.toString().trim();
+                    newrounduotot = newrounduotot.replaceAll("\\,", ".");
+
+
                     userObject.put("AffiliateID",user.UserID+"");
                     userObject.put("UserCountryCode",user.MobileCountryCode+"");
                     // user only for GC
                     userObject.put("UserMobileNo",user.MobileNo+"");
                     userObject.put("PaymentVia",user.tempPaymentVia+"");
-                    userObject.put("Amount",String.valueOf(roundup_total)+"");
+                    userObject.put("Amount",newrounduotot+"");
                     
                     if(user.tempPaymentVia.equalsIgnoreCase("GC")){
                         userObject.put("GiftCode",user.tempGiftCode+"");
@@ -418,7 +423,7 @@ public class FragmentMobileTopupRecharge extends Fragment {
             txt.setPadding(16,16,16,16);
             txt.setGravity(Gravity.CENTER_VERTICAL);
 
-            txt.setText(values.get(position).LocalPrice);
+            txt.setText(LanguageStringUtil.languageString(getActivity(), String.valueOf(values.get(position).LocalPrice)));
             return  txt;
         }
 
@@ -428,7 +433,7 @@ public class FragmentMobileTopupRecharge extends Fragment {
             TextView txt = new TextView(getActivity());
             txt.setGravity(Gravity.CENTER_VERTICAL);
             txt.setPadding(16,16,16,16);
-            txt.setText(values.get(position).LocalPrice);
+            txt.setText(LanguageStringUtil.languageString(getActivity(), String.valueOf(values.get(position).LocalPrice)));
             return  txt;
         }
     }

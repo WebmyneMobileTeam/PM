@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
@@ -49,6 +50,7 @@ import com.webmyne.paylabasmerchant.ui.widget.FormValidator;
 import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.DatabaseWrapper;
+import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 
 import org.json.JSONObject;
@@ -90,6 +92,9 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
     double selected_amount = 0;
     Toolbar toolbar_actionbar;
     int selectedPaymentType;
+
+    boolean isEnglisSelected;
+    CharSequence ch=".";
     private void getGCCountries() {
         final CircleDialog d = new CircleDialog(this, 0);
         d.setCancelable(true);
@@ -294,6 +299,45 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
             }
         });
 
+        edAmountGenerateGC.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//original pattern
+//if(!s.toString().matches("^\\ (\\d{1,3}(\\,\\d{3})*|(\\d+))(\\.\\d{2})?$"))
+                if(!s.toString().matches("^\\ (\\d{1,3}(\\d{3})*|(\\d+))(\\"+ch+"\\d{2})?$"))
+                {
+                    //original pattern
+                    //String userInput= ""+s.toString().replaceAll("[^\\d]", "");
+                    String userInput= ""+s.toString().replaceAll("[^\\d]+", "");
+
+                    StringBuilder cashAmountBuilder = new StringBuilder(userInput);
+
+                    while (cashAmountBuilder.length() > 3 && cashAmountBuilder.charAt(0) == '0') {
+                        cashAmountBuilder.deleteCharAt(0);
+                    }
+                    while (cashAmountBuilder.length() < 3) {
+                        cashAmountBuilder.insert(0, '0');
+                    }
+                    cashAmountBuilder.insert(cashAmountBuilder.length()-2, ch);
+                    cashAmountBuilder.insert(0, ' ');
+
+                    edAmountGenerateGC.setText(cashAmountBuilder.toString());
+                    // keeps the cursor always to the right
+                    Selection.setSelection(edAmountGenerateGC.getText(), cashAmountBuilder.toString().length());
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
       /*  spinnerRecipientContactGenerateGc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -316,6 +360,12 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         super.onResume();
 
         getGCCountries();
+
+        isEnglisSelected= PrefUtils.isEnglishSelected(NewGenerateGCActivity.this);
+        if(isEnglisSelected)
+            ch=",";
+        else
+            ch=".";
 
         String LocalCurrency = PrefUtils.getAffilateCurrency(NewGenerateGCActivity.this);
         txtCurrency.setText(LocalCurrency);
@@ -421,7 +471,11 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
                     final CircleDialog circleDialog=new CircleDialog(NewGenerateGCActivity.this,0);
                     circleDialog.setCancelable(true);
                     circleDialog.show();
-                    String postfix = user.UserID+"/"+edAmountGenerateGC.getText().toString()+"/"+arrCheckCountries.get(selected_country_id).CountryId;
+
+                String newvalue= edAmountGenerateGC.getText().toString().trim();
+                newvalue = newvalue.replaceAll("\\,", ".");
+
+                    String postfix = user.UserID+"/"+newvalue+"/"+arrCheckCountries.get(selected_country_id).CountryId;
                     Log.e("Pre Service charge link ",AppConstants.SERVICE_CHARGE+postfix);
 
                     new CallWebService(AppConstants.SERVICE_CHARGE+postfix, CallWebService.TYPE_JSONOBJECT) {
@@ -485,7 +539,11 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(NewGenerateGCActivity.this, "user_pref", 0);
         user = complexPreferences.getObject("current_user", AffilateUser.class);
         boolean isComplete = false;
-        double value = Double.parseDouble(edAmountGenerateGC.getText().toString());
+
+        String newvalue= edAmountGenerateGC.getText().toString().trim();
+        newvalue = newvalue.replaceAll("\\,", ".");
+
+        double value = Double.parseDouble(newvalue);
         double user_value = Double.parseDouble(user.LemonwayBal);
 
         String LocalCurrency= PrefUtils.getAffilateCurrency(NewGenerateGCActivity.this);
@@ -590,17 +648,27 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
 
         double percentageCharge = charge.PercentageCharge;
-        double amount = Double.parseDouble(edAmountGenerateGC.getText().toString());
+
+        String newvalue= edAmountGenerateGC.getText().toString().trim();
+        newvalue = newvalue.replaceAll("\\,", ".");
+
+        double amount = Double.parseDouble(newvalue);
+
         double displayPercentageCharge = (amount*percentageCharge)/100;
         DecimalFormat df = new DecimalFormat("#.##");
 
-        txtTransactionChargeGenerateGCService.setText(LocalCurrency+" "+String.format("%1$.2f",displayPercentageCharge));
+        String newdisplayPercentageCharge= LanguageStringUtil.languageString(NewGenerateGCActivity.this, String.valueOf(String.format("%.2f",displayPercentageCharge)));
+
+      //  txtTransactionChargeGenerateGCService.setText(LocalCurrency+" "+String.format("%.2f",newdisplayPercentageCharge));
+         txtTransactionChargeGenerateGCService.setText(LocalCurrency+" "+newdisplayPercentageCharge);
+
         txtMobileGenerateGCService.setText(txtCCGenerateGC.getText().toString().trim() + " " + edMobileNumberGenerateGC.getText().toString());
-        txtAmountGenerateGCService.setText(LocalCurrency+" "+edAmountGenerateGC.getText().toString());
 
-        txtPayableAmountGenerateGCService.setText(LocalCurrency+" "+charge.PayableAmount);
+        txtAmountGenerateGCService.setText(LocalCurrency+" "+LanguageStringUtil.languageString(NewGenerateGCActivity.this, String.valueOf(edAmountGenerateGC.getText().toString())));
 
-        txtPaylabasChargeGenerateGCService.setText(LocalCurrency+" "+charge.FixCharge);
+        txtPayableAmountGenerateGCService.setText(LocalCurrency+" "+LanguageStringUtil.languageString(NewGenerateGCActivity.this, String.valueOf(String.format("%.2f",charge.PayableAmount))));
+
+        txtPaylabasChargeGenerateGCService.setText(LocalCurrency+" "+LanguageStringUtil.languageString(NewGenerateGCActivity.this, String.valueOf(charge.FixCharge)));
 
 
      //   txtExchangeRate.setText(String.format("Exchange rate :\n1 EUR = %s",LiveRate)+" "+LocalCurrency);
@@ -610,14 +678,17 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         double newValue=0.0d;
         newValue = Double.valueOf(df.format(finalamt));
 
-        txtMerchentAmt.setText(String.format("Merchent Payable Amount :\n EUR ")+String.valueOf(newValue));
+        txtMerchentAmt.setText(String.format("Merchent Payable Amount :\n EUR ")+LanguageStringUtil.languageString(NewGenerateGCActivity.this, String.valueOf(newValue)));
 
-        double  totalreceipientget = Double.parseDouble(edAmountGenerateGC.getText().toString());
+        String newvalue11= edAmountGenerateGC.getText().toString().trim();
+        newvalue11 = newvalue11.replaceAll("\\,", ".");
+
+        double  totalreceipientget = Double.parseDouble(newvalue11);
 
         double x= Double.parseDouble(charge.LiveRate.split(" ")[0].toString());
         String dx=df.format(totalreceipientget);
         totalreceipientget=Double.valueOf(dx);
-        txtReceipientGets.setText(""+totalreceipientget+" "+LocalCurrency);
+        txtReceipientGets.setText(""+LanguageStringUtil.languageString(NewGenerateGCActivity.this, String.valueOf(totalreceipientget))+" "+LocalCurrency);
     }
 
     private Bitmap getBitmapFromAsset(String strName)
@@ -658,10 +729,13 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
             generateObject.put("ReceiverCountryCode",arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).CountryCode);
             generateObject.put("UserCountryCode", user.tempCountryCode);
 
+            String newvalue= edAmountGenerateGC.getText().toString().trim();
+            newvalue = newvalue.replaceAll("\\,", ".");
+
             DecimalFormat df = new DecimalFormat("#.##");
 
             String LiveRate = PrefUtils.getLiveRate(NewGenerateGCActivity.this);
-            double finalamt = Double.parseDouble(edAmountGenerateGC.getText().toString().trim())/ Float.valueOf(LiveRate);
+            double finalamt = Double.parseDouble(newvalue)/ Float.valueOf(LiveRate);
             double newAmount=0.0d;
             newAmount = Double.valueOf(df.format(finalamt));
 
@@ -674,7 +748,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
             generateObject.put("ResponseMsg","");
             generateObject.put("SenderID",user.UserID);
             generateObject.put("CountryID",arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).CountryId);
-            double newLocalValue=arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).LiveRate*Double.parseDouble(edAmountGenerateGC.getText().toString().trim());
+            double newLocalValue=arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).LiveRate*Double.parseDouble(newvalue);
             newLocalValue = Double.valueOf(df.format(newLocalValue));
             generateObject.put("LocalValueReceived",newLocalValue);
             generateObject.put("LocalValueReceivedCurrancy",arrCheckCountries.get(spinnerCountryGenerateGc.getSelectedItemPosition()).CurrencyName);

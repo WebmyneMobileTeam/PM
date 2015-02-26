@@ -17,7 +17,7 @@
             android:maxLength="9"
             android:id="@+id/entergiftcode_combinegiftcode"
             android:textColor="#000"
-            android:hint="giftcode"
+            android:hint="@string/xml_GGIFTCODe"
             android:fontFamily="sans-serif-condensed"
             android:textSize="@dimen/normal_text"
             android:layout_width="match_parent"

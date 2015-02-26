@@ -13,6 +13,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
@@ -48,6 +49,7 @@ import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.DatabaseWrapper;
+import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 import com.webmyne.paylabasmerchant.util.RegionUtils;
 
@@ -93,13 +95,15 @@ public class FragmentHome extends Fragment {
     private LinearLayout linerPaymentType;
     public int selectedPaymentType = -1;
     public int selectedServiceType = -1;
+    public int selectedOtherType = -1;
     private ArrayList colors_p;
     private LinearLayout linearServiceType, layoutOthers;
     private LinearLayout layoutGenerateGC,layoutTopup,layoutTransfer;
     private LinearLayout layoutCash,layoutGC,layoutWallet;
 
     private LinearLayout layoutOthers1, layoutGenerateGC1,layoutTopUp1,linearTransfer1;
-
+    boolean isEnglisSelected;
+    CharSequence ch=".";
 
 
     private TextView txtTransfer,txtTopup,txtGenerate;
@@ -223,8 +227,12 @@ public class FragmentHome extends Fragment {
                 } else if (isAmountEmpty()) {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_amount));
 //                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_amount), Toast.LENGTH_SHORT).show();
-                } else {
+                } else if(etAmount.length()<6){
+                    etAmount.setError(getString(R.string.code_ERMSG));
+                }
 
+                else {
+                      
                     if ((selectedPaymentType == 2)) {
 
                         if (selectedServiceType == 0) {
@@ -380,7 +388,30 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+//original pattern
+//if(!s.toString().matches("^\\ (\\d{1,3}(\\,\\d{3})*|(\\d+))(\\.\\d{2})?$"))
+                if(!s.toString().matches("^\\ (\\d{1,3}(\\d{3})*|(\\d+))(\\"+ch+"\\d{2})?$"))
+                {
+                    //original pattern
+                    //String userInput= ""+s.toString().replaceAll("[^\\d]", "");
+                    String userInput= ""+s.toString().replaceAll("[^\\d]+", "");
 
+                    StringBuilder cashAmountBuilder = new StringBuilder(userInput);
+
+                    while (cashAmountBuilder.length() > 3 && cashAmountBuilder.charAt(0) == '0') {
+                        cashAmountBuilder.deleteCharAt(0);
+                    }
+                    while (cashAmountBuilder.length() < 3) {
+                        cashAmountBuilder.insert(0, '0');
+                    }
+                    cashAmountBuilder.insert(cashAmountBuilder.length()-2, ch);
+                    cashAmountBuilder.insert(0, ' ');
+
+                    etAmount.setText(cashAmountBuilder.toString());
+                    // keeps the cursor always to the right
+                    Selection.setSelection(etAmount.getText(), cashAmountBuilder.toString().length());
+
+                }
             }
 
             @Override
@@ -397,8 +428,12 @@ public class FragmentHome extends Fragment {
                         // for reddem gc no live conversion rate is not display
                     }
                     else {
-                        MyApplication.getInstance().cancelAll();
-                        getLiveCurrencyRate();
+                        if (etAmount.getText().toString().trim().length()>=5) {
+                            MyApplication.getInstance().cancelAll();
+                            getLiveCurrencyRate();
+                        }
+
+
                     }
 
                 }
@@ -417,6 +452,19 @@ public class FragmentHome extends Fragment {
         // String str = affilateUser.affilateServicesArrayList.get(0).ServiceName.toString();
         // position 2 is for Cash in service, 0 - for generate gidt code, 1 - fro mobile top only
 
+
+
+        isEnglisSelected= PrefUtils.isEnglishSelected(getActivity());
+        if(isEnglisSelected)
+            ch=",";
+        else
+            ch=".";
+
+
+
+
+
+
         isGenerateGCActive = affilateUser.affilateServicesArrayList.get(0).IsActive;
         isMobileTopupActive= affilateUser.affilateServicesArrayList.get(1).IsActive;
 
@@ -427,6 +475,7 @@ public class FragmentHome extends Fragment {
         }
         PrefUtils.ClearLiveRate(getActivity());
         txtConvRate.setVisibility(View.GONE);
+        selectedOtherType=-1;
         txtOther.setText(getResources().getString(R.string.OTHERSERVICES));
         //getting the currency object
         String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
@@ -510,7 +559,11 @@ public class FragmentHome extends Fragment {
                     String response = jobj.toString();
                     Log.e("live currency  Response", "" + response);
                     livCurencyObj = new GsonBuilder().create().fromJson(jobj.toString(), LiveCurrency.class);
-                    float finalamt = Float.valueOf(etAmount.getText().toString())/ Float.valueOf(livCurencyObj.LiveRate.toString());
+
+                    String newvalue1= etAmount.getText().toString().trim();
+                    newvalue1 = newvalue1.replaceAll("\\,", ".");
+
+                    float finalamt = Float.valueOf(newvalue1)/ Float.valueOf(livCurencyObj.LiveRate.toString());
 
                     PrefUtils.settLiveRate(getActivity(),livCurencyObj.LiveRate.toString());
 
@@ -518,7 +571,7 @@ public class FragmentHome extends Fragment {
                     DecimalFormat df = new DecimalFormat("#.##");
                     newValue = Double.valueOf(df.format(finalamt));
                     txtConvRate.setVisibility(View.VISIBLE);
-                    txtConvRate.setText(etAmount.getText().toString()+" "+ livCurencyObj.Tocurrency +" = "+ String.valueOf(newValue)+" EUR");
+                    txtConvRate.setText(etAmount.getText().toString()+" "+ livCurencyObj.Tocurrency +" = "+ LanguageStringUtil.languageString(getActivity(), String.valueOf(newValue))+" EUR");
 
 
                 //    txtConvRate.setText(etAmount.getText().toString()+" EUR"+" = "+ String.valueOf(newValue)+" "+livCurencyObj.Tocurrency);
@@ -585,7 +638,7 @@ public class FragmentHome extends Fragment {
             layoutGenerateGC.setVisibility(View.GONE);
             txtGenerate.setVisibility(View.GONE);
         }
-
+        selectedOtherType=-1;
         txtOther.setText(getResources().getString(R.string.OTHERSERVICES));
         txtOther.setVisibility(View.VISIBLE);
     }
@@ -685,6 +738,7 @@ public class FragmentHome extends Fragment {
                 linearMobileHome.setVisibility(View.VISIBLE);
 
                 etAmount.setText("");
+                selectedOtherType=-1;
                 txtOther.setText(getResources().getString(R.string.OTHERSERVICES));
                 gcLayout.setVisibility(View.GONE);
                 break;
@@ -704,6 +758,7 @@ public class FragmentHome extends Fragment {
                 linearMobileHome.setVisibility(View.VISIBLE);
 
                 etAmount.setText("");
+                selectedOtherType=-1;
                 txtOther.setText(getResources().getString(R.string.OTHERSERVICES));
                 gcLayout.setVisibility(View.GONE);
                 break;
@@ -721,6 +776,7 @@ public class FragmentHome extends Fragment {
                 linearMobileHome.setVisibility(View.VISIBLE);
 
                 etAmount.setText("");
+                selectedOtherType=-1;
                 txtOther.setText(getResources().getString(R.string.OTHERSERVICES));
                 gcLayout.setVisibility(View.GONE);
                 break;
@@ -734,6 +790,7 @@ public class FragmentHome extends Fragment {
                     public void onClick(DialogInterface dialog, int item) {
                         // Do something with the selection
                         //   mDoneButton.setText(items[item]);
+                        selectedOtherType=1;
                         txtOther.setText(items[item]);
                     }
                 });
@@ -925,7 +982,10 @@ public class FragmentHome extends Fragment {
                 requestObject.put("Amount", "1");
             }
             else{
-                requestObject.put("Amount", etAmount.getText().toString().trim() + "");
+                String newvalue= etAmount.getText().toString().trim();
+                newvalue = newvalue.replaceAll("\\,", ".");
+
+                requestObject.put("Amount", newvalue + "");
             }
 
 
@@ -989,8 +1049,9 @@ public class FragmentHome extends Fragment {
                         SimpleToast.error(getActivity(), getResources().getString(R.string.PaymentStep1_m5));
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m5), Toast.LENGTH_SHORT).show();
                     }
-                } catch (Exception e) {
+               } catch (Exception e) {
                     e.printStackTrace();
+                    Log.e("exc",e.toString());
                     SimpleToast.error(getActivity(), "Error");
                 }
 
@@ -1041,7 +1102,9 @@ public class FragmentHome extends Fragment {
                             Log.e("isok",""+isok);*/
 
                             if (isRedeemGC()) { // Redeem GC
-                                processRedeemGC();  }
+                                 processRedeemGC();
+
+                            }
                             else if (selectedServiceType == 0) { // Money Transfer
                                 //TODO
                                 affilateUser.tempAmount = etAmount.getText().toString().trim();
@@ -1236,7 +1299,12 @@ private void showVerificationAlert() {
        //     requestObject.put("Amount", String.valueOf(newPayableAMount));
 
             requestObject.put("AffiliateID", affilateUser.UserID + "");
-            requestObject.put("Amount", etAmount.getText().toString().trim() + "");
+
+            String newvalue= etAmount.getText().toString().trim();
+            newvalue = newvalue.replaceAll("\\,", ".");
+
+            requestObject.put("Amount", newvalue + "");
+
             requestObject.put("ServiceUse", getServiceName(selectedServiceType) + "");
             requestObject.put("GiftCode", etGiftCode.getText().toString().trim() + "");
             Country countryObject = (Country) spCountryCode.getSelectedItem();
@@ -1304,7 +1372,9 @@ private void showVerificationAlert() {
         if (selectedPaymentType == 1 && selectedServiceType == 3) {
             isAvailable = true;
         }
-        return isAvailable;
+
+
+            return isAvailable;
     }
 
 

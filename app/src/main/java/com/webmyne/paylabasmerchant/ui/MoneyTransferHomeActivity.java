@@ -180,7 +180,11 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
         isCityLoad = false;
         isBankLoad = false;
 
-        etAmount = getIntent().getStringExtra("edamount");
+        String getAmount= getIntent().getStringExtra("edamount");
+
+        String newvalue= getAmount.trim();
+        newvalue = newvalue.replaceAll("\\,", ".");
+        etAmount = newvalue;
         //edAmountTransfer.setText(getIntent().getStringExtra("edamount"));
 
         include_item_pickup.setVisibility(View.GONE);
@@ -281,6 +285,8 @@ public class MoneyTransferHomeActivity extends ActionBarActivity {
 
         try{
             JSONObject userObject = new JSONObject();
+
+
             userObject.put("Amount",etAmount);
            // userObject.put("Amount",edAmountTransfer.getText().toString());
             userObject.put("BankID", bankID);

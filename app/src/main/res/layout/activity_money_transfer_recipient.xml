@@ -72,7 +72,7 @@
 
                     android:fontFamily="sans-serif-condensed"
                         android:singleLine="true"
-                        android:hint="First Name"
+                        android:hint="@string/xml_FFNAME"
                     android:layout_weight="1"
                         android:id="@+id/edFirstname" />
 
@@ -82,7 +82,7 @@
 
                         android:fontFamily="sans-serif-condensed"
                         android:singleLine="true"
-                        android:hint="Last Name"
+                        android:hint="@string/xml_LLASTNAME"
 
                         android:layout_weight="1"
                         android:id="@+id/edLastname" />
@@ -94,7 +94,7 @@
 
                         android:fontFamily="sans-serif-condensed"
                         android:singleLine="true"
-                        android:hint="Email address"
+                        android:hint="@string/xml_EMAILLA"
 
                         android:id="@+id/edEmail" />
                     <EditText
@@ -105,7 +105,7 @@
                         android:minLines="3"
                         android:maxLines="3"
                         android:gravity="left"
-                        android:hint="Address"
+                        android:hint="@string/xml_ADDRESS"
 
                         android:id="@+id/edAddress" />
 
@@ -146,7 +146,7 @@
                         android:layout_width="match_parent"
                         android:fontFamily="sans-serif-condensed"
                         android:singleLine="true"
-                        android:hint="Zip"
+                        android:hint="@string/xml_ZIPP"
                         android:id="@+id/edZipcode" />
 
                     <LinearLayout
@@ -174,7 +174,7 @@
                         <EditText
                             android:layout_marginTop="10dp"
                             android:inputType="text"
-                            android:hint="Enter Identity Proof Value"
+                            android:hint="@string/xml_IDPRROOFF"
                             android:fontFamily="sans-serif-condensed"
                             android:id="@+id/edFormId"
                             android:layout_width="match_parent"
@@ -209,7 +209,7 @@
                             android:inputType="number"
                             android:maxLength="10"
                             android:gravity="left|center_vertical"
-                            android:hint="Mobile"
+                            android:hint="@string/xml_MOBBL"
                             android:id="@+id/edMobileno" />
 
                     </LinearLayout>

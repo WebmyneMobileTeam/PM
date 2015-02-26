@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
@@ -44,6 +45,7 @@ import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
+import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 import com.webmyne.paylabasmerchant.util.RegionUtils;
 
@@ -62,6 +64,9 @@ public class FragmentCashIN extends Fragment {
     private ArrayList<Country> countries;
     ArrayList<String> identityProofTypesList;
     private LiveCurrency livCurencyObj;
+
+    boolean isEnglisSelected;
+    CharSequence ch=".";
     public static FragmentCashIN newInstance(String param1, String param2) {
         FragmentCashIN fragment = new FragmentCashIN();
         return fragment;
@@ -106,7 +111,7 @@ public class FragmentCashIN extends Fragment {
                 }else   if(!edMobileNumberConfirm.getText().toString().equalsIgnoreCase(edMobileNumber.getText().toString())){
                     SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragment_cashiin_ENTERCORRECTCONIFRMMOBILBENO));
                 }
-                else if(isEmptyField(edCashInAmount)){
+                else if(edCashInAmount.length()<6){
                     SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragment_cashiin_ENTERCASHINAMOUNT));
                 }
                 else if(isEmptyField(edFormId)){
@@ -125,7 +130,10 @@ public class FragmentCashIN extends Fragment {
             AffilateUser user= PrefUtils.getMerchant(getActivity());
             JSONObject userObject = new JSONObject();
 
-            userObject.put("Amount",edCashInAmount.getText().toString());
+            String newvalue= edCashInAmount.getText().toString().trim();
+            newvalue = newvalue.replaceAll("\\,", ".");
+
+            userObject.put("Amount",newvalue);
             userObject.put("UserCountryCode",String.valueOf(user.MobileCountryCode));
             userObject.put("UserID",String.valueOf(user.UserID));
             userObject.put("UserMobileNo", user.MobileNo);
@@ -208,7 +216,30 @@ public class FragmentCashIN extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+//original pattern
+//if(!s.toString().matches("^\\ (\\d{1,3}(\\,\\d{3})*|(\\d+))(\\.\\d{2})?$"))
+                if(!s.toString().matches("^\\ (\\d{1,3}(\\d{3})*|(\\d+))(\\"+ch+"\\d{2})?$"))
+                {
+                    //original pattern
+                    //String userInput= ""+s.toString().replaceAll("[^\\d]", "");
+                    String userInput= ""+s.toString().replaceAll("[^\\d]+", "");
 
+                    StringBuilder cashAmountBuilder = new StringBuilder(userInput);
+
+                    while (cashAmountBuilder.length() > 3 && cashAmountBuilder.charAt(0) == '0') {
+                        cashAmountBuilder.deleteCharAt(0);
+                    }
+                    while (cashAmountBuilder.length() < 3) {
+                        cashAmountBuilder.insert(0, '0');
+                    }
+                    cashAmountBuilder.insert(cashAmountBuilder.length()-2, ch);
+                    cashAmountBuilder.insert(0, ' ');
+
+                    edCashInAmount.setText(cashAmountBuilder.toString());
+                    // keeps the cursor always to the right
+                    Selection.setSelection(edCashInAmount.getText(), cashAmountBuilder.toString().length());
+
+                }
             }
 
             @Override
@@ -219,9 +250,10 @@ public class FragmentCashIN extends Fragment {
                     txtConvRate.setVisibility(View.GONE);
                 }
 
-                else {
+                else if(edCashInAmount.getText().toString().trim().length()>=5) {
                         MyApplication.getInstance().cancelAll();
                         getLiveCurrencyRate();
+
                 }
             }
         });
@@ -249,7 +281,13 @@ public class FragmentCashIN extends Fragment {
                     String response = jobj.toString();
                     Log.e("live currency  Response", "" + response);
                     livCurencyObj = new GsonBuilder().create().fromJson(jobj.toString(), LiveCurrency.class);
-                    float finalamt = Float.valueOf(edCashInAmount.getText().toString())/ Float.valueOf(livCurencyObj.LiveRate.toString());
+
+                    String newvalue1= edCashInAmount.getText().toString().trim();
+                    newvalue1 = newvalue1.replaceAll("\\,", ".");
+
+
+
+                    float finalamt = Float.valueOf(newvalue1)/ Float.valueOf(livCurencyObj.LiveRate.toString());
 
                     PrefUtils.settLiveRate(getActivity(),livCurencyObj.LiveRate.toString());
 
@@ -257,7 +295,7 @@ public class FragmentCashIN extends Fragment {
                     DecimalFormat df = new DecimalFormat("#.##");
                     newValue = Double.valueOf(df.format(finalamt));
                     txtConvRate.setVisibility(View.VISIBLE);
-                    txtConvRate.setText(edCashInAmount.getText().toString()+" "+ livCurencyObj.Tocurrency +" = "+ String.valueOf(newValue)+" EUR");
+                    txtConvRate.setText(edCashInAmount.getText().toString()+" "+ livCurencyObj.Tocurrency +" = "+ LanguageStringUtil.languageString(getActivity(), String.valueOf(newValue))+" EUR");
 
 
                     //    txtConvRate.setText(etAmount.getText().toString()+" EUR"+" = "+ String.valueOf(newValue)+" "+livCurencyObj.Tocurrency);
@@ -296,6 +334,14 @@ public class FragmentCashIN extends Fragment {
         String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
         txtCurrency.setText(LocalCurrency);
 
+        isEnglisSelected= PrefUtils.isEnglishSelected(getActivity());
+
+        if(isEnglisSelected)
+            ch=",";
+        else
+            ch=".";
+
+
         txtConvRate.setVisibility(View.GONE);
         edCashInAmount.setText("");
 
@@ -319,7 +365,11 @@ private void processPay(){
 
             DecimalFormat df = new DecimalFormat("#.##");
             String LiveRate = PrefUtils.getLiveRate(getActivity());
-            double finalamt = Double.parseDouble(edCashInAmount.getText().toString().trim())/ Float.valueOf(LiveRate);
+
+            String newvalue= edCashInAmount.getText().toString().trim();
+            newvalue = newvalue.replaceAll("\\,", ".");
+
+            double finalamt = Double.parseDouble(newvalue)/ Float.valueOf(LiveRate);
             double newAmount=0.0d;
             newAmount = Double.valueOf(df.format(finalamt));
 
