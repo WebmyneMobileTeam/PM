@@ -35,7 +35,7 @@
     <string name="cashinout_tabstrip2">CASH OUT</string>
 
     <!-- Mobile Topup -->
-    <string name="money_transfer_title">Transfert d'argent</string>
+    <string name="money_transfer_title">Transfert d\'argent</string>
     <string name="mobiletopup_title">la recharge de mobile</string>
     <string name="mobiletopup_recharge">RECHARGE</string>
     <string name="mobiletopup_history">HISTOIRE</string>
@@ -76,9 +76,9 @@
 
     <!-- PaymentStep1 response messages -->
     <string name="PaymentStep1_1">Code de vérification Envoyer succès</string>
-    <string name="PaymentStep1_2">Erreur lors de l'envoi Code de vérification</string>
+    <string name="PaymentStep1_2">Erreur lors de l\'envoi Code de vérification</string>
     <string name="PaymentStep1_m2">Invalid utilisateur</string>
-    <string name="PaymentStep1_m3">Erreur lors de l'obtention En Solde</string>
+    <string name="PaymentStep1_m3">Erreur lors de l\'obtention En Solde</string>
     <string name="PaymentStep1_m4">faible balance</string>
     <string name="PaymentStep1_m5">GC est OCCASION</string>
 
@@ -94,11 +94,11 @@
     <string name="network_error_message">Erreur réseau \ n</string>
     <string name="login_merchant_and_password_message">Please enter merchant id and Password</string>
     <string name="verification_activity_empty_verification_msg">Se il vous plaît entrez le code de vérification</string>
-    <string name="title_activity_money_transfer_home">Transfert d'argent Accueil Activité</string>
-    <string name="title_activity_money_transfer_final">Transfert d'argent final d'activité</string>
+    <string name="title_activity_money_transfer_home">Transfert d\'argent Accueil Activité</string>
+    <string name="title_activity_money_transfer_final">Transfert d\'argent final d\'activité</string>
     <string name="title_activity_cash_in_out">Activité Cash In Out</string>
-    <string name="title_activity_reports">rapports d'activité</string>
-    <string name="title_activity_money">Transfert d'argent final d'activité</string>
+    <string name="title_activity_reports">rapports d\'activité</string>
+    <string name="title_activity_money">Transfert d\'argent final d\'activité</string>
     <string name="title_activity_new_generate_gc">New Générer GC Activité</string>
     <string name="enter_mobile">Entrez pas mobile.</string>
     <string name="enter_cashout_amount">Entrez encaisser montant</string>
@@ -110,7 +110,7 @@
     <string name="err_entercashout">Se il vous plaît Entrez minimum Cash Out Montant 10</string>
     <string name="err_enter_formid">Se il vous plaît Entrez FormID</string>
     <string name="err_enter_pin">Se il vous plaît Entrez Pin</string>
-    <string name="err_invalid_user">Détails de l'utilisateur non valides !!!</string>
+    <string name="err_invalid_user">Détails de l\'utilisateur non valides !!!</string>
     <string name="err_insufficient_bal">Cash Out Échec !!! solde insuffisant</string>
     <string name="err_cashout">Cash Out échoué. Se il vous plaît essayez de nouveau !!!</string>
     <string name="er_network">Erreur réseau !!! Se il vous plaît Try Again</string>
@@ -235,7 +235,7 @@
     <string name="DRIVINGLICENSE">permis de conduire</string>
     <string name="SOCIALSECURITYNO">Pas de sécurité sociale</string>
     <string name="code_fragmentcashiin_CASHINDONE">Cash In Terminé</string>
-    <string name="code_fragmentcashiin_INVALIDUSERDETAILS">Détails de l'utilisateur non valides !!!</string>
+    <string name="code_fragmentcashiin_INVALIDUSERDETAILS">Détails de l\'utilisateur non valides !!!</string>
     <string name="code_fragmentcashiin_CASHINFAILED">Cash In Échec !!! solde insuffisant</string>
     <string name="code_fragmentcashiin_CASHINFALIEDTRYAGAIN">Cash In a échoué. Se il vous plaît essayez de nouveau !!!</string>
     <string name="code_fragmentcashiin_NWERROR">Erreur réseau. Se il vous plaît Try Again</string>
@@ -245,7 +245,7 @@
     <string name="fragmentgcconverter_ENTERVALIDGC">Entrez GC valide</string>
     <string name="fragmentgcconverter_AMOUNT">montant</string>
     <string name="fragmentgcconverter_SELECTCOUNTRY">Sélectionnez votre pays</string>
-    <string name="ELECTICITYBILL">facture d'électricité</string>
+    <string name="ELECTICITYBILL">facture d\'électricité</string>
     <string name="GASBILL">quittance de gaz</string>
     <string name="SELECTPAYMENTTYPE">Sélectionner le type de paiement</string>
     <string name="SELECTSERVICETYPE">Sélectionnez services</string>
@@ -264,21 +264,21 @@
     <string name="RECHRGEFAILED">Recharge échoué. Se il vous plaît essayez de nouveau !!!</string>
     <string name="NO">aucun</string>
     <string name="GENERATEDINVOICE">facture généré</string>
-    <string name="YOUARENOTABLETOCLAIMINVOICE">Vous n'êtes pas en mesure de réclamer cette facture</string>
+    <string name="YOUARENOTABLETOCLAIMINVOICE">Vous n\'êtes pas en mesure de réclamer cette facture</string>
     <string name="INVOICEREQUEST">Demande de facture</string>
     <string name="INVALIDMOBILEORPASSWORD">Invalid Mobile Pas ou mot de passe !!!</string>
     <string name="INTERNALSERVERERROR">Internal Server Error</string>
     <string name="ERROR">erreur</string>
     <string name="TRYAGIN">essayer À Nouveau</string>
     <string name="EXIT">sortie</string>
-    <string name="MONEYTRANSFERTITLE">Transfert d'argent</string>
+    <string name="MONEYTRANSFERTITLE">Transfert d\'argent</string>
     <string name="ENETERRECIPIENTSDETAILS">Entrez les détails de destinataire</string>
     <string name="ENTERSENDERDETAILS">Entrez Sender Détails</string>
-    <string name="PLEASESELECTRECIPIENTFIRST">Se il vous plaît Sélectionnez bénéficiaire d'abord !!!</string>
-    <string name="PLZSELECTSENDERFIRST">Se il vous plaît Sélectionnez expéditeur d'abord !!!</string>
+    <string name="PLEASESELECTRECIPIENTFIRST">Se il vous plaît Sélectionnez bénéficiaire d\'abord !!!</string>
+    <string name="PLZSELECTSENDERFIRST">Se il vous plaît Sélectionnez expéditeur d\'abord !!!</string>
     <string name="MONEYTRANSFERDOEN">Fait endiguer</string>
     <string name="MONEYTRANSFERFAIL">Endiguer Fail, votre argent est remboursé !!!</string>
-    <string name="SELECTCITYANDSTATE">Se il vous plaît Sélectionnez Ville et l'Etat !!!</string>
+    <string name="SELECTCITYANDSTATE">Se il vous plaît Sélectionnez Ville et l\'Etat !!!</string>
     <string name="SELECTCOUNTRY">Please Select Country !!!</string>
     <string name="SELECTCITY">Se il vous plaît Sélectionnez la ville !!!</string>
     <string name="SELECTBANK">Se il vous plaît Sélectionnez la Banque !!!</string>
@@ -292,7 +292,7 @@
     <string name="ENTERVALIDZIPCODE">Se il vous plaît Entrez NPA valide !!!</string>
     <string name="ENTERVALIDMOBILENO">Se il vous plaît Entrez votre numéro de mobile valide !!!</string>
     <string name="ENTERVALIDMOBILENOO">Se il vous plaît Entrez votre numéro de mobile valide</string>
-    <string name="SELECTIDENTITYPRROOF">Se il vous plaît Sélectionnez une preuve d'identité !!!</string>
+    <string name="SELECTIDENTITYPRROOF">Se il vous plaît Sélectionnez une preuve d\'identité !!!</string>
     <string name="ENTERPROOFID">Se il vous plaît Entrez Id preuve !!!</string>
     <string name="SELECTID">Sélectionnez Id</string>
     <string name="MERCHENT">marchand</string>
@@ -306,16 +306,16 @@
     <string name="GENERATEGC">générer GC</string>
     <string name="GIFTCODEGENERATEDSUCCESS">Code Cadeau généré avec succès</string>
     <string name="NWERR">Erreur réseau \ nVeuillez réessayer</string>
-    <string name="USERISNOTVERIFIED">L'utilisateur ne est pas vérifiée</string>
+    <string name="USERISNOTVERIFIED">L\'utilisateur ne est pas vérifiée</string>
     <string name="USERDELEETD">utilisateur supprimé</string>
-    <string name="USERWILLBLOCK">L'utilisateur sera bloqué pendant 24 heures</string>
-    <string name="YOUCANNOTSENDMONEYYOUSELF">Vous ne pouvez pas envoyer de l'argent à vous-même</string>
+    <string name="USERWILLBLOCK">L\'utilisateur sera bloqué pendant 24 heures</string>
+    <string name="YOUCANNOTSENDMONEYYOUSELF">Vous ne pouvez pas envoyer de l\'argent à vous-même</string>
     <string name="ERRORS">erreur</string>
     <string name="ERRORINGERNERATING">Erreur Dans tout en générant GiftCode</string>
     <string name="NWWNE">Erreur réseau</string>
     <string name="ADDRECIPIENT">Ajouter un destinataire</string>
     <string name="WOULDYOULIKETOADD">Souhaitez-vous ajouter ce contact que votre destinataire?</string>
-    <string name="OK">D'ACCORD</string>
+    <string name="OK">D\'ACCORD</string>
     <string name="code_TITLESETTINGS">paramètres</string>
     <string name="xml_CHANGELANG">Changer de langue</string>
     <string name="xml_ENTERMOBILENO">Entrez pas mobile.</string>
