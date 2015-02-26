@@ -548,6 +548,7 @@ public class FragmentHome extends Fragment {
             final String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
             userObject.put("FromCurrency","EUR");
             userObject.put("Tocurrency",LocalCurrency);
+            userObject.put("Culture", LanguageStringUtil.CultureString(getActivity()));
 
             final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
             circleDialog.setCancelable(true);
@@ -978,7 +979,7 @@ public class FragmentHome extends Fragment {
 
             //     requestObject.put("Amount", String.valueOf(newPayableAMount));
 
-
+            requestObject.put("Culture", LanguageStringUtil.CultureString(getActivity()));
             if (selectedServiceType == 1) {
                 requestObject.put("Amount", "1");
             }
@@ -1081,7 +1082,7 @@ public class FragmentHome extends Fragment {
             final String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
             userObject.put("OPT",OTP);
             userObject.put("UserID",paymentStep1.UserID);
-
+            userObject.put("Culture", LanguageStringUtil.CultureString(getActivity()));
 
             Log.e("chk otp obj", "" + userObject.toString());
             final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
@@ -1298,7 +1299,7 @@ private void showVerificationAlert() {
            // newPayableAMount = Double.valueOf(df.format(finalamt));
 
        //     requestObject.put("Amount", String.valueOf(newPayableAMount));
-
+            requestObject.put("Culture", LanguageStringUtil.CultureString(getActivity()));
             requestObject.put("AffiliateID", affilateUser.UserID + "");
 
             String newvalue= etAmount.getText().toString().trim();

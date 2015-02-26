@@ -208,13 +208,21 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
                 jMain.put("UserMobileNo", edUserMobile.getText().toString().trim());
 
                 jMain.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode + "");
-
                 jMain.put("AffiliateID", user.UserID);
                 jMain.put("GiftCode", arr);
                 jMain.put("SenderID", user.UserID);
+
+
+
+
                 DecimalFormat df = new DecimalFormat("#.##");
                 newLocalValue = Double.valueOf(df.format(newLocalValue));
-                jMain.put("NewLocalValueReceived", newLocalValue + "");
+
+                String newvalue= LanguageStringUtil.languageString(getActivity(),String.valueOf(newLocalValue)).trim();
+                newvalue = newvalue.replaceAll("\\,", ".");
+
+
+                jMain.put("NewLocalValueReceived", newvalue + "");
                 jMain.put("NewLocalValueReceivedCurrancy", countryList.get(spGCCountry.getSelectedItemPosition()).CurrencyName + "");
                 jMain.put("Culture", LanguageStringUtil.CultureString(getActivity()));
                 Log.e("----------------- jMAIN ", "" + jMain.toString());
@@ -396,7 +404,7 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
 
                         if (responseCode.equalsIgnoreCase("1")) {
 
-                            Giftamount.setText(jobj.getString("LocalValueReceived") + " " + jobj.getString("LocalValueReceivedCurrancy"));
+                            Giftamount.setText(LanguageStringUtil.languageString(getActivity(),String.valueOf(jobj.getString("LocalValueReceived"))) + " " + jobj.getString("LocalValueReceivedCurrancy"));
                             FromAmount.setText(jobj.getString("LocalValueReceivedCurrancy"));
                             GCCountry selectedCountry = countryList.get(spGCCountry.getSelectedItemPosition());
                             double oldValue = Double.parseDouble(jobj.getString("GCAmount"));
@@ -410,7 +418,7 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
                             newValue = Double.valueOf(df.format(newValue));
 
                             ToAmount.setText(selectedCountry.CurrencyName);
-                            FinalPrice.setText("" + newValue + " " + selectedCountry.CurrencyName);
+                            FinalPrice.setText("" + LanguageStringUtil.languageString(getActivity(),String.valueOf(newValue)) + " " + selectedCountry.CurrencyName);
 
 
                         } else {

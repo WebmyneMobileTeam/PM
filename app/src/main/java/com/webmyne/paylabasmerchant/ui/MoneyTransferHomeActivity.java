@@ -43,6 +43,7 @@ import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.model.PickUpPoint;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
+import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -434,6 +435,7 @@ if(bankID!=0) {
             userObject.put("ShortCode", countries.get(countrycode).ShortCode);
             userObject.put("FrmCurrencyCode", "EUR");
             userObject.put("CountryID", countries.get(countrycode).CountryID);
+            userObject.put("Culture", LanguageStringUtil.CultureString(MoneyTransferHomeActivity.this));
 
 
             JsonObjectRequest req = new JsonObjectRequest(com.android.volley.Request.Method.POST, AppConstants.GET_MONERPOLO_CITYLIST, userObject, new Response.Listener<JSONObject>() {

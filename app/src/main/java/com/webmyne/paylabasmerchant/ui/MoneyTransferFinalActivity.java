@@ -119,7 +119,7 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
 
       //  FinalPayableAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.Amount)+FinalFeesAmount;
 
-        FinalPayableAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt);
+    /*    FinalPayableAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt);
 
         txtSendAmount.setText("€ "+ LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.Amount)));
 
@@ -132,8 +132,28 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
 
         txtamountRecipientGET.setText("Recipient Gets: "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(String.format("%.2f",Float.valueOf(MoneyTransferHomeActivity.bankobj.RecipientGet))))+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
         txtExchangerate.setText("Exchnage Rate:  € 1 = "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.ConvRate))+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
+*/
+         FinalPayableAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt);
 
-    }
+         txtSendAmount.setText("€ "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.Amount)));
+
+         Float Fees = FinalPayableAmount - MoneyTransferHomeActivity.bankobj.Amount;
+
+         txtFees.setText("Fees:  € "+ LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(Fees)));
+
+         txtamountPayable.setText("Total Payable Amount: € "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt)));
+
+         txtamountRecipientGET.setText("Recipient Gets: "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.RecipientGet))+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
+         txtExchangerate.setText("Exchnage Rate:  € 1 = "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.ConvRate))+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
+
+
+
+
+
+
+
+
+     }
     private void intView(){
 
     txtSelectRecipient = (TextView)findViewById(R.id.txtSelectRecipient);
@@ -271,6 +291,7 @@ private void processMoney(){
             userObject.put("FormDetail",String.valueOf(senObj.FormID));
         }
 
+        userObject.put("Culture", LanguageStringUtil.CultureString(MoneyTransferFinalActivity.this));
         userObject.put("UserID", 0);
 
 

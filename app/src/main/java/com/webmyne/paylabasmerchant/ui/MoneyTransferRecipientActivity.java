@@ -32,6 +32,7 @@ import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.DatabaseWrapper;
+import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 
 
@@ -501,7 +502,7 @@ private void fetchCountryAndDisplay() {
 
 
             System.out.println("Cities are not there");
-            new CallWebService(AppConstants.GETCITIES +stateID,CallWebService.TYPE_JSONARRAY) {
+            new CallWebService(AppConstants.GETCITIES +stateID+"/"+ LanguageStringUtil.CultureString(MoneyTransferRecipientActivity.this),CallWebService.TYPE_JSONARRAY) {
 
                 @Override
                 public void response(String response) {

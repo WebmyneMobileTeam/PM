@@ -51,6 +51,7 @@ import com.webmyne.paylabasmerchant.util.RegionUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -164,9 +165,11 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
                 } else {
                     newValue = oldValue * selectedCountry.LiveRate;
                 }
+
                 DecimalFormat df = new DecimalFormat("#.##");
                 newValue = Double.valueOf(df.format(newValue));
-                newText.setText("" + newValue + " " + countryList.get(position).CurrencyName);
+
+                newText.setText("" + LanguageStringUtil.languageString(getActivity(),String.valueOf(newValue)) + " " + countryList.get(position).CurrencyName);
 
             } catch (Exception e) {
 
@@ -350,7 +353,7 @@ private void fetchCountries(){
 
                         if (responseCode.equalsIgnoreCase("1")) {
 
-                            index.setText(jobj.getString("LocalValueReceived") + " " + jobj.getString("LocalValueReceivedCurrancy"));
+                            index.setText(LanguageStringUtil.languageString(getActivity(),String.valueOf(jobj.getString("LocalValueReceived"))) + " " + jobj.getString("LocalValueReceivedCurrancy"));
 
                             GCCountry selectedCountry = countryList.get(spGCCountry.getSelectedItemPosition());
                             double oldValue = Double.parseDouble(jobj.getString("GCAmount"));
@@ -369,7 +372,7 @@ private void fetchCountries(){
                             }
                             DecimalFormat df = new DecimalFormat("#.##");
                             newValue = Double.valueOf(df.format(newValue));
-                            newText.setText("" + Double.valueOf(df.format(newValue)) + " " + selectedCountry.CurrencyName);
+                            newText.setText("" +LanguageStringUtil.languageString(getActivity(),String.valueOf(Double.valueOf(df.format(newValue))))  + " " + selectedCountry.CurrencyName);
 
 
                         } else {
@@ -434,6 +437,8 @@ private void fetchCountries(){
 
     private void processCombine() {
 
+        Log.e("in","processCombine");
+
         if (isPassedFromValidationProcess()) {
 
             try {
@@ -446,7 +451,12 @@ private void fetchCountries(){
                     LinearLayout layout = (LinearLayout) linearCombineGiftCode.getChildAt(i);
                     EditText ed = (EditText) layout.findViewById(R.id.entergiftcode_combinegiftcode);
                     TextView newText = (TextView) layout.findViewById(R.id.txtNewAmountGCCombineGC);
-                    newLocalValue = newLocalValue + Double.parseDouble(newText.getText().toString().split(" ")[0]);
+
+                    String newvalue= LanguageStringUtil.languageString(getActivity(),String.valueOf(newText.getText().toString().split(" ")[0]));
+                    newvalue = newvalue.replaceAll("\\,", ".");
+
+                    newLocalValue = newLocalValue + Double.parseDouble(newvalue);
+
                     JSONObject jobj = new JSONObject();
                     jobj.put("GiftCode", ed.getText().toString());
                     arr.put(jobj);
@@ -460,9 +470,15 @@ private void fetchCountries(){
                 jMain.put("AffiliateID", user.UserID);
                 jMain.put("GiftCode", arr);
                 jMain.put("SenderID", user.UserID);
+
                 DecimalFormat df = new DecimalFormat("#.##");
                 newLocalValue = Double.valueOf(df.format(newLocalValue));
-                jMain.put("NewLocalValueReceived", newLocalValue + "");
+
+                String newvalue= LanguageStringUtil.languageString(getActivity(),String.valueOf(newLocalValue)).trim();
+                newvalue = newvalue.replaceAll("\\,", ".");
+
+
+                jMain.put("NewLocalValueReceived", newvalue + "");
                 jMain.put("NewLocalValueReceivedCurrancy", countryList.get(spGCCountry.getSelectedItemPosition()).CurrencyName + "");
                 jMain.put("Culture", LanguageStringUtil.CultureString(getActivity()));
 
@@ -500,7 +516,7 @@ private void fetchCountries(){
 
 
                             } catch (Exception e) {
-
+                                Log.e("exc1",e.toString());
                             }
                         }
                     }, new Response.ErrorListener() {
@@ -521,11 +537,13 @@ private void fetchCountries(){
                     MyApplication.getInstance().addToRequestQueue(req);
 
                 } catch (Exception e) {
+                    Log.e("exc2",e.toString());
                     e.printStackTrace();
                 }
 
 
             } catch (Exception e) {
+                Log.e("exc3",e.toString());
                 e.printStackTrace();
             }
 
@@ -571,6 +589,8 @@ private void fetchCountries(){
                 }
             }
         }
+
+        Log.e("isPassed",""+isPassed);
 
         return isPassed;
     }
