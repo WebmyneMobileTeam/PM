@@ -506,7 +506,8 @@ public class FragmentHome extends Fragment {
     }
     private void getBalanceAndDisplay() {
         affilateUserBalance= PrefUtils.getMerchant(getActivity());
-        new CallWebService(AppConstants.USER_DETAILS+affilateUserBalance.UserID,CallWebService.TYPE_JSONOBJECT) {
+
+        new CallWebService(AppConstants.USER_DETAILS+affilateUserBalance.UserID+"/"+LanguageStringUtil.CultureString(getActivity()),CallWebService.TYPE_JSONOBJECT) {
 
             @Override
             public void response(String jobj) {

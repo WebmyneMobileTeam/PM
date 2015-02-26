@@ -137,7 +137,7 @@ public class FragmentCashIN extends Fragment {
             userObject.put("UserCountryCode",String.valueOf(user.MobileCountryCode));
             userObject.put("UserID",String.valueOf(user.UserID));
             userObject.put("UserMobileNo", user.MobileNo);
-
+            userObject.put("Culture", LanguageStringUtil.CultureString(getActivity()));
             Log.e("cash in  object",userObject.toString());
 
             final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
@@ -269,6 +269,7 @@ public class FragmentCashIN extends Fragment {
             final String LocalCurrency = PrefUtils.getAffilateCurrency(getActivity());
             userObject.put("FromCurrency","EUR");
             userObject.put("Tocurrency",LocalCurrency);
+            userObject.put("Culture", LanguageStringUtil.CultureString(getActivity()));
 
             final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
             circleDialog.setCancelable(true);
@@ -383,7 +384,7 @@ private void processPay(){
             userObject.put("FormDetailType",spIdentityProof.getSelectedItemPosition()+1);
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);
             userObject.put("UserMobileNo",edMobileNumber.getText().toString());
-
+            userObject.put("Culture", LanguageStringUtil.CultureString(getActivity()));
             Log.e("cash in post object",userObject.toString());
 
             final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
@@ -403,20 +404,13 @@ private void processPay(){
                         JSONObject obj = new JSONObject(response);
                         if(obj.getString("ResponseCode").equalsIgnoreCase("1")){
                             SimpleToast.ok(getActivity(), getResources().getString(R.string.code_fragmentcashiin_CASHINDONE));
-                            getActivity().finish();
+
                         }
                         else {
-                            if(obj.getString("ResponseCode").equalsIgnoreCase("2")) {
-                                SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragmentcashiin_INVALIDUSERDETAILS));
-                            }
-                            else if(obj.getString("ResponseCode").equalsIgnoreCase("4")) {
-                                SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragmentcashiin_CASHINFAILED));
-                            }
-                            else {
-                            SimpleToast.error(getActivity(), getResources().getString(R.string.code_fragmentcashiin_CASHINFALIEDTRYAGAIN));
-                            }
-                        }
+                            SimpleToast.error(getActivity(), obj.getString("ResponseMsg"));
 
+                        }
+                        getActivity().finish();
                     } catch (Exception e) {
                         Log.e("error response cashi in1: ", e.toString() + "");
                     }

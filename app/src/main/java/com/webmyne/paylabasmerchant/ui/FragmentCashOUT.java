@@ -37,6 +37,7 @@ import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
+import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 import com.webmyne.paylabasmerchant.util.RegionUtils;
 
@@ -192,8 +193,9 @@ private void getLiveCurrencyRate(){
        // Log.e("user local currency",user.LocalCurrency);
 
         userObject.put("Tocurrency",user.LocalCurrency);
+        userObject.put("Culture", LanguageStringUtil.CultureString(getActivity()));
 
-        Log.e("live currency object",userObject.toString());
+        Log.e("live currency object", userObject.toString());
 
         final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
         circleDialog.setCancelable(true);
@@ -247,7 +249,7 @@ private void processPay(){
             userObject.put("PIN",edPin.getText().toString());
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);
             userObject.put("UserMobileNo",edMobileNumber.getText().toString());
-
+            userObject.put("Culture", LanguageStringUtil.CultureString(getActivity()));
             Log.e("cash out post object",userObject.toString());
 
             final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
@@ -269,15 +271,9 @@ private void processPay(){
                             showVerificationAlert();
                         }
                         else {
-                            if(obj.getString("ResponseCode").equalsIgnoreCase("2")) {
-                                SimpleToast.error(getActivity(), getResources().getString(R.string.err_invalid_user));
-                            }
-                            else if(obj.getString("ResponseCode").equalsIgnoreCase("4")) {
-                                SimpleToast.error(getActivity(), getResources().getString(R.string.err_insufficient_bal));
-                            }
-                            else {
-                                SimpleToast.error(getActivity(), getResources().getString(R.string.err_cashout));
-                            }
+
+                                SimpleToast.error(getActivity(), obj.getString("ResponseMsg"));
+
                         }
 
                     } catch (Exception e) {
@@ -325,7 +321,7 @@ private void processPay2(final String Vfcode){
             userObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode);
             userObject.put("UserMobileNo",edMobileNumber.getText().toString());
             userObject.put("VerificationCode",Vfcode);
-
+            userObject.put("Culture", LanguageStringUtil.CultureString(getActivity()));
 
             Log.e("cash out2 post object",userObject.toString());
 
@@ -345,19 +341,13 @@ private void processPay2(final String Vfcode){
                         JSONObject obj = new JSONObject(response);
                         if(obj.getString("ResponseCode").equalsIgnoreCase("1")){
                             SimpleToast.ok(getActivity(), getResources().getString(R.string.cash_outdone));
-                            getActivity().finish();
+
                         }
                         else {
-                           if(obj.getString("ResponseCode").equalsIgnoreCase("2")) {
-                               SimpleToast.error(getActivity(), getResources().getString(R.string.err_invalid_user));
-                           }
-                           else if(obj.getString("ResponseCode").equalsIgnoreCase("4")) {
-                               SimpleToast.error(getActivity(), getResources().getString(R.string.err_insufficient_bal));
-                           }
-                           else {
-                               SimpleToast.error(getActivity(), getResources().getString(R.string.err_cashout));
-                           }
+                            SimpleToast.error(getActivity(), obj.getString("ResponseMsg"));
+
                         }
+                        getActivity().finish();
 
                     } catch (Exception e) {
                         Log.e("error response cash out1: ", e.toString() + "");

@@ -40,6 +40,8 @@ import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
 import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
+import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
+import com.webmyne.paylabasmerchant.util.PrefUtils;
 import com.webmyne.paylabasmerchant.util.RegionUtils;
 
 import org.json.JSONArray;
@@ -66,6 +68,8 @@ public class FragmentGCCoverter extends Fragment {
     private JSONObject responseObject;
     private GCCountryAdapter gcCountryAdapter;
     private LinearLayout convertContainer;
+    boolean isEnglisSelected;
+    CharSequence ch=".";
     public static FragmentGCCoverter newInstance(String param1, String param2) {
         FragmentGCCoverter fragment = new FragmentGCCoverter();
 
@@ -168,6 +172,15 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
     public void onResume() {
         super.onResume();
         convertContainer.setVisibility(View.GONE);
+
+        isEnglisSelected= PrefUtils.isEnglishSelected(getActivity());
+
+        if(isEnglisSelected)
+            ch=",";
+        else
+            ch=".";
+
+
         fetchCountries();
         getGCCountries();
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getActivity(), "user_pref", 0);
@@ -203,6 +216,7 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
                 newLocalValue = Double.valueOf(df.format(newLocalValue));
                 jMain.put("NewLocalValueReceived", newLocalValue + "");
                 jMain.put("NewLocalValueReceivedCurrancy", countryList.get(spGCCountry.getSelectedItemPosition()).CurrencyName + "");
+                jMain.put("Culture", LanguageStringUtil.CultureString(getActivity()));
                 Log.e("----------------- jMAIN ", "" + jMain.toString());
 
                 try {
@@ -361,6 +375,7 @@ btnConvert.setOnClickListener(new View.OnClickListener() {
             generateObject.put("SenderID", 0);
             generateObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode + "");
             generateObject.put("UserMobileNo", edUserMobile.getText().toString().trim());
+            generateObject.put("Culture", LanguageStringUtil.CultureString(getActivity()));
             Log.e(" FetchGC detail GC: ", "" + generateObject);
             JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.GETGCDETAIL, generateObject, new Response.Listener<JSONObject>() {
 

@@ -27,6 +27,7 @@ import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
+import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
 
 import static com.webmyne.paylabasmerchant.util.PrefUtils.isEnglishSelected;
@@ -254,6 +255,7 @@ public class LoginActivity extends ActionBarActivity {
         try {
             requestObject.put("MerchantID", etMerchantId.getText().toString().trim() + "");
             requestObject.put("Password", etSecretId.getText().toString().trim() + "");
+            requestObject.put("Culture", LanguageStringUtil.CultureString(LoginActivity.this));
         } catch (Exception e){
             e.printStackTrace();
         }

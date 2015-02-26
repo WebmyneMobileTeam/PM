@@ -44,6 +44,8 @@ import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
 import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
+import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
+import com.webmyne.paylabasmerchant.util.PrefUtils;
 import com.webmyne.paylabasmerchant.util.RegionUtils;
 
 
@@ -83,6 +85,8 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
     private JSONObject responseObject;
     private GCCountryAdapter gcCountryAdapter;
     private double localOldtextValue;
+    boolean isEnglisSelected;
+    CharSequence ch=".";
 
     public static CombineGCFragment newInstance(String param1, String param2) {
         CombineGCFragment fragment = new CombineGCFragment();
@@ -186,6 +190,13 @@ public class CombineGCFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onResume() {
         super.onResume();
+
+        isEnglisSelected= PrefUtils.isEnglishSelected(getActivity());
+
+        if(isEnglisSelected)
+            ch=",";
+        else
+            ch=".";
 
         fetchCountries();
         getGCCountries();
@@ -318,6 +329,8 @@ private void fetchCountries(){
             generateObject.put("SenderID", 0);
             generateObject.put("UserCountryCode",countries.get(spCountry.getSelectedItemPosition()).CountryCode + "");
             generateObject.put("UserMobileNo", edUserMobile.getText().toString().trim());
+            generateObject.put("Culture", LanguageStringUtil.CultureString(getActivity()));
+
             Log.e(" FetchGC detail GC: ", "" + generateObject);
             JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.GETGCDETAIL, generateObject, new Response.Listener<JSONObject>() {
 
@@ -451,6 +464,8 @@ private void fetchCountries(){
                 newLocalValue = Double.valueOf(df.format(newLocalValue));
                 jMain.put("NewLocalValueReceived", newLocalValue + "");
                 jMain.put("NewLocalValueReceivedCurrancy", countryList.get(spGCCountry.getSelectedItemPosition()).CurrencyName + "");
+                jMain.put("Culture", LanguageStringUtil.CultureString(getActivity()));
+
                 Log.e("----------------- jMAIN ", "" + jMain.toString());
 
                 try {

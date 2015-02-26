@@ -183,7 +183,7 @@
     <string name="fragment_generate_gc_MOBILENUMBER">Mobile Number</string>
     <string name="fragment_home_TRANSFER">TRANSFER</string>
     <string name="fragment_home_TOPUP">TOPUP</string>
-    <string name="fragment_home_GENERATE">GENERATE</string>
+    <string name="fragment_home_GENERATE"> GENERATE</string>
     <string name="fragment_home_OTHERSERVICES">OTHER\nSERVICES</string>
     <string name="fragment_home_WALLET">WALLET</string>
     <string name="fragment_home_GIFTCODE">GIFT CODE</string>
