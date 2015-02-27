@@ -328,6 +328,7 @@
                         android:singleLine="true"
                         android:hint="@string/payment_hint_gc"
                         android:inputType="number"
+                        android:maxLength="10"
                         android:textSize="@dimen/normal_text"
                         android:gravity="left|center_vertical"
                         android:textColor="@android:color/black"
@@ -375,7 +376,7 @@
                     android:textColor="@android:color/black"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:maxLines="9"
+                    android:maxLength="9"
                     android:layout_height="wrap_content"
                     android:id="@+id/etAmount" />
 

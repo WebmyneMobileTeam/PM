@@ -185,9 +185,9 @@
     <string name="fragment_home_TOPUP">TOPUP</string>
     <string name="fragment_home_GENERATE"> PRODUIRE</string>
     <string name="fragment_home_OTHERSERVICES">AUTRES \ nServices</string>
-    <string name="fragment_home_WALLET">WALLET</string>
+    <string name="fragment_home_WALLET">portefeuille</string>
     <string name="fragment_home_GIFTCODE">CODE DE CADEAU</string>
-    <string name="fragment_home_CASH">CASH</string>
+    <string name="fragment_home_CASH">espèces</string>
     <string name="fragment_home_NOMOBILETOPUPDONE">Aucune MobileTopUP fait</string>
     <string name="fragment_home_RECHARGE">RECHARGE</string>
     <string name="fragment_home_SELECTCOUNTRY">Sélectionnez votre pays</string>
