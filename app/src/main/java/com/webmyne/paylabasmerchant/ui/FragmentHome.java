@@ -41,6 +41,7 @@ import com.webmyne.paylabasmerchant.model.AffilateServices;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.model.Country;
+import com.webmyne.paylabasmerchant.model.GCRedeemPerposes;
 import com.webmyne.paylabasmerchant.model.LiveCurrency;
 import com.webmyne.paylabasmerchant.model.PaymentStep1;
 import com.webmyne.paylabasmerchant.model.RedeemGC;
@@ -96,6 +97,7 @@ public class FragmentHome extends Fragment {
     public int selectedPaymentType = -1;
     public int selectedServiceType = -1;
     public int selectedOtherType = -1;
+    public String selectedOtherPurposeType;
     private ArrayList colors_p;
     private LinearLayout linearServiceType, layoutOthers;
     private LinearLayout layoutGenerateGC,layoutTopup,layoutTransfer;
@@ -114,15 +116,13 @@ public class FragmentHome extends Fragment {
 
     public static boolean isFromDetailPage = false;
 
-    boolean isok;
+    private ArrayList<GCRedeemPerposes> affilateGCReedemPurposeList;
 
    /* final CharSequence[] items = {
             getResources().getString(R.string.ELECTICITYBILL), getResources().getString(R.string.GASBILL)
     };*/
 
-    final CharSequence[] items = {
-            "ELECTRICITY BILL", "GAS BILL"
-    };
+    private String[] items ;
 
     private Boolean isGenerateGCActive,isMobileTopupActive;
 
@@ -172,6 +172,7 @@ public class FragmentHome extends Fragment {
 
     private void filterService() {
         //filter services
+        affilateGCReedemPurposeList= new ArrayList<GCRedeemPerposes>();
         affilateServicesArrayList = new ArrayList<AffilateServices>();
         affilateServicesArrayList = PrefUtils.getMerchant(getActivity()).affilateServicesArrayList;
         affilateServiceNames = new ArrayList<String>();
@@ -189,10 +190,22 @@ public class FragmentHome extends Fragment {
 
         }
 
+
         Log.e("service name size",""+affilateServiceNames.size());
         for(int i=0;i<affilateServiceNames.size();i++)
         {
             Log.e("service name",affilateServiceNames.get(i));
+
+        }
+
+
+        affilateGCReedemPurposeList = PrefUtils.getMerchant(getActivity()).gcredeemPerposesArrayList;
+        Log.e("GC Purpose name size",""+affilateGCReedemPurposeList.size());
+        items = new String[affilateGCReedemPurposeList.size()];
+        for(int i=0;i<affilateGCReedemPurposeList.size();i++)
+        {
+            items[i] = affilateGCReedemPurposeList.get(i).RedeemPurpose;
+            Log.e("purpose name",""+affilateGCReedemPurposeList.get(i).RedeemPurpose);
 
         }
     }
@@ -459,10 +472,6 @@ public class FragmentHome extends Fragment {
             ch=",";
         else
             ch=".";
-
-
-
-
 
 
         isGenerateGCActive = affilateUser.affilateServicesArrayList.get(0).IsActive;
@@ -788,12 +797,15 @@ public class FragmentHome extends Fragment {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(getResources().getString(R.string.SELECTOTHERSERVICES));
+
                 builder.setItems(items, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int item) {
+                    public void onClick(DialogInterface dialog, int pos) {
                         // Do something with the selection
                         //   mDoneButton.setText(items[item]);
-                        selectedOtherType=1;
-                        txtOther.setText(items[item]);
+                        selectedOtherType=affilateGCReedemPurposeList.get(pos).Id;
+                        selectedOtherPurposeType=affilateGCReedemPurposeList.get(pos).RedeemPurpose;
+                        txtOther.setText(items[pos]);
+
                     }
                 });
                 AlertDialog alert = builder.create();
@@ -1307,7 +1319,9 @@ private void showVerificationAlert() {
 
             requestObject.put("Amount", newvalue + "");
 
-            requestObject.put("ServiceUse", getServiceName(selectedServiceType) + "");
+            requestObject.put("ServiceID", selectedOtherType + "");
+            requestObject.put("ServiceUse", selectedOtherPurposeType + "");
+
             requestObject.put("GiftCode", etGiftCode.getText().toString().trim() + "");
             Country countryObject = (Country) spCountryCode.getSelectedItem();
             requestObject.put("UserCountryCode", countryObject.CountryCode + "");

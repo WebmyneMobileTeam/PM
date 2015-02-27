@@ -12,6 +12,10 @@ public class AffilateUser {
     @SerializedName("AffiliateServices")
     public ArrayList<AffilateServices> affilateServicesArrayList =new ArrayList<AffilateServices>();
 
+    @SerializedName("GCRedeemPerposes")
+    public ArrayList<GCRedeemPerposes> gcredeemPerposesArrayList =new ArrayList<GCRedeemPerposes>();
+
+
     @SerializedName("CashOutPointName")
     public String CashOutPointName;
     @SerializedName("CityID")
