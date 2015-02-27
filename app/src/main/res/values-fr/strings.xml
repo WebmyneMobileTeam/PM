@@ -344,4 +344,5 @@
     <string name="xml_GGIFTCODe">ode cadeau</string>
     <string name="code_ERMSG">Limite minimum est de 10 pour ce service</string>
     <string name="code_selec">Se il vous plaît sélectionner Type Autre service Première</string>
+    <string name="code_otherer">Se il vous plaît Sélectionnez Autre type de services</string>
 </resources>

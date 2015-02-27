@@ -344,4 +344,5 @@
     <string name="xml_GGIFTCODe">giftcode</string>
     <string name="code_ERMSG">Minimum Limit is 10 for this service</string>
     <string name="code_selec">Please select Other Service Type First</string>
+    <string name="code_otherer">Please Select Other Service Type</string>
 </resources>

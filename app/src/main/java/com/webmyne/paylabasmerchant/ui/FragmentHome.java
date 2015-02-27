@@ -244,6 +244,9 @@ public class FragmentHome extends Fragment {
                     etAmount.setError(getString(R.string.code_ERMSG));
                 }
 
+                else if(selectedOtherType == -1){
+                    SimpleToast.error(getActivity(),getString(R.string.code_otherer));
+                }
                 else {
                       
                     if ((selectedPaymentType == 2)) {
@@ -804,7 +807,7 @@ public class FragmentHome extends Fragment {
                         //   mDoneButton.setText(items[item]);
                         selectedOtherType=affilateGCReedemPurposeList.get(pos).Id;
                         selectedOtherPurposeType=affilateGCReedemPurposeList.get(pos).RedeemPurpose;
-                        txtOther.setText(items[pos]);
+                        txtOther.setText(items[pos].toUpperCase());
 
                     }
                 });
@@ -1056,7 +1059,7 @@ public class FragmentHome extends Fragment {
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
                     }
                     else if (paymentStep1.ResponseCode.equalsIgnoreCase("-6")) {
-                        SimpleToast.error(getActivity(), paymentStep1.ResponseMsg);
+                          SimpleToast.error(getActivity(), paymentStep1.ResponseMsg);
 //                        Toast.makeText(getActivity(), getResources().getString(R.string.PaymentStep1_m4), Toast.LENGTH_SHORT).show();
                     }
                     else {
@@ -1318,8 +1321,11 @@ private void showVerificationAlert() {
             newvalue = newvalue.replaceAll("\\,", ".");
 
             requestObject.put("Amount", newvalue + "");
-            requestObject.put("ServiceID", selectedOtherType + "");
-            requestObject.put("ServiceUse", selectedOtherPurposeType + "");
+
+            requestObject.put("PurposeId", selectedOtherType + "");
+
+            //requestObject.put("ServiceID", selectedOtherType + "");
+            //requestObject.put("ServiceUse", selectedOtherPurposeType + "");
 
             requestObject.put("GiftCode", etGiftCode.getText().toString().trim() + "");
             Country countryObject = (Country) spCountryCode.getSelectedItem();
