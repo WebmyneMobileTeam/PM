@@ -532,7 +532,7 @@ public class FragmentHome extends Fragment {
                 try{
                     ((MyDrawerActivity)getActivity()).setToolTitle("Hi, "+affilateUserBalance.FName);
 
-                    ((MyDrawerActivity)getActivity()).setToolSubTitle("Balance "+getResources().getString(R.string.euro)+" "+affilateUserBalance.LemonwayBal);
+                    ((MyDrawerActivity)getActivity()).setToolSubTitle("Balance "+getResources().getString(R.string.euro)+" "+LanguageStringUtil.languageString(getActivity(),affilateUserBalance.LemonwayBal));
                     ((MyDrawerActivity)getActivity()).hideToolLoading();
                 }catch(Exception e){
                     e.printStackTrace();
