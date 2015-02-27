@@ -513,7 +513,6 @@ public class FragmentHome extends Fragment {
         ((MyDrawerActivity)getActivity()).setToolColor(Color.parseColor("#2977AC"));
 */
 
-     
 
     }
     private void getBalanceAndDisplay() {
