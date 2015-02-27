@@ -244,9 +244,9 @@ public class FragmentHome extends Fragment {
                     etAmount.setError(getString(R.string.code_ERMSG));
                 }
 
-                else if(selectedOtherType == -1){
-                    SimpleToast.error(getActivity(),getString(R.string.code_otherer));
-                }
+//                else if(selectedOtherType == -1){
+//                    SimpleToast.error(getActivity(),getString(R.string.code_otherer));
+//                }
                 else {
                       
                     if ((selectedPaymentType == 2)) {
@@ -811,6 +811,7 @@ public class FragmentHome extends Fragment {
                     }
                 });
                 AlertDialog alert = builder.create();
+                alert.setCancelable(false);
                 alert.show();
 
                 layoutWallet.setVisibility(View.GONE);
@@ -1191,7 +1192,7 @@ public class FragmentHome extends Fragment {
 
                         }
                     }catch (Exception e){
-                        Log.e("error response exc otp: ",""+e);
+                        Log.e("error response  otp:",""+e);
                     }
 
 

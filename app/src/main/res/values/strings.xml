@@ -169,7 +169,7 @@
     <string name="fragment_currency_covert_verification_WEHAVESENTYOUSMS">We have sent you an SMS with a code to your mobile number. \n\nPlease enter verification code\n</string>
     <string name="verify">VERIFY</string>
     <string name="fragment_gc_coverter_CONVERT">Convert</string>
-    <string name="fragment_gc_coverter_SELECTCURRENCYTYPE">Select Currency Type</string>
+    <string name="fragment_gc_coverter_SELECTCURRENCYTYPE">Select Country For Currency</string>
     <string name="fragment_gc_coverter_ENTERMOBILEDETAILS">Enter Mobile Details</string>
     <string name="fragment_gc_coverter_AMMT">Amount</string>
     <string name="fragment_gc_coverter_FROM">From</string>

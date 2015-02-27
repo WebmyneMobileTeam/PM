@@ -478,7 +478,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
                     String postfix = user.UserID+"/"+newvalue+"/"+arrCheckCountries.get(selected_country_id).CountryId;
                     Log.e("Pre Service charge link ",AppConstants.SERVICE_CHARGE+postfix);
 
-                    new CallWebService(AppConstants.SERVICE_CHARGE+postfix, CallWebService.TYPE_JSONOBJECT) {
+                    new CallWebService(AppConstants.SERVICE_CHARGE+postfix+LanguageStringUtil.CultureString(NewGenerateGCActivity.this), CallWebService.TYPE_JSONOBJECT) {
 
                         @Override
                         public void response(String response) {

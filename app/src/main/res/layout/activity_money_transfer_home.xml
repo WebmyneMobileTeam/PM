@@ -23,7 +23,6 @@
                 android:padding="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:fillViewport="false"
                 >
 
@@ -127,10 +126,6 @@
                 </LinearLayout>
             </ScrollView>
 
-
-
-
-
         </LinearLayout>
 
         <Button
@@ -144,8 +139,6 @@
             android:background="@color/theme_primary"
             android:gravity="center"
             android:padding="8dp" />
-
-
 
     </FrameLayout>
 </LinearLayout>

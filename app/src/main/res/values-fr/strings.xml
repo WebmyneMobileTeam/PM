@@ -169,7 +169,7 @@
     <string name="fragment_currency_covert_verification_WEHAVESENTYOUSMS">Nous te avons envoyé un SMS avec un code à votre numéro de téléphone mobile. \ n \ nVeuillez saisir le code de vérification \ n</string>
     <string name="verify">VÉRIFIER</string>
     <string name="fragment_gc_coverter_CONVERT">convertir</string>
-    <string name="fragment_gc_coverter_SELECTCURRENCYTYPE">Sélectionner le type de devise</string>
+    <string name="fragment_gc_coverter_SELECTCURRENCYTYPE">Sélectionnez votre pays pour la monnaie</string>
     <string name="fragment_gc_coverter_ENTERMOBILEDETAILS">Entrez mobile Détails</string>
     <string name="fragment_gc_coverter_AMMT">montant</string>
     <string name="fragment_gc_coverter_FROM">à partir de</string>
