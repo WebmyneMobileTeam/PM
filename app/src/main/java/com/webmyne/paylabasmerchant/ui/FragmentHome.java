@@ -1318,7 +1318,6 @@ private void showVerificationAlert() {
             newvalue = newvalue.replaceAll("\\,", ".");
 
             requestObject.put("Amount", newvalue + "");
-
             requestObject.put("ServiceID", selectedOtherType + "");
             requestObject.put("ServiceUse", selectedOtherPurposeType + "");
 
