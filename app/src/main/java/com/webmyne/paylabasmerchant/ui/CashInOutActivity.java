@@ -34,6 +34,7 @@ public class CashInOutActivity extends ActionBarActivity {
     private AffilateUser affilateUser;
     Boolean isCashInActive;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
