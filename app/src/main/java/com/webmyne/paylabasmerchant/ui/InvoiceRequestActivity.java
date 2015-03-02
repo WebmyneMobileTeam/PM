@@ -36,10 +36,9 @@ import com.webmyne.paylabasmerchant.model.UnclaimedGCDetail;
 import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
+import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
-
 import org.json.JSONObject;
-
 import java.io.LineNumberReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -68,7 +67,6 @@ public class InvoiceRequestActivity extends ActionBarActivity {
             toolbar_actionbar.setTitle(getString(R.string.GENERATEDINVOICE));
             toolbar_actionbar.setNavigationIcon(R.drawable.icon_back);
             setSupportActionBar(toolbar_actionbar);
-
         }
 
         toolbar_actionbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -87,8 +85,6 @@ public class InvoiceRequestActivity extends ActionBarActivity {
                } else {
                    SimpleToast.error(InvoiceRequestActivity.this,getString(R.string.YOUARENOTABLETOCLAIMINVOICE));
                }
-
-
             }
         });
     }
@@ -151,6 +147,8 @@ public class InvoiceRequestActivity extends ActionBarActivity {
             JSONObject userObject = new JSONObject();
             userObject.put("AffiliateID",user.UserID);
             userObject.put("ServiceID","7");
+            userObject.put("Culture", LanguageStringUtil.CultureString(InvoiceRequestActivity.this));
+
             Log.e("get request object",userObject.toString());
 
             final CircleDialog circleDialog = new CircleDialog(InvoiceRequestActivity.this, 0);
@@ -194,6 +192,8 @@ public class InvoiceRequestActivity extends ActionBarActivity {
             userObject.put("AffiliateID",user.UserID);
             userObject.put("ClaimAmt",unclaimedGCDetail.claimAmount);
             userObject.put("ServiceID","7");
+            userObject.put("Culture",LanguageStringUtil.CultureString(InvoiceRequestActivity.this));
+
             Log.e(" post request object",userObject.toString());
 
             final CircleDialog circleDialog = new CircleDialog(InvoiceRequestActivity.this, 0);
@@ -287,7 +287,6 @@ public class InvoiceRequestActivity extends ActionBarActivity {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-
                 holder.name.setText(tempList.get(position).SendTo + "");
                 holder.mobile.setText(tempList.get(position).ReceiverMob + "");
                 holder.amount.setText(tempList.get(position).GCAmount + "");
@@ -301,8 +300,6 @@ public class InvoiceRequestActivity extends ActionBarActivity {
 //            }catch (NullPointerException e){
 //                e.printStackTrace();
 //            }
-
-
             return convertView;
         }
 

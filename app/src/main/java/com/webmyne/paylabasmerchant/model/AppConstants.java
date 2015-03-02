@@ -54,9 +54,6 @@ public class AppConstants {
 
     public static String GET_LIVE_CURRENCY = BASE_URL + "Payment.svc/json/LiveCurrencyRate";
 
-
-
-
     public static String GET_MONERPOLO_CITYLIST = BASE_URL + "MoneyPolo.svc/json/GetMoneyPoloCityList";
 
     public static String GET_MONERPOLO_BANKLIST = BASE_URL + "MoneyPolo.svc/json/GetMoneyPoloBankList";
