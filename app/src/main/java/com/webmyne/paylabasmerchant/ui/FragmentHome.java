@@ -45,6 +45,7 @@ import com.webmyne.paylabasmerchant.model.GCRedeemPerposes;
 import com.webmyne.paylabasmerchant.model.LiveCurrency;
 import com.webmyne.paylabasmerchant.model.PaymentStep1;
 import com.webmyne.paylabasmerchant.model.RedeemGC;
+import com.webmyne.paylabasmerchant.model.ServiceCharge;
 import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.InternationalNumberValidation;
@@ -62,6 +63,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGE;
+import static com.webmyne.paylabasmerchant.util.PrefUtils.setMerchant;
 
 
 public class FragmentHome extends Fragment {
@@ -106,6 +108,7 @@ public class FragmentHome extends Fragment {
     private LinearLayout layoutOthers1, layoutGenerateGC1,layoutTopUp1,linearTransfer1;
     boolean isEnglisSelected;
     CharSequence ch=".";
+    public ServiceCharge serviceChargeobj;
 
 
     private TextView txtTransfer,txtTopup,txtGenerate;
@@ -123,6 +126,7 @@ public class FragmentHome extends Fragment {
     };*/
 
     private String[] items ;
+    private String ServiceID;
 
     private Boolean isGenerateGCActive,isMobileTopupActive;
 
@@ -240,13 +244,11 @@ public class FragmentHome extends Fragment {
                 } else if (isAmountEmpty()) {
                     SimpleToast.error(getActivity(), getResources().getString(R.string.validation_empty_amount));
 //                    Toast.makeText(getActivity(), getResources().getString(R.string.validation_empty_amount), Toast.LENGTH_SHORT).show();
-                } else if(etAmount.length()<6){
+                } /*else if(etAmount.length()<6){
                     etAmount.setError(getString(R.string.code_ERMSG));
-                }
+                }*/
 
-//                else if(selectedOtherType == -1){
-//                    SimpleToast.error(getActivity(),getString(R.string.code_otherer));
-//                }
+
                 else {
                       
                     if ((selectedPaymentType == 2)) {
@@ -295,7 +297,12 @@ public class FragmentHome extends Fragment {
                         }
 
                     } else {
-                        postPaymentRequest();
+
+                         getServiceLimit(ServiceID);
+
+                        /*if(validateCharges()) {
+                            postPaymentRequest();
+                        }*/
                     }
                 }
             }
@@ -314,6 +321,51 @@ public class FragmentHome extends Fragment {
 
         return convertview;
     }
+
+
+    private boolean validateCharges(){
+
+        boolean isComplete = false;
+
+
+        String ednewamount= etAmount.getText().toString().trim();
+        ednewamount = ednewamount.replaceAll("\\,", ".");
+
+
+        Float value = Float.parseFloat(ednewamount);
+
+        if(ServiceID.equals("10")){
+            isComplete = true;
+        }
+        else {
+
+
+            if (value < serviceChargeobj.MinLimit) {
+
+                isComplete = false;
+                etAmount.setError("Minimum Amount is " + affilateUser.LocalCurrency + " " + serviceChargeobj.MinLimit + " For This Service");
+
+            } else if (value > serviceChargeobj.MaxLimit) {
+
+                isComplete = false;
+                etAmount.setError("Maximum Amount is " + affilateUser.LocalCurrency + " " + serviceChargeobj.MaxLimit + " For This Service");
+
+            }/*else if(value>user_value){
+
+            isComplete = false;
+            edAmountAddMoney.setError(getString(R.string.code_INSUFFICENTBALACNE));
+
+        }*/ else {
+                isComplete = true;
+            }
+        }
+
+
+
+        return isComplete;
+    }
+
+
 
     private void resetAll() {
         etAmount.setText("");
@@ -731,6 +783,8 @@ public class FragmentHome extends Fragment {
 
             selectedServiceType = linearServiceType.indexOfChild(linearChild);
 
+
+
             setServiceSelection(selectedServiceType);
 
         }
@@ -759,6 +813,8 @@ public class FragmentHome extends Fragment {
 
             case 0:
 
+                ServiceID=AppConstants.Money_Transfer;
+
                 // transfer
                 layoutWallet.setVisibility(View.VISIBLE);
                 layoutGC.setVisibility(View.GONE);
@@ -776,6 +832,8 @@ public class FragmentHome extends Fragment {
                 break;
 
             case 1:
+
+                ServiceID=AppConstants.Mobile_Top_Up;
 
                 //topup
 
@@ -797,6 +855,8 @@ public class FragmentHome extends Fragment {
 
             case 2:
 
+                ServiceID=AppConstants.Generate_New_Gift_Code;
+
                 //generate
                 layoutWallet.setVisibility(View.VISIBLE);
                 layoutGC.setVisibility(View.GONE);
@@ -814,6 +874,9 @@ public class FragmentHome extends Fragment {
                 break;
 
             case 3:
+
+                ServiceID=AppConstants.Redeem_Gift_code;
+
                 //others
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -1521,5 +1584,80 @@ private void showVerificationAlert() {
         }
         return serviceType;
     }
+
+
+
+private void getServiceLimit(String ServiceId) {
+
+    affilateUser= PrefUtils.getMerchant(getActivity());
+
+    JSONObject object = null;
+    try {
+        object = new JSONObject();
+        object.put("Culture", LanguageStringUtil.CultureString(getActivity()));
+        object.put("ServiceID", ServiceId);
+        object.put("AffiliateID", affilateUser.UserID);
+
+        Log.e("obj service limit: ", "" + object.toString());
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    final CircleDialog circleDialog = new CircleDialog(getActivity(), 0);
+    circleDialog.setCancelable(true);
+    circleDialog.show();
+
+    JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.AFFILATE_SERVICE_LIMIT, object, new Response.Listener<JSONObject>() {
+
+        @Override
+        public void onResponse(JSONObject jobj) {
+
+            circleDialog.dismiss();
+            String response = jobj.toString();
+            Log.e("Response service limit: ", "" + response);
+            try {
+                JSONObject obj = new JSONObject(response);
+                String responsecode = obj.getString("ResponseCode");
+
+                if (responsecode.equalsIgnoreCase("1")) {
+
+                    serviceChargeobj = new GsonBuilder().create().fromJson(response, ServiceCharge.class);
+                    PrefUtils.setServiceLimit(getActivity(),serviceChargeobj);
+
+                    if(validateCharges()) {
+                            postPaymentRequest();
+                        }
+
+                } else {
+                    SimpleToast.error(getActivity(),obj.getString("ResponseMsg"));
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }, new Response.ErrorListener() {
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+
+            circleDialog.dismiss();
+            SimpleToast.error(getActivity(), getString(R.string.NWWNE));
+
+
+        }
+    });
+
+    req.setRetryPolicy(
+            new DefaultRetryPolicy(0, 0, 0));
+
+    MyApplication.getInstance().addToRequestQueue(req);
+
+}
+
+
 //end of main class
 }

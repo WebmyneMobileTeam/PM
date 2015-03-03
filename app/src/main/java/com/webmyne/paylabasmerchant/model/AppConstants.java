@@ -90,6 +90,8 @@ public class AppConstants {
     public static final String AFFILATE_LOGIN=BASE_URL+"Affiliate.svc/json/AffiliateLogin";
 
 
+    public static final String AFFILATE_SERVICE_LIMIT=BASE_URL+"Payment.svc/json/ServiceChargeAndItsLimit";
+
     //MERCHANT PAYMENT SERVICES
     public static final String creditOnWallet="Credit Own Wallet";
     public static final String generateNewGiftCode="Generate New Gift Code";
@@ -119,6 +121,22 @@ public class AppConstants {
 
     public static String GET_GC_COUNTRY = BASE_URL+"GiftCode.svc/json/GCCountry";
     public static String GENERATE_GC = BASE_URL+"Payment.svc/json/GenerateGC";
+
+
+    // Service ID Constants
+    public static final String Credit_Own_Wallet="1";
+    public static final String Send_Money_to_Wallet="2";
+    public static final String Money_Transfer="3";
+    public static final String Generate_New_Gift_Code="4";
+    public static final String Combine_Gift_Code="5";
+    public static final String Gift_Code_Currency_Conversion="6";
+    public static final String Redeem_Gift_code="7";
+    public static final String Regenerate_Gift_Code="8";
+    public static final String Expiry_of_Gift_Code="9";
+    public static final String Mobile_Top_Up="10";
+    public static final String Cash_In="11";
+    public static final String Cash_Out="12";
+    public static final String Money_Out="13";
 }
 
 

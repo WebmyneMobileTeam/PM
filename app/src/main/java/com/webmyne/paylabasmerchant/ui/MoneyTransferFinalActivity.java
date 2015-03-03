@@ -23,6 +23,7 @@ import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.model.Receipient;
+import com.webmyne.paylabasmerchant.model.ServiceCharge;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
@@ -133,25 +134,36 @@ public class MoneyTransferFinalActivity extends ActionBarActivity {
         txtamountRecipientGET.setText("Recipient Gets: "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(String.format("%.2f",Float.valueOf(MoneyTransferHomeActivity.bankobj.RecipientGet))))+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
         txtExchangerate.setText("Exchnage Rate:  € 1 = "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.ConvRate))+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
 */
+
+         ServiceCharge serviceObj= PrefUtils.getServiceLimt(MoneyTransferFinalActivity.this);
+
+         DecimalFormat format1 = new DecimalFormat("##.00");
+
          FinalPayableAmount = Float.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt);
 
          txtSendAmount.setText("€ "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.Amount)));
 
-         Float Fees = FinalPayableAmount - MoneyTransferHomeActivity.bankobj.Amount;
+         double Fees = FinalPayableAmount - MoneyTransferHomeActivity.bankobj.Amount;
 
-         txtFees.setText("Fees:  € "+ LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(Fees)));
+         Float AffliatePercharge = Float.parseFloat(serviceObj.AffiliatePerCharge);
 
-         txtamountPayable.setText("Total Payable Amount: € "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.PayableAmt)));
+         double temp = AffliatePercharge /100;
+         double FinaleAffliatePer = FinalPayableAmount * temp;
+         Log.e("finae affliate per",String.valueOf(FinaleAffliatePer));
 
-         txtamountRecipientGET.setText("Recipient Gets: "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.RecipientGet))+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
+
+         Fees = Fees + FinaleAffliatePer;
+         Log.e("fees",String.valueOf(Fees));
+
+         String roundup_total = String.format("%.2f", Fees);
+
+
+         txtFees.setText("Fees:  € "+ LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, roundup_total));
+
+         txtamountPayable.setText("Total Payable Amount: € "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, format1.format(Double.parseDouble(MoneyTransferHomeActivity.bankobj.PayableAmt)+FinaleAffliatePer)));
+
+         txtamountRecipientGET.setText("Recipient Gets: "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this,format1.format(Double.parseDouble(MoneyTransferHomeActivity.bankobj.RecipientGet)))+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
          txtExchangerate.setText("Exchnage Rate:  € 1 = "+LanguageStringUtil.languageString(MoneyTransferFinalActivity.this, String.valueOf(MoneyTransferHomeActivity.bankobj.ConvRate))+" "+ MoneyTransferHomeActivity.bankobj.Currencies);
-
-
-
-
-
-
-
 
      }
     private void intView(){

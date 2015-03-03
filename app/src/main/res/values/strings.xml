@@ -205,7 +205,7 @@
     <string name="item_dialog_generategc_MOBILE1">Mobile</string>
     <string name="item_dialog_generategc_AMOUNT">Amount :</string>
     <string name="item_dialog_generategc_PERCENTAGECHARGE">Percentage Charge :</string>
-    <string name="item_dialog_generategc_FIXEDCHARGE">Fixed Charge :</string>
+    <string name="item_dialog_generategc_FIXEDCHARGE">Service Charge :</string>
     <string name="item_dialog_generategc_PAYABLEAMOUNT">Payable Amount :</string>
     <string name="item_dialog_generategc_RECIPIENTSGETS">Recipient Gets :</string>
     <string name="item_dialog_pickup_SELECTPICKUPPOINT">SELECT PICKUP POINT</string>
@@ -266,7 +266,7 @@
     <string name="GENERATEDINVOICE">Generated Invoice</string>
     <string name="YOUARENOTABLETOCLAIMINVOICE">You are not able to claim this invoice</string>
     <string name="INVOICEREQUEST">Invoice Request</string>
-    <string name="INVALIDMOBILEORPASSWORD">Invalid Mobile No or Password !!!</string>
+    <string name="INVALIDMOBILEORPASSWORD">Invalid Merchent ID or Password !!!</string>
     <string name="INTERNALSERVERERROR">Internal Server Error</string>
     <string name="ERROR">Error</string>
     <string name="TRYAGIN">Try Again</string>
@@ -342,7 +342,7 @@
     <string name="xml_A">amount</string>
     <string name="xml_ENTERMOBNOo">Enter mobile no.</string>
     <string name="xml_GGIFTCODe">giftcode</string>
-    <string name="code_ERMSG">Minimum Limit is 10 for this service</string>
+    <string name="code_ERMSG">Please Enter Minimum Amount 1.00</string>
     <string name="code_selec">Please select Other Service Type First</string>
     <string name="code_otherer">Please Select Other Service Type</string>
 </resources>

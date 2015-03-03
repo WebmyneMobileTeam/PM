@@ -668,7 +668,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
 
         txtPayableAmountGenerateGCService.setText(LocalCurrency+" "+LanguageStringUtil.languageString(NewGenerateGCActivity.this, String.valueOf(String.format("%.2f",charge.PayableAmount))));
 
-        txtPaylabasChargeGenerateGCService.setText(LocalCurrency+" "+LanguageStringUtil.languageString(NewGenerateGCActivity.this, String.valueOf(charge.FixCharge)));
+        txtPaylabasChargeGenerateGCService.setText(LocalCurrency+" "+LanguageStringUtil.languageString(NewGenerateGCActivity.this, String.valueOf(String.format("%.2f",charge.FixCharge))));
 
 
      //   txtExchangeRate.setText(String.format("Exchange rate :\n1 EUR = %s",LiveRate)+" "+LocalCurrency);
@@ -678,7 +678,7 @@ public class NewGenerateGCActivity extends ActionBarActivity implements View.OnC
         double newValue=0.0d;
         newValue = Double.valueOf(df.format(finalamt));
 
-        txtMerchentAmt.setText(String.format("Merchent Payable Amount :\n EUR ")+LanguageStringUtil.languageString(NewGenerateGCActivity.this, String.valueOf(newValue)));
+        txtMerchentAmt.setText(String.format("Merchent deducted Amount :\n EUR ")+LanguageStringUtil.languageString(NewGenerateGCActivity.this, String.valueOf(newValue)));
 
         String newvalue11= edAmountGenerateGC.getText().toString().trim();
         newvalue11 = newvalue11.replaceAll("\\,", ".");

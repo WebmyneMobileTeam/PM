@@ -155,6 +155,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="#000"
                         android:maxLength="9"
+                        android:enabled="false"
                         android:inputType="numberDecimal"
                         android:layout_weight="1"/>
 

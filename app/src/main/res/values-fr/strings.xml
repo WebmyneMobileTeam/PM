@@ -205,7 +205,7 @@
     <string name="item_dialog_generategc_MOBILE1">Mobile</string>
     <string name="item_dialog_generategc_AMOUNT">montant :</string>
     <string name="item_dialog_generategc_PERCENTAGECHARGE">pourcentage de charge :</string>
-    <string name="item_dialog_generategc_FIXEDCHARGE">charge fixe :</string>
+    <string name="item_dialog_generategc_FIXEDCHARGE">frais de service :</string>
     <string name="item_dialog_generategc_PAYABLEAMOUNT">Montant à payer :</string>
     <string name="item_dialog_generategc_RECIPIENTSGETS">Obtient bénéficiaire :</string>
     <string name="item_dialog_pickup_SELECTPICKUPPOINT">SELECT PICKUP POINT</string>
@@ -266,7 +266,7 @@
     <string name="GENERATEDINVOICE">facture généré</string>
     <string name="YOUARENOTABLETOCLAIMINVOICE">Vous n\'êtes pas en mesure de réclamer cette facture</string>
     <string name="INVOICEREQUEST">Demande de facture</string>
-    <string name="INVALIDMOBILEORPASSWORD">Invalid Mobile Pas ou mot de passe !!!</string>
+    <string name="INVALIDMOBILEORPASSWORD">Code incorrect Merchent ou mot de passe !!!</string>
     <string name="INTERNALSERVERERROR">Internal Server Error</string>
     <string name="ERROR">erreur</string>
     <string name="TRYAGIN">essayer À Nouveau</string>
@@ -342,7 +342,7 @@
     <string name="xml_A">montant</string>
     <string name="xml_ENTERMOBNOo">Entrez pas mobile.</string>
     <string name="xml_GGIFTCODe">ode cadeau</string>
-    <string name="code_ERMSG">Limite minimum est de 10 pour ce service</string>
+    <string name="code_ERMSG">Se il vous plaît Entrez Montant minimum 1,00</string>
     <string name="code_selec">Se il vous plaît sélectionner Type Autre service Première</string>
     <string name="code_otherer">Se il vous plaît Sélectionnez Autre type de services</string>
 </resources>

@@ -23,6 +23,7 @@ import android.util.Log;
 
 
 import com.webmyne.paylabasmerchant.model.AffilateUser;
+import com.webmyne.paylabasmerchant.model.ServiceCharge;
 import com.webmyne.paylabasmerchant.ui.widget.ComplexPreferences;
 
 import static com.webmyne.paylabasmerchant.util.LogUtils.LOGD;
@@ -79,6 +80,20 @@ public class PrefUtils  {
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
         return complexPreferences.getObject("current_user", AffilateUser.class);
     }
+
+    public static ServiceCharge getServiceLimt(final Context context){
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
+        return complexPreferences.getObject("service_limit", ServiceCharge.class);
+    }
+
+    public static void setServiceLimit(final Context context, final ServiceCharge servicelimitobj) {
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
+        complexPreferences.putObject("service_limit", servicelimitobj);
+        complexPreferences.commit();
+    }
+
+
+
     public static void setMerchant(final Context context, final AffilateUser affilateUser) {
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
         complexPreferences.putObject("current_user", affilateUser);
