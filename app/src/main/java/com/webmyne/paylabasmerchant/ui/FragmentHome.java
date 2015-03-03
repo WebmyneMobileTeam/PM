@@ -338,7 +338,7 @@ public class FragmentHome extends Fragment {
         resetPaymentLinear();
         resetServiceLinear();
 
-        spCountryCode.setSelection(0);
+     //   spCountryCode.setSelection(0);
 
     }
 
@@ -463,6 +463,8 @@ public class FragmentHome extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+
         getBalanceAndDisplay();
         affilateUser= PrefUtils.getMerchant(getActivity());
         // String str = affilateUser.affilateServicesArrayList.get(0).ServiceName.toString();
@@ -533,6 +535,23 @@ public class FragmentHome extends Fragment {
 
                     ((MyDrawerActivity)getActivity()).setToolSubTitle("Balance "+getResources().getString(R.string.euro)+" "+LanguageStringUtil.languageString(getActivity(),affilateUserBalance.LemonwayBal));
                     ((MyDrawerActivity)getActivity()).hideToolLoading();
+
+
+                    int posCountry = 0;
+                    try {
+                        for (int i = 0; i < countries.size(); i++) {
+                            if (countries.get(i).CountryID == affilateUserBalance.CountryID) {
+                                posCountry = i;
+                                break;
+                            }
+                        }
+                    }catch (Exception e){
+                        Log.e("error ","recipient-prof is not loaded");
+                    }
+                    spCountryCode.setSelection(posCountry);
+
+
+
                 }catch(Exception e){
                     e.printStackTrace();
                 }
