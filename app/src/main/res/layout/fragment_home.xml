@@ -125,6 +125,7 @@
                             android:layout_height="wrap_content" />
                                </LinearLayout>
                         <TextView
+                            android:layout_marginLeft="2dp"
                             android:clickable="false"
                             android:id="@+id/txtTopup"
                             android:layout_width="wrap_content"
@@ -154,6 +155,7 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                         <TextView
+                            android:layout_marginLeft="2dp"
                             android:clickable="false"
                             android:id="@+id/txtGenerate"
                             android:layout_width="wrap_content"
@@ -183,10 +185,13 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                         <TextView
+                            android:layout_marginLeft="2dp"
                             android:gravity="center"
                             android:id="@+id/txtOther"
                             android:clickable="false"
+
                             android:maxLines="2"
+                            android:ellipsize="end"
                             android:layout_width="wrap_content"
                             android:text="@string/fragment_home_OTHERSERVICES"
                             android:layout_height="wrap_content" />
