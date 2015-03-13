@@ -287,6 +287,7 @@ public class InvoiceRequestActivity extends ActionBarActivity {
             }
 
 
+
             JSONObject userObject = new JSONObject();
             userObject.put("AffiliateID",user.UserID);
             userObject.put("ClaimAmt",Float.valueOf(txtTotalAmount.getText().toString().trim()));
