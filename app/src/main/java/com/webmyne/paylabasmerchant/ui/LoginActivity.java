@@ -82,18 +82,26 @@ public class LoginActivity extends ActionBarActivity {
         setLanguage();
         etMerchantId.setText("C35361266A");
         etSecretId.setText("1VC@ht");
+
         btnLoginNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Log.e("inside","btn click");
+
+
                 if(isMerchantEmpty() || isSecretIdEmpty()){
 //                    SnackBar bar = new SnackBar(Login.this,"Please enter merchant id and secret id");
 //                    bar.show();
+                    Log.e("inside","if");
                     SimpleToast.error(LoginActivity.this,getString(R.string.login_merchant_and_password_message));
 //                    Toast.makeText(LoginActivity.this,"Please enter merchant id and Password",Toast.LENGTH_SHORT).show();
                 } else {
                     circleDialog = new CircleDialog(LoginActivity.this, 0);
                     circleDialog.setCancelable(true);
                     circleDialog.show();
+                    Log.e("inside", "else");
+
                     getRegId();
                 }
 
@@ -249,13 +257,14 @@ public class LoginActivity extends ActionBarActivity {
 
     private void checkMerchentLogin() {
 
-
+        Log.e("inside","check merchent");
 
         JSONObject requestObject = new JSONObject();
         try {
             requestObject.put("MerchantID", etMerchantId.getText().toString().trim() + "");
             requestObject.put("Password", etSecretId.getText().toString().trim() + "");
             requestObject.put("Culture", LanguageStringUtil.CultureString(LoginActivity.this));
+            Log.e("login ojb",requestObject.toString());
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -303,16 +312,21 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     public void getRegId(){
+/*
 
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                try {
+               try {
                     if (gcm == null) {
                         gcm = GoogleCloudMessaging.getInstance(LoginActivity.this);
                     }
+
                     regid = gcm.register(PROJECT_NUMBER);
+
+
                     Log.e("GCM ID :", regid);
+
                     if(regid==null || regid==""){
                         AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                         alert.setTitle(getString(R.string.ERROR));
@@ -338,17 +352,24 @@ public class LoginActivity extends ActionBarActivity {
                         SharedPreferences.Editor editor=sharedPreferences.edit();
                         editor.putString("GCM_ID",regid);
                         editor.commit();
+*/
+
 
                         checkMerchentLogin();
 
+
+
+
                     }
-                } catch (IOException ex) {
+               /* } catch (IOException ex) {
                     ex.printStackTrace();
+                    Log.e("errr",ex.toString());
+
                 }
                 return null;
             }
         }.execute();
 
     } // end of getRegId
-
+*/
 }

@@ -482,7 +482,7 @@ private void fetchCountries(){
                 jMain.put("NewLocalValueReceivedCurrancy", countryList.get(spGCCountry.getSelectedItemPosition()).CurrencyName + "");
                 jMain.put("Culture", LanguageStringUtil.CultureString(getActivity()));
 
-                Log.e("----------------- jMAIN ", "" + jMain.toString());
+                Log.e("------- jMAIN ", "" + jMain.toString());
 
                 try {
 

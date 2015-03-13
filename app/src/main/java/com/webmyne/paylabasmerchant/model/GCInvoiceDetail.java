@@ -9,6 +9,8 @@ import java.util.Date;
  */
 public class GCInvoiceDetail {
 
+    public boolean selected;
+
     @SerializedName("GCAmount")
     public double GCAmount;
     @SerializedName("ReceiverMob")
@@ -22,5 +24,30 @@ public class GCInvoiceDetail {
     @SerializedName("id")
     public int id;
 
+    @SerializedName("LocalValueReceived")
+    public double LocalValueReceived;
+
+    @SerializedName("LocalValueReceivedCurrancy")
+    public String LocalValueReceivedCurrancy;
+
+
+    public boolean isinvocieSelected=false;
+
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public void setSelectedALL(boolean selected) {
+        this.selected = selected;
+    }
+
+    public void setUnCheckedAll(boolean unselected) {
+        this.selected = unselected;
+    }
 
 }

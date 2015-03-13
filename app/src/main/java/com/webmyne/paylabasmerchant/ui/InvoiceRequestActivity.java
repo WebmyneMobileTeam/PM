@@ -2,19 +2,19 @@ package com.webmyne.paylabasmerchant.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -31,16 +31,15 @@ import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.model.AffilateUser;
 import com.webmyne.paylabasmerchant.model.AppConstants;
 import com.webmyne.paylabasmerchant.model.GCInvoiceDetail;
-import com.webmyne.paylabasmerchant.model.OTPDialog;
 import com.webmyne.paylabasmerchant.model.UnclaimedGCDetail;
-import com.webmyne.paylabasmerchant.ui.widget.CallWebService;
 import com.webmyne.paylabasmerchant.ui.widget.CircleDialog;
 import com.webmyne.paylabasmerchant.ui.widget.SimpleToast;
 import com.webmyne.paylabasmerchant.util.LanguageStringUtil;
 import com.webmyne.paylabasmerchant.util.PrefUtils;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
-import java.io.LineNumberReader;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,6 +55,12 @@ public class InvoiceRequestActivity extends ActionBarActivity {
     private TextView txtToDate,txtToMonth,txtToYear;
     private AffilateUser user;
     private ArrayList<GCInvoiceDetail> tempList;
+    private ImageView imgChkButton;
+    private boolean isbtnclick=false;
+
+    private Double TotalAmount;
+    private ArrayList<String> GCID = new ArrayList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +85,14 @@ public class InvoiceRequestActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-               if(unclaimedGCDetail.isAbleToClaim==true) {
-                   claimInvoice();
+                Log.e("GCID Size",""+GCID.size());
+                if(unclaimedGCDetail.isAbleToClaim==true) {
+                  if(GCID.size()!=0) {
+                      claimInvoice();
+                  }
+                   else{
+                      SimpleToast.error(InvoiceRequestActivity.this,getString(R.string.errstring));
+                  }
                } else {
                    SimpleToast.error(InvoiceRequestActivity.this,getString(R.string.YOUARENOTABLETOCLAIMINVOICE));
                }
@@ -89,7 +100,13 @@ public class InvoiceRequestActivity extends ActionBarActivity {
         });
     }
 
+
+
+
     private void init(){
+
+
+
         txtTotalAmount= (TextView)findViewById(R.id.txtTotalAmount);
         //from date
         layoutFrom= (View)findViewById(R.id.layoutFrom);
@@ -104,6 +121,34 @@ public class InvoiceRequestActivity extends ActionBarActivity {
         txtInvoiceRequest= (TextView)findViewById(R.id.txtInvoiceRequest);
         invoiceRequestList = (ListView)findViewById(R.id.invoiceRequestList);
         toolbar_actionbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
+
+
+
+        imgChkButton= (ImageView)findViewById(R.id.imgChkButton);
+        imgChkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!isbtnclick){
+                    imgChkButton.setImageResource(R.drawable.checkboxall);
+                    invoiceRequestAdapter.setCheckedAll();
+                    invoiceRequestAdapter.notifyDataSetChanged();
+                    isbtnclick=true;
+                }
+                else{
+
+                    imgChkButton.setImageResource(R.drawable.checkboxunselect);
+                    invoiceRequestAdapter.setUnCheckedAll();
+
+                    invoiceRequestAdapter.notifyDataSetChanged();
+                    isbtnclick=false;
+                }
+
+
+
+            }
+        });
+
 
     }
 
@@ -141,6 +186,8 @@ public class InvoiceRequestActivity extends ActionBarActivity {
 
     }
 
+
+
     private void getUnclaimedGCDetail(){
 
         try{
@@ -164,9 +211,14 @@ public class InvoiceRequestActivity extends ActionBarActivity {
                     unclaimedGCDetail=new GsonBuilder().create().fromJson(jobj.toString(), UnclaimedGCDetail.class);
                     txtTotalAmount.setText(unclaimedGCDetail.claimAmount+"");
                     setFromAndToDate();
+
+                    TotalAmount = 0.0;
+
                     tempList=unclaimedGCDetail.gcInvoiceDetails;
                     invoiceRequestAdapter=new InvoiceRequestAdapter(InvoiceRequestActivity.this,tempList);
                     invoiceRequestList.setAdapter(invoiceRequestAdapter);
+
+
 
                 }
             }, new Response.ErrorListener() {
@@ -178,23 +230,71 @@ public class InvoiceRequestActivity extends ActionBarActivity {
 
                 }
             });
-            req.setRetryPolicy(  new DefaultRetryPolicy(0,0,0));
+            req.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
             MyApplication.getInstance().addToRequestQueue(req);
         }catch(Exception e){
-            Log.e("exception",e.toString());
+            Log.e("exception", e.toString());
         }
 
     }
+/*    void claimInvoice2(){
+
+        //  GCID.add(getPosition,""+redeemList.get(getPosition).id);
+
+        Log.e("GCID Size",""+GCID.size());
+
+        for (int ii = 0; ii < GCID.size(); ii++) {
+            Log.e("GCID ID",""+GCID.get(ii));
+        }
+
+
+
+        try{
+
+            JSONArray arr = new JSONArray();
+
+
+            for (int i = 0; i < 3; i++) {
+                JSONObject jobj = new JSONObject();
+                jobj.put("GiftCode", ""+i);
+                arr.put(jobj);
+            }
+
+
+            JSONObject userObject = new JSONObject();
+
+            userObject.put("AffiliateID", user.UserID);
+            userObject.put("ServiceID","7");
+            userObject.put("GiftCode", arr);
+            userObject.put("Culture", LanguageStringUtil.CultureString(InvoiceRequestActivity.this));
+
+            Log.e("get request object",userObject.toString());
+        }catch (Exception e){
+            Log.e("Exc",e.toString());
+        }
+
+    }*/
+
 
     private void claimInvoice(){
         try{
+
+            JSONArray arr = new JSONArray();
+            for (int i = 0; i < GCID.size(); i++) {
+                JSONObject jobj = new JSONObject();
+                jobj.put("Id",Integer.valueOf(GCID.get(i)));
+                arr.put(jobj);
+            }
+
+
             JSONObject userObject = new JSONObject();
             userObject.put("AffiliateID",user.UserID);
-            userObject.put("ClaimAmt",unclaimedGCDetail.claimAmount);
-            userObject.put("ServiceID","7");
+            userObject.put("ClaimAmt",Float.valueOf(txtTotalAmount.getText().toString().trim()));
+            userObject.put("ServiceID",7);
+            userObject.put("GCID",arr);
             userObject.put("Culture",LanguageStringUtil.CultureString(InvoiceRequestActivity.this));
 
-            Log.e(" post request object",userObject.toString());
+            Log.e("post object claim",userObject.toString());
 
             final CircleDialog circleDialog = new CircleDialog(InvoiceRequestActivity.this, 0);
             circleDialog.setCancelable(true);
@@ -235,15 +335,55 @@ public class InvoiceRequestActivity extends ActionBarActivity {
 
     private class InvoiceRequestAdapter extends BaseAdapter {
 
+
+        private int FianlPos;
+
         private ArrayList<GCInvoiceDetail> redeemList;
         private Context context;
         private LayoutInflater mInflater;
         private ViewHolder holder;
+        private boolean checkedAll;
 
         public InvoiceRequestAdapter(FragmentActivity activity, ArrayList<GCInvoiceDetail> redeemGiftCodesList) {
             this.context = activity;
             this.redeemList = redeemGiftCodesList;
+            FianlPos=0;
+
+
         }
+
+        void setCheckedAll ( ){
+            checkedAll=true;
+            TotalAmount=0.0;
+           GCID = new ArrayList<String>();
+            for (int i = 0; i < redeemList.size(); i++) {
+                    TotalAmount  = TotalAmount + redeemList.get(i).GCAmount;
+                    txtTotalAmount.setText(""+TotalAmount);
+                     redeemList.get(i).isinvocieSelected=true;
+                    redeemList.get(i).setSelectedALL(checkedAll);
+                    GCID.add(String.valueOf(redeemList.get(i).id));
+
+            }
+            notifyDataSetChanged();
+        }
+
+        void setUnCheckedAll (){
+
+            checkedAll=false;
+
+            TotalAmount=0.0;
+            txtTotalAmount.setText(""+TotalAmount);
+            GCID = new ArrayList<String>();
+
+                for (int i = 0; i < redeemList.size(); i++) {
+                    redeemList.get(i).isinvocieSelected=false;
+                    redeemList.get(i).setSelectedALL(checkedAll);
+
+            }
+
+
+        }
+
 
         @Override
         public int getCount() {
@@ -262,46 +402,99 @@ public class InvoiceRequestActivity extends ActionBarActivity {
         }
 
         private class ViewHolder {
-            private TextView name,mobile,amount,date;
+            private TextView name,mobile,amount,date,txtlocalAmount;
+            ImageView chkbox;
+
         }
 
+
+
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView( final int position, View convertView, ViewGroup parent) {
 
-
-            mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-
+            final ViewHolder viewHolder;
             if (convertView == null) {
+                LayoutInflater inflator =(LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+                convertView = inflator.inflate(R.layout.item_category_detail_view, null);
+                viewHolder = new ViewHolder();
+                viewHolder.name = (TextView) convertView.findViewById(R.id.txtName);
+                viewHolder.mobile= (TextView) convertView.findViewById(R.id.txtMobile);
+                viewHolder.amount= (TextView)convertView. findViewById(R.id.txtAmount);
+                viewHolder.txtlocalAmount= (TextView)convertView. findViewById(R.id.txtlocalAmount);
+                viewHolder.date= (TextView) convertView.findViewById(R.id.txtDate);
 
-                convertView = mInflater.inflate(R.layout.item_category_detail_view, parent, false);
+                viewHolder.chkbox = (ImageView) convertView.findViewById(R.id.chkBox);
 
-                holder = new ViewHolder();
+                convertView.setTag(viewHolder);
+                convertView.setTag(R.id.txtName, viewHolder.name);
+                convertView.setTag(R.id.txtMobile, viewHolder.mobile);
+                convertView.setTag(R.id.txtAmount, viewHolder.amount);
+                convertView.setTag(R.id.txtlocalAmount, viewHolder.txtlocalAmount);
+                convertView.setTag(R.id.txtDate, viewHolder.date);
 
-                holder.name= (TextView) convertView.findViewById(R.id.txtName);
-                holder.mobile= (TextView) convertView.findViewById(R.id.txtMobile);
-                holder.amount= (TextView)convertView. findViewById(R.id.txtAmount);
-                holder.date= (TextView) convertView.findViewById(R.id.txtDate);
-
-                convertView.setTag(holder);
+                convertView.setTag(R.id.chkBox, viewHolder.chkbox);
 
             } else {
-                holder = (ViewHolder) convertView.getTag();
+                viewHolder = (ViewHolder) convertView.getTag();
             }
-                holder.name.setText(tempList.get(position).SendTo + "");
-                holder.mobile.setText(tempList.get(position).ReceiverMob + "");
-                holder.amount.setText(tempList.get(position).GCAmount + "");
 
-//            try {
-//                if(tempList.get(position).WithdrawalDate==null){
-//                    holder.date.setText("");
-//                } else {
-                    holder.date.setText(tempList.get(position).WithdrawalDateString + "");
-//                }
-//            }catch (NullPointerException e){
-//                e.printStackTrace();
-//            }
+
+            viewHolder.chkbox.setTag(position); // This line is important.
+            viewHolder.name.setText(tempList.get(position).SendTo + "");
+            viewHolder.mobile.setText(tempList.get(position).ReceiverMob + "");
+            viewHolder.amount.setText("EUR "+tempList.get(position).GCAmount + "");
+            viewHolder.date.setText(tempList.get(position).WithdrawalDateString + "");
+
+            viewHolder.txtlocalAmount.setText(tempList.get(position).LocalValueReceivedCurrancy+" "+tempList.get(position).LocalValueReceived + "");
+
+            if (redeemList.get(position).isinvocieSelected==true) {
+                viewHolder.chkbox.setImageResource(R.drawable.checkboxall);
+                viewHolder.chkbox.setTag("active");
+            } else {
+                viewHolder.chkbox.setImageResource(R.drawable.checkboxunselect);
+                viewHolder.chkbox.setTag("deactive");
+            }
+
+
+
+            viewHolder.chkbox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String tag = viewHolder.chkbox.getTag().toString();
+                    if (tag.equalsIgnoreCase("active")) { // uncheck checkbox, add
+
+                        GCID.remove(String.valueOf(redeemList.get(position).id));
+
+                        TotalAmount  = TotalAmount - redeemList.get(position).GCAmount;
+                        txtTotalAmount.setText(""+TotalAmount);
+
+
+                        redeemList.get(position).isinvocieSelected = false;
+                        viewHolder.chkbox.setImageResource(R.drawable.checkboxunselect);
+                        viewHolder.chkbox.setTag("deactive");
+                    } else { // check checkbox, remove
+
+                        GCID.add(String.valueOf(redeemList.get(position).id));
+
+                        TotalAmount  = TotalAmount + redeemList.get(position).GCAmount;
+                        txtTotalAmount.setText(""+TotalAmount);
+
+
+
+                        viewHolder.chkbox.setImageResource(R.drawable.checkboxall);
+                        viewHolder.chkbox.setTag("active");
+                        redeemList.get(position).isinvocieSelected = true;
+                    }
+
+
+                }
+            });
+
+
             return convertView;
         }
 
     }
+
 }

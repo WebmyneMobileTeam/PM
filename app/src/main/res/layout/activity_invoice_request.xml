@@ -138,7 +138,6 @@
         <LinearLayout
 
             android:background="#eee"
-            android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:paddingLeft="16dp"
             android:gravity="left|center_vertical"
@@ -165,6 +164,35 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
+
+    <LinearLayout
+        android:background="#eee"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/checkboxunselect"
+            android:id="@+id/imgChkButton"/>
+
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            android:text="Select All"
+            android:textColor="#494949"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>
+
 
         <View
             android:layout_width="match_parent"

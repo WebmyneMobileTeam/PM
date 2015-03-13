@@ -345,4 +345,5 @@
     <string name="code_ERMSG">Se il vous plaît Entrez Montant minimum 1,00</string>
     <string name="code_selec">Se il vous plaît sélectionner Type Autre service Première</string>
     <string name="code_otherer">Se il vous plaît Sélectionnez Autre type de services</string>
+    <string name="errstring">Se il vous plaît Sélectionnez GiftCode !!!</string>
 </resources>

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.webmyne.paylabasmerchant.R;
 import com.webmyne.paylabasmerchant.util.AppUtils;
 
+
 public class InvoiceRequestMain extends ActionBarActivity implements View.OnClickListener{
     Toolbar toolbar_actionbar;
     FrameLayout frame_container;
@@ -27,9 +28,9 @@ public class InvoiceRequestMain extends ActionBarActivity implements View.OnClic
         toolbar_actionbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
 
         txtInvoiceRequest= (TextView)findViewById(R.id.txtInvoiceRequest);
-        txtClashClaim= (TextView)findViewById(R.id.txtClashClaim);
+    //    txtClashClaim= (TextView)findViewById(R.id.txtClashClaim);
         txtInvoiceRequest.setOnClickListener(this);
-        txtClashClaim.setOnClickListener(this);
+     //   txtClashClaim.setOnClickListener(this);
         /* setting up the toolbar starts*/
         if (toolbar_actionbar != null) {
             toolbar_actionbar.setTitle(getString(R.string.INVOICEREQUEST));
@@ -75,11 +76,11 @@ public class InvoiceRequestMain extends ActionBarActivity implements View.OnClic
 
               break;
 
-          case R.id.txtClashClaim:
+         /* case R.id.txtClashClaim:
 
               Intent intentClaim=new Intent(InvoiceRequestMain.this,CommissionClaimActivity.class);
               startActivity(intentClaim);
-              break;
+              break;*/
       }
 
 
