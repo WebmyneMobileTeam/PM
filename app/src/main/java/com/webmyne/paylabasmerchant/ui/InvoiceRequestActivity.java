@@ -57,6 +57,7 @@ public class InvoiceRequestActivity extends ActionBarActivity {
     private ArrayList<GCInvoiceDetail> tempList;
     private ImageView imgChkButton;
     private boolean isbtnclick=false;
+    private LinearLayout linearSelectALL;
 
     private Double TotalAmount;
     private ArrayList<String> GCID = new ArrayList<String>();
@@ -106,7 +107,7 @@ public class InvoiceRequestActivity extends ActionBarActivity {
     private void init(){
 
 
-
+        linearSelectALL = (LinearLayout)findViewById(R.id.linearSelectALL);
         txtTotalAmount= (TextView)findViewById(R.id.txtTotalAmount);
         //from date
         layoutFrom= (View)findViewById(R.id.layoutFrom);
@@ -205,19 +206,42 @@ public class InvoiceRequestActivity extends ActionBarActivity {
 
                 @Override
                 public void onResponse(JSONObject jobj) {
+
                     circleDialog.dismiss();
                     String response = jobj.toString();
                     Log.e(" Response  List", "" + response);
-                    unclaimedGCDetail=new GsonBuilder().create().fromJson(jobj.toString(), UnclaimedGCDetail.class);
-                    txtTotalAmount.setText(unclaimedGCDetail.claimAmount+"");
-                    setFromAndToDate();
+                    try {
+                        if (jobj.getString("ResponseId").toString().equalsIgnoreCase("1")) {
 
-                    TotalAmount = 0.0;
+                            txtInvoiceRequest.setVisibility(View.VISIBLE);
+                            linearSelectALL.setVisibility(View.VISIBLE);
+                            unclaimedGCDetail = new GsonBuilder().create().fromJson(jobj.toString(), UnclaimedGCDetail.class);
+                            txtTotalAmount.setText(unclaimedGCDetail.claimAmount + "");
+                            setFromAndToDate();
 
-                    tempList=unclaimedGCDetail.gcInvoiceDetails;
-                    invoiceRequestAdapter=new InvoiceRequestAdapter(InvoiceRequestActivity.this,tempList);
-                    invoiceRequestList.setAdapter(invoiceRequestAdapter);
+                            TotalAmount = 0.0;
 
+                            tempList = unclaimedGCDetail.gcInvoiceDetails;
+                            invoiceRequestAdapter = new InvoiceRequestAdapter(InvoiceRequestActivity.this, tempList);
+                            invoiceRequestList.setAdapter(invoiceRequestAdapter);
+                        } else {
+                            unclaimedGCDetail = new GsonBuilder().create().fromJson(jobj.toString(), UnclaimedGCDetail.class);
+                            txtTotalAmount.setText(unclaimedGCDetail.claimAmount + "");
+                            setFromAndToDate();
+
+                            TotalAmount = 0.0;
+
+                            tempList = unclaimedGCDetail.gcInvoiceDetails;
+                            invoiceRequestAdapter = new InvoiceRequestAdapter(InvoiceRequestActivity.this, tempList);
+                            invoiceRequestList.setAdapter(invoiceRequestAdapter);
+
+                            txtInvoiceRequest.setVisibility(View.GONE);
+                            linearSelectALL.setVisibility(View.GONE);
+                            SimpleToast.error(InvoiceRequestActivity.this, jobj.getString("ResponseMessage").toString());
+                        }
+                    }catch(Exception e){
+                        Log.e("Exception in inclaim",e.toString());
+                    }
 
 
                 }
@@ -237,43 +261,6 @@ public class InvoiceRequestActivity extends ActionBarActivity {
         }
 
     }
-/*    void claimInvoice2(){
-
-        //  GCID.add(getPosition,""+redeemList.get(getPosition).id);
-
-        Log.e("GCID Size",""+GCID.size());
-
-        for (int ii = 0; ii < GCID.size(); ii++) {
-            Log.e("GCID ID",""+GCID.get(ii));
-        }
-
-
-
-        try{
-
-            JSONArray arr = new JSONArray();
-
-
-            for (int i = 0; i < 3; i++) {
-                JSONObject jobj = new JSONObject();
-                jobj.put("GiftCode", ""+i);
-                arr.put(jobj);
-            }
-
-
-            JSONObject userObject = new JSONObject();
-
-            userObject.put("AffiliateID", user.UserID);
-            userObject.put("ServiceID","7");
-            userObject.put("GiftCode", arr);
-            userObject.put("Culture", LanguageStringUtil.CultureString(InvoiceRequestActivity.this));
-
-            Log.e("get request object",userObject.toString());
-        }catch (Exception e){
-            Log.e("Exc",e.toString());
-        }
-
-    }*/
 
 
     private void claimInvoice(){
@@ -313,6 +300,8 @@ public class InvoiceRequestActivity extends ActionBarActivity {
                             } else {
                                 SimpleToast.error(InvoiceRequestActivity.this, jobj.getString("ResponseMsg").toString());
                             }
+
+                        finish();
 
                       } catch (Exception e){
                         e.printStackTrace();
